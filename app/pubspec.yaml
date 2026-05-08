@@ -1,0 +1,44 @@
+name: matchup
+description: Match-up — 테니스·풋살 동호인 통합 정보 앱
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # 인증·DB
+  supabase_flutter: ^2.8.0
+  google_sign_in: ^6.2.1
+
+  # 상태 관리
+  flutter_riverpod: ^2.6.1
+
+  # 라우팅
+  go_router: ^14.6.1
+
+  # 네트워크
+  http: ^1.3.0
+
+  # Firebase / FCM
+  firebase_core: ^3.8.0
+  firebase_messaging: ^15.1.5
+
+  # UI 보조
+  intl: ^0.20.0
+  url_launcher: ^6.3.0
+  flutter_markdown: ^0.7.0
+  shared_preferences: ^2.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true

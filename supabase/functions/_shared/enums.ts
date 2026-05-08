@@ -1,0 +1,75 @@
+export type Sport = 'tennis' | 'futsal';
+
+export const TENNIS_GRADES = ['rookie', 'div5', 'div4', 'div3', 'div2', 'div1'] as const;
+export const FUTSAL_GRADES = ['beginner', 'intermediate', 'advanced'] as const;
+
+export type TennisGrade = typeof TENNIS_GRADES[number];
+export type FutsalGrade = typeof FUTSAL_GRADES[number];
+export type Grade = TennisGrade | FutsalGrade;
+
+const TENNIS_RANK: Record<TennisGrade, number> = {
+  rookie: 0,
+  div5: 1,
+  div4: 2,
+  div3: 3,
+  div2: 4,
+  div1: 5,
+};
+
+const FUTSAL_RANK: Record<FutsalGrade, number> = {
+  beginner: 0,
+  intermediate: 1,
+  advanced: 2,
+};
+
+export function isValidGrade(sport: Sport, grade: string): grade is Grade {
+  if (sport === 'tennis') return (TENNIS_GRADES as readonly string[]).includes(grade);
+  return (FUTSAL_GRADES as readonly string[]).includes(grade);
+}
+
+/**
+ * 사용자 등급 기준으로 출전 가능한 등급 배열을 반환.
+ * 테니스는 "본인 등급보다 같거나 낮은 부수의 대회 = 출전 가능"으로 가정한다.
+ *   (실제 동호인 룰에서는 1부 사람이 5부 대회 못 나가는 경우도 있으나
+ *    MVP에서는 "낮은 부수=상위" 가정 하에 본인 등급 또는 그 이하 등급 대회 모두 출전 가능으로 처리)
+ *
+ * 즉 사용자가 'div3' 이면 출전 가능한 eligible_grades 는
+ *   div5, div4, div3, rookie  (본인보다 등급이 낮거나 같은) — 사용자가 div3이면 div3 이상 대회는 부담스러움
+ *
+ * 사실 동호인 테니스는 "내 부수 또는 그 위 부수"가 출전 가능.
+ *   예: 내가 3부 → 3부, 4부, 5부, 신입 대회 출전 가능 (낮은 부수 = 더 잘함, 상위 부수)
+ *   여기서 'div1' 이 가장 잘하는 사람.
+ *   대회의 eligible_grades 에는 "참가 자격이 되는 등급들"이 들어 있음.
+ *
+ * 따라서 단순 매칭: 사용자 grade ∈ eligible_grades.
+ * 이 함수는 명시적 "이 사용자가 해당 대회에 나갈 수 있는가" 체크용.
+ */
+export function canEnter(userGrade: string, eligibleGrades: string[]): boolean {
+  return eligibleGrades.includes(userGrade);
+}
+
+/**
+ * UI 표시명 매핑
+ */
+export const GRADE_LABELS: Record<string, string> = {
+  rookie: '신입',
+  div5: '5부',
+  div4: '4부',
+  div3: '3부',
+  div2: '2부',
+  div1: '1부',
+  beginner: '초급',
+  intermediate: '중급',
+  advanced: '고급',
+};
+
+export const SPORT_LABELS: Record<Sport, string> = {
+  tennis: '테니스',
+  futsal: '풋살',
+};
+
+export function rankOf(sport: Sport, grade: string): number | null {
+  if (sport === 'tennis' && grade in TENNIS_RANK) return TENNIS_RANK[grade as TennisGrade];
+  if (sport === 'futsal' && grade in FUTSAL_RANK) return FUTSAL_RANK[grade as FutsalGrade];
+  return null;
+}
