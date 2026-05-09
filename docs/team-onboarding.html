@@ -309,7 +309,7 @@
 <main>
   <header class="hero">
     <span class="badge">🎾 ⚽ Match-up · 팀원 온보딩</span>
-    <h1>제로에서부터 앱 실행까지</h1>
+    <h1>본인 macOS에서 앱 실행까지</h1>
     <p class="subtitle">테니스·풋살 동호인 통합 정보 앱 · Flutter + Supabase + Gemini RAG</p>
     <div class="meta">
       작성: 2026-05-09 ·
@@ -318,6 +318,31 @@
       Repo: <a href="https://github.com/kimabba/Match-up">github.com/kimabba/Match-up</a>
     </div>
   </header>
+
+  <!-- ─── 이미 vs 본인 ─── -->
+  <section id="scope" style="margin-bottom: 32px;">
+    <div class="box success">
+      <span class="icon">✅</span>
+      <strong>이미 준비된 것 (다시 안 해도 됨)</strong>
+      <ul style="margin-top: 6px; margin-bottom: 0;">
+        <li><strong>GitHub repo</strong> <code>kimabba/Match-up</code> 생성 + 코드/마이그레이션/시드 push 완료. 당신은 <strong>이미 collaborator로 초대</strong>됨 — clone만 하면 됨.</li>
+        <li><strong>Linear 프로젝트</strong> "Match-up App (Flutter + Supabase)" 생성 + 18개 이슈 분류·우선순위 설정 완료. 본인 Linear 계정으로 접속 → 이슈 받기.</li>
+        <li><strong>코드</strong>: Flutter 앱 + Edge Functions 12개 + DB 마이그레이션 8개 + 시드 데이터 13건 — 모두 repo에 들어 있음.</li>
+        <li><strong>설계 결정·검토 보고서</strong>: <code>CLAUDE.md</code>, <code>docs/reviews/*.md</code>에 모두 정리됨.</li>
+      </ul>
+    </div>
+    <div class="box info">
+      <span class="icon">📋</span>
+      <strong>본인 macOS에서 해야 할 것</strong>
+      <ul style="margin-top: 6px; margin-bottom: 0;">
+        <li>도구 설치 (Docker · Supabase CLI · Deno · Flutter · Xcode · CocoaPods)</li>
+        <li><strong>본인 Gemini API 키</strong> 발급 (사용자 키 공유 X — 보안상)</li>
+        <li>본인 머신에서 <code>supabase start</code> → <code>db reset</code> (코드는 이미 있으므로 명령만)</li>
+        <li><code>.env</code> 작성 + functions serve + flutter run</li>
+        <li>본인 가입 + E2E 시나리오 한 번 확인</li>
+      </ul>
+    </div>
+  </section>
 
   <!-- ─── 1. Intro ─── -->
   <section id="intro">
@@ -379,7 +404,7 @@
   <!-- ─── 3. Clone ─── -->
   <section id="step-clone">
     <h2><span class="step-num">1</span>레포 clone</h2>
-    <p>GitHub에 사전 초대된 상태로 가정합니다. SSH 또는 HTTPS 둘 다 OK.</p>
+    <p>이미 collaborator로 초대돼 있으니 GitHub에서 본인 계정으로 로그인되어 있으면 그냥 clone만 됩니다. SSH 또는 HTTPS 둘 다 OK.</p>
     <pre><code><span class="cmt"># 작업 디렉토리로 이동</span>
 cd ~/Documents
 
@@ -500,15 +525,19 @@ pod --version</code></pre>
 
   <!-- ─── 9. Gemini ─── -->
   <section id="step-gemini">
-    <h2><span class="step-num">7</span>Gemini API 키 발급</h2>
+    <h2><span class="step-num">7</span>Gemini API 키 발급 <small style="font-size:14px;color:var(--muted)">— 본인 키 필수</small></h2>
+    <div class="box danger">
+      <span class="icon">🔒</span>
+      <strong>키는 절대 공유받지 마세요.</strong> 사용자(레포 owner)도 본인 개인 키를 쓰고 있고, 같은 키를 공유하면 비용·할당량이 합쳐지고 노출 시 한 명 회전이 다른 사람 영향을 미칩니다. 무료 한도 안에서 본인 키로 충분히 개발 가능합니다.
+    </div>
     <ol>
-      <li><a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studio</a> 접속 (Google 계정 필요)</li>
+      <li><a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studio</a> 접속 (본인 Google 계정으로)</li>
       <li><strong>"Create API key"</strong> 클릭 → 새 프로젝트 또는 기존 GCP 프로젝트 선택</li>
-      <li>발급된 키 (<code>AIzaSy...</code>로 시작) 복사</li>
+      <li>발급된 키 (<code>AIzaSy...</code>로 시작) 복사 — <strong>이 키는 본인만 사용</strong></li>
     </ol>
     <div class="box info">
       <span class="icon">💡</span>
-      <strong>무료 한도 충분</strong> — Gemini 2.0 Flash + embedding은 일일 무료 한도 안에서 충분히 개발 가능. 실 운영 배포 시에만 결제 활성화.
+      <strong>무료 한도 충분</strong> — Gemini 2.0 Flash + embedding은 일일 무료 한도 안에서 개발에 부족함 없음. 실 운영 배포 시에만 결제 활성화 필요. (운영 배포는 <a href="https://linear.app/ssfak/issue/SSF-277">SSF-277</a>에서 별도)
     </div>
     <p>레포의 <code>supabase/functions/</code> 디렉토리에 <code>.env</code> 파일 생성:</p>
     <pre><code><span class="cmt"># Match-up 디렉토리에서</span>
@@ -526,7 +555,11 @@ EOF</code></pre>
 
   <!-- ─── 10. Stack ─── -->
   <section id="step-stack">
-    <h2><span class="step-num">8</span>Supabase 로컬 스택 기동</h2>
+    <h2><span class="step-num">8</span>Supabase 로컬 스택 기동 <small style="font-size:14px;color:var(--muted)">— 본인 머신</small></h2>
+    <div class="box info">
+      <span class="icon">🏠</span>
+      Supabase 클라우드 프로젝트는 따로 만들 필요 없습니다. <strong>본인 macOS에 로컬 스택을 띄우는 것</strong>만으로 개발 OK. 12개 컨테이너(Postgres + Auth + Edge Runtime + Storage + Studio + Kong 등)가 docker로 돕니다.
+    </div>
     <p>Docker Desktop이 실행 중인 상태에서 첫 실행은 ~5분 (이미지 ~2GB 다운로드):</p>
     <pre><code>cd ~/Documents/Match-up
 
@@ -735,7 +768,8 @@ supabase start</code></pre>
   <!-- ─── 15. Linear ─── -->
   <section id="linear">
     <h2>13. Linear / 다음 작업</h2>
-    <p>현재 18개 이슈 (<a href="https://linear.app/ssfak/project/match-up-app-flutter-supabase-8c50f8db4e20">Linear 프로젝트</a>):</p>
+    <p>Linear 프로젝트는 이미 만들어져 있고 18개 이슈가 우선순위별로 분류돼 있습니다 (<a href="https://linear.app/ssfak/project/match-up-app-flutter-supabase-8c50f8db4e20">Match-up App (Flutter + Supabase)</a>). 본인 Linear 계정으로 접속하시면 됩니다.</p>
+    <p>맡을 이슈를 골라 본인에게 assign하고 작업 시작하시면 됩니다.</p>
 
     <h3>🔴 High priority — 출시 전 처리 권장</h3>
     <table>
@@ -800,8 +834,8 @@ gh pr create --title "feat(SSF-272): admin screen for tournament approval"</code
   </section>
 
   <footer>
-    <p>이 문서가 도움 됐으면 좋겠습니다. 막히는 부분은 #match-up Slack/Discord 또는 PR로 알려주세요. 🎾⚽</p>
-    <p style="margin-top:8px">— 작성: 2026-05-09 / 마지막 commit: 본 문서가 추가된 commit</p>
+    <p>여기까지 따라오느라 수고하셨어요. 막히는 부분 / 빠진 내용 / 문서 오류는 편하게 물어봐 주세요. 🎾⚽</p>
+    <p style="margin-top:8px">— 작성: 2026-05-09</p>
   </footer>
 </main>
 
