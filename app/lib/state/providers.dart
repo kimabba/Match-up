@@ -30,6 +30,20 @@ final userSportsProvider = FutureProvider<List<UserSport>>((ref) async {
   return api.myUserSports();
 });
 
+/// 사용자 등록 협회 (multi-org) — 테니스 한정
+final userTennisOrgsProvider = FutureProvider<List<UserTennisOrg>>((ref) async {
+  ref.watch(authStateProvider);
+  final api = ref.watch(apiProvider);
+  return api.myTennisOrgs();
+});
+
+/// 권역 목록 (regions 테이블 — 8개 시드)
+final regionsProvider = FutureProvider<List<Region>>((ref) async {
+  ref.watch(authStateProvider);
+  final api = ref.watch(apiProvider);
+  return api.listRegions();
+});
+
 /// 즐겨찾기 ID 집합
 final favoriteIdsProvider = FutureProvider<Set<String>>((ref) async {
   ref.watch(authStateProvider);

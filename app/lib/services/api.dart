@@ -230,6 +230,56 @@ class ApiService {
     }
   }
 
+  // ===== regions =====
+  Future<List<Region>> listRegions() async {
+    final rows = await _supabase.from('regions').select().order('code');
+    return rows.map((r) => Region.fromJson(r)).toList();
+  }
+
+  // ===== user_tennis_orgs (multi-org) =====
+  Future<List<UserTennisOrg>> myTennisOrgs() async {
+    final userId = _supabase.auth.currentUser?.id;
+    if (userId == null) return [];
+    final rows = await _supabase
+        .from('user_tennis_orgs')
+        .select()
+        .eq('user_id', userId)
+        .order('is_primary', ascending: false);
+    return rows.map((r) => UserTennisOrg.fromJson(r)).toList();
+  }
+
+  /// 협회 등록을 일괄 갱신 (delete-all-then-insert).
+  /// 한 번에 N개 협회를 등록할 때 사용.
+  Future<void> saveTennisOrgs(List<UserTennisOrg> orgs) async {
+    final userId = _supabase.auth.currentUser?.id;
+    if (userId == null) throw StateError('Not authenticated');
+
+    await _supabase.from('user_tennis_orgs').delete().eq('user_id', userId);
+    if (orgs.isNotEmpty) {
+      await _supabase
+          .from('user_tennis_orgs')
+          .insert(orgs.map((o) => o.toUpsert(userId)).toList());
+    }
+  }
+
+  /// 단일 협회 추가/갱신 (upsert).
+  Future<void> upsertTennisOrg(UserTennisOrg org) async {
+    final userId = _supabase.auth.currentUser?.id;
+    if (userId == null) throw StateError('Not authenticated');
+    await _supabase.from('user_tennis_orgs').upsert(org.toUpsert(userId));
+  }
+
+  /// 단일 협회 삭제.
+  Future<void> deleteTennisOrg(String org) async {
+    final userId = _supabase.auth.currentUser?.id;
+    if (userId == null) throw StateError('Not authenticated');
+    await _supabase
+        .from('user_tennis_orgs')
+        .delete()
+        .eq('user_id', userId)
+        .eq('org', org);
+  }
+
   // ===== helpers =====
   static String _ymd(DateTime d) =>
       '${d.year.toString().padLeft(4, '0')}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';

@@ -11,10 +11,18 @@ class Tournament {
   final String? location;
   final List<String> eligibleGrades;
   final int? entryFee;
+  final String entryFeeUnit; // 'per_team' | 'per_person'
   final String? prize;
   final String? format;
   final String? sourceUrl;
   final String status;
+  // Phase 2 신규
+  final String? regionCode;
+  final List<String> hostAssociations;
+  final List<String> hostOrgs;
+  final String? divisionLabelLocal;
+  final String? divisionKtaStandard;
+  final bool isJointEvent;
 
   Tournament({
     required this.id,
@@ -29,14 +37,24 @@ class Tournament {
     this.location,
     required this.eligibleGrades,
     this.entryFee,
+    this.entryFeeUnit = 'per_team',
     this.prize,
     this.format,
     this.sourceUrl,
     required this.status,
+    this.regionCode,
+    this.hostAssociations = const [],
+    this.hostOrgs = const [],
+    this.divisionLabelLocal,
+    this.divisionKtaStandard,
+    this.isJointEvent = false,
   });
 
   factory Tournament.fromJson(Map<String, dynamic> j) {
     final grades = (j['eligible_grades'] as List?)?.cast<String>() ?? const [];
+    final hostAssoc =
+        (j['host_associations'] as List?)?.cast<String>() ?? const [];
+    final hostOrgs = (j['host_orgs'] as List?)?.cast<String>() ?? const [];
     return Tournament(
       id: j['id'] as String,
       sport: j['sport'] as String,
@@ -44,20 +62,101 @@ class Tournament {
       organizer: j['organizer'] as String?,
       description: j['description'] as String?,
       startDate: DateTime.parse(j['start_date'] as String),
-      endDate: j['end_date'] != null ? DateTime.parse(j['end_date']) : null,
+      endDate:
+          j['end_date'] != null ? DateTime.parse(j['end_date'] as String) : null,
       applicationDeadline: j['application_deadline'] != null
-          ? DateTime.parse(j['application_deadline'])
+          ? DateTime.parse(j['application_deadline'] as String)
           : null,
       region: j['region'] as String?,
       location: j['location'] as String?,
       eligibleGrades: grades,
       entryFee: j['entry_fee'] as int?,
+      entryFeeUnit: (j['entry_fee_unit'] as String?) ?? 'per_team',
       prize: j['prize'] as String?,
       format: j['format'] as String?,
       sourceUrl: j['source_url'] as String?,
       status: j['status'] as String,
+      regionCode: j['region_code'] as String?,
+      hostAssociations: hostAssoc,
+      hostOrgs: hostOrgs,
+      divisionLabelLocal: j['division_label_local'] as String?,
+      divisionKtaStandard: j['division_kta_standard'] as String?,
+      isJointEvent: (j['is_joint_event'] as bool?) ?? false,
     );
   }
+}
+
+class Region {
+  final String code;
+  final String displayNameKo;
+  final List<String> governingAssociations;
+  final bool usesKato;
+  final bool usesKata;
+  final String? notes;
+
+  Region({
+    required this.code,
+    required this.displayNameKo,
+    this.governingAssociations = const [],
+    this.usesKato = false,
+    this.usesKata = false,
+    this.notes,
+  });
+
+  factory Region.fromJson(Map<String, dynamic> j) => Region(
+        code: j['code'] as String,
+        displayNameKo: j['display_name_ko'] as String,
+        governingAssociations:
+            (j['governing_associations'] as List?)?.cast<String>() ?? const [],
+        usesKato: (j['uses_kato'] as bool?) ?? false,
+        usesKata: (j['uses_kata'] as bool?) ?? false,
+        notes: j['notes'] as String?,
+      );
+}
+
+class UserTennisOrg {
+  final String org; // 'kta'|'kato'|...|'gj'|'jn'|'local'
+  final String? divisionLocal;
+  final double? score; // 1.0~10.0 (KTA) / 1~9 (제주)
+  final DateTime? expiresAt;
+  final bool isPrimary;
+  final String? regionCode;
+
+  UserTennisOrg({
+    required this.org,
+    this.divisionLocal,
+    this.score,
+    this.expiresAt,
+    this.isPrimary = false,
+    this.regionCode,
+  });
+
+  factory UserTennisOrg.fromJson(Map<String, dynamic> j) {
+    final scoreVal = j['score'];
+    final double? score = scoreVal == null
+        ? null
+        : (scoreVal is num ? scoreVal.toDouble() : double.tryParse('$scoreVal'));
+    return UserTennisOrg(
+      org: j['org'] as String,
+      divisionLocal: j['division_local'] as String?,
+      score: score,
+      expiresAt: j['expires_at'] != null
+          ? DateTime.parse(j['expires_at'] as String)
+          : null,
+      isPrimary: (j['is_primary'] as bool?) ?? false,
+      regionCode: j['region_code'] as String?,
+    );
+  }
+
+  Map<String, dynamic> toUpsert(String userId) => {
+        'user_id': userId,
+        'org': org,
+        'division_local': divisionLocal,
+        'score': score,
+        'expires_at': expiresAt?.toIso8601String().substring(0, 10),
+        'is_primary': isPrimary,
+        'region_code': regionCode,
+      };
 }
 
 class Club {
