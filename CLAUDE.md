@@ -1,5 +1,31 @@
 # CLAUDE.md
 
+## 코딩 규칙 (Coding Rules) — 모든 PR·커밋에서 강제
+
+### TypeScript / Deno (Edge Functions)
+- **`any` 타입 절대 금지.** 모든 함수 인자·반환값·변수·필드에 명시적 타입 선언.
+- 외부 API 응답·JSON.parse 결과는 `unknown`으로 받은 후 type guard / `is` predicate로 narrow.
+- `as` 단언(type assertion)은 최후 수단. 가능하면 union 타입 + type guard.
+- 제네릭은 명확한 의미가 있을 때만 (회피 도구 X).
+- `deno check`가 에러 0으로 통과해야 함 (CI 게이트).
+- 기존 코드에서 `any`·`unknown` 직접 사용 발견 시 별도 PR로 정리.
+
+### Dart / Flutter
+- `dynamic` 사용 금지. JSON 디코딩 결과는 `Map<String, dynamic>`이지만 즉시 모델 클래스로 변환.
+- nullable 필드는 `?`로 명시. `!` 강제 unwrap은 검증 후에만.
+- `flutter analyze` 무경고·무에러로 통과해야 함.
+
+### SQL (마이그레이션)
+- 모든 컬럼에 명시적 타입. `text` vs `varchar`는 `text`로 통일.
+- enum은 `create type`으로 별도 정의 (재사용성).
+- 신규 테이블에는 항상 RLS enable + 정책 명시.
+
+### Git
+- 작은 단위 commit. 한 commit이 한 가지 일을 함.
+- commit 메시지는 한국어 OK, 50자 헤더 + 본문은 왜·무엇 위주.
+
+---
+
 ## Project Overview
 
 **Match-up** — 테니스·풋살 동호인 통합 정보 앱.
