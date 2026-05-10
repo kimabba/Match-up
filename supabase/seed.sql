@@ -41,6 +41,27 @@ insert into public.rule_articles (sport, category, title, body, order_idx) value
  1);
 
 -- =========================
+-- regions (권역 매핑 — 광주·전남 2026.05.01 분리 반영)
+-- =========================
+insert into public.regions(code, display_name_ko, governing_associations, uses_kato, uses_kata, notes) values
+  ('gwangju', '광주', ARRAY['KTA-광주(GJTA)'], false, false,
+   '2026-05-01 전남과 분리 운영. 자체 스포츠공정위, 자체 디비전리그. 약 130 클럽 1.5만 동호인. 자체 부서: 골드/금배/일반/신인. 자체 등급 1~6급+신인.'),
+  ('jeonnam', '전남', ARRAY['KTA-전남'], false, false,
+   '2026-05-01 광주와 분리 운영. 시·군 협회(여수·광양·순천·목포·나주·강진·해남·영광 등) 산하. 일부 합동 대회 잔존.'),
+  ('seoul_metro', '수도권', ARRAY['KTA-서울','KTA-경기','KTA-인천'], true, true,
+   'KATA 본부 위치. 동호인 1인이 KATA+KATO+KTA 동시 등록 일반.'),
+  ('busan_ulsan_gn', '부산·울산·경남', ARRAY['KTA-부산','KTA-울산','KTA-경남'], true, false,
+   'KATO 비중 큼, 부산오픈챌린저 등.'),
+  ('daegu_gb', '대구·경북', ARRAY['KTA-대구','KTA-경북'], true, false,
+   '울진금강송배 KATO 전국대회. 아카시아배 등 합동.'),
+  ('chungcheong', '충청', ARRAY['KTA-대전','KTA-충남','KTA-충북','KTA-세종'], false, false,
+   '시니어연맹 별도 활성.'),
+  ('gangwon', '강원', ARRAY['KTA-강원'], false, false,
+   '도 단위 메이저 대회 중심(평창백일홍배).'),
+  ('jeju', '제주', ARRAY['KTA-제주'], false, false,
+   '자체 점수제(1~9), 가장 독자적. 2026 혼복 등급 미반영.');
+
+-- =========================
 -- clubs (디렉토리 시드)
 -- =========================
 insert into public.clubs (sport, name, region, address, contact, description) values
@@ -67,24 +88,30 @@ insert into public.clubs (sport, name, region, address, contact, description) va
 insert into public.tournaments (
   sport, title, organizer, description,
   start_date, application_deadline, region, location,
+  region_code, host_associations, host_orgs,
+  division_label_local, division_kta_standard, entry_fee_unit, is_joint_event,
   eligible_grades, entry_fee, prize, format,
   source, status
 ) values
-('tennis', '광주광역시장배 동호인 테니스 대회', '광주테니스협회',
- '광주테니스협회 주최, 신입~3부 부수별 단·복식.',
+('tennis', '광주광역시장배 동호인 테니스 대회', '광주광역시테니스협회(GJTA)',
+ '2026년 광주·전남 분리 후 광주협회 단독 주최. 신입~3부 부수별 단·복식.',
  (current_date + interval '14 days')::date,
  (current_date + interval '7 days')::date,
  '광주', '광주 시민체육관 테니스장',
+ 'gwangju', ARRAY['광주광역시테니스협회'], ARRAY['gj']::tennis_org[],
+ '남자 일반부 (1~5급) + 여자 신인부', '청·장년부 + 개나리부', 'per_team', false,
  array['rookie','div5','div4','div3'],
  30000, '부수별 1·2·3위 시상',
  '단·복식 토너먼트',
  'manual', 'published'),
 
-('tennis', '전남 신년 오픈 단식', '전남테니스연합회',
- '오픈(1부) 단식 토너먼트.',
+('tennis', '전남 신년 오픈 단식', '전라남도테니스협회',
+ '2026 분리 후 전남협회 단독 운영. 오픈(1부) 단식 토너먼트.',
  (current_date + interval '21 days')::date,
  (current_date + interval '14 days')::date,
  '전남', '전남 무안종합체육시설',
+ 'jeonnam', ARRAY['전라남도테니스협회'], ARRAY['jn']::tennis_org[],
+ '남자 오픈부', '청년부 오픈', 'per_person', false,
  array['div1','div2'],
  50000, '우승 200만원',
  '단식 토너먼트',
@@ -95,6 +122,8 @@ insert into public.tournaments (
  (current_date + interval '10 days')::date,
  (current_date + interval '5 days')::date,
  '서울', '서울 양재 테니스장',
+ 'seoul_metro', ARRAY['서울 라켓 클럽 (KATA 등록)'], ARRAY['kata']::tennis_org[],
+ '4·5부', '청·장년부 신인부', 'per_team', false,
  array['div4','div5','rookie'],
  20000, '간식·선물',
  '복식 풀리그',
@@ -105,6 +134,8 @@ insert into public.tournaments (
  (current_date + interval '12 days')::date,
  (current_date + interval '7 days')::date,
  '광주', '광주 스포츠 풋살파크',
+ 'gwangju', ARRAY['광주 풋살 라이언즈'], ARRAY['local']::tennis_org[],
+ null, null, 'per_team', false,
  array['intermediate','advanced'],
  40000, '1·2위 시상',
  '5인제 토너먼트',
@@ -115,6 +146,8 @@ insert into public.tournaments (
  (current_date + interval '20 days')::date,
  (current_date + interval '14 days')::date,
  '서울', '서울 잠실 실내 풋살장',
+ 'seoul_metro', ARRAY['서울 풋볼 클럽 FC'], ARRAY['local']::tennis_org[],
+ null, null, 'per_team', false,
  array['beginner','intermediate'],
  25000, null,
  '리그전',
