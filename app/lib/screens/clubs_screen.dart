@@ -4,7 +4,11 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../models/tournament.dart';
 import '../state/providers.dart';
+import '../theme/tokens.dart';
 import '../utils/grade_labels.dart';
+import '../widgets/app_card.dart';
+import '../widgets/app_chip.dart';
+import '../widgets/app_empty_state.dart';
 
 class ClubsScreen extends ConsumerStatefulWidget {
   const ClubsScreen({super.key});
@@ -38,115 +42,194 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+
     return Scaffold(
       appBar: AppBar(title: const Text('동호회·클럽')),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8),
+          Container(
+            color: cs.surfaceContainerLowest,
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.lg,
+              AppSpacing.sm,
+              AppSpacing.lg,
+              AppSpacing.md,
+            ),
             child: Column(
               children: [
                 TextField(
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: '클럽명·설명 검색',
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(),
+                    prefixIcon: const Icon(Icons.search_rounded),
+                    filled: true,
+                    fillColor: cs.surfaceContainerLow,
+                    border: OutlineInputBorder(
+                      borderRadius: AppRadius.card,
+                      borderSide: BorderSide.none,
+                    ),
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: AppSpacing.sm),
                   ),
                   onChanged: (v) => _q = v,
                   onSubmitted: (_) => _load(),
                 ),
-                const SizedBox(height: 8),
-                Row(children: [
-                  ChoiceChip(
-                    label: const Text('전체'),
-                    selected: _sport == null,
-                    onSelected: (_) {
-                      setState(() => _sport = null);
-                      _load();
-                    },
-                  ),
-                  const SizedBox(width: 4),
-                  ChoiceChip(
-                    label: const Text('테니스'),
-                    selected: _sport == 'tennis',
-                    onSelected: (_) {
-                      setState(() => _sport = 'tennis');
-                      _load();
-                    },
-                  ),
-                  const SizedBox(width: 4),
-                  ChoiceChip(
-                    label: const Text('풋살'),
-                    selected: _sport == 'futsal',
-                    onSelected: (_) {
-                      setState(() => _sport = 'futsal');
-                      _load();
-                    },
-                  ),
-                ]),
+                const SizedBox(height: AppSpacing.sm),
+                Row(
+                  children: [
+                    AppChip(
+                      label: '전체',
+                      selected: _sport == null,
+                      onTap: () {
+                        setState(() => _sport = null);
+                        _load();
+                      },
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
+                    AppChip(
+                      label: '테니스',
+                      leadingIcon: Icons.sports_tennis_rounded,
+                      selected: _sport == 'tennis',
+                      onTap: () {
+                        setState(() => _sport = 'tennis');
+                        _load();
+                      },
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
+                    AppChip(
+                      label: '풋살',
+                      leadingIcon: Icons.sports_soccer_rounded,
+                      selected: _sport == 'futsal',
+                      onTap: () {
+                        setState(() => _sport = 'futsal');
+                        _load();
+                      },
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
-          if (_loading) const LinearProgressIndicator(),
+          if (_loading) LinearProgressIndicator(color: cs.primary),
           Expanded(
             child: _clubs == null
                 ? const SizedBox.shrink()
                 : _clubs!.isEmpty
-                    ? const Center(child: Text('등록된 클럽이 없습니다.'))
+                    ? const AppEmptyState(
+                        icon: Icons.groups_rounded,
+                        title: '등록된 클럽이 없습니다',
+                        description: '다른 검색어나 필터로 시도해 보세요.',
+                      )
                     : ListView.builder(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppSpacing.lg,
+                          vertical: AppSpacing.lg,
+                        ),
                         itemCount: _clubs!.length,
-                        itemBuilder: (_, i) {
-                          final c = _clubs![i];
-                          return Card(
-                            child: ListTile(
-                              leading: Icon(c.sport == 'tennis'
-                                  ? Icons.sports_tennis
-                                  : Icons.sports_soccer),
-                              title: Text(c.name),
-                              subtitle: Text([
-                                sportLabelFromString(c.sport),
-                                if (c.region != null) c.region,
-                                if (c.address != null) c.address,
-                              ].whereType<String>().join(' · ')),
-                              trailing: c.website != null
-                                  ? IconButton(
-                                      icon: const Icon(Icons.open_in_new),
-                                      onPressed: () => launchUrl(
-                                        Uri.parse(c.website!),
-                                        mode: LaunchMode.externalApplication,
-                                      ),
-                                    )
-                                  : null,
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (_) => Padding(
-                                    padding: const EdgeInsets.all(16),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(c.name,
-                                            style: const TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold)),
-                                        const SizedBox(height: 8),
-                                        if (c.contact != null) Text('연락처: ${c.contact!}'),
-                                        if (c.description != null) ...[
-                                          const SizedBox(height: 8),
-                                          Text(c.description!),
-                                        ],
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        },
+                        itemBuilder: (_, i) => Padding(
+                          padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                          child: _ClubCard(club: _clubs![i]),
+                        ),
                       ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _ClubCard extends StatelessWidget {
+  final Club club;
+  const _ClubCard({required this.club});
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+    final isTennis = club.sport == 'tennis';
+    final accentColor = isTennis ? cs.primary : cs.tertiary;
+
+    final meta = [
+      sportLabelFromString(club.sport),
+      if (club.region != null) club.region,
+      if (club.address != null) club.address,
+    ].whereType<String>().join(' · ');
+
+    return AppCard(
+      onTap: () => _showDetail(context),
+      variant: AppCardVariant.elevated,
+      child: Row(
+        children: [
+          Container(
+            width: 44,
+            height: 44,
+            decoration: BoxDecoration(
+              color: accentColor.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(AppRadius.md),
+            ),
+            child: Icon(
+              isTennis ? Icons.sports_tennis_rounded : Icons.sports_soccer_rounded,
+              color: accentColor,
+              size: 24,
+            ),
+          ),
+          const SizedBox(width: AppSpacing.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(club.name, style: tt.titleMedium),
+                if (meta.isNotEmpty)
+                  Text(
+                    meta,
+                    style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+              ],
+            ),
+          ),
+          if (club.website != null)
+            IconButton(
+              icon: const Icon(Icons.open_in_new_rounded),
+              iconSize: 20,
+              color: cs.onSurfaceVariant,
+              onPressed: () => launchUrl(
+                Uri.parse(club.website!),
+                mode: LaunchMode.externalApplication,
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  void _showDetail(BuildContext context) {
+    final tt = Theme.of(context).textTheme;
+    final cs = Theme.of(context).colorScheme;
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(borderRadius: AppRadius.sheet),
+      builder: (_) => Padding(
+        padding: const EdgeInsets.all(AppSpacing.xl),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(club.name, style: tt.headlineSmall),
+            const SizedBox(height: AppSpacing.sm),
+            if (club.contact != null)
+              Text(
+                '연락처: ${club.contact!}',
+                style: tt.bodyMedium?.copyWith(color: cs.onSurfaceVariant),
+              ),
+            if (club.description != null) ...[
+              const SizedBox(height: AppSpacing.md),
+              Text(club.description!, style: tt.bodyMedium),
+            ],
+            const SizedBox(height: AppSpacing.lg),
+          ],
+        ),
       ),
     );
   }

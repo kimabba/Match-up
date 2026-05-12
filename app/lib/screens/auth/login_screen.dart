@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../config.dart';
 import '../../state/providers.dart';
+import '../../theme/tokens.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -18,6 +19,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   bool _signUp = false;
   bool _busy = false;
   String? _error;
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
+  }
 
   Future<void> _emailAuth() async {
     setState(() {
@@ -66,76 +74,166 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+
     return Scaffold(
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(AppSpacing.xxl),
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 400),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 32),
-                    child: Text(
-                      'Match-up',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                  // 로고 영역
+                  const SizedBox(height: AppSpacing.huge),
+                  Container(
+                    width: 72,
+                    height: 72,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: cs.primaryContainer,
+                      borderRadius: BorderRadius.circular(AppRadius.xl),
+                    ),
+                    child: Icon(
+                      Icons.sports_tennis_rounded,
+                      size: 36,
+                      color: cs.primary,
                     ),
                   ),
-                  const Text(
+                  const SizedBox(height: AppSpacing.lg),
+                  Text(
+                    'Match-up',
+                    textAlign: TextAlign.center,
+                    style: tt.headlineLarge?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: cs.primary,
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.sm),
+                  Text(
                     '테니스·풋살 동호인 통합 정보',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black54),
+                    style: tt.bodyMedium?.copyWith(color: cs.onSurfaceVariant),
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: AppSpacing.huge),
+
+                  // 이메일·비밀번호
                   TextField(
                     controller: _email,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: '이메일',
-                      border: OutlineInputBorder(),
+                      prefixIcon: const Icon(Icons.email_outlined),
+                      border: OutlineInputBorder(borderRadius: AppRadius.card),
                     ),
                     keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: AppSpacing.md),
                   TextField(
                     controller: _password,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: '비밀번호',
-                      border: OutlineInputBorder(),
+                      prefixIcon: const Icon(Icons.lock_outline_rounded),
+                      border: OutlineInputBorder(borderRadius: AppRadius.card),
                     ),
                     obscureText: true,
+                    textInputAction: TextInputAction.done,
+                    onSubmitted: (_) => _busy ? null : _emailAuth(),
                   ),
+
                   if (_error != null) ...[
-                    const SizedBox(height: 12),
-                    Text(_error!, style: const TextStyle(color: Colors.red)),
+                    const SizedBox(height: AppSpacing.md),
+                    Container(
+                      padding: const EdgeInsets.all(AppSpacing.md),
+                      decoration: BoxDecoration(
+                        color: cs.errorContainer,
+                        borderRadius: AppRadius.card,
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.error_outline_rounded,
+                              size: 16, color: cs.error),
+                          const SizedBox(width: AppSpacing.sm),
+                          Expanded(
+                            child: Text(
+                              _error!,
+                              style: TextStyle(color: cs.error, fontSize: 13),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
-                  const SizedBox(height: 16),
+
+                  const SizedBox(height: AppSpacing.lg),
                   FilledButton(
                     onPressed: _busy ? null : _emailAuth,
+                    style: FilledButton.styleFrom(
+                      minimumSize: const Size.fromHeight(52),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: AppRadius.pill,
+                      ),
+                    ),
                     child: Text(_signUp ? '회원가입' : '로그인'),
                   ),
+                  const SizedBox(height: AppSpacing.sm),
                   TextButton(
                     onPressed: () => setState(() => _signUp = !_signUp),
                     child: Text(_signUp ? '이미 계정이 있어요' : '계정이 없어요. 가입하기'),
                   ),
-                  const Divider(height: 32),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: AppSpacing.lg),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: Divider(color: cs.outlineVariant)),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppSpacing.md),
+                          child: Text(
+                            '또는',
+                            style: tt.labelSmall?.copyWith(
+                                color: cs.onSurfaceVariant),
+                          ),
+                        ),
+                        Expanded(
+                            child: Divider(color: cs.outlineVariant)),
+                      ],
+                    ),
+                  ),
+
                   if (AppConfig.googleWebClientId.isNotEmpty ||
                       AppConfig.googleIosClientId.isNotEmpty)
                     OutlinedButton.icon(
                       onPressed: _busy ? null : _googleSignIn,
                       icon: const Icon(Icons.account_circle_outlined),
                       label: const Text('구글로 계속하기'),
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(52),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: AppRadius.pill,
+                        ),
+                      ),
                     ),
-                  const SizedBox(height: 12),
-                  // 카카오는 별도 SDK 통합 필요. 추후 활성화.
+                  const SizedBox(height: AppSpacing.sm),
                   OutlinedButton.icon(
                     onPressed: null,
-                    icon: const Icon(Icons.chat_bubble_outline),
+                    icon: const Icon(Icons.chat_bubble_outline_rounded),
                     label: const Text('카카오로 계속하기 (준비 중)'),
+                    style: OutlinedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(52),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: AppRadius.pill,
+                      ),
+                    ),
                   ),
+                  const SizedBox(height: AppSpacing.huge),
                 ],
               ),
             ),

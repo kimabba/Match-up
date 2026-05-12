@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../models/tournament.dart';
 import '../../state/providers.dart';
+import '../../theme/tokens.dart';
 import '../../utils/grade_labels.dart';
+import '../../widgets/app_card.dart';
+import '../../widgets/app_buttons.dart';
 
 class TournamentDetailScreen extends ConsumerStatefulWidget {
   const TournamentDetailScreen({super.key, required this.tournamentId});
   final String tournamentId;
 
   @override
-  ConsumerState<TournamentDetailScreen> createState() => _TournamentDetailScreenState();
+  ConsumerState<TournamentDetailScreen> createState() =>
+      _TournamentDetailScreenState();
 }
 
-class _TournamentDetailScreenState extends ConsumerState<TournamentDetailScreen> {
+class _TournamentDetailScreenState
+    extends ConsumerState<TournamentDetailScreen> {
   Tournament? _t;
   bool _loading = true;
   String? _error;
@@ -29,7 +35,11 @@ class _TournamentDetailScreenState extends ConsumerState<TournamentDetailScreen>
   Future<void> _load() async {
     try {
       final supa = ref.read(supabaseProvider);
-      final row = await supa.from('tournaments').select().eq('id', widget.tournamentId).single();
+      final row = await supa
+          .from('tournaments')
+          .select()
+          .eq('id', widget.tournamentId)
+          .single();
       setState(() {
         _t = Tournament.fromJson(row);
         _loading = false;
@@ -46,7 +56,10 @@ class _TournamentDetailScreenState extends ConsumerState<TournamentDetailScreen>
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     final favorites = ref.watch(favoriteIdsProvider);
+    final isFav = (favorites.valueOrNull ?? const {}).contains(widget.tournamentId);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('대회 상세'),
@@ -54,13 +67,12 @@ class _TournamentDetailScreenState extends ConsumerState<TournamentDetailScreen>
           if (_t != null)
             IconButton(
               icon: Icon(
-                (favorites.valueOrNull ?? const {}).contains(_t!.id)
-                    ? Icons.bookmark
-                    : Icons.bookmark_outline,
+                isFav ? Icons.bookmark_rounded : Icons.bookmark_outline_rounded,
+                color: isFav ? cs.primary : null,
               ),
               onPressed: () async {
-                final isFav = (favorites.valueOrNull ?? const {}).contains(_t!.id);
-                await ref.read(apiProvider).toggleFavorite(_t!.id, !isFav);
+                HapticFeedback.lightImpact();
+                await ref.read(apiProvider).toggleFavorite(widget.tournamentId, !isFav);
                 ref.invalidate(favoriteIdsProvider);
               },
             ),
@@ -72,55 +84,223 @@ class _TournamentDetailScreenState extends ConsumerState<TournamentDetailScreen>
               ? Center(child: Text(_error!))
               : _t == null
                   ? const Center(child: Text('대회 정보 없음'))
-                  : SingleChildScrollView(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(_t!.title,
-                              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                          const SizedBox(height: 12),
-                          _row(Icons.sports, sportLabelFromString(_t!.sport)),
-                          _row(Icons.calendar_today, _df.format(_t!.startDate)),
-                          if (_t!.applicationDeadline != null)
-                            _row(Icons.event_busy,
-                                '신청 마감: ${_df.format(_t!.applicationDeadline!)}'),
-                          if (_t!.region != null) _row(Icons.place, _t!.region!),
-                          if (_t!.location != null) _row(Icons.location_on, _t!.location!),
-                          _row(
-                            Icons.emoji_events,
-                            '출전 등급: ${_t!.eligibleGrades.map(gradeLabel).join(', ')}',
-                          ),
-                          if (_t!.entryFee != null)
-                            _row(Icons.attach_money, '참가비: ${_t!.entryFee}원'),
-                          if (_t!.prize != null) _row(Icons.workspace_premium, _t!.prize!),
-                          if (_t!.format != null) _row(Icons.format_list_numbered, _t!.format!),
-                          if (_t!.organizer != null) _row(Icons.business, _t!.organizer!),
-                          const Divider(height: 32),
-                          if (_t!.description != null)
-                            Text(_t!.description!, style: const TextStyle(height: 1.5)),
-                          const SizedBox(height: 24),
-                          if (_t!.sourceUrl != null)
-                            FilledButton.tonalIcon(
-                              icon: const Icon(Icons.open_in_new),
-                              label: const Text('원본 공고 열기'),
-                              onPressed: () =>
-                                  launchUrl(Uri.parse(_t!.sourceUrl!), mode: LaunchMode.externalApplication),
-                            ),
-                        ],
-                      ),
-                    ),
+                  : _DetailBody(t: _t!, df: _df),
     );
   }
+}
 
-  Widget _row(IconData icon, String text) {
+class _DetailBody extends StatelessWidget {
+  final Tournament t;
+  final DateFormat df;
+  const _DetailBody({required this.t, required this.df});
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+    final isTennis = t.sport == 'tennis';
+    final accentColor = isTennis ? cs.primary : cs.tertiary;
+    final grades = t.eligibleGrades.map(gradeLabel).join(' · ');
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(AppSpacing.lg),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 타이틀 + 종목 배지
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: accentColor.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(AppRadius.md),
+                ),
+                child: Icon(
+                  isTennis
+                      ? Icons.sports_tennis_rounded
+                      : Icons.sports_soccer_rounded,
+                  color: accentColor,
+                  size: 26,
+                ),
+              ),
+              const SizedBox(width: AppSpacing.md),
+              Expanded(
+                child: Text(
+                  t.title,
+                  style: tt.headlineSmall,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.xl),
+
+          // 기본 정보 카드
+          AppCard(
+            child: Column(
+              children: [
+                _InfoRow(
+                  icon: Icons.sports_rounded,
+                  label: '종목',
+                  value: sportLabelFromString(t.sport),
+                  accent: accentColor,
+                ),
+                _Divider(),
+                _InfoRow(
+                  icon: Icons.calendar_today_rounded,
+                  label: '시작일',
+                  value: df.format(t.startDate),
+                ),
+                if (t.applicationDeadline != null) ...[
+                  _Divider(),
+                  _InfoRow(
+                    icon: Icons.event_busy_rounded,
+                    label: '신청 마감',
+                    value: df.format(t.applicationDeadline!),
+                    accent: cs.error,
+                  ),
+                ],
+                if (t.region != null) ...[
+                  _Divider(),
+                  _InfoRow(
+                    icon: Icons.place_rounded,
+                    label: '지역',
+                    value: t.region!,
+                  ),
+                ],
+                if (t.location != null) ...[
+                  _Divider(),
+                  _InfoRow(
+                    icon: Icons.location_on_rounded,
+                    label: '상세 장소',
+                    value: t.location!,
+                  ),
+                ],
+                _Divider(),
+                _InfoRow(
+                  icon: Icons.emoji_events_rounded,
+                  label: '출전 등급',
+                  value: grades,
+                  accent: accentColor,
+                ),
+                if (t.entryFee != null) ...[
+                  _Divider(),
+                  _InfoRow(
+                    icon: Icons.payments_rounded,
+                    label: '참가비',
+                    value: '${t.entryFee}원',
+                  ),
+                ],
+                if (t.prize != null) ...[
+                  _Divider(),
+                  _InfoRow(
+                    icon: Icons.workspace_premium_rounded,
+                    label: '시상',
+                    value: t.prize!,
+                  ),
+                ],
+                if (t.format != null) ...[
+                  _Divider(),
+                  _InfoRow(
+                    icon: Icons.format_list_numbered_rounded,
+                    label: '진행 방식',
+                    value: t.format!,
+                  ),
+                ],
+                if (t.organizer != null) ...[
+                  _Divider(),
+                  _InfoRow(
+                    icon: Icons.business_rounded,
+                    label: '주최',
+                    value: t.organizer!,
+                  ),
+                ],
+              ],
+            ),
+          ),
+
+          // 설명
+          if (t.description != null) ...[
+            const SizedBox(height: AppSpacing.xl),
+            Text('대회 소개', style: tt.titleSmall?.copyWith(color: cs.onSurfaceVariant)),
+            const SizedBox(height: AppSpacing.sm),
+            AppCard(
+              child: Text(
+                t.description!,
+                style: tt.bodyMedium?.copyWith(height: 1.6),
+              ),
+            ),
+          ],
+
+          // 원본 공고 버튼
+          if (t.sourceUrl != null) ...[
+            const SizedBox(height: AppSpacing.xl),
+            AppPrimaryButton(
+              label: '원본 공고 열기',
+              icon: Icons.open_in_new_rounded,
+              onPressed: () => launchUrl(
+                Uri.parse(t.sourceUrl!),
+                mode: LaunchMode.externalApplication,
+              ),
+            ),
+          ],
+          const SizedBox(height: AppSpacing.xxxl),
+        ],
+      ),
+    );
+  }
+}
+
+class _InfoRow extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String value;
+  final Color? accent;
+  const _InfoRow({
+    required this.icon,
+    required this.label,
+    required this.value,
+    this.accent,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+    final c = accent ?? cs.onSurfaceVariant;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(children: [
-        Icon(icon, size: 18, color: Colors.black54),
-        const SizedBox(width: 8),
-        Expanded(child: Text(text)),
-      ]),
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 18, color: c),
+          const SizedBox(width: AppSpacing.md),
+          SizedBox(
+            width: 72,
+            child: Text(
+              label,
+              style: tt.labelSmall?.copyWith(color: cs.onSurfaceVariant),
+            ),
+          ),
+          Expanded(
+            child: Text(value, style: tt.bodyMedium),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Divider extends StatelessWidget {
+  const _Divider();
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Divider(
+      height: 1,
+      color: cs.outlineVariant.withValues(alpha: 0.5),
     );
   }
 }

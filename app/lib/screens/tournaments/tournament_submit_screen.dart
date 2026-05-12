@@ -4,16 +4,21 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../state/providers.dart';
+import '../../theme/tokens.dart';
 import '../../utils/grade_labels.dart';
+import '../../widgets/app_buttons.dart';
+import '../../widgets/app_card.dart';
 
 class TournamentSubmitScreen extends ConsumerStatefulWidget {
   const TournamentSubmitScreen({super.key});
 
   @override
-  ConsumerState<TournamentSubmitScreen> createState() => _TournamentSubmitScreenState();
+  ConsumerState<TournamentSubmitScreen> createState() =>
+      _TournamentSubmitScreenState();
 }
 
-class _TournamentSubmitScreenState extends ConsumerState<TournamentSubmitScreen> {
+class _TournamentSubmitScreenState
+    extends ConsumerState<TournamentSubmitScreen> {
   final _form = GlobalKey<FormState>();
   final _title = TextEditingController();
   final _organizer = TextEditingController();
@@ -26,6 +31,17 @@ class _TournamentSubmitScreenState extends ConsumerState<TournamentSubmitScreen>
   final Set<String> _grades = {};
   bool _busy = false;
   String? _error;
+
+  @override
+  void dispose() {
+    _title.dispose();
+    _organizer.dispose();
+    _region.dispose();
+    _location.dispose();
+    _description.dispose();
+    _sourceUrl.dispose();
+    super.dispose();
+  }
 
   Future<void> _pickDate() async {
     final now = DateTime.now();
@@ -48,7 +64,6 @@ class _TournamentSubmitScreenState extends ConsumerState<TournamentSubmitScreen>
       setState(() => _error = '출전 가능 등급을 1개 이상 선택하세요');
       return;
     }
-
     setState(() {
       _busy = true;
       _error = null;
@@ -58,7 +73,8 @@ class _TournamentSubmitScreenState extends ConsumerState<TournamentSubmitScreen>
         'sport': sportToString(_sport),
         'title': _title.text.trim(),
         if (_organizer.text.trim().isNotEmpty) 'organizer': _organizer.text.trim(),
-        if (_description.text.trim().isNotEmpty) 'description': _description.text.trim(),
+        if (_description.text.trim().isNotEmpty)
+          'description': _description.text.trim(),
         'start_date': _startDate!.toIso8601String().substring(0, 10),
         if (_region.text.trim().isNotEmpty) 'region': _region.text.trim(),
         if (_location.text.trim().isNotEmpty) 'location': _location.text.trim(),
@@ -80,21 +96,50 @@ class _TournamentSubmitScreenState extends ConsumerState<TournamentSubmitScreen>
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
     final grades = gradesFor(_sport);
+
     return Scaffold(
       appBar: AppBar(title: const Text('대회 제보')),
       body: Form(
         key: _form,
         child: ListView(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(AppSpacing.lg),
           children: [
-            const Text('제보된 대회는 관리자 승인 후 모든 사용자에게 노출됩니다.',
-                style: TextStyle(color: Colors.black54)),
-            const SizedBox(height: 12),
+            AppCard(
+              variant: AppCardVariant.outlined,
+              child: Row(
+                children: [
+                  Icon(Icons.info_outline_rounded,
+                      size: 18, color: cs.onSurfaceVariant),
+                  const SizedBox(width: AppSpacing.sm),
+                  Expanded(
+                    child: Text(
+                      '제보된 대회는 관리자 승인 후 모든 사용자에게 노출됩니다.',
+                      style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: AppSpacing.lg),
+
+            // 종목 선택
+            _Label('종목 *'),
+            const SizedBox(height: AppSpacing.sm),
             SegmentedButton<Sport>(
               segments: const [
-                ButtonSegment(value: Sport.tennis, label: Text('테니스')),
-                ButtonSegment(value: Sport.futsal, label: Text('풋살')),
+                ButtonSegment(
+                  value: Sport.tennis,
+                  icon: Icon(Icons.sports_tennis_rounded),
+                  label: Text('테니스'),
+                ),
+                ButtonSegment(
+                  value: Sport.futsal,
+                  icon: Icon(Icons.sports_soccer_rounded),
+                  label: Text('풋살'),
+                ),
               ],
               selected: {_sport},
               onSelectionChanged: (v) => setState(() {
@@ -102,42 +147,66 @@ class _TournamentSubmitScreenState extends ConsumerState<TournamentSubmitScreen>
                 _grades.clear();
               }),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: AppSpacing.lg),
+
             TextFormField(
               controller: _title,
-              decoration: const InputDecoration(labelText: '대회명 *', border: OutlineInputBorder()),
-              validator: (v) => (v == null || v.trim().isEmpty) ? '필수' : null,
+              decoration: _inputDeco('대회명 *'),
+              validator: (v) =>
+                  (v == null || v.trim().isEmpty) ? '필수 항목입니다' : null,
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: AppSpacing.md),
             TextFormField(
               controller: _organizer,
-              decoration: const InputDecoration(labelText: '주최', border: OutlineInputBorder()),
+              decoration: _inputDeco('주최'),
             ),
-            const SizedBox(height: 12),
-            ListTile(
-              tileColor: Theme.of(context).colorScheme.surfaceContainerHighest,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-              title: Text(_startDate == null
-                  ? '시작일 선택 *'
-                  : DateFormat('yyyy-MM-dd').format(_startDate!)),
-              trailing: const Icon(Icons.calendar_today),
+            const SizedBox(height: AppSpacing.md),
+
+            // 날짜 선택
+            _Label('시작일 *'),
+            const SizedBox(height: AppSpacing.sm),
+            AppCard(
               onTap: _pickDate,
+              variant: AppCardVariant.outlined,
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.md,
+                vertical: AppSpacing.md,
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.calendar_today_rounded,
+                      size: 18, color: cs.primary),
+                  const SizedBox(width: AppSpacing.md),
+                  Text(
+                    _startDate == null
+                        ? '날짜를 선택하세요'
+                        : DateFormat('yyyy년 M월 d일 (E)', 'ko').format(_startDate!),
+                    style: tt.bodyMedium?.copyWith(
+                      color: _startDate == null ? cs.onSurfaceVariant : null,
+                    ),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: AppSpacing.md),
+
             TextFormField(
               controller: _region,
-              decoration:
-                  const InputDecoration(labelText: '지역(시도)', border: OutlineInputBorder()),
+              decoration: _inputDeco('지역 (시·도)'),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: AppSpacing.md),
             TextFormField(
               controller: _location,
-              decoration: const InputDecoration(labelText: '상세 장소', border: OutlineInputBorder()),
+              decoration: _inputDeco('상세 장소'),
             ),
-            const SizedBox(height: 16),
-            const Text('출전 가능 등급 *', style: TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(height: AppSpacing.lg),
+
+            // 등급 선택
+            _Label('출전 가능 등급 *'),
+            const SizedBox(height: AppSpacing.sm),
             Wrap(
-              spacing: 8,
+              spacing: AppSpacing.sm,
+              runSpacing: AppSpacing.sm,
               children: [
                 for (final g in grades)
                   FilterChip(
@@ -146,33 +215,76 @@ class _TournamentSubmitScreenState extends ConsumerState<TournamentSubmitScreen>
                     onSelected: (s) => setState(() {
                       s ? _grades.add(g) : _grades.remove(g);
                     }),
+                    selectedColor: cs.primaryContainer,
+                    checkmarkColor: cs.onPrimaryContainer,
                   ),
               ],
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: AppSpacing.lg),
+
             TextFormField(
               controller: _description,
-              decoration: const InputDecoration(labelText: '설명', border: OutlineInputBorder()),
+              decoration: _inputDeco('대회 설명'),
               maxLines: 4,
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: AppSpacing.md),
             TextFormField(
               controller: _sourceUrl,
-              decoration: const InputDecoration(labelText: '원본 공고 URL', border: OutlineInputBorder()),
+              decoration: _inputDeco('원본 공고 URL'),
+              keyboardType: TextInputType.url,
             ),
-            if (_error != null)
-              Padding(
-                padding: const EdgeInsets.only(top: 12),
-                child: Text(_error!, style: const TextStyle(color: Colors.red)),
+
+            if (_error != null) ...[
+              const SizedBox(height: AppSpacing.md),
+              AppCard(
+                variant: AppCardVariant.outlined,
+                child: Row(
+                  children: [
+                    Icon(Icons.error_outline_rounded, color: cs.error, size: 18),
+                    const SizedBox(width: AppSpacing.sm),
+                    Expanded(
+                      child: Text(
+                        _error!,
+                        style: tt.bodySmall?.copyWith(color: cs.error),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            const SizedBox(height: 24),
-            FilledButton(
+            ],
+            const SizedBox(height: AppSpacing.xl),
+            AppPrimaryButton(
+              label: _busy ? '제보 중...' : '제보하기',
               onPressed: _busy ? null : _submit,
-              child: const Text('제보하기'),
             ),
+            const SizedBox(height: AppSpacing.xxxl),
           ],
         ),
       ),
+    );
+  }
+
+  InputDecoration _inputDeco(String label) => InputDecoration(
+        labelText: label,
+        border: OutlineInputBorder(borderRadius: AppRadius.card),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.md,
+          vertical: AppSpacing.md,
+        ),
+      );
+}
+
+class _Label extends StatelessWidget {
+  final String text;
+  const _Label(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    final tt = Theme.of(context).textTheme;
+    final cs = Theme.of(context).colorScheme;
+    return Text(
+      text,
+      style: tt.labelMedium?.copyWith(color: cs.onSurfaceVariant),
     );
   }
 }
