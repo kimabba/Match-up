@@ -1,0 +1,51 @@
+name: harness
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  repository-rules:
+    name: Repository rules
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 scripts/harness/check_enums.py
+      - run: python3 scripts/harness/check_static_rules.py
+      - run: bash scripts/harness/check_secrets.sh
+
+  flutter:
+    name: Flutter analyze/test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
+
+  deno:
+    name: Deno Edge Functions
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: supabase/functions
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - run: deno fmt --check */index.ts _shared/*.ts tests/*.ts
+      - run: deno lint --config deno.json */index.ts _shared/*.ts tests/*.ts
+      - run: deno check --config deno.json */index.ts _shared/*.ts tests/*.ts
+      - run: deno test --config deno.json --allow-env --allow-read tests

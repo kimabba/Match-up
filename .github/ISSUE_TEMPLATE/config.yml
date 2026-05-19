@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Match-up rule system
+    url: https://github.com/kimabba/Match-up/tree/main/docs/rules
+    about: 작업 전 필요한 규칙 문서를 확인하세요.

@@ -1,0 +1,1279 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Match-up Harness System Report</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #fcfdf7;
+      --surface: #ffffff;
+      --surface-low: #f6f8f1;
+      --surface-mid: #f0f2eb;
+      --surface-high: #e4e7df;
+      --ink: #1a1c19;
+      --muted: #5a6257;
+      --subtle: #727970;
+      --border: #c2c8bd;
+      --border-soft: rgba(114, 121, 112, .22);
+      --primary: #2e7d32;
+      --primary-soft: #dff6e2;
+      --primary-ink: #002106;
+      --tennis: #e8c547;
+      --tennis-soft: #fff3bf;
+      --futsal: #f4511e;
+      --futsal-soft: #ffdbcc;
+      --danger: #ba1a1a;
+      --danger-soft: #ffdad6;
+      --warn: #8a6a00;
+      --warn-soft: #ffe08a;
+      --info: #2563eb;
+      --info-soft: #dbeafe;
+      --shadow: 0 1px 1px rgba(0,0,0,.04), 0 10px 30px rgba(32,45,31,.08);
+      --shadow-soft: 0 1px 1px rgba(0,0,0,.03), 0 6px 18px rgba(32,45,31,.06);
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+      --max: 1180px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+    }
+
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #101411;
+      --surface: #181b17;
+      --surface-low: #1c1f1b;
+      --surface-mid: #262925;
+      --surface-high: #313430;
+      --ink: #e2e3dd;
+      --muted: #c2c8bd;
+      --subtle: #9aa396;
+      --border: #424940;
+      --border-soft: rgba(194, 200, 189, .18);
+      --primary: #9bd3a2;
+      --primary-soft: #12531c;
+      --primary-ink: #b6f0bc;
+      --tennis: #e8c547;
+      --tennis-soft: #584400;
+      --futsal: #ffb59b;
+      --futsal-soft: #822a04;
+      --danger: #ffb4ab;
+      --danger-soft: #690005;
+      --warn: #ffe08a;
+      --warn-soft: #584400;
+      --info: #93c5fd;
+      --info-soft: #1e3a8a;
+      --shadow: none;
+      --shadow-soft: none;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(232,197,71,.20), transparent 32rem),
+        radial-gradient(circle at top right, rgba(46,125,50,.18), transparent 34rem),
+        var(--bg);
+      letter-spacing: -0.02em;
+      line-height: 1.58;
+    }
+
+    a { color: inherit; }
+    code, pre { font-family: var(--mono); }
+    ::selection { background: var(--tennis); color: #16130a; }
+
+    .skip-link {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      transform: translateY(-180%);
+      background: var(--ink);
+      color: var(--bg);
+      padding: 10px 14px;
+      border-radius: 999px;
+      z-index: 1000;
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    aside {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 22px 18px;
+      border-right: 1px solid var(--border-soft);
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(18px);
+      overflow: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary), var(--tennis));
+      color: #07200a;
+      font-weight: 900;
+      box-shadow: var(--shadow-soft);
+    }
+    .brand strong { display: block; font-size: 15px; line-height: 1.2; }
+    .brand span { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+
+    .nav-title {
+      margin: 22px 10px 8px;
+      color: var(--subtle);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .nav {
+      display: grid;
+      gap: 4px;
+    }
+    .nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 40px;
+      padding: 9px 10px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+      outline: none;
+    }
+    .nav a:hover, .nav a:focus-visible {
+      background: var(--surface-low);
+      color: var(--ink);
+    }
+    .nav a.active {
+      background: var(--primary-soft);
+      color: var(--primary-ink);
+    }
+    .nav-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: currentColor;
+      opacity: .65;
+      flex: 0 0 auto;
+    }
+
+    .sidebar-actions {
+      display: grid;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    button, .button {
+      appearance: none;
+      border: 1px solid var(--border-soft);
+      background: var(--surface);
+      color: var(--ink);
+      border-radius: 999px;
+      min-height: 40px;
+      padding: 9px 14px;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 750;
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+    }
+    button:hover, .button:hover { transform: translateY(-1px); }
+    button:focus-visible, .button:focus-visible { outline: 3px solid color-mix(in srgb, var(--primary) 35%, transparent); outline-offset: 2px; }
+    .button-primary { background: var(--primary); color: white; border-color: transparent; }
+    [data-theme="dark"] .button-primary { color: #05380f; }
+
+    main {
+      width: 100%;
+      min-width: 0;
+    }
+    .container {
+      width: min(var(--max), calc(100% - 44px));
+      margin: 0 auto;
+      padding: 34px 0 80px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--surface) 86%, transparent), color-mix(in srgb, var(--surface-low) 78%, transparent)),
+        radial-gradient(circle at 85% 10%, rgba(232,197,71,.34), transparent 24rem);
+      padding: clamp(26px, 5vw, 54px);
+      box-shadow: var(--shadow);
+    }
+    .hero:after {
+      content: "";
+      position: absolute;
+      inset: auto -80px -130px auto;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      border: 46px solid color-mix(in srgb, var(--primary) 16%, transparent);
+      pointer-events: none;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border: 1px solid var(--border-soft);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+    .eyebrow:before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 99px;
+      background: var(--primary);
+      box-shadow: 0 0 0 5px color-mix(in srgb, var(--primary) 16%, transparent);
+    }
+    h1 {
+      max-width: 820px;
+      margin: 0;
+      font-size: clamp(34px, 6vw, 70px);
+      line-height: 1.04;
+      letter-spacing: -0.06em;
+      text-wrap: balance;
+    }
+    .hero p {
+      max-width: 760px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: clamp(15px, 1.5vw, 19px);
+      text-wrap: pretty;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .status-card {
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      padding: 18px;
+      box-shadow: var(--shadow-soft);
+    }
+    .status-card .label {
+      color: var(--subtle);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .status-card strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 23px;
+      line-height: 1.2;
+      letter-spacing: -0.04em;
+    }
+    .status-card small {
+      display: block;
+      color: var(--muted);
+      margin-top: 8px;
+      line-height: 1.45;
+    }
+
+    section {
+      margin-top: 34px;
+      scroll-margin-top: 24px;
+    }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.15;
+      letter-spacing: -0.05em;
+    }
+    .section-head p {
+      max-width: 620px;
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .card {
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      background: color-mix(in srgb, var(--surface) 96%, transparent);
+      box-shadow: var(--shadow-soft);
+      padding: clamp(18px, 2.5vw, 26px);
+    }
+    .card h3 { margin: 0 0 10px; font-size: 19px; letter-spacing: -0.035em; }
+    .card p { margin: 0; color: var(--muted); }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: var(--surface-low);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+    .pill.ok { background: var(--primary-soft); color: var(--primary-ink); border-color: transparent; }
+    .pill.warn { background: var(--warn-soft); color: #2a1f00; border-color: transparent; }
+    [data-theme="dark"] .pill.warn { color: var(--warn); }
+    .pill.danger { background: var(--danger-soft); color: var(--danger); border-color: transparent; }
+    .pill.info { background: var(--info-soft); color: var(--info); border-color: transparent; }
+
+    .callout {
+      border: 1px solid var(--border-soft);
+      border-left: 6px solid var(--primary);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      padding: 18px 18px 18px 20px;
+      box-shadow: var(--shadow-soft);
+    }
+    .callout strong { display: block; margin-bottom: 4px; }
+    .callout p { margin: 0; color: var(--muted); }
+    .callout.warn { border-left-color: var(--warn); }
+    .callout.danger { border-left-color: var(--danger); }
+    .callout.info { border-left-color: var(--info); }
+
+    .layer-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 245px;
+    }
+    .layer-number {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      font-size: 54px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -0.09em;
+      color: color-mix(in srgb, var(--primary) 18%, transparent);
+    }
+    .layer-card ul { margin: 16px 0 0; padding-left: 18px; color: var(--muted); }
+    .layer-card li + li { margin-top: 6px; }
+
+    .table-wrap {
+      overflow: auto;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      box-shadow: var(--shadow-soft);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 850px;
+    }
+    th, td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-soft);
+      vertical-align: top;
+      text-align: left;
+      font-size: 13px;
+    }
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: var(--surface-low);
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    tr:last-child td { border-bottom: 0; }
+    td strong { font-size: 14px; }
+
+    .priority {
+      display: inline-flex;
+      align-items: center;
+      min-width: 76px;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .03em;
+    }
+    .p0 { background: var(--danger-soft); color: var(--danger); }
+    .p1 { background: var(--warn-soft); color: #2a1f00; }
+    [data-theme="dark"] .p1 { color: var(--warn); }
+    .p2 { background: var(--info-soft); color: var(--info); }
+    .p3 { background: var(--primary-soft); color: var(--primary-ink); }
+
+    .flow {
+      display: grid;
+      gap: 12px;
+    }
+    .flow-step {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+      padding: 16px;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      box-shadow: var(--shadow-soft);
+    }
+    .flow-step .num {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--primary-soft);
+      color: var(--primary-ink);
+      font-weight: 900;
+    }
+    .flow-step h3 { margin: 0 0 5px; font-size: 16px; }
+    .flow-step p { margin: 0; color: var(--muted); font-size: 13px; }
+
+    .tree {
+      margin: 0;
+      padding: 18px;
+      border-radius: var(--radius-md);
+      background: #101411;
+      color: #e2e3dd;
+      overflow: auto;
+      font-size: 13px;
+      line-height: 1.62;
+    }
+    .code-block {
+      position: relative;
+      margin: 0;
+      border-radius: var(--radius-md);
+      background: #101411;
+      color: #e2e3dd;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+    }
+    .code-block header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      color: #c2c8bd;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .code-block button {
+      min-height: 30px;
+      padding: 5px 10px;
+      box-shadow: none;
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      border-color: rgba(255,255,255,.16);
+    }
+    .code-block pre {
+      margin: 0;
+      padding: 16px;
+      overflow: auto;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    details {
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+    details + details { margin-top: 10px; }
+    summary {
+      cursor: pointer;
+      padding: 16px 18px;
+      font-weight: 850;
+      list-style: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary:after { content: "+"; float: right; color: var(--muted); }
+    details[open] summary:after { content: "−"; }
+    .details-body { padding: 0 18px 18px; color: var(--muted); }
+
+    .filter-box {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .filter-box input {
+      width: min(420px, 100%);
+      min-height: 42px;
+      border: 1px solid var(--border-soft);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--ink);
+      padding: 0 16px;
+      font: inherit;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .print-note { display: none; }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      aside {
+        position: relative;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border-soft);
+      }
+      .nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .status-grid, .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .container { width: min(100% - 28px, var(--max)); padding-top: 18px; }
+      .hero { border-radius: 22px; padding: 24px; }
+      .status-grid { grid-template-columns: 1fr; }
+      .nav { grid-template-columns: 1fr; }
+      .section-head { display: block; }
+      .filter-box { display: block; }
+      .filter-box input { width: 100%; }
+      button { width: 100%; }
+    }
+
+    @media print {
+      body { background: white; color: black; }
+      aside, .hero-actions, .sidebar-actions, .filter-box, .code-block button { display: none !important; }
+      .layout { display: block; }
+      .container { width: 100%; padding: 0; }
+      .hero, .card, .status-card, .callout, details, .flow-step, .table-wrap { box-shadow: none; break-inside: avoid; }
+      details { display: block; }
+      details > * { display: block; }
+      .print-note { display: block; margin: 0 0 18px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 이동</a>
+  <div class="layout">
+    <aside aria-label="문서 목차">
+      <div class="brand">
+        <div class="brand-mark">M</div>
+        <div>
+          <strong>Match-up Harness</strong>
+          <span>규칙을 코드로 강제하는 시스템</span>
+        </div>
+      </div>
+
+      <div class="nav-title">목차</div>
+      <nav class="nav" id="toc">
+        <a href="#summary"><span class="nav-dot"></span>요약</a>
+        <a href="#diagnosis"><span class="nav-dot"></span>현재 진단</a>
+        <a href="#layers"><span class="nav-dot"></span>4계층 하네스</a>
+        <a href="#rules"><span class="nav-dot"></span>규칙 카탈로그</a>
+        <a href="#structure"><span class="nav-dot"></span>파일 구조</a>
+        <a href="#roadmap"><span class="nav-dot"></span>로드맵</a>
+        <a href="#commands"><span class="nav-dot"></span>실행 명령</a>
+        <a href="#speedgun"><span class="nav-dot"></span>스피드건 규칙</a>
+        <a href="#ci"><span class="nav-dot"></span>CI 예시</a>
+        <a href="#dod"><span class="nav-dot"></span>Definition of Done</a>
+      </nav>
+
+      <div class="nav-title">도구</div>
+      <div class="sidebar-actions">
+        <button type="button" id="themeToggle">다크 모드 전환</button>
+        <button type="button" onclick="window.print()">PDF/인쇄</button>
+      </div>
+    </aside>
+
+    <main id="main">
+      <div class="container">
+        <p class="print-note">Match-up Harness System Report — docs/harness-system-analysis.html</p>
+
+        <section class="hero" id="summary">
+          <div class="eyebrow">Match-up 프로젝트 재분석 결과</div>
+          <h1>규칙은 문서가 아니라 하네스로 강제해야 합니다.</h1>
+          <p>
+            현재 프로젝트는 Flutter 앱과 Supabase Edge Functions/DB 구조가 잘 잡혀 있지만,
+            핵심 도메인 규칙·보안 규칙·스피드건 수학 로직은 아직 자동 검증이 부족합니다.
+            이 문서는 무엇을 규칙으로 삼고, 어디에 테스트와 CI 게이트를 붙일지 정리한 실행용 가이드입니다.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#rules">우선순위 규칙 보기</a>
+            <a class="button" href="#roadmap">적용 순서 보기</a>
+            <a class="button" href="#ci">CI 예시 보기</a>
+          </div>
+        </section>
+
+        <div class="status-grid" aria-label="핵심 상태 요약">
+          <div class="status-card">
+            <div class="label">Static Check</div>
+            <strong>통과</strong>
+            <small><code>flutter analyze</code>, <code>deno check</code>, <code>deno lint</code> 통과.</small>
+          </div>
+          <div class="status-card">
+            <div class="label">Test Coverage</div>
+            <strong>낮음</strong>
+            <small>현재 테스트는 <code>grade_labels_test.dart</code> 중심. 도메인/RPC/스피드건 테스트 필요.</small>
+          </div>
+          <div class="status-card">
+            <div class="label">Main Risk</div>
+            <strong>규칙 중복</strong>
+            <small>Dart, TypeScript, SQL에 enum과 도메인 규칙이 나뉘어 있음.</small>
+          </div>
+          <div class="status-card">
+              <div class="label">Next PR</div>
+              <strong>자동화 하네스</strong>
+              <small><code>run_all.sh</code>, enum 검사, 스피드건 단위 테스트, CI 연결.</small>
+          </div>
+        </div>
+
+        <section id="diagnosis">
+          <div class="section-head">
+            <div>
+              <h2>1. 현재 진단</h2>
+              <p>코드는 빌드 가능한 상태지만, 제품 규칙이 자동으로 깨지지 않는다는 보장은 아직 약합니다.</p>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="card">
+              <h3>확인된 기술 스택</h3>
+              <div class="pill-row">
+                <span class="pill ok">Flutter / Dart</span>
+                <span class="pill ok">Riverpod</span>
+                <span class="pill ok">GoRouter</span>
+                <span class="pill ok">Supabase Edge Functions</span>
+                <span class="pill ok">Deno / TypeScript</span>
+                <span class="pill ok">Postgres + RLS</span>
+                <span class="pill ok">pgvector + Gemini</span>
+                <span class="pill ok">FCM</span>
+              </div>
+            </div>
+            <div class="card">
+              <h3>현재 검증 상태</h3>
+              <div class="pill-row">
+                <span class="pill ok">flutter analyze 통과</span>
+                <span class="pill ok">flutter test 통과</span>
+                <span class="pill ok">deno check 통과</span>
+                <span class="pill ok">deno lint 통과</span>
+                <span class="pill warn">도메인 테스트 부족</span>
+                <span class="pill warn">SQL/RPC 테스트 부족</span>
+                <span class="pill warn">보안 하네스 부족</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-3" style="margin-top:14px">
+            <div class="callout">
+              <strong>좋은 점</strong>
+              <p>핵심 등급 필터링이 DB RPC에 있고, RLS가 주요 테이블에 적용되어 있습니다.</p>
+            </div>
+            <div class="callout warn">
+              <strong>아쉬운 점</strong>
+              <p><code>region_code</code>, <code>host_orgs</code> 필터는 아직 RPC가 아니라 Edge Function 후처리입니다.</p>
+            </div>
+            <div class="callout danger">
+              <strong>우선 보완</strong>
+              <p>입력 길이 제한, RAG prompt injection 방어, cron secret, rate limit 하네스가 필요합니다.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="layers">
+          <div class="section-head">
+            <div>
+              <h2>2. 하네스 시스템 4계층</h2>
+              <p>모든 규칙을 한 곳에서 처리하려 하지 말고, 책임별로 나누어 작고 확실한 게이트를 만듭니다.</p>
+            </div>
+          </div>
+          <div class="grid-4">
+            <article class="card layer-card">
+              <div class="layer-number">1</div>
+              <h3>도메인 규칙 하네스</h3>
+              <p>Match-up의 핵심 가치인 출전 가능 대회 자동 필터링을 검증합니다.</p>
+              <ul>
+                <li>sport/grade/org/region enum 일치</li>
+                <li>종목 교차 매칭 방지</li>
+                <li>권역·협회 필터 pagination 전 처리</li>
+                <li>published/draft 노출 규칙</li>
+              </ul>
+            </article>
+            <article class="card layer-card">
+              <div class="layer-number">2</div>
+              <h3>보안/운영 하네스</h3>
+              <p>비용 폭탄, 데이터 오염, 권한 우회를 막습니다.</p>
+              <ul>
+                <li>cron secret</li>
+                <li>chat/semantic-search rate limit</li>
+                <li>RAG prompt injection 방어</li>
+                <li>secret scan</li>
+              </ul>
+            </article>
+            <article class="card layer-card">
+              <div class="layer-number">3</div>
+              <h3>코드 품질 하네스</h3>
+              <p>언어별 규칙을 PR마다 자동 확인합니다.</p>
+              <ul>
+                <li>flutter analyze/test</li>
+                <li>deno fmt/lint/check/test</li>
+                <li><code>any</code>, <code>dynamic</code>, <code>!</code> 예외 감시</li>
+                <li>CI merge gate</li>
+              </ul>
+            </article>
+            <article class="card layer-card">
+              <div class="layer-number">4</div>
+              <h3>제품 기능 하네스</h3>
+              <p>사용자가 체감하는 기능의 품질을 검증합니다.</p>
+              <ul>
+                <li>대회 검색/제보/승인</li>
+                <li>챗봇/RAG</li>
+                <li>알림 dedup</li>
+                <li>스피드건 계산 정확도</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section id="rules">
+          <div class="section-head">
+            <div>
+              <h2>3. 규칙 카탈로그</h2>
+              <p>아래 규칙은 “문서에 적기”가 아니라 “테스트나 스크립트로 실패시키기”가 목표입니다.</p>
+            </div>
+          </div>
+
+          <div class="filter-box">
+            <input id="ruleFilter" type="search" placeholder="규칙 검색: RAG, enum, RPC, 스피드건..." aria-label="규칙 검색" />
+          </div>
+
+          <div class="table-wrap">
+            <table id="rulesTable">
+              <thead>
+                <tr>
+                  <th>우선순위</th>
+                  <th>규칙</th>
+                  <th>강제 위치</th>
+                  <th>권장 하네스</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="priority p0">P0</span></td>
+                  <td><strong>서버/DB가 최종 판정자다.</strong><br />Flutter는 표시와 입력 보조만 담당하고, eligibility·권한·검색 판정을 신뢰하지 않는다.</td>
+                  <td>DB RPC, Edge Function</td>
+                  <td>SQL smoke test, RPC test</td>
+                </tr>
+                <tr>
+                  <td><span class="priority p0">P0</span></td>
+                  <td><strong>RAG 컨텍스트는 명령이 아니라 데이터다.</strong><br />대회 설명·룰북·웹 결과 안의 지시문은 무시되어야 한다.</td>
+                  <td><code>chat/index.ts</code></td>
+                  <td>Deno unit test, prompt safety snapshot</td>
+                </tr>
+                <tr>
+                  <td><span class="priority p0">P0</span></td>
+                  <td><strong>비용 발생 함수는 공개 엔드포인트처럼 두지 않는다.</strong><br />cron, chat, semantic-search는 secret 또는 rate limit이 필요하다.</td>
+                  <td>Edge Functions, DB</td>
+                  <td>security harness, 429 test</td>
+                </tr>
+                <tr>
+                  <td><span class="priority p1">P1</span></td>
+                  <td><strong>sport/grade/org/region enum은 Dart/TS/SQL 간 불일치하면 실패한다.</strong></td>
+                  <td><code>grade_labels.dart</code>, <code>enums.ts</code>, migrations</td>
+                  <td><code>scripts/harness/check_enums.py</code></td>
+                </tr>
+                <tr>
+                  <td><span class="priority p1">P1</span></td>
+                  <td><strong>검색 필터는 pagination 전에 적용한다.</strong><br /><code>region_code</code>, <code>host_orgs</code> 후처리 필터는 임시로만 허용한다.</td>
+                  <td><code>tournaments_for_user_v2</code></td>
+                  <td>SQL fixture test</td>
+                </tr>
+                <tr>
+                  <td><span class="priority p1">P1</span></td>
+                  <td><strong>사용자 입력은 저장 전에 검증한다.</strong><br />길이, enum, URL scheme, 배열, 날짜 형식을 모두 확인한다.</td>
+                  <td><code>tournaments-submit</code>, <code>chat</code>, <code>semantic-search</code></td>
+                  <td>validation.ts + Deno test</td>
+                </tr>
+                <tr>
+                  <td><span class="priority p1">P1</span></td>
+                  <td><strong>새 테이블은 RLS enabled + 정책 없이는 병합하지 않는다.</strong></td>
+                  <td>Supabase migrations</td>
+                  <td>SQL metadata check</td>
+                </tr>
+                <tr>
+                  <td><span class="priority p2">P2</span></td>
+                  <td><strong>TypeScript <code>any</code>는 금지한다.</strong><br />외부 JSON은 <code>unknown</code>으로 받고 type guard로 좁힌다.</td>
+                  <td>Supabase functions</td>
+                  <td>Deno lint + static grep</td>
+                </tr>
+                <tr>
+                  <td><span class="priority p2">P2</span></td>
+                  <td><strong>Dart <code>dynamic</code>은 JSON boundary에서만 제한적으로 허용한다.</strong><br />모델 내부 필드는 typed model로 변환한다.</td>
+                  <td>Flutter models/services</td>
+                  <td>static rule script + model tests</td>
+                </tr>
+                <tr>
+                  <td><span class="priority p2">P2</span></td>
+                  <td><strong>스피드건은 입력 품질이 낮으면 결과를 내지 않거나 신뢰도 낮음으로 표시한다.</strong></td>
+                  <td>Speed Gun services/screens</td>
+                  <td>speed_calculator_test, fixture test</td>
+                </tr>
+                <tr>
+                  <td><span class="priority p3">P3</span></td>
+                  <td><strong>문서 규칙은 자동화된 하네스에 연결한다.</strong><br />문서만 있는 규칙은 시간이 지나면 반드시 어긋난다.</td>
+                  <td><code>docs/rules/*.md</code></td>
+                  <td>PR checklist + CI link</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="structure">
+          <div class="section-head">
+            <div>
+              <h2>4. 추천 파일 구조</h2>
+              <p>하네스는 별도 시스템처럼 보이되, 실제 제품 코드와 CI에 바로 연결되어야 합니다.</p>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="card">
+              <h3>적용된 최소 로더 구조</h3>
+              <pre class="tree">AGENTS.md      # 항상 읽는 작은 라우터
+CLAUDE.md      # Claude용 얇은 진입점
+
+docs/
+  rules/
+    README.md
+    PROJECT_CONTEXT.md
+    CODING_RULES.md
+    DOMAIN_RULES.md
+    FRONTEND_RULES.md
+    BACKEND_RULES.md
+    DATABASE_RULES.md
+    SECURITY_RULES.md
+    SPEED_GUN_RULES.md
+    HARNESS.md
+
+# 다음 단계에서 추가할 자동화 후보
+scripts/
+  harness/
+    run_all.sh
+    check_enums.py
+    check_static_rules.py
+    check_secrets.sh
+    db_smoke.sql</pre>
+            </div>
+            <div class="card">
+              <h3>다음 자동화 PR에 넣을 최소 단위</h3>
+              <div class="flow">
+                <div class="flow-step">
+                  <div class="num">1</div>
+                  <div>
+                    <h3><code>run_all.sh</code></h3>
+                    <p>Flutter/Deno 검증 명령을 한 번에 실행하는 로컬 게이트.</p>
+                  </div>
+                </div>
+                <div class="flow-step">
+                  <div class="num">2</div>
+                  <div>
+                    <h3><code>check_enums.py</code></h3>
+                    <p>Dart/TS/SQL enum 값 불일치 시 실패.</p>
+                  </div>
+                </div>
+                <div class="flow-step">
+                  <div class="num">3</div>
+                  <div>
+                    <h3><code>speed_calculator_test.dart</code></h3>
+                    <p>스피드건 수학 로직의 회귀 방지.</p>
+                  </div>
+                </div>
+                <div class="flow-step">
+                  <div class="num">4</div>
+                  <div>
+                    <h3>CI 연결</h3>
+                    <p>PR마다 자동 실행되어 실패하면 병합 차단.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="roadmap">
+          <div class="section-head">
+            <div>
+              <h2>5. 적용 로드맵</h2>
+              <p>처음부터 완벽한 하네스를 만들기보다, 병합 가능한 작은 PR 단위로 확장합니다.</p>
+            </div>
+          </div>
+          <div class="flow">
+            <div class="flow-step">
+              <div class="num">1</div>
+              <div>
+                <h3>Phase 1 — 하네스 골격</h3>
+                <p><code>docs/rules/HARNESS.md</code>, <code>scripts/harness/run_all.sh</code>, enum 검사, 스피드건 계산 테스트, GitHub Actions 최소 연결.</p>
+                <div class="pill-row">
+                  <span class="pill ok">가장 먼저</span>
+                  <span class="pill">리스크 낮음</span>
+                  <span class="pill">PR 크기 작음</span>
+                </div>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="num">2</div>
+              <div>
+                <h3>Phase 2 — 도메인 규칙 고정</h3>
+                <p><code>tournaments_for_user_v2</code>로 권역/협회 필터를 RPC에 넣고, SQL fixture로 출전 가능 여부를 검증.</p>
+                <div class="pill-row">
+                  <span class="pill warn">핵심 가치</span>
+                  <span class="pill">RPC 변경</span>
+                  <span class="pill">pagination 전 필터</span>
+                </div>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="num">3</div>
+              <div>
+                <h3>Phase 3 — 보안/운영 하네스</h3>
+                <p>cron secret, chat/semantic-search rate limit, RAG 컨텍스트 보호, payload length 제한, secret scan 적용.</p>
+                <div class="pill-row">
+                  <span class="pill danger">공개 베타 전</span>
+                  <span class="pill">비용 방어</span>
+                  <span class="pill">프롬프트 인젝션 방어</span>
+                </div>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="num">4</div>
+              <div>
+                <h3>Phase 4 — 스피드건 품질 하네스</h3>
+                <p>fps 기준, calibration 검증, mock detector prod 금지, 속도 sanity check, fixture 기반 정확도 테스트.</p>
+                <div class="pill-row">
+                  <span class="pill info">신규 기능 안정화</span>
+                  <span class="pill">수학 테스트</span>
+                  <span class="pill">품질 경고</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="commands">
+          <div class="section-head">
+            <div>
+              <h2>6. 로컬 실행 명령</h2>
+              <p>하네스는 개발자가 PR 올리기 전에 로컬에서 같은 검증을 돌릴 수 있어야 합니다.</p>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="code-block">
+              <header>
+                <span>권장 run_all.sh 동작</span>
+                <button type="button" data-copy="commands-local">복사</button>
+              </header>
+              <pre id="commands-local"><code>#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+
+cd "$ROOT/app"
+flutter pub get
+flutter analyze
+flutter test
+
+cd "$ROOT/supabase/functions"
+deno fmt --check */index.ts _shared/*.ts
+deno lint --config deno.json */index.ts _shared/*.ts
+deno check --config deno.json */index.ts _shared/*.ts
+deno test --config deno.json --allow-env --allow-read
+
+cd "$ROOT"
+python3 scripts/harness/check_enums.py
+python3 scripts/harness/check_static_rules.py</code></pre>
+            </div>
+            <div class="card">
+              <h3>현재 확인된 통과 명령</h3>
+              <div class="pill-row">
+                <span class="pill ok">flutter analyze</span>
+                <span class="pill ok">flutter test</span>
+                <span class="pill ok">deno check</span>
+                <span class="pill ok">deno lint</span>
+              </div>
+              <p style="margin-top:14px">
+                현재는 이 명령들이 통과합니다. 다음 단계는 여기에 도메인/보안/스피드건 테스트를 추가해서
+                “기능이 망가지지 않았다”까지 확인하는 것입니다.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="speedgun">
+          <div class="section-head">
+            <div>
+              <h2>7. 스피드건 전용 규칙</h2>
+              <p>스피드건은 결과 숫자가 사용자 신뢰와 직결됩니다. 틀린 값을 예쁘게 보여주는 것보다, 입력 품질이 낮을 때 경고하는 것이 중요합니다.</p>
+            </div>
+          </div>
+          <div class="grid-3">
+            <div class="card">
+              <h3>입력 품질</h3>
+              <p>권장: 120fps 미만은 경고, 60fps 미만은 분석 차단 또는 “신뢰 낮음” 표시.</p>
+              <div class="pill-row">
+                <span class="pill warn">fps gate</span>
+                <span class="pill">영상 길이 제한</span>
+                <span class="pill">해상도 확인</span>
+              </div>
+            </div>
+            <div class="card">
+              <h3>Calibration</h3>
+              <p>코트 4점은 개수뿐 아니라 비퇴화 좌표인지 확인해야 합니다. <code>assert</code>만으로는 부족합니다.</p>
+              <div class="pill-row">
+                <span class="pill warn">4점 필수</span>
+                <span class="pill">중복 좌표 금지</span>
+                <span class="pill">면적 기준</span>
+              </div>
+            </div>
+            <div class="card">
+              <h3>결과 sanity check</h3>
+              <p>예: 0~300km/h 범위를 벗어나면 측정 실패 또는 낮은 신뢰도로 처리합니다.</p>
+              <div class="pill-row">
+                <span class="pill info">peak range</span>
+                <span class="pill">avg range</span>
+                <span class="pill">detected frames</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="callout warn" style="margin-top:14px">
+            <strong>현재 모델 에셋 상태</strong>
+            <p><code>app/assets/models/yolov8n.tflite</code>는 아직 없고, 현재 <code>BallDetectorService</code>는 모델이 없으면 mock 모드로 동작합니다. 개발 중에는 좋지만, production build에서는 mock 사용을 막는 하네스가 필요합니다.</p>
+          </div>
+        </section>
+
+        <section id="ci">
+          <div class="section-head">
+            <div>
+              <h2>8. GitHub Actions 예시</h2>
+              <p>처음에는 Flutter, Deno, static-rules 세 job으로 나누는 구성이 가장 단순합니다.</p>
+            </div>
+          </div>
+          <div class="code-block">
+            <header>
+              <span>.github/workflows/harness.yml</span>
+              <button type="button" data-copy="ci-yaml">복사</button>
+            </header>
+            <pre id="ci-yaml"><code>name: harness
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  flutter:
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
+
+  deno:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: supabase/functions
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+      - run: deno fmt --check */index.ts _shared/*.ts
+      - run: deno lint --config deno.json */index.ts _shared/*.ts
+      - run: deno check --config deno.json */index.ts _shared/*.ts
+      - run: deno test --config deno.json --allow-env --allow-read
+
+  static-rules:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/harness/check_enums.py
+      - run: python3 scripts/harness/check_static_rules.py</code></pre>
+          </div>
+        </section>
+
+        <section id="dod">
+          <div class="section-head">
+            <div>
+              <h2>9. Definition of Done</h2>
+              <p>하네스가 적용된 뒤에는 PR 완료 기준을 명확히 잡아야 합니다.</p>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div>
+              <details open>
+                <summary>모든 PR 공통</summary>
+                <div class="details-body">
+                  <ul>
+                    <li><code>scripts/harness/run_all.sh</code> 통과</li>
+                    <li>새 규칙 추가 시 문서와 테스트가 함께 추가됨</li>
+                    <li>새 테이블은 RLS enabled + 정책 포함</li>
+                    <li>새 사용자 입력은 validation test 포함</li>
+                    <li>불가피한 <code>as</code>, <code>!</code>, JSON dynamic은 사유가 명확함</li>
+                  </ul>
+                </div>
+              </details>
+              <details>
+                <summary>Edge Function PR</summary>
+                <div class="details-body">
+                  <ul>
+                    <li><code>deno fmt --check</code>, <code>deno lint</code>, <code>deno check</code> 통과</li>
+                    <li><code>req.json()</code> 결과는 <code>unknown</code> 또는 validation 함수 통과 후 사용</li>
+                    <li>비용 발생 API 호출은 rate limit 또는 인증 방어 포함</li>
+                    <li>RAG에 들어가는 외부 데이터는 데이터 블록으로 격리</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+            <div>
+              <details open>
+                <summary>Flutter PR</summary>
+                <div class="details-body">
+                  <ul>
+                    <li><code>flutter analyze</code>, <code>flutter test</code> 통과</li>
+                    <li>도메인 모델 파싱 테스트 추가</li>
+                    <li>사용자에게 노출되는 오류 메시지가 raw exception만은 아님</li>
+                    <li>web/mobile 플랫폼 분기 명확</li>
+                  </ul>
+                </div>
+              </details>
+              <details>
+                <summary>스피드건 PR</summary>
+                <div class="details-body">
+                  <ul>
+                    <li>계산 로직은 fixture 기반 단위 테스트 포함</li>
+                    <li>입력 품질이 낮을 때 경고 또는 차단</li>
+                    <li>prod build에서 mock detector 사용 금지</li>
+                    <li>속도 결과 sanity check 포함</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="callout info">
+            <strong>추천 다음 액션</strong>
+            <p>최소 로더 구조는 적용되었습니다. 다음 작업은 자동화 하네스 PR입니다. <code>scripts/harness/run_all.sh</code>, <code>check_enums.py</code>, <code>speed_calculator_test.dart</code>, <code>.github/workflows/harness.yml</code>를 추가하면 문서 규칙이 실제 merge gate로 연결됩니다.</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const root = document.documentElement;
+    const savedTheme = localStorage.getItem('matchup-harness-theme');
+    if (savedTheme) root.dataset.theme = savedTheme;
+
+    document.getElementById('themeToggle')?.addEventListener('click', () => {
+      const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      localStorage.setItem('matchup-harness-theme', next);
+    });
+
+    const navLinks = Array.from(document.querySelectorAll('#toc a'));
+    const sections = navLinks
+      .map(a => document.querySelector(a.getAttribute('href')))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible) return;
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + visible.target.id));
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: [0.1, 0.3, 0.6] });
+    sections.forEach(section => observer.observe(section));
+
+    document.querySelectorAll('[data-copy]').forEach(button => {
+      button.addEventListener('click', async () => {
+        const id = button.getAttribute('data-copy');
+        const text = document.getElementById(id)?.innerText ?? '';
+        try {
+          await navigator.clipboard.writeText(text);
+          const old = button.textContent;
+          button.textContent = '복사됨';
+          setTimeout(() => button.textContent = old, 1200);
+        } catch {
+          button.textContent = '복사 실패';
+        }
+      });
+    });
+
+    const filter = document.getElementById('ruleFilter');
+    const rows = Array.from(document.querySelectorAll('#rulesTable tbody tr'));
+    filter?.addEventListener('input', () => {
+      const q = filter.value.trim().toLowerCase();
+      rows.forEach(row => {
+        row.style.display = row.innerText.toLowerCase().includes(q) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>

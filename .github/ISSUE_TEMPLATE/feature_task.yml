@@ -1,0 +1,51 @@
+name: Feature / task
+description: 기능 또는 작업 단위를 정의합니다.
+title: "feat: "
+labels: []
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: 목표
+      description: 이 작업이 달성해야 하는 사용자/제품 목표를 적어주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: 범위
+      value: |
+        포함:
+        -
+
+        제외:
+        -
+    validations:
+      required: true
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: 읽어야 할 규칙 문서
+      options:
+        - label: docs/rules/FRONTEND_RULES.md
+        - label: docs/rules/BACKEND_RULES.md
+        - label: docs/rules/DATABASE_RULES.md
+        - label: docs/rules/DOMAIN_RULES.md
+        - label: docs/rules/SECURITY_RULES.md
+        - label: docs/rules/SPEED_GUN_RULES.md
+        - label: docs/rules/HARNESS.md
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 완료 기준
+      value: |
+        - [ ]
+        - [ ]
+    validations:
+      required: true
+  - type: textarea
+    id: test_plan
+    attributes:
+      label: 테스트 계획
+      value: |
+        - [ ] scripts/harness/run_all.sh
