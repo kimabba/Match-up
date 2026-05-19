@@ -51,14 +51,18 @@ final favoriteIdsProvider = FutureProvider<Set<String>>((ref) async {
   return api.myFavoriteIds();
 });
 
-/// 현재 홈에서 보고 있는 종목 (다중 종목 사용자가 토글)
-final selectedSportProvider = StateProvider<String?>((ref) => null);
+/// 사용자의 primary 종목 — 앱 전체 필터 기준
+/// userSportsProvider에서 파생, 별도 상태 없음
+final activeSportProvider = Provider<String?>((ref) {
+  final sports = ref.watch(userSportsProvider).valueOrNull ?? [];
+  return sports.where((s) => s.isPrimary).firstOrNull?.sport;
+});
 
-/// 홈 자동 필터 결과
+/// 홈 자동 필터 결과 (activeSportProvider 기반)
 final homeTournamentsProvider = FutureProvider<List<Tournament>>((ref) async {
   ref.watch(authStateProvider);
   final api = ref.watch(apiProvider);
-  final sport = ref.watch(selectedSportProvider);
+  final sport = ref.watch(activeSportProvider);
   return api.searchTournaments(sport: sport, onlyMyGrade: true, limit: 50);
 });
 

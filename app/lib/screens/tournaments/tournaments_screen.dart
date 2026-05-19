@@ -5,8 +5,6 @@ import 'package:go_router/go_router.dart';
 import '../../models/tournament.dart';
 import '../../state/providers.dart';
 import '../../theme/tokens.dart';
-import '../../utils/grade_labels.dart';
-import '../../widgets/app_chip.dart';
 import '../../widgets/app_empty_state.dart';
 import '../../widgets/tournament_card.dart';
 
@@ -18,7 +16,6 @@ class TournamentsScreen extends ConsumerStatefulWidget {
 }
 
 class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
-  String? _sport;
   bool _onlyMyGrade = false;
   String _q = '';
   List<Tournament>? _results;
@@ -28,7 +25,7 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
     setState(() => _loading = true);
     final api = ref.read(apiProvider);
     final res = await api.searchTournaments(
-      sport: _sport,
+      sport: ref.read(activeSportProvider),
       onlyMyGrade: _onlyMyGrade,
       query: _q,
       limit: 100,
@@ -96,64 +93,22 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
                   onSubmitted: (_) => _search(),
                 ),
                 const SizedBox(height: AppSpacing.sm),
-                // 필터 칩 행
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Expanded(
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            AppChip(
-                              label: '전체 종목',
-                              selected: _sport == null,
-                              onTap: () {
-                                setState(() => _sport = null);
-                                _search();
-                              },
-                            ),
-                            const SizedBox(width: AppSpacing.sm),
-                            AppChip(
-                              label: '테니스',
-                              leadingIcon: Icons.sports_tennis_rounded,
-                              selected: _sport == 'tennis',
-                              onTap: () {
-                                setState(() => _sport = 'tennis');
-                                _search();
-                              },
-                            ),
-                            const SizedBox(width: AppSpacing.sm),
-                            AppChip(
-                              label: '풋살',
-                              leadingIcon: Icons.sports_soccer_rounded,
-                              selected: _sport == 'futsal',
-                              onTap: () {
-                                setState(() => _sport = 'futsal');
-                                _search();
-                              },
-                            ),
-                          ],
-                        ),
+                    Transform.scale(
+                      scale: 0.85,
+                      child: Switch(
+                        value: _onlyMyGrade,
+                        onChanged: (v) {
+                          setState(() => _onlyMyGrade = v);
+                          _search();
+                        },
                       ),
                     ),
-                    const SizedBox(width: AppSpacing.sm),
-                    Row(
-                      children: [
-                        Transform.scale(
-                          scale: 0.85,
-                          child: Switch(
-                            value: _onlyMyGrade,
-                            onChanged: (v) {
-                              setState(() => _onlyMyGrade = v);
-                              _search();
-                            },
-                          ),
-                        ),
-                        Text(
-                          '내 등급',
-                          style: Theme.of(context).textTheme.labelMedium,
-                        ),
-                      ],
+                    Text(
+                      '내 등급',
+                      style: Theme.of(context).textTheme.labelMedium,
                     ),
                   ],
                 ),
@@ -205,35 +160,17 @@ class _MyGradeSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sports = ref.watch(userSportsProvider);
     final tournaments = ref.watch(homeTournamentsProvider);
     final favorites = ref.watch(favoriteIdsProvider);
-    final selected = ref.watch(selectedSportProvider);
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
-
-    final showToggle = sports.maybeWhen(data: (l) => l.length > 1, orElse: () => false);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.lg, AppSpacing.lg, AppSpacing.sm),
-          child: Row(
-            children: [
-              Expanded(
-                child: Text('내 등급 추천 대회', style: tt.titleMedium),
-              ),
-              if (showToggle)
-                _SportChipRow(
-                  sports: sports.valueOrNull ?? const [],
-                  selected: selected,
-                  onChanged: (s) {
-                    ref.read(selectedSportProvider.notifier).state = s;
-                  },
-                ),
-            ],
-          ),
+          child: Text('내 등급 추천 대회', style: tt.titleMedium),
         ),
         tournaments.when(
           loading: () => const Padding(
@@ -277,30 +214,3 @@ class _MyGradeSection extends ConsumerWidget {
   }
 }
 
-class _SportChipRow extends StatelessWidget {
-  final List<UserSport> sports;
-  final String? selected;
-  final ValueChanged<String?> onChanged;
-  const _SportChipRow({required this.sports, required this.selected, required this.onChanged});
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          AppChip(label: '전체', selected: selected == null, onTap: () => onChanged(null)),
-          const SizedBox(width: AppSpacing.xs),
-          ...sports.map((s) => Padding(
-            padding: const EdgeInsets.only(left: AppSpacing.xs),
-            child: AppChip(
-              label: sportLabelFromString(s.sport),
-              selected: selected == s.sport,
-              onTap: () => onChanged(s.sport),
-            ),
-          )),
-        ],
-      ),
-    );
-  }
-}
