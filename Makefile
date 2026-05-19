@@ -1,5 +1,7 @@
-SUPABASE := supabase-beta
-SIM_ID   := 35686810-DADA-43C3-B3BF-E420C50AFF8B
+SUPABASE  := supabase-beta
+# "My Mac (Designed for iPad)" — iOS 시뮬레이터 없이 모바일 레이아웃으로 실행
+# iOS Simulator 준비되면: SIM_ID = 35686810-DADA-43C3-B3BF-E420C50AFF8B
+DEVICE_ID := 00008142-001A11560106401C
 
 .PHONY: setup backend app check deps reset
 
@@ -14,8 +16,8 @@ deps:
 # (make setup 이후 세션 불일치 방지)
 # ────────────────────────────────────────────────────
 reset:
-	xcrun simctl boot $(SIM_ID) 2>/dev/null || true
-	xcrun simctl uninstall $(SIM_ID) kr.matchpoint.app 2>/dev/null || true
+	xcrun simctl boot 35686810-DADA-43C3-B3BF-E420C50AFF8B 2>/dev/null || true
+	xcrun simctl uninstall 35686810-DADA-43C3-B3BF-E420C50AFF8B kr.matchpoint.app 2>/dev/null || true
 	@echo "앱 캐시 초기화 완료. make app 으로 재설치하세요."
 
 # ────────────────────────────────────────────────────
@@ -39,12 +41,10 @@ backend:
 	@test -f supabase/functions/.env || (echo "supabase/functions/.env 파일이 없습니다. .env.example 을 복사해서 GEMINI_API_KEY 를 채우세요." && exit 1)
 	$(SUPABASE) functions serve --env-file ./supabase/functions/.env
 
-# 터미널 2: Flutter 앱 (iOS 시뮬레이터)
+# 터미널 2: Flutter 앱 (My Mac - Designed for iPad 모바일 레이아웃)
 app:
 	@test -f app/.env.local || (echo "app/.env.local 파일이 없습니다. app/.env.local.example 을 복사해서 anon key 를 채우세요." && exit 1)
-	xcrun simctl boot $(SIM_ID) 2>/dev/null || true
-	open -a Simulator
-	cd app && flutter run -d $(SIM_ID) --dart-define-from-file=.env.local
+	cd app && flutter run -d $(DEVICE_ID) --dart-define-from-file=.env.local
 
 # ────────────────────────────────────────────────────
 # 정적 검증
