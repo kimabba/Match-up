@@ -5,7 +5,7 @@
  * https://ai.google.dev/api/rest/v1beta/models/streamGenerateContent
  */
 
-const MODEL = Deno.env.get('GEMINI_MODEL') ?? 'gemini-2.5-flash';
+const MODEL = Deno.env.get('GEMINI_MODEL') ?? 'gemini-2.0-flash-lite';
 
 function apiKey(): string {
   const k = Deno.env.get('GEMINI_API_KEY');
