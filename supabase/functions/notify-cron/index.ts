@@ -1,3 +1,4 @@
+import { requireServiceRole } from '../_shared/auth.ts';
 import { jsonResponse, preflight } from '../_shared/cors.ts';
 import { serviceClient } from '../_shared/supabase.ts';
 
@@ -52,6 +53,9 @@ Deno.serve(async (req) => {
   const pre = preflight(req);
   if (pre) return pre;
 
+  const auth = requireServiceRole(req);
+  if ('error' in auth) return auth.error;
+
   const supabase = serviceClient();
   const today = new Date().toISOString().slice(0, 10);
   const dPlus3 = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
@@ -104,6 +108,7 @@ Deno.serve(async (req) => {
       .eq('user_id', task.user_id)
       .eq('tournament_id', task.tournament_id)
       .eq('type', task.type)
+      .eq('status', 'sent')
       .maybeSingle();
 
     if (existing) {

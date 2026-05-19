@@ -79,6 +79,13 @@ Deno.serve(async (req) => {
     return errorResponse('sport must be tennis or futsal');
   }
   if (!body.title?.trim()) return errorResponse('title required');
+  if (body.title.trim().length > 200) return errorResponse('title must be 200 characters or fewer');
+  if (body.description && body.description.length > 2000) {
+    return errorResponse('description must be 2000 characters or fewer');
+  }
+  if (body.organizer && body.organizer.length > 100) {
+    return errorResponse('organizer must be 100 characters or fewer');
+  }
   if (!body.start_date) return errorResponse('start_date required');
   if (!Array.isArray(body.eligible_grades) || body.eligible_grades.length === 0) {
     return errorResponse('eligible_grades required (non-empty array)');

@@ -50,3 +50,30 @@ export async function requireAdmin(req: Request) {
   }
   return result;
 }
+
+export function requireServiceRole(
+  req: Request,
+): { error: Response } | Record<string, never> {
+  const auth = req.headers.get('Authorization') ?? '';
+  const token = auth.replace('Bearer ', '');
+  if (!token) {
+    return { error: new Response(JSON.stringify({ error: 'missing auth' }), { status: 401 }) };
+  }
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    if (payload.role !== 'service_role') {
+      return { error: new Response(JSON.stringify({ error: 'forbidden' }), { status: 403 }) };
+    }
+  } catch {
+    return { error: new Response(JSON.stringify({ error: 'invalid token' }), { status: 401 }) };
+  }
+  return {};
+}
+
+export function requireServiceRoleOrAdmin(
+  req: Request,
+): Promise<{ error: Response } | Record<string, never>> {
+  const srResult = requireServiceRole(req);
+  if (!('error' in srResult)) return Promise.resolve({});
+  return requireAdmin(req);
+}

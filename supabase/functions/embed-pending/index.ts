@@ -1,3 +1,4 @@
+import { requireServiceRole } from '../_shared/auth.ts';
 import { errorResponse, jsonResponse, preflight } from '../_shared/cors.ts';
 import { serviceClient } from '../_shared/supabase.ts';
 import { embedBatch, toVectorLiteral } from '../_shared/embedding.ts';
@@ -39,6 +40,9 @@ function ruleText(r: PendingRule): string {
 Deno.serve(async (req) => {
   const pre = preflight(req);
   if (pre) return pre;
+
+  const auth = requireServiceRole(req);
+  if ('error' in auth) return auth.error;
 
   const supabase = serviceClient();
 

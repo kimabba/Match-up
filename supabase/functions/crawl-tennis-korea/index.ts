@@ -1,3 +1,4 @@
+import { requireServiceRoleOrAdmin } from '../_shared/auth.ts';
 import { errorResponse, jsonResponse, preflight } from '../_shared/cors.ts';
 import {
   CrawlerTournament,
@@ -68,6 +69,9 @@ async function fetchDetail(url: string, fallbackTitle: string): Promise<CrawlerT
 Deno.serve(async (req) => {
   const pre = preflight(req);
   if (pre) return pre;
+
+  const auth = await requireServiceRoleOrAdmin(req);
+  if ('error' in auth) return auth.error;
 
   const audit = await startAudit(SOURCE);
   try {
