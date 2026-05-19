@@ -29,12 +29,12 @@ Deno.serve(async (req) => {
   if (sport && sport !== 'tennis' && sport !== 'futsal') {
     return errorResponse('sport must be tennis or futsal');
   }
-  const region = url.searchParams.get('region');           // 자유 텍스트 (구 컬럼)
-  const regionCode = url.searchParams.get('region_code');  // 권역 (gwangju, seoul_metro 등)
+  const region = url.searchParams.get('region'); // 자유 텍스트 (구 컬럼)
+  const regionCode = url.searchParams.get('region_code'); // 권역 (gwangju, seoul_metro 등)
   if (regionCode && !isValidRegionCode(regionCode)) {
     return errorResponse('invalid region_code');
   }
-  const org = url.searchParams.get('org');                 // 협회 (kta, kato 등)
+  const org = url.searchParams.get('org'); // 협회 (kta, kato 등)
   if (org && !isValidTennisOrg(org)) {
     return errorResponse('invalid org');
   }

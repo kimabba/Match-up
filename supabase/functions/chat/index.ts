@@ -2,12 +2,7 @@ import { corsHeaders, errorResponse, preflight } from '../_shared/cors.ts';
 import { requireUser } from '../_shared/auth.ts';
 import { embedText, toVectorLiteral } from '../_shared/embedding.ts';
 import { ChatTurn, streamChat } from '../_shared/gemini.ts';
-import {
-  GRADE_LABELS,
-  REGION_LABELS,
-  SPORT_LABELS,
-  TENNIS_ORG_LABELS,
-} from '../_shared/enums.ts';
+import { GRADE_LABELS, REGION_LABELS, SPORT_LABELS, TENNIS_ORG_LABELS } from '../_shared/enums.ts';
 
 /**
  * POST /chat
@@ -65,15 +60,13 @@ function sseEvent(event: string, data: unknown): string {
 }
 
 function buildSystemPrompt(sports: UserSport[], orgs: UserTennisOrgRow[]): string {
-  const profile = sports.length === 0
-    ? '아직 종목·등급을 등록하지 않았습니다.'
-    : sports
-      .map((s) =>
-        `- ${SPORT_LABELS[s.sport as 'tennis' | 'futsal'] ?? s.sport}: ${
-          GRADE_LABELS[s.grade] ?? s.grade
-        }`
-      )
-      .join('\n');
+  const profile = sports.length === 0 ? '아직 종목·등급을 등록하지 않았습니다.' : sports
+    .map((s) =>
+      `- ${SPORT_LABELS[s.sport as 'tennis' | 'futsal'] ?? s.sport}: ${
+        GRADE_LABELS[s.grade] ?? s.grade
+      }`
+    )
+    .join('\n');
 
   const orgProfile = orgs.length === 0
     ? ''

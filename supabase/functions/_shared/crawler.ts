@@ -5,12 +5,12 @@ export interface CrawlerTournament {
   title: string;
   organizer?: string;
   description?: string;
-  start_date: string;            // YYYY-MM-DD
+  start_date: string; // YYYY-MM-DD
   end_date?: string;
   application_deadline?: string;
   region?: string;
   location?: string;
-  eligible_grades: string[];     // ['rookie','div5',...]
+  eligible_grades: string[]; // ['rookie','div5',...]
   entry_fee?: number;
   prize?: string;
   format?: string;

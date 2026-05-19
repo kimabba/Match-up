@@ -1,0 +1,48 @@
+name: Bug report
+description: 버그를 재현 가능하게 기록합니다.
+title: "fix: "
+labels: []
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 문제 설명
+      description: 무엇이 잘못 동작하나요?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 재현 절차
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 기대 동작
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: 영역
+      options:
+        - Flutter/UI
+        - Edge Functions/API
+        - DB/RLS/RPC
+        - Domain/tournament/grade
+        - Security/Auth/AI/RAG
+        - Speed Gun/video
+        - CI/Harness
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: checks
+    attributes:
+      label: 확인한 하네스/로그
+      description: 실행한 명령, 실패 로그, 스크린샷을 붙여주세요.

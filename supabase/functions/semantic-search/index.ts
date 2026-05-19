@@ -67,16 +67,15 @@ Deno.serve(async (req) => {
       ) as Promise<RpcResult>
       : Promise.resolve(null);
 
-  const rulesPromise: Promise<RpcResult | null> =
-    (target === 'rules' || target === 'both')
-      ? Promise.resolve(
-        supabase.rpc('rules_semantic_search', {
-          p_query_embedding: literal,
-          p_sport: body.sport ?? null,
-          p_match_count: Math.min(matchCount, 10),
-        }),
-      ) as Promise<RpcResult>
-      : Promise.resolve(null);
+  const rulesPromise: Promise<RpcResult | null> = (target === 'rules' || target === 'both')
+    ? Promise.resolve(
+      supabase.rpc('rules_semantic_search', {
+        p_query_embedding: literal,
+        p_sport: body.sport ?? null,
+        p_match_count: Math.min(matchCount, 10),
+      }),
+    ) as Promise<RpcResult>
+    : Promise.resolve(null);
 
   const [tournamentsResult, rulesResult] = await Promise.all([
     tournamentsPromise,

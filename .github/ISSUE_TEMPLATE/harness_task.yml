@@ -1,0 +1,43 @@
+name: Harness / rule task
+description: 규칙, CI, 테스트 하네스 개선 작업입니다.
+title: "chore: "
+labels: []
+body:
+  - type: textarea
+    id: rule
+    attributes:
+      label: 강제하려는 규칙
+      description: 문서 규칙이 아니라 실제로 실패시킬 조건을 적어주세요.
+    validations:
+      required: true
+  - type: dropdown
+    id: layer
+    attributes:
+      label: 하네스 계층
+      options:
+        - Domain harness
+        - Security/operations harness
+        - Code quality harness
+        - Product feature harness
+    validations:
+      required: true
+  - type: textarea
+    id: enforcement
+    attributes:
+      label: 강제 방식
+      description: 테스트, 스크립트, SQL fixture, CI job 중 무엇으로 막을지 적어주세요.
+      value: |
+        - [ ] Test
+        - [ ] Script
+        - [ ] SQL fixture
+        - [ ] GitHub Actions
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: 완료 기준
+      value: |
+        - [ ] 실패해야 할 케이스가 실제로 실패한다
+        - [ ] 정상 케이스가 통과한다
+        - [ ] PR template 또는 docs/rules에 연결되어 있다

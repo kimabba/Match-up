@@ -35,7 +35,10 @@ async function fetchListing(): Promise<{ url: string; title: string }[]> {
   const items: { url: string; title: string }[] = [];
   const links = dom.querySelectorAll('a[href*="wr_id"]');
   for (const link of links) {
-    const el = link as unknown as { getAttribute(name: string): string | null; textContent: string };
+    const el = link as unknown as {
+      getAttribute(name: string): string | null;
+      textContent: string;
+    };
     const href = el.getAttribute('href');
     const title = (el.textContent ?? '').trim();
     if (!href || !title) continue;
@@ -56,7 +59,8 @@ async function fetchDetail(detailUrl: string): Promise<CrawlerTournament | null>
 
   const title = (dom.querySelector('h1, .bo_v_tit, .title')?.textContent ?? '').trim();
   if (!title) return null;
-  const bodyText = (dom.querySelector('#bo_v_atc, .view_content, article')?.textContent ?? '').trim();
+  const bodyText = (dom.querySelector('#bo_v_atc, .view_content, article')?.textContent ?? '')
+    .trim();
 
   const startDate = extractDate(bodyText);
   if (!startDate) return null;
