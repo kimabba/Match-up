@@ -89,6 +89,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     }
   }
 
+  Future<void> sendText(String text) async {
+    _ctrl.text = text;
+    await _send();
+  }
+
   void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scroll.hasClients) {
@@ -128,7 +133,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
         children: [
           Expanded(
             child: _messages.isEmpty
-                ? _EmptyHint()
+                ? _EmptyHint(onSend: sendText)
                 : ListView.builder(
                     controller: _scroll,
                     padding: const EdgeInsets.symmetric(
@@ -157,10 +162,21 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
 }
 
 class _EmptyHint extends StatelessWidget {
+  final Future<void> Function(String) onSend;
+  const _EmptyHint({required this.onSend});
+
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
+    const suggestions = [
+      ('이번 주말 내 등급 대회', '이번 주말 내 등급에 맞는 대회 알려줘'),
+      ('테니스 서브 규칙', '테니스 서브 기본 규칙 알려줘'),
+      ('광주 테니스 협회 정보', '광주 테니스 협회 등급 체계와 대회 정보 알려줘'),
+      ('풋살 파울 규칙', '풋살 누적 파울 규칙 알려줘'),
+      ('내 등급 클럽 추천', '내 등급에 맞는 클럽 추천해줘'),
+      ('대회 신청 방법', '동호인 테니스 대회 신청하는 방법 알려줘'),
+    ];
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(AppSpacing.xl),
@@ -190,9 +206,18 @@ class _EmptyHint extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: AppSpacing.xl),
-            _SuggestionChip('이번 주말 광주 테니스 대회 알려줘'),
-            const SizedBox(height: AppSpacing.sm),
-            _SuggestionChip('테니스 발리 시 라인 밖에 서도 되나요?'),
+            GridView.count(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisCount: 2,
+              childAspectRatio: 3.0,
+              mainAxisSpacing: AppSpacing.sm,
+              crossAxisSpacing: AppSpacing.sm,
+              children: [
+                for (final (label, msg) in suggestions)
+                  _SuggestionChip(label, onTap: () => onSend(msg)),
+              ],
+            ),
           ],
         ),
       ),
@@ -202,26 +227,30 @@ class _EmptyHint extends StatelessWidget {
 
 class _SuggestionChip extends StatelessWidget {
   final String text;
-  const _SuggestionChip(this.text);
+  final VoidCallback? onTap;
+  const _SuggestionChip(this.text, {this.onTap});
 
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.md,
-        vertical: AppSpacing.sm,
-      ),
-      decoration: BoxDecoration(
-        color: cs.surfaceContainerLow,
-        borderRadius: AppRadius.pill,
-        border: Border.all(color: cs.outlineVariant),
-      ),
-      child: Text(
-        text,
-        style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
-        textAlign: TextAlign.center,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.md,
+          vertical: AppSpacing.sm,
+        ),
+        decoration: BoxDecoration(
+          color: cs.surfaceContainerLow,
+          borderRadius: AppRadius.pill,
+          border: Border.all(color: cs.outlineVariant),
+        ),
+        child: Text(
+          text,
+          style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }

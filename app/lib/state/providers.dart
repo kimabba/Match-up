@@ -61,3 +61,17 @@ final homeTournamentsProvider = FutureProvider<List<Tournament>>((ref) async {
   final sport = ref.watch(selectedSportProvider);
   return api.searchTournaments(sport: sport, onlyMyGrade: true, limit: 50);
 });
+
+/// public.users.role 을 읽어 어드민 여부 반환.
+/// currentUserProvider 변경 시 자동 재계산.
+final isAdminProvider = FutureProvider<bool>((ref) async {
+  final user = ref.watch(currentUserProvider);
+  if (user == null) return false;
+  final supabase = ref.watch(supabaseProvider);
+  final row = await supabase
+      .from('users')
+      .select('role')
+      .eq('id', user.id)
+      .maybeSingle();
+  return row?['role'] == 'admin';
+});

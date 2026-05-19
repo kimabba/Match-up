@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../models/tournament.dart';
 import '../../state/providers.dart';
 import '../../theme/tokens.dart';
+import '../../utils/grade_labels.dart';
 import '../../widgets/app_chip.dart';
 import '../../widgets/app_empty_state.dart';
 import '../../widgets/tournament_card.dart';
@@ -64,6 +65,7 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
       ),
       body: Column(
         children: [
+          const _MyGradeSection(),
           // 검색 + 필터 영역
           Container(
             color: cs.surfaceContainerLowest,
@@ -192,6 +194,111 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
                         },
                       ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class _MyGradeSection extends ConsumerWidget {
+  const _MyGradeSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final sports = ref.watch(userSportsProvider);
+    final tournaments = ref.watch(homeTournamentsProvider);
+    final favorites = ref.watch(favoriteIdsProvider);
+    final selected = ref.watch(selectedSportProvider);
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+
+    final showToggle = sports.maybeWhen(data: (l) => l.length > 1, orElse: () => false);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.lg, AppSpacing.lg, AppSpacing.sm),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text('내 등급 추천 대회', style: tt.titleMedium),
+              ),
+              if (showToggle)
+                _SportChipRow(
+                  sports: sports.valueOrNull ?? const [],
+                  selected: selected,
+                  onChanged: (s) {
+                    ref.read(selectedSportProvider.notifier).state = s;
+                  },
+                ),
+            ],
+          ),
+        ),
+        tournaments.when(
+          loading: () => const Padding(
+            padding: EdgeInsets.all(AppSpacing.lg),
+            child: CircularProgressIndicator(),
+          ),
+          error: (e, _) => const SizedBox.shrink(),
+          data: (list) {
+            if (list.isEmpty) return const SizedBox.shrink();
+            final favs = favorites.valueOrNull ?? const <String>{};
+            return SizedBox(
+              height: 180,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                itemCount: list.length,
+                separatorBuilder: (_, __) => const SizedBox(width: AppSpacing.sm),
+                itemBuilder: (context, i) {
+                  final t = list[i];
+                  return SizedBox(
+                    width: 260,
+                    child: TournamentCard(
+                      tournament: t,
+                      isFavorite: favs.contains(t.id),
+                      onTap: () => context.push('/tournaments/${t.id}'),
+                      onFavoriteToggle: () async {
+                        final api = ref.read(apiProvider);
+                        await api.toggleFavorite(t.id, !favs.contains(t.id));
+                        ref.invalidate(favoriteIdsProvider);
+                      },
+                    ),
+                  );
+                },
+              ),
+            );
+          },
+        ),
+        Divider(color: cs.outlineVariant, height: 1),
+      ],
+    );
+  }
+}
+
+class _SportChipRow extends StatelessWidget {
+  final List<UserSport> sports;
+  final String? selected;
+  final ValueChanged<String?> onChanged;
+  const _SportChipRow({required this.sports, required this.selected, required this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          AppChip(label: '전체', selected: selected == null, onTap: () => onChanged(null)),
+          const SizedBox(width: AppSpacing.xs),
+          ...sports.map((s) => Padding(
+            padding: const EdgeInsets.only(left: AppSpacing.xs),
+            child: AppChip(
+              label: sportLabelFromString(s.sport),
+              selected: selected == s.sport,
+              onTap: () => onChanged(s.sport),
+            ),
+          )),
         ],
       ),
     );

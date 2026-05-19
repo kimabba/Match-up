@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'screens/admin/admin_screen.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/auth/onboarding_screen.dart';
 import 'screens/chat_screen.dart';
 import 'screens/clubs_screen.dart';
-import 'screens/home_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/rules_screen.dart';
 // 웹은 dart:io 미지원 → stub 사용
@@ -37,6 +37,12 @@ final routerProvider = Provider<GoRouter>((ref) {
       final sports = sportsAsync.valueOrNull ?? const [];
       if (sports.isEmpty && loc != '/onboarding') return '/onboarding';
 
+      // /admin 비어드민 접근 차단
+      if (loc == '/admin') {
+        final isAdmin = ref.read(isAdminProvider).valueOrNull ?? false;
+        if (!isAdmin) return '/';
+      }
+
       if (loc == '/login') return '/';
       return null;
     },
@@ -46,13 +52,13 @@ final routerProvider = Provider<GoRouter>((ref) {
       ShellRoute(
         builder: (context, state, child) => _MainShell(child: child),
         routes: [
-          GoRoute(path: '/', builder: (_, __) => const HomeScreen()),
+          GoRoute(path: '/', builder: (_, __) => const ChatScreen()),
           GoRoute(path: '/tournaments', builder: (_, __) => const TournamentsScreen()),
           GoRoute(path: '/clubs', builder: (_, __) => const ClubsScreen()),
           GoRoute(path: '/speed-gun', builder: (_, __) => const SpeedGunScreen()),
           GoRoute(path: '/rules', builder: (_, __) => const RulesScreen()),
-          GoRoute(path: '/chat', builder: (_, __) => const ChatScreen()),
           GoRoute(path: '/profile', builder: (_, __) => const ProfileScreen()),
+          GoRoute(path: '/admin', builder: (_, __) => const AdminScreen()),
         ],
       ),
       GoRoute(
@@ -72,27 +78,31 @@ class GoRouterRefreshStream extends ChangeNotifier {
   GoRouterRefreshStream(Ref ref) {
     ref.listen(authStateProvider, (_, __) => notifyListeners());
     ref.listen(userSportsProvider, (_, __) => notifyListeners());
+    ref.listen(isAdminProvider, (_, __) => notifyListeners());
   }
 }
 
-class _MainShell extends StatelessWidget {
+class _MainShell extends ConsumerWidget {
   const _MainShell({required this.child});
   final Widget child;
 
-  static List<(String, IconData, String)> get _tabs => [
-    ('/', Icons.home_outlined, '홈'),
-    ('/tournaments', Icons.emoji_events_outlined, '대회'),
-    ('/clubs', Icons.groups_outlined, '클럽'),
-    if (!kIsWeb) ('/speed-gun', Icons.speed_rounded, '스피드건'),
-    ('/rules', Icons.menu_book_outlined, '룰북'),
-    ('/chat', Icons.chat_bubble_outline, '챗봇'),
-    ('/profile', Icons.person_outline, '내정보'),
-  ];
+  List<(String, IconData, String)> _tabs(WidgetRef ref) {
+    final isAdmin = ref.watch(isAdminProvider).valueOrNull ?? false;
+    return [
+      ('/', Icons.chat_bubble_outline, '채팅'),
+      ('/tournaments', Icons.emoji_events_outlined, '대회'),
+      ('/clubs', Icons.groups_outlined, '클럽'),
+      if (!kIsWeb) ('/speed-gun', Icons.speed_rounded, '스피드건'),
+      ('/rules', Icons.menu_book_outlined, '룰북'),
+      ('/profile', Icons.person_outline, '내정보'),
+      if (isAdmin) ('/admin', Icons.admin_panel_settings_outlined, '어드민'),
+    ];
+  }
 
-  int _indexOf(String location) {
-    for (var i = 0; i < _tabs.length; i++) {
-      if (location == _tabs[i].$1 ||
-          (location.startsWith(_tabs[i].$1) && _tabs[i].$1 != '/')) {
+  int _indexOf(String location, List<(String, IconData, String)> tabs) {
+    for (var i = 0; i < tabs.length; i++) {
+      if (location == tabs[i].$1 ||
+          (location.startsWith(tabs[i].$1) && tabs[i].$1 != '/')) {
         return i;
       }
     }
@@ -100,16 +110,17 @@ class _MainShell extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final tabs = _tabs(ref);
     final loc = GoRouterState.of(context).matchedLocation;
-    final idx = _indexOf(loc);
+    final idx = _indexOf(loc, tabs);
     return Scaffold(
       body: child,
       bottomNavigationBar: NavigationBar(
         selectedIndex: idx,
-        onDestinationSelected: (i) => context.go(_tabs[i].$1),
+        onDestinationSelected: (i) => context.go(tabs[i].$1),
         destinations: [
-          for (final t in _tabs)
+          for (final t in tabs)
             NavigationDestination(icon: Icon(t.$2), label: t.$3),
         ],
       ),

@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../config.dart';
+import '../models/admin.dart';
 import '../models/tournament.dart';
 
 /// Edge Functions REST + SSE 클라이언트.
@@ -14,8 +14,13 @@ class ApiService {
 
   final SupabaseClient _supabase;
 
-  Map<String, String> _authHeaders() {
-    final token = _supabase.auth.currentSession?.accessToken;
+  Future<Map<String, String>> _authHeaders() async {
+    final session = _supabase.auth.currentSession;
+    String? token = session?.accessToken;
+    if (session != null && session.isExpired) {
+      final refreshed = await _supabase.auth.refreshSession();
+      token = refreshed.session?.accessToken;
+    }
     return {
       'Content-Type': 'application/json',
       if (token != null) 'Authorization': 'Bearer $token',
@@ -53,7 +58,7 @@ class ApiService {
         'limit': limit.toString(),
         'offset': offset.toString(),
       }),
-      headers: _authHeaders(),
+      headers: await _authHeaders(),
     );
     _check(res);
     final body = jsonDecode(res.body) as Map<String, dynamic>;
@@ -65,7 +70,7 @@ class ApiService {
   Future<Tournament> submitTournament(Map<String, dynamic> payload) async {
     final res = await http.post(
       _uri('tournaments-submit'),
-      headers: _authHeaders(),
+      headers: await _authHeaders(),
       body: jsonEncode(payload),
     );
     _check(res);
@@ -76,7 +81,7 @@ class ApiService {
   Future<void> approveTournament(String id, {bool approve = true, String? reason}) async {
     final res = await http.post(
       _uri('tournaments-approve'),
-      headers: _authHeaders(),
+      headers: await _authHeaders(),
       body: jsonEncode({
         'id': id,
         'action': approve ? 'approve' : 'reject',
@@ -123,7 +128,7 @@ class ApiService {
         if (region != null) 'region': region,
         if (q != null && q.isNotEmpty) 'q': q,
       }),
-      headers: _authHeaders(),
+      headers: await _authHeaders(),
     );
     _check(res);
     final body = jsonDecode(res.body) as Map<String, dynamic>;
@@ -151,24 +156,28 @@ class ApiService {
     String? conversationId,
     bool enableSearch = true,
   }) async* {
-    final client = HttpClient();
+    final request = http.Request('POST', _uri('chat'));
+    final headers = await _authHeaders();
+    request.headers.addAll({
+      ...headers,
+      'Accept': 'text/event-stream',
+    });
+    request.body = jsonEncode({
+      'message': message,
+      if (conversationId != null) 'conversation_id': conversationId,
+      'enable_search': enableSearch,
+    });
+
+    final client = http.Client();
     try {
-      final req = await client.postUrl(_uri('chat'));
-      _authHeaders().forEach(req.headers.set);
-      req.headers.set('Accept', 'text/event-stream');
-      req.write(jsonEncode({
-        'message': message,
-        if (conversationId != null) 'conversation_id': conversationId,
-        'enable_search': enableSearch,
-      }));
-      final res = await req.close();
-      if (res.statusCode != 200) {
-        final body = await res.transform(utf8.decoder).join();
-        throw HttpException('chat ${res.statusCode}: $body');
+      final streamed = await client.send(request);
+      if (streamed.statusCode != 200) {
+        final body = await streamed.stream.transform(utf8.decoder).join();
+        throw Exception('chat ${streamed.statusCode}: $body');
       }
       String buffer = '';
       String currentEvent = 'message';
-      await for (final chunk in res.transform(utf8.decoder)) {
+      await for (final chunk in streamed.stream.transform(utf8.decoder)) {
         buffer += chunk;
         while (true) {
           final idx = buffer.indexOf('\n\n');
@@ -282,13 +291,32 @@ class ApiService {
         .eq('org', org);
   }
 
+  // ===== admin =====
+  Future<List<CrawlAuditLog>> crawlAuditLogs({int limit = 30}) async {
+    final rows = await _supabase
+        .from('crawl_audit')
+        .select()
+        .order('started_at', ascending: false)
+        .limit(limit);
+    return rows.map((r) => CrawlAuditLog.fromJson(r)).toList();
+  }
+
+  Future<Map<String, dynamic>> invokeCrawler(String source) async {
+    final res = await http.post(
+      _uri(source),
+      headers: await _authHeaders(),
+    );
+    _check(res);
+    return jsonDecode(res.body) as Map<String, dynamic>;
+  }
+
   // ===== helpers =====
   static String _ymd(DateTime d) =>
       '${d.year.toString().padLeft(4, '0')}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
 
   void _check(http.Response res) {
     if (res.statusCode >= 400) {
-      throw HttpException('${res.statusCode}: ${res.body}');
+      throw Exception('${res.statusCode}: ${res.body}');
     }
   }
 }
