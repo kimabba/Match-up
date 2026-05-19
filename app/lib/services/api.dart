@@ -222,6 +222,8 @@ class ApiService {
     final userId = _supabase.auth.currentUser?.id;
     if (userId == null) throw StateError('Not authenticated');
 
+    // public.users 행이 없으면 자동 생성 (세션 캐시 불일치 방지)
+    await _supabase.rpc('ensure_profile');
     await _supabase.from('user_sports').delete().eq('user_id', userId);
     if (sports.isNotEmpty) {
       await _supabase
