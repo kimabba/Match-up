@@ -1,3 +1,5 @@
+SUPABASE := supabase-beta
+
 .PHONY: setup backend app check
 
 # ────────────────────────────────────────────────────
@@ -5,12 +7,12 @@
 # ────────────────────────────────────────────────────
 setup:
 	@echo "1) Supabase 로컬 스택 기동..."
-	supabase start
+	$(SUPABASE) start
 	@echo "2) 마이그레이션 + 시드 적용..."
-	supabase db reset
+	$(SUPABASE) db reset
 	@echo ""
 	@echo "anon key 를 복사해서 app/.env.local 에 붙여넣으세요:"
-	@supabase status | grep anon
+	@$(SUPABASE) status | grep anon
 
 # ────────────────────────────────────────────────────
 # 매일 개발 — 터미널 두 개 열기
@@ -19,7 +21,7 @@ setup:
 # 터미널 1: 백엔드 (Edge Functions 핫리로드)
 backend:
 	@test -f supabase/functions/.env || (echo "supabase/functions/.env 파일이 없습니다. .env.example 을 복사해서 GEMINI_API_KEY 를 채우세요." && exit 1)
-	supabase functions serve --env-file ./supabase/functions/.env
+	$(SUPABASE) functions serve --env-file ./supabase/functions/.env
 
 # 터미널 2: Flutter 앱
 app:
