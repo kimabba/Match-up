@@ -1,6 +1,12 @@
 SUPABASE := supabase-beta
 
-.PHONY: setup backend app check
+.PHONY: setup backend app check deps
+
+# ────────────────────────────────────────────────────
+# macOS 시스템 의존성 (ffmpeg_kit_flutter_new 요구)
+# ────────────────────────────────────────────────────
+deps:
+	brew install fontconfig zlib fribidi harfbuzz glib pcre2 graphite2 libiconv libsamplerate srt
 
 # ────────────────────────────────────────────────────
 # 최초 1회 — Docker Desktop 실행 후
