@@ -5,7 +5,7 @@
  * https://ai.google.dev/api/rest/v1beta/models/streamGenerateContent
  */
 
-const MODEL = Deno.env.get('GEMINI_MODEL') ?? 'gemini-2.0-flash-lite';
+const MODEL = Deno.env.get('GEMINI_MODEL') ?? 'gemini-2.5-flash';
 
 function apiKey(): string {
   const k = Deno.env.get('GEMINI_API_KEY');
@@ -57,6 +57,7 @@ export async function* streamChat(
     generationConfig: {
       temperature: opts.temperature ?? 0.4,
       maxOutputTokens: opts.maxOutputTokens ?? 2048,
+      thinkingConfig: { thinkingBudget: 0 }, // thinking 비활성화 (gemini-2.5+)
     },
   };
   if (opts.systemInstruction) {
@@ -100,7 +101,11 @@ export async function* streamChat(
       try {
         const parsed = JSON.parse(json);
         const candidate = parsed.candidates?.[0];
-        const text = candidate?.content?.parts?.map((p: ChatPart) => p.text).join('') ?? '';
+        // thought: true 파트 필터링 (gemini-2.5 thinking 출력 제외)
+        const text = candidate?.content?.parts
+          ?.filter((p: Record<string, unknown>) => !p.thought)
+          .map((p: ChatPart) => p.text)
+          .join('') ?? '';
         if (text) yield { type: 'text', text };
 
         const grounding = candidate?.groundingMetadata?.groundingChunks;
