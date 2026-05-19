@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎾 Match-up ⚽
+# Match-up
 
 **테니스·풋살 동호인 통합 정보 앱**
 
@@ -19,7 +19,7 @@
 
 테니스·풋살 동호인은 (1) 종목별 일반 규칙, (2) 대회별 규칙, (3) 본인 등급으로 출전 가능한 대회, (4) 최신 대회 일정 — 이 4가지를 **한 번에 확인하기 어렵습니다**.
 
-**Match-up**은 회원가입 단계에서 종목·등급을 등록받아, 본인 등급으로 출전 가능한 대회만 홈에 자동 필터링해서 보여줍니다. 즐겨찾기·푸시 알림(D-3·신청 마감), 종목별 룰북, AI 챗봇(Gemini Search Grounding + RAG), 동호회 디렉토리가 보조합니다.
+**Match-up**은 회원가입 단계에서 종목·등급을 등록받아, 본인 등급으로 출전 가능한 대회만 홈에 자동 필터링해서 보여줍니다. 즐겨찾기·푸시 알림(D-3·신청 마감), 종목별 룰북, AI 챗봇(Gemini Search Grounding + RAG), 동호회 디렉토리, **스피드건**(모바일 전용, 비디오 분석)이 보조합니다.
 
 ## 종목 · 등급 모델
 
@@ -44,7 +44,7 @@ Flutter App (iOS · Android · Web)
   │     ├── embed-pending  (pg_cron 5분)
   │     ├── notify-cron    (pg_cron 1시간)         D-3 / 신청마감
   │     ├── crawl-tennis-{gwangju,jeonnam,korea}   pg_cron 일 1회
-  │     ├── clubs-search · chat-history · health
+  │     └── clubs-search · chat-history · health
   ├── Postgres + pgvector (768d HNSW)
   └── FCM 푸시
 ```
@@ -52,90 +52,73 @@ Flutter App (iOS · Android · Web)
 | 영역 | 선택 |
 |------|------|
 | Frontend | Flutter (Riverpod + go_router) |
-| Backend | Supabase Edge Functions (Deno) — FastAPI 미사용 |
+| Backend | Supabase Edge Functions (Deno) |
 | DB | Postgres + `pgvector` + `pg_cron` + `pg_net` |
 | AI 채팅 | Gemini 2.0 Flash + Google Search Grounding |
 | AI 임베딩 | `gemini-embedding-001` (768차원, Matryoshka) |
 | Auth | Supabase Auth |
-| Push | FCM (Legacy HTTP — v1 마이그레이션 예정, [SSF-270](https://linear.app/ssfak/issue/SSF-270)) |
+| Push | FCM |
 | Streaming | SSE (챗봇 응답) |
+
+---
 
 ## 빠른 시작 (로컬 개발)
 
-### 0. 사전 준비
+### 사전 준비 (최초 1회)
 
 - Docker Desktop
-- [Supabase CLI](https://supabase.com/docs/guides/cli) (`brew install supabase/tap/supabase` 또는 `supabase-beta`)
+- [Supabase CLI](https://supabase.com/docs/guides/cli) — `brew install supabase/tap/supabase`
 - [Deno 2.x](https://deno.com)
 - [Flutter 3.41+](https://docs.flutter.dev/get-started/install)
 - [Gemini API 키](https://aistudio.google.com/apikey)
 
-### 1. Supabase 로컬 스택 + 마이그레이션 + 시드
+### 1단계 — 환경 파일 준비 (최초 1회)
 
 ```bash
-git clone https://github.com/kimabba/Match-up.git
-cd Match-up
+# Flutter 앱 환경변수 (JSON 형식)
+cp app/.env.local.example app/.env.local
 
-supabase start                  # 12개 서비스 컨테이너 기동
-supabase db reset               # 마이그레이션 8개 + seed.sql 적용
+# Edge Functions 환경변수
+cp supabase/functions/.env.example supabase/functions/.env
+# → GEMINI_API_KEY 값 채우기
 ```
 
-기동 후 출력된 정보 메모:
-- API: `http://127.0.0.1:54321`
-- DB: `postgresql://postgres:postgres@127.0.0.1:54322/postgres`
-- Studio: `http://127.0.0.1:54323`
-- anon key 출력값
-
-### 2. Gemini API 키 + Edge Functions 핫리로드
+### 2단계 — Supabase 로컬 스택 기동 (최초 1회)
 
 ```bash
-mkdir -p supabase/functions
-echo 'GEMINI_API_KEY=AIzaSy...본인키' > supabase/functions/.env
-echo 'GEMINI_MODEL=gemini-2.0-flash' >> supabase/functions/.env
-
-supabase functions serve --env-file ./supabase/functions/.env
+make setup
 ```
 
-### 3. Flutter 앱
+출력된 **anon key** 를 `app/.env.local` 의 `SUPABASE_ANON_KEY` 에 붙여넣기.
+
+### 3단계 — 매일 개발 (터미널 2개)
 
 ```bash
-cd app && flutter pub get
+# 터미널 1 — 백엔드 (Edge Functions 핫리로드)
+make backend
 
-flutter run \
-  --dart-define=SUPABASE_URL=http://127.0.0.1:54321 \
-  --dart-define=SUPABASE_ANON_KEY=<위에서 출력된 anon key>
+# 터미널 2 — Flutter 앱
+make app
 ```
 
-### 4. 관리자 권한 부여
-
-가입 후 자기 계정을 admin으로 승격:
+### 검증
 
 ```bash
-docker exec -e PGPASSWORD=postgres supabase_db_matchup \
-  psql -U postgres -d postgres \
-  -c "update public.users set role='admin' where email='your@email.com';"
-```
+make check    # flutter analyze + deno lint
 
-또는 Studio (`http://127.0.0.1:54323`) → SQL Editor에서 같은 쿼리 실행.
-
-### 5. 검증
-
-```bash
-# 헬스체크
 curl http://127.0.0.1:54321/functions/v1/health
 # → {"status":"ok","service":"match-up","ts":"..."}
-
-# 임베딩 워커 수동 트리거 (시드 13건 처리)
-curl -X POST http://127.0.0.1:54321/functions/v1/embed-pending
-# → {"tournaments_processed":5,"rules_processed":8,"errors":[]}
-
-# Flutter 코드 정적 검증
-cd app && flutter analyze
-# → No issues found!
-
-# Edge Functions 정적 검증
-cd supabase/functions && deno lint && find . -name index.ts -exec deno check {} +
 ```
+
+### 관리자 권한 부여
+
+Supabase Studio (`http://127.0.0.1:54323`) → SQL Editor:
+
+```sql
+update public.users set role='admin' where email='your@email.com';
+```
+
+---
 
 ## API 엔드포인트
 
@@ -153,26 +136,37 @@ cd supabase/functions && deno lint && find . -name index.ts -exec deno check {} 
 | POST | `/crawl-tennis-*` | cron | 테니스 크롤러 (verify_jwt=false) |
 | GET | `/health` | none | 헬스체크 |
 
+---
+
 ## 디렉토리 구조
 
 ```
 Match-up/
-├── app/                        Flutter 앱
+├── Makefile                        로컬 개발 명령어 (setup / backend / app / check)
+├── app/                            Flutter 앱
+│   ├── .env.local.example          환경변수 템플릿 (JSON, --dart-define-from-file 용)
 │   ├── lib/
 │   │   ├── main.dart · router.dart · config.dart
 │   │   ├── models/ · state/ · services/ · widgets/ · utils/
-│   │   └── screens/{auth, tournaments, ...}/
+│   │   └── screens/{auth, tournaments, speed_gun, ...}/
 │   └── test/
 ├── supabase/
-│   ├── migrations/00{1..8}_*.sql
+│   ├── migrations/001~009_*.sql    스키마 · RLS · RPC · cron
 │   ├── functions/
-│   │   ├── _shared/{auth, supabase, gemini, embedding, crawler, enums, cors}.ts
-│   │   └── <function-name>/index.ts × 12
+│   │   ├── .env.example            Edge Function 환경변수 템플릿
+│   │   ├── _shared/                공용 Deno 헬퍼
+│   │   └── <function>/index.ts     × 13개
 │   ├── config.toml
 │   └── seed.sql
-├── docs/{privacy-policy.html, store-listing.md, deploy.md, reviews/}
-└── README.md · CLAUDE.md
+├── docs/
+│   ├── rules/                      개발 규칙 (load-on-demand)
+│   └── plans/ · reviews/ · research/
+├── scripts/harness/                정적 검증 스크립트
+├── AGENTS.md                       룰 파일 로드 맵
+└── CLAUDE.md                       AI 코딩 지침
 ```
+
+---
 
 ## 운영 작업 흐름
 
@@ -185,8 +179,6 @@ Match-up/
 ## 프로젝트 관리
 
 - Linear: [Match-up App (Flutter + Supabase)](https://linear.app/ssfak/project/match-up-app-flutter-supabase-8c50f8db4e20)
-- 핵심 이슈: SSF-268 ~ SSF-277
-- 자세한 개발 가이드: [`CLAUDE.md`](./CLAUDE.md)
 
 ## 라이선스
 
