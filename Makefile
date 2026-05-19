@@ -1,7 +1,7 @@
 SUPABASE  := supabase-beta
-# "My Mac (Designed for iPad)" — iOS 시뮬레이터 없이 모바일 레이아웃으로 실행
-# iOS Simulator 준비되면: SIM_ID = 35686810-DADA-43C3-B3BF-E420C50AFF8B
-DEVICE_ID := 00008142-001A11560106401C
+# iOS Simulator: ffmpeg_kit arm64 미지원으로 현재 macOS 로 실행
+# 추후 iOS 빌드 준비되면: DEVICE_ID = 35686810-DADA-43C3-B3BF-E420C50AFF8B
+DEVICE_ID := macos
 
 .PHONY: setup backend app check deps reset
 
