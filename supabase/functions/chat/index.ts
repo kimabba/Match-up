@@ -26,6 +26,7 @@ interface ChatBody {
 interface UserSport {
   sport: string;
   grade: string;
+  is_primary: boolean;
 }
 
 interface UserTennisOrgRow {
@@ -64,7 +65,7 @@ function buildSystemPrompt(sports: UserSport[], orgs: UserTennisOrgRow[]): strin
     .map((s) =>
       `- ${SPORT_LABELS[s.sport as 'tennis' | 'futsal'] ?? s.sport}: ${
         GRADE_LABELS[s.grade] ?? s.grade
-      }`
+      }${s.is_primary ? ' (주요 관심 종목)' : ''}`
     )
     .join('\n');
 
@@ -170,7 +171,7 @@ Deno.serve(async (req) => {
   // 사용자 종목·등급
   const { data: userSports } = await supabase
     .from('user_sports')
-    .select('sport, grade')
+    .select('sport, grade, is_primary')
     .eq('user_id', user.id);
 
   // 사용자 등록 협회 (multi-org)
