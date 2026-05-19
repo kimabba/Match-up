@@ -16,9 +16,13 @@ deps:
 # (make setup 이후 세션 불일치 방지)
 # ────────────────────────────────────────────────────
 reset:
+	# macOS 앱 데이터 삭제 (세션 캐시 초기화)
+	rm -rf ~/Library/Containers/kr.matchpoint.app 2>/dev/null || true
+	find ~/Library/Preferences -name "*matchpoint*" -delete 2>/dev/null || true
+	# iOS 시뮬레이터 앱 삭제
 	xcrun simctl boot 35686810-DADA-43C3-B3BF-E420C50AFF8B 2>/dev/null || true
 	xcrun simctl uninstall 35686810-DADA-43C3-B3BF-E420C50AFF8B kr.matchpoint.app 2>/dev/null || true
-	@echo "앱 캐시 초기화 완료. make app 으로 재설치하세요."
+	@echo "앱 캐시 초기화 완료. make app 으로 재실행하세요."
 
 # ────────────────────────────────────────────────────
 # 최초 1회 — Docker Desktop 실행 후
