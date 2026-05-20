@@ -191,6 +191,16 @@ ${profile}${orgProfile}
 - 일부만 있고 일부는 없으면, 있는 부분만 답하고 없는 부분은 위 형식으로 명시하세요.
 - 절대 추측·일반화·예시 ("일반적으로", "보통", "대체로") 표현 사용 금지.
 
+[종목 분리 규칙 — 강제]
+- 사용자가 메시지에 종목 키워드 (테니스/풋살/tennis/futsal) 를 명시했으면, **오직 그 종목만** 답변하세요. 다른 종목 정보는 절대 포함하지 마세요.
+- 종목 명시가 없고 등록된 종목이 여러 개일 때 (예: 테니스+풋살 둘 다 등록), 답변에 두 종목 모두 다룬다면 **반드시 종목별로 명확히 섹션을 분리**해야 합니다. 예시:
+  > ### 🎾 테니스 대회
+  > - 광주오픈 (5/24) — y3to5 등급
+  >
+  > ### ⚽ 풋살 대회
+  > - 광주 풋살 봄 컵 (5/24-25) — beginner/intermediate
+- 한 단락 또는 한 리스트 안에 테니스와 풋살 항목을 섞어서 나열하지 마세요.
+
 [규칙]
 - 한국어로 답변합니다.
 - 대회 추천 시 사용자가 출전 가능한 등급·협회의 대회를 우선 추천합니다.
@@ -211,25 +221,72 @@ function buildContextPrompt(
   const parts: string[] = [];
 
   if (tournaments.length > 0) {
-    parts.push('[관련 대회]');
-    for (const t of tournaments.slice(0, 5)) {
-      parts.push(
-        `- (id: ${t.id}) ${t.title} | ${t.sport} | ${t.start_date} | ${
-          t.region ?? '지역미상'
-        } | 출전등급: ${t.eligible_grades.join(', ')}`,
-      );
+    // 상위 5개 컷 후 종목별로 그룹핑 — LLM 이 한 단락에 섞을 가능성 차단.
+    const top = tournaments.slice(0, 5);
+    const bySport = new Map<string, SemanticTournament[]>();
+    for (const t of top) {
+      const key = t.sport;
+      const arr = bySport.get(key);
+      if (arr) arr.push(t);
+      else bySport.set(key, [t]);
+    }
+    // 결정적 순서 (tennis → futsal → 그 외 알파벳) 로 정렬
+    const sportOrder = (sport: string): number => {
+      if (sport === 'tennis') return 0;
+      if (sport === 'futsal') return 1;
+      return 2;
+    };
+    const sortedSports = Array.from(bySport.keys()).sort((a, b) => {
+      const oa = sportOrder(a);
+      const ob = sportOrder(b);
+      return oa !== ob ? oa - ob : a.localeCompare(b);
+    });
+    for (const sport of sortedSports) {
+      const label = SPORT_LABELS[sport as 'tennis' | 'futsal'] ?? sport;
+      parts.push(`[관련 대회 — ${label}]`);
+      for (const t of bySport.get(sport)!) {
+        parts.push(
+          `- (id: ${t.id}) ${t.title} | ${t.start_date} | ${t.region ?? '지역미상'} | 출전등급: ${
+            t.eligible_grades.join(', ')
+          }`,
+        );
+      }
+      parts.push('');
     }
   }
 
   if (rules.length > 0) {
-    parts.push('\n[관련 룰북]');
-    for (const r of rules.slice(0, 3)) {
-      const snippet = r.body.length > 300 ? r.body.slice(0, 300) + '…' : r.body;
-      parts.push(`- (id: ${r.id}) [${r.sport}/${r.category}] ${r.title}\n  ${snippet}`);
+    // 상위 3개 컷 후 종목별로 그룹핑 — tournaments 와 동일 패턴으로 LLM 혼동 차단.
+    const topRules = rules.slice(0, 3);
+    const rulesBySport = new Map<string, SemanticRule[]>();
+    for (const r of topRules) {
+      const key = r.sport;
+      const arr = rulesBySport.get(key);
+      if (arr) arr.push(r);
+      else rulesBySport.set(key, [r]);
+    }
+    const sportOrderRules = (sport: string): number => {
+      if (sport === 'tennis') return 0;
+      if (sport === 'futsal') return 1;
+      return 2;
+    };
+    const sortedRuleSports = Array.from(rulesBySport.keys()).sort((a, b) => {
+      const oa = sportOrderRules(a);
+      const ob = sportOrderRules(b);
+      return oa !== ob ? oa - ob : a.localeCompare(b);
+    });
+    for (const sport of sortedRuleSports) {
+      const label = SPORT_LABELS[sport as 'tennis' | 'futsal'] ?? sport;
+      parts.push(`[관련 룰북 — ${label}]`);
+      for (const r of rulesBySport.get(sport)!) {
+        const snippet = r.body.length > 300 ? r.body.slice(0, 300) + '…' : r.body;
+        parts.push(`- (id: ${r.id}) [${r.category}] ${r.title}\n  ${snippet}`);
+      }
+      parts.push('');
     }
   }
 
-  return parts.join('\n');
+  return parts.join('\n').trimEnd();
 }
 
 Deno.serve(async (req) => {
@@ -407,6 +464,17 @@ Deno.serve(async (req) => {
           ...(intentResult.rule_matched ? { rule_matched: intentResult.rule_matched } : {}),
         });
 
+        // ---- Sport filter (등록 종목 + 명시 종목) ----
+        // 정책:
+        //  - 등록된 종목만 답변 (RPC `p_only_my_grade=true` 가 이미 보장하지만
+        //    응답 분리/거부 분기를 위해 여기서도 명시적으로 처리).
+        //  - 사용자가 메시지에 sport 키워드를 명시했고 그 종목이 미등록이면 LLM 호출 우회하고 거부 응답.
+        //  - 명시 종목이 등록돼 있으면 RAG 결과를 그 종목으로 post-filter (다른 종목 컨텍스트 차단).
+        const requestedSport = intentResult.slots.sport;
+        const registeredSports = new Set(
+          ((userSports ?? []) as UserSport[]).map((s) => s.sport),
+        );
+
         // 구조화 로그: docker logs grep 으로 분포/정확도 집계 가능
         console.log(
           'chat_intent',
@@ -418,10 +486,47 @@ Deno.serve(async (req) => {
             slots: intentResult.slots,
             rule_matched: intentResult.rule_matched ?? null,
             has_embedding: !!vectorLiteral,
+            requested_sport: requestedSport ?? null,
+            registered_sports: Array.from(registeredSports),
             user_id_hash: hashedUserId,
             conversation_id: conversationId,
           }),
         );
+
+        // 미등록 종목 명시 요청 → 즉시 거부 (RAG/LLM 모두 우회).
+        // 캐시에도 저장하지 않음 (사용자별 등록 상태에 의존, 컨텍스트 해시에 sport 가 포함돼
+        // 다른 사용자 답변에 노출될 위험은 없지만 노이즈 차단).
+        if (requestedSport && !registeredSports.has(requestedSport)) {
+          const sportLabel = SPORT_LABELS[requestedSport] ?? requestedSport;
+          const refusalText = `'${sportLabel}' 은(는) 현재 등록되지 않은 종목입니다. ` +
+            '프로필에서 종목을 추가하시면 관련 정보를 안내드릴 수 있습니다.';
+          console.log(
+            'chat_intent',
+            JSON.stringify({
+              event: 'refuse_unregistered_sport',
+              requested_sport: requestedSport,
+              registered_sports: Array.from(registeredSports),
+              user_id_hash: hashedUserId,
+              conversation_id: conversationId,
+            }),
+          );
+          // cache SSE 일관성: 명시적 skip 으로 표기 (lookup 자체 미수행)
+          send('cache', { status: 'skip' });
+          send('context', { tournaments: [], rules: [] });
+          send('delta', { text: refusalText });
+
+          await supabase.from('chat_messages').insert({
+            user_id: user.id,
+            conversation_id: conversationId,
+            role: 'assistant',
+            content: refusalText,
+            citations: [],
+          });
+
+          send('done', {});
+          controller.close();
+          return;
+        }
 
         // ---- Semantic Cache lookup (Day 2) ----
         // HIT 시 LLM 호출 없이 즉시 반환. RAG 도 우회.
@@ -429,20 +534,24 @@ Deno.serve(async (req) => {
         // 중요: 캐시는 첫 standalone 질문에서만 활성.
         //   - prior (이전 대화 이력) 가 있으면 LLM 응답이 그 컨텍스트에 강하게 의존하므로
         //     동일 user_context_hash 의 다른 사용자에게 캐시 답변을 노출하면 안 됨.
+        //   - requestedSport (메시지에 종목 명시) 가 있으면 컨텍스트 해시에 sport 가
+        //     포함돼 있지 않아 종목 무관 캐시 hit 위험 → lookup/insert 모두 skip.
         //   - lookup + insert 둘 다 skip.
         //
         // 캐시 RPC/테이블은 service_role 만 접근 가능 (RLS 우회 필요). user JWT 클라이언트 사용 시 silent fail.
         // 다른 호출 (rate_limit, user_sports, RAG RPC, chat_messages 등) 은 RLS 적용 위해 user client 유지.
 
+        const hasRequestedSport = !!requestedSport;
         let cacheHit: QaCacheHit | null = null;
-        if (hasPriorHistory) {
+        if (hasPriorHistory || hasRequestedSport) {
           console.log(
             'chat_cache',
             JSON.stringify({
-              event: 'skip_history',
+              event: hasPriorHistory ? 'skip_history' : 'skip_sport_filter',
               user_id_hash: hashedUserId,
               conversation_id: conversationId,
-              prior_count: prior?.length ?? 0,
+              ...(hasPriorHistory ? { prior_count: prior?.length ?? 0 } : {}),
+              ...(hasRequestedSport ? { requested_sport: requestedSport } : {}),
             }),
           );
         } else if (vectorLiteral && userContextHash) {
@@ -520,9 +629,9 @@ Deno.serve(async (req) => {
         }
 
         // ---- RAG (cache MISS) ----
-        // cache SSE 이벤트 분기 — 실제로 lookup 한 MISS 와 skip (history/embedding 누락) 을 구분.
+        // cache SSE 이벤트 분기 — 실제로 lookup 한 MISS 와 skip (history/sport/embedding 누락) 을 구분.
         // 클라이언트 메트릭 일관성을 위해 SSE 와 구조화 로그 분류 일치.
-        if (!hasPriorHistory && vectorLiteral && userContextHash) {
+        if (!hasPriorHistory && !hasRequestedSport && vectorLiteral && userContextHash) {
           console.log(
             'chat_cache',
             JSON.stringify({
@@ -544,16 +653,20 @@ Deno.serve(async (req) => {
           ragErrored = true;
         } else {
           try {
+            // 사용자가 sport 를 명시했으면 DB 단에서 사전 필터링.
+            // post-filter (top-k 이후 JS filter) 는 요청 종목 행이 top-k 밖으로 밀려나면
+            // false RAG-miss 가 발생하므로 RPC 파라미터로 전달해 사전 컷.
             const [tRes, rRes] = await Promise.all([
               supabase.rpc('tournaments_semantic_search', {
                 p_user_id: user.id,
                 p_query_embedding: vectorLiteral,
                 p_only_my_grade: true,
                 p_match_count: 5,
+                p_sport: requestedSport ?? null,
               }),
               supabase.rpc('rules_semantic_search', {
                 p_query_embedding: vectorLiteral,
-                p_sport: null,
+                p_sport: requestedSport ?? null,
                 p_match_count: 3,
               }),
             ]);
@@ -564,6 +677,7 @@ Deno.serve(async (req) => {
             }
             tournaments = (tRes.data as SemanticTournament[]) ?? [];
             rules = (rRes.data as SemanticRule[]) ?? [];
+
             send('context', { tournaments, rules });
           } catch (e) {
             ragErrored = true;
@@ -673,9 +787,12 @@ Deno.serve(async (req) => {
 
         // ---- Semantic Cache insert (Day 2) ----
         // 정상 LLM 응답만 캐싱. refusal / ragErrored / LLM 에러는 skip.
-        // 또한 prior history 가 있는 응답은 컨텍스트 의존성 때문에 캐싱 금지 (lookup 과 대칭).
+        // 또한 prior history 또는 requestedSport 가 있는 응답은 컨텍스트 의존성/sport 격리
+        // 미비 때문에 캐싱 금지 (lookup 과 대칭).
         // race condition: 같은 (context_hash, question) 동시 요청은 unique index + RPC ON CONFLICT DO NOTHING 으로 중복 차단.
-        if (cacheable && !hasPriorHistory && vectorLiteral && userContextHash) {
+        if (
+          cacheable && !hasPriorHistory && !hasRequestedSport && vectorLiteral && userContextHash
+        ) {
           const ttlExpiresAt = new Date(
             Date.now() + QA_CACHE_TTL_HOURS * 60 * 60 * 1000,
           ).toISOString();
