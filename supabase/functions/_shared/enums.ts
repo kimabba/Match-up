@@ -85,9 +85,9 @@ export function isValidEntryFeeUnit(value: string): value is EntryFeeUnit {
 
 const TENNIS_RANK: Record<TennisGrade, number> = {
   under1y: 0,
-  y1to3:   1,
-  y3to5:   2,
-  over5y:  3,
+  y1to3: 1,
+  y3to5: 2,
+  over5y: 3,
 };
 
 const FUTSAL_RANK: Record<FutsalGrade, number> = {
@@ -126,13 +126,13 @@ export function canEnter(userGrade: string, eligibleGrades: string[]): boolean {
  * UI 표시명 매핑
  */
 export const GRADE_LABELS: Record<string, string> = {
-  under1y:      '1년 미만',
-  y1to3:        '1~3년',
-  y3to5:        '3~5년',
-  over5y:       '5년 이상',
-  beginner:     '초급',
+  under1y: '1년 미만',
+  y1to3: '1~3년',
+  y3to5: '3~5년',
+  over5y: '5년 이상',
+  beginner: '초급',
   intermediate: '중급',
-  advanced:     '고급',
+  advanced: '고급',
 };
 
 export const SPORT_LABELS: Record<Sport, string> = {
