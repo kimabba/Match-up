@@ -75,5 +75,7 @@ export function requireServiceRoleOrAdmin(
 ): Promise<{ error: Response } | Record<string, never>> {
   const srResult = requireServiceRole(req);
   if (!('error' in srResult)) return Promise.resolve({});
-  return requireAdmin(req);
+  // admin 통과 시 user/supabase 객체는 현재 호출처들이 사용하지 않으므로 빈 객체로 정규화
+  // (반환 타입 시그니처와 일치 + 모든 callers 가 'error in auth' 만 분기).
+  return requireAdmin(req).then((r) => ('error' in r ? r : ({} as Record<string, never>)));
 }
