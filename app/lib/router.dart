@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +7,7 @@ import 'screens/auth/login_screen.dart';
 import 'screens/auth/onboarding_screen.dart';
 import 'screens/chat_screen.dart';
 import 'screens/clubs_screen.dart';
+import 'screens/more_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/rules_screen.dart';
 // 웹은 dart:io 미지원 → stub 사용
@@ -55,6 +55,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/', builder: (_, __) => const ChatScreen()),
           GoRoute(path: '/tournaments', builder: (_, __) => const TournamentsScreen()),
           GoRoute(path: '/clubs', builder: (_, __) => const ClubsScreen()),
+          GoRoute(path: '/more', builder: (_, __) => const MoreScreen()),
           GoRoute(path: '/speed-gun', builder: (_, __) => const SpeedGunScreen()),
           GoRoute(path: '/rules', builder: (_, __) => const RulesScreen()),
           GoRoute(path: '/profile', builder: (_, __) => const ProfileScreen()),
@@ -86,23 +87,24 @@ class _MainShell extends ConsumerWidget {
   const _MainShell({required this.child});
   final Widget child;
 
-  List<(String, IconData, String)> _tabs(WidgetRef ref) {
-    final isAdmin = ref.watch(isAdminProvider).valueOrNull ?? false;
-    return [
-      ('/', Icons.chat_bubble_outline, '채팅'),
-      ('/tournaments', Icons.emoji_events_outlined, '대회'),
-      ('/clubs', Icons.groups_outlined, '클럽'),
-      if (!kIsWeb) ('/speed-gun', Icons.speed_rounded, '스피드건'),
-      ('/rules', Icons.menu_book_outlined, '룰북'),
-      ('/profile', Icons.person_outline, '내정보'),
-      if (isAdmin) ('/admin', Icons.admin_panel_settings_outlined, '어드민'),
-    ];
-  }
+  static const _tabs = [
+    ('/', Icons.chat_bubble_outline, '채팅'),
+    ('/tournaments', Icons.emoji_events_outlined, '대회'),
+    ('/clubs', Icons.groups_outlined, '클럽'),
+    ('/more', Icons.grid_view_outlined, '더보기'),
+  ];
 
-  int _indexOf(String location, List<(String, IconData, String)> tabs) {
-    for (var i = 0; i < tabs.length; i++) {
-      if (location == tabs[i].$1 ||
-          (location.startsWith(tabs[i].$1) && tabs[i].$1 != '/')) {
+  // 더보기 하위 경로는 더보기 탭이 선택된 것으로 표시
+  static const _moreSubPaths = ['/more', '/speed-gun', '/rules', '/profile', '/admin'];
+
+  int _indexOf(String location) {
+    for (var i = 0; i < _tabs.length; i++) {
+      if (_tabs[i].$1 == '/more') {
+        if (_moreSubPaths.any((p) => location == p || (location.startsWith(p) && p != '/'))) {
+          return i;
+        }
+      } else if (location == _tabs[i].$1 ||
+          (location.startsWith(_tabs[i].$1) && _tabs[i].$1 != '/')) {
         return i;
       }
     }
@@ -111,16 +113,15 @@ class _MainShell extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tabs = _tabs(ref);
     final loc = GoRouterState.of(context).matchedLocation;
-    final idx = _indexOf(loc, tabs);
+    final idx = _indexOf(loc);
     return Scaffold(
       body: child,
       bottomNavigationBar: NavigationBar(
         selectedIndex: idx,
-        onDestinationSelected: (i) => context.go(tabs[i].$1),
+        onDestinationSelected: (i) => context.go(_tabs[i].$1),
         destinations: [
-          for (final t in tabs)
+          for (final t in _tabs)
             NavigationDestination(icon: Icon(t.$2), label: t.$3),
         ],
       ),
