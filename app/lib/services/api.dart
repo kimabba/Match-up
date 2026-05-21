@@ -92,6 +92,40 @@ class ApiService {
     _check(res);
   }
 
+  // ===== admin: review queue (Phase 3) =====
+
+  /// 023 마이그레이션의 `tournament_review_queue` view 조회.
+  /// 크롤러 draft + 사용자 제보 draft 통합 + `submission_kind` 분류 포함.
+  /// RLS 가 admin 만 draft 접근을 허용하므로 호출자는 admin 이어야 함.
+  Future<List<Map<String, dynamic>>> tournamentReviewQueue() async {
+    final rows = await _supabase.from('tournament_review_queue').select();
+    return List<Map<String, dynamic>>.from(rows);
+  }
+
+  /// `tournaments_bulk_approve` RPC — admin 만 호출 가능.
+  /// 반환값은 실제 update 된 행 수.
+  Future<int> bulkApproveTournaments(List<String> ids) async {
+    if (ids.isEmpty) return 0;
+    final res =
+        await _supabase.rpc('tournaments_bulk_approve', params: {'p_ids': ids});
+    return (res as num).toInt();
+  }
+
+  /// `tournaments_bulk_reject` RPC — admin 만 호출 가능, reason 필수.
+  /// 반환값은 실제 update 된 행 수.
+  Future<int> bulkRejectTournaments(List<String> ids, String reason) async {
+    if (ids.isEmpty) return 0;
+    final trimmed = reason.trim();
+    if (trimmed.isEmpty) {
+      throw ArgumentError('rejection reason required');
+    }
+    final res = await _supabase.rpc(
+      'tournaments_bulk_reject',
+      params: {'p_ids': ids, 'p_reason': trimmed},
+    );
+    return (res as num).toInt();
+  }
+
   // ===== favorites =====
   Future<void> toggleFavorite(String tournamentId, bool favorite) async {
     final userId = _supabase.auth.currentUser?.id;
