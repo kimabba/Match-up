@@ -336,14 +336,9 @@ class ApiService {
     return rows.map((r) => CrawlAuditLog.fromJson(r)).toList();
   }
 
-  Future<Map<String, dynamic>> invokeCrawler(String source) async {
-    final res = await http.post(
-      _uri(source),
-      headers: await _authHeaders(),
-    );
-    _check(res);
-    return jsonDecode(res.body) as Map<String, dynamic>;
-  }
+  // invokeCrawler 는 thin wrapper (crawl-tennis-*) 시절 헬퍼. PR #(이번) 에서 thin
+  // wrapper 제거 + crawl-dispatch 로 일원화되어 사용처 없음. runCrawlSource(slug)
+  // 사용.
 
   // ===== admin: crawl_sources (RLS 가 admin role 만 허용 → REST 직접 사용) =====
 

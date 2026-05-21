@@ -123,13 +123,49 @@ export async function upsertTournament(
 }
 
 /**
- * "YYYY[.-/]MM[.-/]DD" 형태의 첫 매치를 ISO yyyy-mm-dd 로 반환. 없으면 null.
+ * 본문에서 첫 번째 유효한 날짜를 ISO yyyy-mm-dd 로 반환. 없으면 null.
+ *
+ * 매칭 우선순위:
+ *   1) 한국어 형식 "YYYY년 M월 D일"  ← Korean 사이트가 가장 흔히 쓰는 형식
+ *   2) 숫자 형식    "YYYY[.-/]MM[.-/]DD"
+ *
+ * 추가 sanity 검증:
+ *   - 연도가 (현재 연도 - 1) ~ (현재 연도 + 5) 범위 밖이면 skip.
+ *     예) 은행 계좌번호 "784902-01-022035" 가 일부 매치되어 "4902-01-02"
+ *         로 들어가는 false positive 차단.
+ *   - 월: 1~12, 일: 1~31 검증 (단순 범위. 윤년 등 정밀 검증은 생략).
+ *
+ * 매치가 있어도 sanity 실패면 다음 매치로 넘어가며, 모두 실패하면 null.
  */
 export function extractDate(text: string): string | null {
-  const m = text.match(/(\d{4})[.\-/](\d{1,2})[.\-/](\d{1,2})/);
-  if (!m) return null;
-  const [, y, mm, dd] = m;
-  return `${y}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`;
+  const nowYear = new Date().getUTCFullYear();
+  const minYear = nowYear - 1;
+  const maxYear = nowYear + 5;
+
+  const candidates: Array<{ y: string; m: string; d: string }> = [];
+
+  // 1) 한국어 — "YYYY년 M월 D일"
+  const koreanRegex = /(\d{4})\s*년\s*(\d{1,2})\s*월\s*(\d{1,2})\s*일/g;
+  for (const m of text.matchAll(koreanRegex)) {
+    candidates.push({ y: m[1], m: m[2], d: m[3] });
+  }
+
+  // 2) 숫자 — "YYYY[.-/]MM[.-/]DD"
+  const numericRegex = /(\d{4})[.\-/](\d{1,2})[.\-/](\d{1,2})/g;
+  for (const m of text.matchAll(numericRegex)) {
+    candidates.push({ y: m[1], m: m[2], d: m[3] });
+  }
+
+  for (const c of candidates) {
+    const yi = Number(c.y);
+    const mi = Number(c.m);
+    const di = Number(c.d);
+    if (yi < minYear || yi > maxYear) continue;
+    if (mi < 1 || mi > 12) continue;
+    if (di < 1 || di > 31) continue;
+    return `${c.y}-${c.m.padStart(2, '0')}-${c.d.padStart(2, '0')}`;
+  }
+  return null;
 }
 
 /**
@@ -141,15 +177,51 @@ export function extractDate(text: string): string | null {
  */
 export function extractApplicationDeadline(text: string): string | null {
   const cleaned = text.replace(/\s+/g, ' ');
+  const nowYear = new Date().getUTCFullYear();
+  const minYear = nowYear - 1;
+  const maxYear = nowYear + 5;
 
-  const labelRegex =
+  const sanitize = (y: string, m: string, d: string): string | null => {
+    const yi = Number(y), mi = Number(m), di = Number(d);
+    if (yi < minYear || yi > maxYear) return null;
+    if (mi < 1 || mi > 12) return null;
+    if (di < 1 || di > 31) return null;
+    return `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
+  };
+
+  // 1) 라벨 + 숫자 형식: "신청기간 ... 2026-04-01"
+  const labelNumericRegex =
     /(?:신청\s*마감|접수\s*마감|신청\s*기간|접수\s*기간|마감일)[^0-9]{0,40}(\d{4})[.\-/](\d{1,2})[.\-/](\d{1,2})/;
-  const m1 = cleaned.match(labelRegex);
-  if (m1) return `${m1[1]}-${m1[2].padStart(2, '0')}-${m1[3].padStart(2, '0')}`;
+  const m1 = cleaned.match(labelNumericRegex);
+  if (m1) {
+    const r = sanitize(m1[1], m1[2], m1[3]);
+    if (r) return r;
+  }
 
+  // 2) 라벨 + 한국어 형식: "신청기간 ... 2026년 4월 1일"
+  const labelKoreanRegex =
+    /(?:신청\s*마감|접수\s*마감|신청\s*기간|접수\s*기간|마감일)[^0-9]{0,40}(\d{4})\s*년\s*(\d{1,2})\s*월\s*(\d{1,2})\s*일/;
+  const m1k = cleaned.match(labelKoreanRegex);
+  if (m1k) {
+    const r = sanitize(m1k[1], m1k[2], m1k[3]);
+    if (r) return r;
+  }
+
+  // 3) "...까지" 형식: 숫자
   const untilRegex = /(\d{4})[.\-/](\d{1,2})[.\-/](\d{1,2})\s*(?:까지|마감)/;
   const m2 = cleaned.match(untilRegex);
-  if (m2) return `${m2[1]}-${m2[2].padStart(2, '0')}-${m2[3].padStart(2, '0')}`;
+  if (m2) {
+    const r = sanitize(m2[1], m2[2], m2[3]);
+    if (r) return r;
+  }
+
+  // 4) "...까지" 형식: 한국어
+  const untilKoreanRegex = /(\d{4})\s*년\s*(\d{1,2})\s*월\s*(\d{1,2})\s*일\s*(?:까지|마감)/;
+  const m2k = cleaned.match(untilKoreanRegex);
+  if (m2k) {
+    const r = sanitize(m2k[1], m2k[2], m2k[3]);
+    if (r) return r;
+  }
 
   return null;
 }
