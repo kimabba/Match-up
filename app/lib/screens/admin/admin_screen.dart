@@ -23,6 +23,11 @@ class _AdminScreenState extends ConsumerState<AdminScreen>
   List<Map<String, dynamic>> _drafts = [];
   bool _loadingDrafts = false;
 
+  // Phase 3: 일괄 승인/거부용 선택 상태 + 필터 chip.
+  final Set<String> _selectedDraftIds = {};
+  _DraftFilter _draftFilter = _DraftFilter.all;
+  bool _bulkActionInFlight = false;
+
   // Tab 2: crawl_sources DB rows + per-row toggle/delete pending flags
   List<CrawlSource> _sources = [];
   bool _loadingSources = false;
@@ -96,14 +101,16 @@ class _AdminScreenState extends ConsumerState<AdminScreen>
     if (_loadingDrafts) return;
     if (mounted) setState(() => _loadingDrafts = true);
     try {
-      final supabase = ref.read(supabaseProvider);
-      final rows = await supabase
-          .from('tournaments')
-          .select()
-          .eq('status', 'draft')
-          .order('created_at', ascending: false);
+      final api = ref.read(apiProvider);
+      // 023 마이그레이션의 tournament_review_queue view 사용 — 사용자 제보/크롤러 통합.
+      final rows = await api.tournamentReviewQueue();
       if (mounted) {
-        setState(() => _drafts = List<Map<String, dynamic>>.from(rows));
+        setState(() {
+          _drafts = rows;
+          // 이미 처리되어 사라진 id 는 선택 집합에서 제거.
+          final existing = rows.map((r) => r['id'] as String).toSet();
+          _selectedDraftIds.removeWhere((id) => !existing.contains(id));
+        });
       }
     } catch (e) {
       if (mounted) {
@@ -113,6 +120,145 @@ class _AdminScreenState extends ConsumerState<AdminScreen>
     } finally {
       if (mounted) setState(() => _loadingDrafts = false);
     }
+  }
+
+  /// 현재 필터에 매칭되는 draft 행만 반환. UI 렌더링과 "전체 선택" 모두 이 결과 사용.
+  List<Map<String, dynamic>> get _filteredDrafts {
+    switch (_draftFilter) {
+      case _DraftFilter.all:
+        return _drafts;
+      case _DraftFilter.crawler:
+        return _drafts
+            .where((r) => r['submission_kind'] == 'crawler')
+            .toList();
+      case _DraftFilter.user:
+        return _drafts
+            .where((r) => r['submission_kind'] == 'user')
+            .toList();
+    }
+  }
+
+  Future<void> _bulkApprove() async {
+    if (_selectedDraftIds.isEmpty || _bulkActionInFlight) return;
+    final ids = _selectedDraftIds.toList();
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('일괄 승인'),
+        content: Text('${ids.length}건을 일괄 승인할까요?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('취소'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('승인'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true) return;
+    if (mounted) setState(() => _bulkActionInFlight = true);
+    try {
+      final api = ref.read(apiProvider);
+      final affected = await api.bulkApproveTournaments(ids);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('승인 완료: $affected건')),
+        );
+        _selectedDraftIds.clear();
+      }
+      await _loadDrafts();
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('일괄 승인 실패: $e'),
+            backgroundColor: Colors.red.shade700,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _bulkActionInFlight = false);
+    }
+  }
+
+  Future<void> _bulkReject() async {
+    if (_selectedDraftIds.isEmpty || _bulkActionInFlight) return;
+    final reasonController = TextEditingController();
+    final ids = _selectedDraftIds.toList();
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('${ids.length}건 일괄 거부'),
+        content: TextField(
+          controller: reasonController,
+          decoration: const InputDecoration(
+            hintText: '거부 사유 (필수)',
+          ),
+          autofocus: true,
+          maxLines: 2,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('취소'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            style: FilledButton.styleFrom(backgroundColor: Colors.red),
+            child: const Text('거부'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true) return;
+    final reason = reasonController.text.trim();
+    if (reason.isEmpty) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('거부 사유는 필수입니다')),
+        );
+      }
+      return;
+    }
+    if (mounted) setState(() => _bulkActionInFlight = true);
+    try {
+      final api = ref.read(apiProvider);
+      final affected = await api.bulkRejectTournaments(ids, reason);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('거부 완료: $affected건')),
+        );
+        _selectedDraftIds.clear();
+      }
+      await _loadDrafts();
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('일괄 거부 실패: $e'),
+            backgroundColor: Colors.red.shade700,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _bulkActionInFlight = false);
+    }
+  }
+
+  void _toggleSelectAll(bool selectAll) {
+    setState(() {
+      if (selectAll) {
+        _selectedDraftIds
+            .addAll(_filteredDrafts.map((r) => r['id'] as String));
+      } else {
+        for (final r in _filteredDrafts) {
+          _selectedDraftIds.remove(r['id'] as String);
+        }
+      }
+    });
   }
 
   Future<void> _approve(String id) async {
@@ -421,55 +567,210 @@ class _AdminScreenState extends ConsumerState<AdminScreen>
     if (_loadingDrafts && _drafts.isEmpty) {
       return const Center(child: CircularProgressIndicator());
     }
-    if (_drafts.isEmpty) {
-      return const Center(child: Text('승인 대기 대회 없음'));
+
+    final filtered = _filteredDrafts;
+    // 현재 필터 결과 중 선택된 개수 — 헤더 표시와 전체선택 토글 상태 계산에 사용.
+    final visibleIds = filtered.map((r) => r['id'] as String).toSet();
+    final selectedInView = visibleIds.intersection(_selectedDraftIds).length;
+    final allSelected =
+        filtered.isNotEmpty && selectedInView == filtered.length;
+    final crawlerCount =
+        _drafts.where((r) => r['submission_kind'] == 'crawler').length;
+    final userCount =
+        _drafts.where((r) => r['submission_kind'] == 'user').length;
+
+    final header = Padding(
+      padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Wrap(
+            spacing: 8,
+            runSpacing: 4,
+            children: [
+              FilterChip(
+                label: Text('전체 (${_drafts.length})'),
+                selected: _draftFilter == _DraftFilter.all,
+                onSelected: (_) =>
+                    setState(() => _draftFilter = _DraftFilter.all),
+              ),
+              FilterChip(
+                label: Text('크롤러 ($crawlerCount)'),
+                selected: _draftFilter == _DraftFilter.crawler,
+                onSelected: (_) =>
+                    setState(() => _draftFilter = _DraftFilter.crawler),
+              ),
+              FilterChip(
+                label: Text('사용자 제보 ($userCount)'),
+                selected: _draftFilter == _DraftFilter.user,
+                onSelected: (_) =>
+                    setState(() => _draftFilter = _DraftFilter.user),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Checkbox(
+                value: allSelected,
+                tristate: true,
+                // tristate: 일부만 선택된 경우 null → 한 번 더 누르면 전체 선택.
+                onChanged: filtered.isEmpty
+                    ? null
+                    : (v) => _toggleSelectAll(v ?? true),
+              ),
+              Text(
+                '선택 $selectedInView / ${filtered.length}',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              const Spacer(),
+              FilledButton.icon(
+                onPressed:
+                    (_selectedDraftIds.isEmpty || _bulkActionInFlight)
+                        ? null
+                        : _bulkApprove,
+                icon: _bulkActionInFlight
+                    ? const SizedBox(
+                        width: 14,
+                        height: 14,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Icon(Icons.check),
+                label: const Text('일괄 승인'),
+              ),
+              const SizedBox(width: 8),
+              OutlinedButton.icon(
+                onPressed:
+                    (_selectedDraftIds.isEmpty || _bulkActionInFlight)
+                        ? null
+                        : _bulkReject,
+                icon: const Icon(Icons.close, color: Colors.red),
+                label: const Text(
+                  '일괄 거부',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+
+    if (filtered.isEmpty) {
+      return RefreshIndicator(
+        onRefresh: _loadDrafts,
+        child: ListView(
+          children: [
+            header,
+            const SizedBox(height: 80),
+            const Center(child: Text('승인 대기 대회 없음')),
+          ],
+        ),
+      );
     }
+
     return RefreshIndicator(
       onRefresh: _loadDrafts,
       child: ListView.separated(
-        padding: const EdgeInsets.all(12),
-        itemCount: _drafts.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 8),
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 12),
+        itemCount: filtered.length + 1,
+        separatorBuilder: (_, i) =>
+            i == 0 ? const SizedBox(height: 8) : const SizedBox(height: 8),
         itemBuilder: (_, i) {
-          final t = _drafts[i];
+          if (i == 0) return header;
+          final t = filtered[i - 1];
           final id = t['id'] as String;
           final title = t['title'] as String? ?? '(제목 없음)';
           final sport = t['sport'] as String? ?? '';
-          final date = t['start_date']?.toString().substring(0, 10) ?? '';
+          final startDate = t['start_date']?.toString() ?? '';
+          final date = startDate.length >= 10 ? startDate.substring(0, 10) : startDate;
           final region = t['region'] as String? ?? '';
           final sourceUrl = t['source_url'] as String? ?? '';
-          return Card(
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title,
-                      style: Theme.of(context).textTheme.titleMedium),
-                  const SizedBox(height: 4),
-                  Text('$sport · $date · $region',
-                      style: Theme.of(context).textTheme.bodySmall),
-                  if (sourceUrl.isNotEmpty) ...[
-                    const SizedBox(height: 2),
-                    Text(sourceUrl,
-                        style: Theme.of(context).textTheme.bodySmall,
-                        overflow: TextOverflow.ellipsis),
+          final source = t['source'] as String? ?? '';
+          final kind = t['submission_kind'] as String? ?? 'crawler';
+          final submitterEmail = t['submitted_by_email'] as String?;
+          final sourceLabel = kind == 'user'
+              ? (submitterEmail != null
+                  ? submitterEmail.split('@').first
+                  : 'user')
+              : source.isEmpty ? 'crawler' : source;
+          final selected = _selectedDraftIds.contains(id);
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(4, 8, 12, 12),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Checkbox(
+                      value: selected,
+                      onChanged: (v) {
+                        setState(() {
+                          if (v == true) {
+                            _selectedDraftIds.add(id);
+                          } else {
+                            _selectedDraftIds.remove(id);
+                          }
+                        });
+                      },
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              _SubmissionKindBadge(kind: kind),
+                              const SizedBox(width: 6),
+                              Expanded(
+                                child: Text(
+                                  sourceLabel,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(color: Colors.grey),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          Text(title,
+                              style:
+                                  Theme.of(context).textTheme.titleMedium),
+                          const SizedBox(height: 4),
+                          Text('$sport · $date · $region',
+                              style:
+                                  Theme.of(context).textTheme.bodySmall),
+                          if (sourceUrl.isNotEmpty) ...[
+                            const SizedBox(height: 2),
+                            Text(
+                              sourceUrl,
+                              style: Theme.of(context).textTheme.bodySmall,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                          const SizedBox(height: 8),
+                          Row(
+                            children: [
+                              FilledButton(
+                                onPressed: () => _approve(id),
+                                child: const Text('승인'),
+                              ),
+                              const SizedBox(width: 8),
+                              OutlinedButton(
+                                onPressed: () => _reject(id),
+                                child: const Text('거절'),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      FilledButton(
-                        onPressed: () => _approve(id),
-                        child: const Text('승인'),
-                      ),
-                      const SizedBox(width: 8),
-                      OutlinedButton(
-                        onPressed: () => _reject(id),
-                        child: const Text('거절'),
-                      ),
-                    ],
-                  ),
-                ],
+                ),
               ),
             ),
           );
@@ -674,6 +975,34 @@ class _SourceCard extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+// ── Phase 3: 검수 큐 필터 + submission_kind 배지 ─────────────────────────────
+
+enum _DraftFilter { all, crawler, user }
+
+class _SubmissionKindBadge extends StatelessWidget {
+  const _SubmissionKindBadge({required this.kind});
+  final String kind;
+
+  @override
+  Widget build(BuildContext context) {
+    final isUser = kind == 'user';
+    final color = isUser ? Colors.green.shade700 : Colors.blue.shade700;
+    final label = isUser ? '사용자 제보' : '크롤러';
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: color),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
       ),
     );
   }
