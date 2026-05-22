@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Match-up DB 설계 문서</title>
+<style>
+  :root {
+    --primary: #2563eb;
+    --primary-light: #dbeafe;
+    --success: #16a34a;
+    --success-light: #dcfce7;
+    --warning: #d97706;
+    --warning-light: #fef3c7;
+    --danger: #dc2626;
+    --danger-light: #fee2e2;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-900: #111827;
+    --radius: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: var(--gray-50); color: var(--gray-900); line-height: 1.6; }
+  a { color: var(--primary); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Layout */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  header { background: var(--primary); color: white; padding: 32px 0 24px; }
+  header h1 { font-size: 28px; font-weight: 700; }
+  header p { margin-top: 6px; opacity: .85; font-size: 14px; }
+  nav { background: white; border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 100; }
+  nav ul { display: flex; gap: 0; list-style: none; overflow-x: auto; }
+  nav a { display: block; padding: 12px 16px; font-size: 13px; color: var(--gray-700); white-space: nowrap; }
+  nav a:hover { background: var(--gray-50); color: var(--primary); text-decoration: none; }
+  main { padding: 32px 0 64px; }
+  section { margin-bottom: 48px; }
+  section + section { border-top: 2px solid var(--gray-200); padding-top: 48px; }
+
+  /* Typography */
+  h2 { font-size: 22px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; color: var(--gray-700); }
+  h4 { font-size: 14px; font-weight: 600; margin: 12px 0 6px; }
+
+  /* Cards */
+  .card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); margin-bottom: 20px; overflow: hidden; }
+  .card-header { background: var(--gray-100); padding: 12px 16px; display: flex; align-items: center; gap: 8px; }
+  .card-header h3 { margin: 0; font-size: 15px; }
+  .card-body { padding: 16px; }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--gray-100); padding: 8px 12px; text-align: left; font-weight: 600; border-bottom: 2px solid var(--gray-200); }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--gray-100); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--gray-50); }
+  code { font-family: 'SF Mono', 'Fira Code', monospace; background: var(--gray-100); padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+
+  /* Badges */
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .badge-pk   { background: #fef3c7; color: #92400e; }
+  .badge-fk   { background: #dbeafe; color: #1e40af; }
+  .badge-nn   { background: #dcfce7; color: #166534; }
+  .badge-idx  { background: #f3e8ff; color: #6b21a8; }
+  .badge-tbl  { background: var(--primary-light); color: var(--primary); }
+  .badge-enum { background: #fce7f3; color: #9d174d; }
+  .badge-rpc  { background: #ecfdf5; color: #065f46; }
+  .badge-todo { background: var(--warning-light); color: var(--warning); }
+  .badge-done { background: var(--success-light); color: var(--success); }
+  .badge-new  { background: var(--danger-light); color: var(--danger); }
+
+  /* Alert boxes */
+  .alert { padding: 12px 16px; border-radius: var(--radius); margin-bottom: 12px; font-size: 13px; }
+  .alert-warning { background: var(--warning-light); border-left: 4px solid var(--warning); }
+  .alert-info    { background: var(--primary-light); border-left: 4px solid var(--primary); }
+  .alert-success { background: var(--success-light); border-left: 4px solid var(--success); }
+  .alert-danger  { background: var(--danger-light);  border-left: 4px solid var(--danger); }
+  .alert strong  { display: block; margin-bottom: 4px; }
+
+  /* ERD Grid */
+  .erd-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .erd-box { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 14px 16px; }
+  .erd-box .title { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+  .erd-box ul { list-style: none; font-size: 12px; color: var(--gray-600); }
+  .erd-box li { padding: 2px 0; border-bottom: 1px dotted var(--gray-200); }
+  .erd-box li:last-child { border: none; }
+  .erd-box .pk { color: #92400e; font-weight: 600; }
+  .erd-box .fk { color: #1e40af; }
+
+  /* Migration timeline */
+  .timeline { position: relative; padding-left: 24px; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: var(--gray-200); }
+  .tl-item { position: relative; margin-bottom: 12px; }
+  .tl-item::before { content: ''; position: absolute; left: -20px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--primary); border: 2px solid white; box-shadow: 0 0 0 2px var(--primary); }
+  .tl-num { font-size: 11px; font-weight: 700; color: var(--primary); }
+  .tl-title { font-size: 13px; font-weight: 600; }
+  .tl-desc { font-size: 12px; color: var(--gray-600); margin-top: 2px; }
+
+  /* Pending changes */
+  .change-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px; background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); margin-bottom: 10px; }
+  .change-icon { font-size: 20px; flex-shrink: 0; }
+  .change-body h4 { font-size: 14px; font-weight: 600; margin: 0 0 4px; }
+  .change-body p { font-size: 13px; color: var(--gray-600); margin: 0; }
+  .change-body code { margin-top: 6px; display: inline-block; }
+
+  @media (max-width: 640px) {
+    header h1 { font-size: 20px; }
+    h2 { font-size: 18px; }
+    .erd-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1>Match-up — DB 설계 문서</h1>
+    <p>최종 업데이트: 2026-05-21 &nbsp;·&nbsp; Migration: 001~024 (24개) &nbsp;·&nbsp; 테이블: 14개 &nbsp;·&nbsp; RLS: 전체 ON</p>
+  </div>
+</header>
+
+<nav>
+  <div class="container">
+    <ul>
+      <li><a href="#overview">개요</a></li>
+      <li><a href="#enums">Enum</a></li>
+      <li><a href="#users">사용자</a></li>
+      <li><a href="#tournaments">대회</a></li>
+      <li><a href="#clubs">클럽</a></li>
+      <li><a href="#chat">챗봇</a></li>
+      <li><a href="#notifications">알림</a></li>
+      <li><a href="#crawl">크롤</a></li>
+      <li><a href="#ai">AI 인프라</a></li>
+      <li><a href="#rls">RLS 정책</a></li>
+      <li><a href="#rpcs">RPC 목록</a></li>
+      <li><a href="#migrations">Migration 이력</a></li>
+      <li><a href="#pending">변경 예정</a></li>
+      <li><a href="#futsal">풋살 리서치</a></li>
+      <li><a href="#discussion">팀 논의 필요</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+<div class="container">
+
+<!-- ===== 개요 ===== -->
+<section id="overview">
+  <h2>📐 개요 &amp; 설계 원칙</h2>
+  <div class="alert alert-info">
+    <strong>앱 소개</strong>
+    Match-up은 테니스·풋살 동호인을 위한 대회 정보, 클럽 검색, AI 챗봇 앱입니다.
+    사용자 한 명이 여러 종목에 등록할 수 있으며, 종목별로 별도의 등급·협회를 관리합니다.
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+    <div class="alert alert-success" style="margin:0">
+      <strong>설계 원칙</strong>
+      <ul style="margin-top:6px;padding-left:16px;font-size:13px;">
+        <li>모든 테이블 RLS ON — 서버가 권한의 진실</li>
+        <li>sport 컬럼으로 종목 구분 (테이블명에 종목명 없음)</li>
+        <li>UUID v7 (시간순 정렬 가능) — crawl_sources 부터 적용</li>
+        <li>pgvector 768차원 — Gemini embedding-001 기준</li>
+        <li>No TypeScript <code>any</code>, No Dart <code>dynamic</code></li>
+      </ul>
+    </div>
+    <div class="alert alert-warning" style="margin:0">
+      <strong>확정된 설계 결정</strong>
+      <ul style="margin-top:6px;padding-left:16px;font-size:13px;">
+        <li>카카오 로그인 — 이메일 필수 (NOT NULL 유지)</li>
+        <li>한 사용자 N개 종목 가능 (user_sports)</li>
+        <li>한 사용자 N개 클럽 가입 가능 (club_memberships 예정)</li>
+        <li>종목별 활동 지역 별도 관리 (user_sports.region_code 예정)</li>
+        <li>관리자 승인 없이 클럽 등록 불가 (현재 정책 유지)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Extensions</h3>
+  <table>
+    <tr><th>Extension</th><th>용도</th></tr>
+    <tr><td><code>vector</code></td><td>pgvector — 임베딩 저장 및 HNSW 인덱스</td></tr>
+    <tr><td><code>pg_cron</code></td><td>크롤 스케줄 (매일 21:00 KST)</td></tr>
+    <tr><td><code>pgcrypto</code></td><td>UUID v7 생성 함수 의존</td></tr>
+    <tr><td><code>pg_net</code></td><td>Edge Function HTTP 호출 (pg_cron → dispatcher)</td></tr>
+    <tr><td><code>http</code></td><td>부가 HTTP 유틸</td></tr>
+    <tr><td><code>pg_stat_statements</code></td><td>쿼리 성능 모니터링</td></tr>
+  </table>
+</section>
+
+<!-- ===== ENUM ===== -->
+<section id="enums">
+  <h2>🏷️ Enum 타입</h2>
+  <div class="card">
+    <div class="card-header"><span class="badge badge-enum">enum</span><h3>sport</h3></div>
+    <div class="card-body">
+      <table>
+        <tr><th>값</th><th>설명</th></tr>
+        <tr><td><code>tennis</code></td><td>테니스</td></tr>
+        <tr><td><code>futsal</code></td><td>풋살</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-enum">enum</span><h3>user_role</h3></div>
+    <div class="card-body">
+      <table>
+        <tr><th>값</th><th>설명</th></tr>
+        <tr><td><code>user</code></td><td>일반 사용자 (기본값)</td></tr>
+        <tr><td><code>admin</code></td><td>관리자 — 대회 승인, 크롤 관리, 사용자 관리 가능</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-enum">enum</span><h3>tournament_status</h3></div>
+    <div class="card-body">
+      <table>
+        <tr><th>값</th><th>설명</th></tr>
+        <tr><td><code>draft</code></td><td>크롤러/사용자 제보 → 검수 대기 중</td></tr>
+        <tr><td><code>published</code></td><td>관리자 승인 → 사용자에게 노출</td></tr>
+        <tr><td><code>closed</code></td><td>마감된 대회 (과거 published)</td></tr>
+        <tr><td><code>rejected</code></td><td>검수 거부 (migration 022에서 추가)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-enum">enum</span><h3>tennis_org (테니스 협회)</h3></div>
+    <div class="card-body">
+      <table>
+        <tr><th>값</th><th>설명</th></tr>
+        <tr><td><code>kta</code></td><td>대한테니스협회 (통합)</td></tr>
+        <tr><td><code>kato</code></td><td>한국테니스발전협의회</td></tr>
+        <tr><td><code>kata</code></td><td>한국동호인테니스협회</td></tr>
+        <tr><td><code>ktfs</code></td><td>국민생활체육 전국테니스연합회</td></tr>
+        <tr><td><code>kstf</code></td><td>한국시니어테니스연맹 (60+)</td></tr>
+        <tr><td><code>kssta</code></td><td>한국슈퍼시니어테니스협회</td></tr>
+        <tr><td><code>kasta</code></td><td>단식협회 (단테매)</td></tr>
+        <tr><td><code>gj</code></td><td>광주광역시테니스협회 (2026 분리)</td></tr>
+        <tr><td><code>jn</code></td><td>전라남도테니스협회 (2026 분리)</td></tr>
+        <tr><td><code>local</code></td><td>시·군 단위 또는 클럽 자체</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div class="card" style="margin:0">
+      <div class="card-header"><span class="badge badge-enum">enum</span><h3>chat_role</h3></div>
+      <div class="card-body">
+        <code>user</code> · <code>assistant</code>
+      </div>
+    </div>
+    <div class="card" style="margin:0">
+      <div class="card-header"><span class="badge badge-enum">enum</span><h3>device_platform</h3></div>
+      <div class="card-body">
+        <code>ios</code> · <code>android</code> · <code>web</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 사용자 ===== -->
+<section id="users">
+  <h2>👤 사용자 도메인</h2>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-tbl">table</span><h3>users</h3><small style="margin-left:auto;color:#6b7280">auth.users 미러 · migration 002</small></div>
+    <div class="card-body">
+      <table>
+        <tr><th>컬럼</th><th>타입</th><th>제약</th><th>설명</th></tr>
+        <tr><td><code>id</code></td><td>uuid</td><td><span class="badge badge-pk">PK</span></td><td>auth.users(id) 참조</td></tr>
+        <tr><td><code>email</code></td><td>text</td><td>NOT NULL</td><td>소셜 로그인도 이메일 필수 (카카오 정책)</td></tr>
+        <tr><td><code>display_name</code></td><td>text</td><td>nullable</td><td>닉네임 (미설정 시 이메일 앞부분)</td></tr>
+        <tr><td><code>role</code></td><td>user_role</td><td>NOT NULL, default user</td><td>관리자만 변경 가능 (트리거 보호)</td></tr>
+        <tr><td><code>created_at</code></td><td>timestamptz</td><td>NOT NULL</td><td></td></tr>
+        <tr><td><code>updated_at</code></td><td>timestamptz</td><td>NOT NULL</td><td>트리거 자동 갱신</td></tr>
+      </table>
+      <div class="alert alert-info" style="margin-top:12px">
+        <strong>트리거</strong>
+        <code>on_auth_user_created</code> — auth.users INSERT 시 자동으로 public.users 행 생성 (handle_new_user)
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-tbl">table</span><h3>user_sports</h3><small style="margin-left:auto;color:#6b7280">종목별 등급 · migration 002, 010</small></div>
+    <div class="card-body">
+      <table>
+        <tr><th>컬럼</th><th>타입</th><th>제약</th><th>설명</th></tr>
+        <tr><td><code>user_id</code></td><td>uuid</td><td><span class="badge badge-pk">PK</span> <span class="badge badge-fk">FK</span></td><td>users(id) ON DELETE CASCADE</td></tr>
+        <tr><td><code>sport</code></td><td>sport</td><td><span class="badge badge-pk">PK</span></td><td>복합 PK (user_id, sport)</td></tr>
+        <tr><td><code>grade</code></td><td>text</td><td>NOT NULL, CHECK</td><td>테니스: under1y·y1to3·y3to5·over5y<br>풋살: beginner·intermediate·advanced</td></tr>
+        <tr><td><code>is_primary</code></td><td>boolean</td><td>NOT NULL, default false</td><td>앱의 활성 종목 필터 기준 (1개만 true)</td></tr>
+        <tr><td><code>created_at</code></td><td>timestamptz</td><td>NOT NULL</td><td></td></tr>
+      </table>
+      <div class="alert alert-warning" style="margin-top:12px">
+        <strong>변경 예정</strong>
+        <code>region_code text REFERENCES regions(code)</code> 컬럼 추가 — 종목별 활동 지역을 별도로 관리
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-tbl">table</span><h3>user_tennis_orgs</h3><small style="margin-left:auto;color:#6b7280">테니스 협회 다중 등록 · migration 009</small></div>
+    <div class="card-body">
+      <table>
+        <tr><th>컬럼</th><th>타입</th><th>제약</th><th>설명</th></tr>
+        <tr><td><code>user_id</code></td><td>uuid</td><td><span class="badge badge-pk">PK</span> <span class="badge badge-fk">FK</span></td><td>users(id)</td></tr>
+        <tr><td><code>org</code></td><td>tennis_org</td><td><span class="badge badge-pk">PK</span></td><td>복합 PK (user_id, org)</td></tr>
+        <tr><td><code>division_local</code></td><td>text</td><td>nullable</td><td>'골드부', 'KATO 챌린저부' 등 자유 텍스트</td></tr>
+        <tr><td><code>score</code></td><td>numeric(3,1)</td><td>0~10</td><td>협회 점수제 (nullable)</td></tr>
+        <tr><td><code>expires_at</code></td><td>date</td><td>nullable</td><td>등록 만료일</td></tr>
+        <tr><td><code>is_primary</code></td><td>boolean</td><td>NOT NULL</td><td>주요 협회 1개</td></tr>
+        <tr><td><code>region_code</code></td><td>text</td><td><span class="badge badge-fk">FK</span></td><td>regions(code) — 협회별 활동 지역</td></tr>
+        <tr><td><code>updated_at</code></td><td>timestamptz</td><td>NOT NULL</td><td>트리거 자동 갱신</td></tr>
+      </table>
+      <div class="alert alert-warning" style="margin-top:12px">
+        <strong>재검토 예정</strong>
+        user_sports에 region_code가 추가되면 user_tennis_orgs의 역할 재정의 필요.
+        테니스 전용 테이블이므로 풋살 확장 시 별도 검토.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-tbl">table</span><h3>regions</h3><small style="margin-left:auto;color:#6b7280">권역 마스터 · migration 009</small></div>
+    <div class="card-body">
+      <table>
+        <tr><th>컬럼</th><th>타입</th><th>제약</th><th>설명</th></tr>
+        <tr><td><code>code</code></td><td>text</td><td><span class="badge badge-pk">PK</span></td><td>예: 'gwangju', 'jeonnam'</td></tr>
+        <tr><td><code>display_name_ko</code></td><td>text</td><td>NOT NULL</td><td>예: '광주', '전라남도'</td></tr>
+        <tr><td><code>governing_associations</code></td><td>text[]</td><td></td><td>해당 권역 관할 협회</td></tr>
+        <tr><td><code>uses_kato</code></td><td>boolean</td><td>NOT NULL</td><td>KATO 사용 여부</td></tr>
+        <tr><td><code>uses_kata</code></td><td>boolean</td><td>NOT NULL</td><td>KATA 사용 여부</td></tr>
+        <tr><td><code>notes</code></td><td>text</td><td>nullable</td><td>광주/전남 2026 분리 등 특이사항</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 대회 ===== -->
+<section id="tournaments">
+  <h2>🏆 대회 도메인</h2>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-tbl">table</span><h3>tournaments</h3><small style="margin-left:auto;color:#6b7280">migration 003, 009, 016, 018, 022</small></div>
+    <div class="card-body">
+      <table>
+        <tr><th>컬럼</th><th>타입</th><th>제약</th><th>설명</th></tr>
+        <tr><td><code>id</code></td><td>uuid</td><td><span class="badge badge-pk">PK</span></td><td>gen_random_uuid()</td></tr>
+        <tr><td><code>sport</code></td><td>sport</td><td>NOT NULL</td><td>tennis | futsal</td></tr>
+        <tr><td><code>title</code></td><td>text</td><td>NOT NULL</td><td>대회명</td></tr>
+        <tr><td><code>organizer</code></td><td>text</td><td>nullable</td><td>주최 기관명</td></tr>
+        <tr><td><code>description</code></td><td>text</td><td>nullable</td><td>대회 설명</td></tr>
+        <tr><td><code>start_date</code></td><td>date</td><td>NOT NULL</td><td>대회 시작일</td></tr>
+        <tr><td><code>end_date</code></td><td>date</td><td>nullable</td><td>대회 종료일</td></tr>
+        <tr><td><code>application_deadline</code></td><td>date</td><td>nullable</td><td>접수 마감일</td></tr>
+        <tr><td><code>region</code></td><td>text</td><td>nullable</td><td>시·도 단위 (예: "광주", "전남")</td></tr>
+        <tr><td><code>region_code</code></td><td>text</td><td><span class="badge badge-fk">FK</span></td><td>regions(code) — 구조화된 권역 코드</td></tr>
+        <tr><td><code>location</code></td><td>text</td><td>nullable</td><td>상세 장소</td></tr>
+        <tr><td><code>eligible_grades</code></td><td>text[]</td><td>NOT NULL</td><td>출전 가능 등급 배열 (GIN 인덱스)</td></tr>
+        <tr><td><code>entry_fee</code></td><td>integer</td><td>nullable</td><td>참가비 (원)</td></tr>
+        <tr><td><code>entry_fee_unit</code></td><td>text</td><td>per_team|per_person</td><td>참가비 단위</td></tr>
+        <tr><td><code>prize</code></td><td>text</td><td>nullable</td><td>시상 내용</td></tr>
+        <tr><td><code>format</code></td><td>text</td><td>nullable</td><td>단·복식, 토너먼트, 리그 등</td></tr>
+        <tr><td><code>source_url</code></td><td>text</td><td>nullable, UNIQUE</td><td>크롤 원본 URL (source와 복합 유니크)</td></tr>
+        <tr><td><code>source</code></td><td>text</td><td>nullable</td><td>'manual' | 'crawl-tennis-gwangju' | 'user_submission' 등</td></tr>
+        <tr><td><code>status</code></td><td>tournament_status</td><td>NOT NULL, default draft</td><td>draft→published→closed|rejected</td></tr>
+        <tr><td><code>submitted_by</code></td><td>uuid</td><td><span class="badge badge-fk">FK</span></td><td>사용자 제보자 (nullable)</td></tr>
+        <tr><td><code>approved_by</code></td><td>uuid</td><td><span class="badge badge-fk">FK</span></td><td>승인 관리자 (nullable)</td></tr>
+        <tr><td><code>approved_at</code></td><td>timestamptz</td><td>nullable</td><td></td></tr>
+        <tr><td><code>rejection_reason</code></td><td>text</td><td>nullable</td><td>검수 거부 사유</td></tr>
+        <tr><td><code>host_associations</code></td><td>text[]</td><td>NOT NULL, default {}</td><td>주최 협회명 배열</td></tr>
+        <tr><td><code>host_orgs</code></td><td>tennis_org[]</td><td>NOT NULL, default {}</td><td>주최 협회 enum 배열 (GIN 인덱스)</td></tr>
+        <tr><td><code>division_label_local</code></td><td>text</td><td>nullable</td><td>자유 부서명</td></tr>
+        <tr><td><code>division_kta_standard</code></td><td>text</td><td>nullable</td><td>KTA 표준 부서명</td></tr>
+        <tr><td><code>is_joint_event</code></td><td>boolean</td><td>NOT NULL, false</td><td>합동 대회 여부</td></tr>
+        <tr><td><code>embedding</code></td><td>vector(768)</td><td>nullable</td><td>Gemini 임베딩 (HNSW 인덱스)</td></tr>
+        <tr><td><code>embedding_updated_at</code></td><td>timestamptz</td><td>nullable</td><td>title/desc/region 변경 시 null로 무효화</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-tbl">table</span><h3>tournament_favorites</h3><small style="margin-left:auto;color:#6b7280">migration 003</small></div>
+    <div class="card-body">
+      <table>
+        <tr><th>컬럼</th><th>타입</th><th>제약</th><th>설명</th></tr>
+        <tr><td><code>user_id</code></td><td>uuid</td><td><span class="badge badge-pk">PK</span> <span class="badge badge-fk">FK</span></td><td>users(id) ON DELETE CASCADE</td></tr>
+        <tr><td><code>tournament_id</code></td><td>uuid</td><td><span class="badge badge-pk">PK</span> <span class="badge badge-fk">FK</span></td><td>tournaments(id) ON DELETE CASCADE</td></tr>
+        <tr><td><code>created_at</code></td><td>timestamptz</td><td>NOT NULL</td><td></td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 클럽 ===== -->
+<section id="clubs">
+  <h2>🏟️ 클럽 도메인</h2>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-tbl">table</span><h3>clubs</h3><small style="margin-left:auto;color:#6b7280">migration 004</small></div>
+    <div class="card-body">
+      <table>
+        <tr><th>컬럼</th><th>타입</th><th>제약</th><th>설명</th></tr>
+        <tr><td><code>id</code></td><td>uuid</td><td><span class="badge badge-pk">PK</span></td><td></td></tr>
+        <tr><td><code>sport</code></td><td>sport</td><td>NOT NULL</td><td></td></tr>
+        <tr><td><code>name</code></td><td>text</td><td>NOT NULL</td><td>클럽명</td></tr>
+        <tr><td><code>region</code></td><td>text</td><td>nullable</td><td>시·도</td></tr>
+        <tr><td><code>address</code></td><td>text</td><td>nullable</td><td>상세 주소</td></tr>
+        <tr><td><code>contact</code></td><td>text</td><td>nullable</td><td>전화/카톡/오픈채팅</td></tr>
+        <tr><td><code>website</code></td><td>text</td><td>nullable</td><td></td></tr>
+        <tr><td><code>description</code></td><td>text</td><td>nullable</td><td></td></tr>
+        <tr><td><code>active</code></td><td>boolean</td><td>NOT NULL, true</td><td>비활성화 시 목록 미노출</td></tr>
+        <tr><td><code>created_by</code></td><td>uuid</td><td><span class="badge badge-fk">FK</span></td><td>등록 관리자</td></tr>
+        <tr><td><code>created_at / updated_at</code></td><td>timestamptz</td><td>NOT NULL</td><td></td></tr>
+      </table>
+      <div class="alert alert-danger" style="margin-top:12px">
+        <strong>신규 테이블 필요 — club_memberships</strong>
+        현재 클럽은 디렉토리 전용 (관리자만 등록). 사용자 가입·탈퇴·역할 관리를 위해
+        <code>club_memberships</code> 테이블 추가 필요. 아래 "변경 예정" 섹션 참조.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 챗봇 ===== -->
+<section id="chat">
+  <h2>💬 챗봇 도메인</h2>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-tbl">table</span><h3>chat_messages</h3><small style="margin-left:auto;color:#6b7280">영구 대화 이력 · migration 005</small></div>
+    <div class="card-body">
+      <table>
+        <tr><th>컬럼</th><th>타입</th><th>제약</th><th>설명</th></tr>
+        <tr><td><code>id</code></td><td>uuid</td><td><span class="badge badge-pk">PK</span></td><td></td></tr>
+        <tr><td><code>user_id</code></td><td>uuid</td><td>NOT NULL <span class="badge badge-fk">FK</span></td><td>users(id) ON DELETE CASCADE</td></tr>
+        <tr><td><code>conversation_id</code></td><td>uuid</td><td>NOT NULL</td><td>대화 단위 묶음 (클라이언트 생성)</td></tr>
+        <tr><td><code>role</code></td><td>chat_role</td><td>NOT NULL</td><td>user | assistant</td></tr>
+        <tr><td><code>content</code></td><td>text</td><td>NOT NULL</td><td>메시지 본문</td></tr>
+        <tr><td><code>citations</code></td><td>jsonb</td><td>NOT NULL, []</td><td>[{type, id?, url?, title?}] — DB/웹 출처</td></tr>
+        <tr><td><code>metadata</code></td><td>jsonb</td><td>NOT NULL, {}</td><td>intent, model 등 메타정보</td></tr>
+        <tr><td><code>created_at</code></td><td>timestamptz</td><td>NOT NULL</td><td></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-tbl">table</span><h3>rule_articles</h3><small style="margin-left:auto;color:#6b7280">룰북 콘텐츠 · migration 005</small></div>
+    <div class="card-body">
+      <table>
+        <tr><th>컬럼</th><th>타입</th><th>제약</th><th>설명</th></tr>
+        <tr><td><code>id</code></td><td>uuid</td><td><span class="badge badge-pk">PK</span></td><td></td></tr>
+        <tr><td><code>sport</code></td><td>sport</td><td>NOT NULL</td><td>종목별 룰북</td></tr>
+        <tr><td><code>category</code></td><td>text</td><td>NOT NULL</td><td>'서브', '발리', '라인' 등</td></tr>
+        <tr><td><code>title</code></td><td>text</td><td>NOT NULL</td><td></td></tr>
+        <tr><td><code>body</code></td><td>text</td><td>NOT NULL</td><td>Markdown 본문</td></tr>
+        <tr><td><code>order_idx</code></td><td>integer</td><td>NOT NULL, 0</td><td>카테고리 내 정렬 순서</td></tr>
+        <tr><td><code>published</code></td><td>boolean</td><td>NOT NULL, true</td><td></td></tr>
+        <tr><td><code>embedding</code></td><td>vector(768)</td><td>nullable</td><td>의미 기반 검색용 (HNSW)</td></tr>
+        <tr><td><code>embedding_updated_at</code></td><td>timestamptz</td><td>nullable</td><td></td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 알림 ===== -->
+<section id="notifications">
+  <h2>🔔 알림 도메인</h2>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-tbl">table</span><h3>device_tokens</h3><small style="margin-left:auto;color:#6b7280">FCM 토큰 · migration 006</small></div>
+    <div class="card-body">
+      <table>
+        <tr><th>컬럼</th><th>타입</th><th>제약</th><th>설명</th></tr>
+        <tr><td><code>user_id</code></td><td>uuid</td><td><span class="badge badge-pk">PK</span> <span class="badge badge-fk">FK</span></td><td></td></tr>
+        <tr><td><code>token</code></td><td>text</td><td><span class="badge badge-pk">PK</span></td><td>FCM 디바이스 토큰</td></tr>
+        <tr><td><code>platform</code></td><td>device_platform</td><td>NOT NULL</td><td>ios | android | web</td></tr>
+        <tr><td><code>enabled</code></td><td>boolean</td><td>NOT NULL, true</td><td>알림 수신 동의 여부</td></tr>
+        <tr><td><code>updated_at</code></td><td>timestamptz</td><td>NOT NULL</td><td></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-tbl">table</span><h3>notifications_log</h3><small style="margin-left:auto;color:#6b7280">발송 이력 · migration 006</small></div>
+    <div class="card-body">
+      <table>
+        <tr><th>컬럼</th><th>타입</th><th>제약</th><th>설명</th></tr>
+        <tr><td><code>id</code></td><td>uuid</td><td><span class="badge badge-pk">PK</span></td><td></td></tr>
+        <tr><td><code>user_id</code></td><td>uuid</td><td>NOT NULL <span class="badge badge-fk">FK</span></td><td></td></tr>
+        <tr><td><code>tournament_id</code></td><td>uuid</td><td>NOT NULL <span class="badge badge-fk">FK</span></td><td></td></tr>
+        <tr><td><code>type</code></td><td>notification_type</td><td>NOT NULL</td><td>d_minus_3 | deadline</td></tr>
+        <tr><td><code>status</code></td><td>notification_status</td><td>NOT NULL, pending</td><td>pending | sent | failed</td></tr>
+        <tr><td><code>error</code></td><td>text</td><td>nullable</td><td>발송 실패 사유</td></tr>
+        <tr><td><code>sent_at</code></td><td>timestamptz</td><td>nullable</td><td></td></tr>
+      </table>
+      <div class="alert alert-info" style="margin-top:12px">
+        <strong>중복 방지</strong>
+        UNIQUE(user_id, tournament_id, type) 인덱스로 같은 알림 중복 발송 차단
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 크롤 ===== -->
+<section id="crawl">
+  <h2>🕷️ 크롤 인프라</h2>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-tbl">table</span><h3>crawl_sources</h3><small style="margin-left:auto;color:#6b7280">크롤 소스 관리 · migration 019, 020, 021, 024</small></div>
+    <div class="card-body">
+      <table>
+        <tr><th>컬럼</th><th>타입</th><th>제약</th><th>설명</th></tr>
+        <tr><td><code>id</code></td><td>uuid</td><td><span class="badge badge-pk">PK</span></td><td>UUID v7 (시간순 정렬)</td></tr>
+        <tr><td><code>name</code></td><td>text</td><td>NOT NULL</td><td>예: "광주테니스협회 게시판"</td></tr>
+        <tr><td><code>slug</code></td><td>text</td><td>NOT NULL UNIQUE</td><td>dispatcher 파서 매핑 키 (예: "tennis-gwangju")</td></tr>
+        <tr><td><code>url</code></td><td>text</td><td>NOT NULL</td><td>크롤 대상 목록 URL</td></tr>
+        <tr><td><code>sport</code></td><td>text</td><td>nullable</td><td>'tennis' | 'futsal' | NULL</td></tr>
+        <tr><td><code>region</code></td><td>text</td><td>nullable</td><td>'광주' | '전남' | NULL(전국)</td></tr>
+        <tr><td><code>source_type</code></td><td>crawl_source_type</td><td>NOT NULL, board</td><td>board | rss | json_api | sitemap</td></tr>
+        <tr><td><code>parser_module</code></td><td>text</td><td>NOT NULL</td><td>dispatcher 파서 키</td></tr>
+        <tr><td><code>schedule_cron</code></td><td>text</td><td>NOT NULL</td><td>pg_cron 표현식</td></tr>
+        <tr><td><code>enabled</code></td><td>boolean</td><td>NOT NULL, true</td><td>어드민에서 토글</td></tr>
+        <tr><td><code>last_crawled_at</code></td><td>timestamptz</td><td>nullable</td><td>dispatcher 갱신</td></tr>
+        <tr><td><code>last_status</code></td><td>text</td><td>nullable</td><td>'ok' | 'error' | 'no_change'</td></tr>
+        <tr><td><code>last_error</code></td><td>text</td><td>nullable</td><td></td></tr>
+        <tr><td><code>last_fetched_count</code></td><td>int</td><td>nullable</td><td>마지막 크롤 수집 건수</td></tr>
+        <tr><td><code>last_etag</code></td><td>text</td><td>nullable</td><td>HTTP ETag 변경 감지</td></tr>
+        <tr><td><code>last_modified</code></td><td>text</td><td>nullable</td><td>HTTP Last-Modified 헤더</td></tr>
+        <tr><td><code>notes</code></td><td>text</td><td>nullable</td><td>운영 메모</td></tr>
+      </table>
+      <h4 style="margin-top:12px">현재 등록된 소스</h4>
+      <table>
+        <tr><th>slug</th><th>이름</th><th>지역</th><th>상태</th></tr>
+        <tr><td><code>tennis-gwangju</code></td><td>광주테니스협회</td><td>광주</td><td><span class="badge badge-done">enabled</span></td></tr>
+        <tr><td><code>tennis-jeonnam</code></td><td>전남테니스협회</td><td>전남</td><td><span class="badge badge-done">enabled</span></td></tr>
+        <tr><td><code>tennis-korea</code></td><td>한국테니스협회</td><td>전국</td><td><span class="badge badge-todo">disabled</span></td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== AI 인프라 ===== -->
+<section id="ai">
+  <h2>🤖 AI 인프라</h2>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-tbl">table</span><h3>qa_cache</h3><small style="margin-left:auto;color:#6b7280">시맨틱 Q&amp;A 캐시 · migration 013</small></div>
+    <div class="card-body">
+      <div class="alert alert-info" style="margin-bottom:12px">
+        사용자 채팅 질문을 임베딩으로 캐싱. 동일·유사 질문에 LLM 호출 없이 응답.
+        <strong>service_role 전용</strong> (Edge Function만 접근).
+      </div>
+      <table>
+        <tr><th>컬럼</th><th>타입</th><th>설명</th></tr>
+        <tr><td><code>question_embedding</code></td><td>vector(768)</td><td>Gemini embedding-001 기준</td></tr>
+        <tr><td><code>answer_text</code></td><td>text</td><td>캐시된 응답</td></tr>
+        <tr><td><code>citations</code></td><td>jsonb</td><td>DB/웹 출처 배열</td></tr>
+        <tr><td><code>user_context_hash</code></td><td>text</td><td>SHA-256(종목+협회) — 컨텍스트별 캐시 격리</td></tr>
+        <tr><td><code>hit_count</code></td><td>int</td><td>캐시 히트 횟수</td></tr>
+        <tr><td><code>ttl_expires_at</code></td><td>timestamptz</td><td>기본 24시간 TTL</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="badge badge-tbl">table</span><h3>intent_examples</h3><small style="margin-left:auto;color:#6b7280">챗봇 의도 분류 예시 · migration 014</small></div>
+    <div class="card-body">
+      <div class="alert alert-warning" style="margin-bottom:12px">
+        현재 0건 — 시드 실행 필요. 룰 기반 1차 분류만 동작 중.
+      </div>
+      <table>
+        <tr><th>컬럼</th><th>타입</th><th>설명</th></tr>
+        <tr><td><code>intent</code></td><td>text CHECK</td><td>tournament_search | tournament_detail | club_search | rule_lookup | match_schedule | my_profile | free_chat</td></tr>
+        <tr><td><code>example_text</code></td><td>text</td><td>예시 질문 원본</td></tr>
+        <tr><td><code>embedding</code></td><td>vector(768)</td><td>HNSW cosine 인덱스</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RLS ===== -->
+<section id="rls">
+  <h2>🔒 RLS 정책 요약</h2>
+  <table>
+    <tr><th>테이블</th><th>일반 사용자</th><th>관리자</th><th>service_role</th></tr>
+    <tr><td><code>users</code></td><td>본인 SELECT/UPDATE</td><td>전체</td><td>–</td></tr>
+    <tr><td><code>user_sports</code></td><td>본인 전체</td><td>전체</td><td>–</td></tr>
+    <tr><td><code>user_tennis_orgs</code></td><td>본인 전체</td><td>전체</td><td>–</td></tr>
+    <tr><td><code>regions</code></td><td>SELECT</td><td>전체</td><td>–</td></tr>
+    <tr><td><code>tournaments</code></td><td>published SELECT + 본인 draft</td><td>전체</td><td>–</td></tr>
+    <tr><td><code>tournament_favorites</code></td><td>본인 전체</td><td>SELECT</td><td>–</td></tr>
+    <tr><td><code>clubs</code></td><td>active SELECT</td><td>전체</td><td>–</td></tr>
+    <tr><td><code>chat_messages</code></td><td>본인 전체</td><td>SELECT</td><td>–</td></tr>
+    <tr><td><code>rule_articles</code></td><td>published SELECT</td><td>전체</td><td>–</td></tr>
+    <tr><td><code>device_tokens</code></td><td>본인 전체</td><td>SELECT</td><td>–</td></tr>
+    <tr><td><code>notifications_log</code></td><td>본인 SELECT</td><td>전체</td><td>–</td></tr>
+    <tr><td><code>crawl_sources</code></td><td>차단</td><td>전체</td><td>전체</td></tr>
+    <tr><td><code>qa_cache</code></td><td>차단</td><td>차단</td><td>전체</td></tr>
+    <tr><td><code>intent_examples</code></td><td>차단</td><td>차단</td><td>전체</td></tr>
+  </table>
+</section>
+
+<!-- ===== RPC ===== -->
+<section id="rpcs">
+  <h2>⚡ RPC 목록</h2>
+  <table>
+    <tr><th>함수명</th><th>권한</th><th>설명</th></tr>
+    <tr><td><code>is_admin()</code></td><td>SECURITY DEFINER</td><td>현재 사용자 관리자 여부 (RLS 재귀 방지)</td></tr>
+    <tr><td><code>handle_new_user()</code></td><td>SECURITY DEFINER</td><td>auth.users INSERT → public.users 자동 생성</td></tr>
+    <tr><td><code>touch_updated_at()</code></td><td>트리거 함수</td><td>updated_at 자동 갱신 (공통)</td></tr>
+    <tr><td><code>tournaments_for_user()</code></td><td>authenticated</td><td>사용자 등급 기준 출전 가능 대회 조회 (필터 다수)</td></tr>
+    <tr><td><code>tournaments_semantic_search()</code></td><td>authenticated</td><td>pgvector cosine 의미 기반 대회 검색</td></tr>
+    <tr><td><code>rules_semantic_search()</code></td><td>authenticated</td><td>룰북 의미 기반 검색</td></tr>
+    <tr><td><code>qa_cache_lookup()</code></td><td>service_role</td><td>시맨틱 캐시 조회 (similarity ≥ threshold)</td></tr>
+    <tr><td><code>qa_cache_insert_if_absent()</code></td><td>service_role</td><td>캐시 race-safe INSERT</td></tr>
+    <tr><td><code>intent_classify()</code></td><td>service_role</td><td>K-NN 다수결 의도 분류</td></tr>
+    <tr><td><code>ensure_profile()</code></td><td>authenticated</td><td>온보딩 후 프로필 보장 (migration 011)</td></tr>
+    <tr><td><code>uuid_generate_v7()</code></td><td>public</td><td>시간순 정렬 가능한 UUID v7 생성</td></tr>
+  </table>
+</section>
+
+<!-- ===== Migration 이력 ===== -->
+<section id="migrations">
+  <h2>📋 Migration 이력</h2>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-num">001</div><div class="tl-title">Extensions</div><div class="tl-desc">vector, pg_cron, pgcrypto, http, pg_net, pg_stat_statements</div></div>
+    <div class="tl-item"><div class="tl-num">002</div><div class="tl-title">users + user_sports</div><div class="tl-desc">sport/user_role enum, 사용자 테이블, 종목별 등급, handle_new_user 트리거</div></div>
+    <div class="tl-item"><div class="tl-num">003</div><div class="tl-title">tournaments + favorites</div><div class="tl-desc">대회 테이블, 즐겨찾기, pgvector 임베딩, semantic search RPC</div></div>
+    <div class="tl-item"><div class="tl-num">004</div><div class="tl-title">clubs</div><div class="tl-desc">클럽 디렉토리 (관리자 등록 전용)</div></div>
+    <div class="tl-item"><div class="tl-num">005</div><div class="tl-title">chat_messages + rule_articles</div><div class="tl-desc">챗봇 이력 영구 저장, 룰북 콘텐츠, 룰북 semantic search</div></div>
+    <div class="tl-item"><div class="tl-num">006</div><div class="tl-title">device_tokens + notifications_log</div><div class="tl-desc">FCM 토큰, 알림 발송 이력 (중복 방지)</div></div>
+    <div class="tl-item"><div class="tl-num">007</div><div class="tl-title">crawl_audit</div><div class="tl-desc">크롤 감사 로그</div></div>
+    <div class="tl-item"><div class="tl-num">008</div><div class="tl-title">pg_cron 스케줄</div><div class="tl-desc">매일 21:00 KST 크롤 + embed-pending 워커</div></div>
+    <div class="tl-item"><div class="tl-num">009</div><div class="tl-title">regions + user_tennis_orgs</div><div class="tl-desc">권역 마스터, 테니스 협회 다중 등록, 대회 권역·합동 컬럼 추가</div></div>
+    <div class="tl-item"><div class="tl-num">010</div><div class="tl-title">테니스 등급 개편</div><div class="tl-desc">부수 기반 → 경력 연수 기반 (under1y, y1to3, y3to5, over5y)</div></div>
+    <div class="tl-item"><div class="tl-num">011</div><div class="tl-title">ensure_profile RPC</div><div class="tl-desc">온보딩 후 프로필 보장 함수</div></div>
+    <div class="tl-item"><div class="tl-num">012</div><div class="tl-title">rate_limit</div><div class="tl-desc">채팅 API 호출 속도 제한</div></div>
+    <div class="tl-item"><div class="tl-num">013</div><div class="tl-title">qa_cache</div><div class="tl-desc">시맨틱 Q&A 캐시 (LLM 비용 절감, 24h TTL)</div></div>
+    <div class="tl-item"><div class="tl-num">014</div><div class="tl-title">intent_examples</div><div class="tl-desc">챗봇 의도 분류 예시 테이블 + KNN intent_classify RPC</div></div>
+    <div class="tl-item"><div class="tl-num">015</div><div class="tl-title">UUID v7</div><div class="tl-desc">uuid_generate_v7() 함수 (시간순 정렬 UUID)</div></div>
+    <div class="tl-item"><div class="tl-num">016</div><div class="tl-title">tournament search sport filter</div><div class="tl-desc">대회 검색에 종목 필터 추가</div></div>
+    <div class="tl-item"><div class="tl-num">017</div><div class="tl-title">uuid_v7 pgcrypto 스키마 fix</div><div class="tl-desc">pgcrypto search_path 수정</div></div>
+    <div class="tl-item"><div class="tl-num">018</div><div class="tl-title">tournament search by slots</div><div class="tl-desc">잔여 슬롯 기반 검색</div></div>
+    <div class="tl-item"><div class="tl-num">019</div><div class="tl-title">crawl_sources</div><div class="tl-desc">크롤 소스 어드민 관리 테이블 (Phase 1)</div></div>
+    <div class="tl-item"><div class="tl-num">020</div><div class="tl-title">dispatcher + pg_cron 일원화</div><div class="tl-desc">crawl-dispatch Edge Function + advisory lock (Phase 2)</div></div>
+    <div class="tl-item"><div class="tl-num">021</div><div class="tl-title">crawl_sources running flag</div><div class="tl-desc">is_running 컬럼 추가 (동시 실행 방지)</div></div>
+    <div class="tl-item"><div class="tl-num">022</div><div class="tl-title">tournament_status 'rejected' 추가</div><div class="tl-desc">관리자 검수 거부 상태</div></div>
+    <div class="tl-item"><div class="tl-num">023</div><div class="tl-title">review_helpers</div><div class="tl-desc">검수 워크플로우 RPC (일괄 승인/거부)</div></div>
+    <div class="tl-item"><div class="tl-num">024</div><div class="tl-title">crawl_sources URL refresh</div><div class="tl-desc">ETag 변경 감지 + URL 갱신 로직</div></div>
+  </div>
+</section>
+
+<!-- ===== 변경 예정 ===== -->
+<section id="pending">
+  <h2>🚧 변경 예정 (미구현)</h2>
+  <div class="alert alert-warning">
+    아래 항목들은 설계 논의에서 확정되었으나 아직 migration이 작성되지 않은 변경사항입니다.
+    구현 전 팀 내 검토 후 migration 번호를 배정하세요.
+  </div>
+
+  <div class="change-item">
+    <div class="change-icon">➕</div>
+    <div class="change-body">
+      <h4>신규: <code>club_memberships</code> 테이블</h4>
+      <p>사용자 클럽 가입·탈퇴·역할 관리. 현재 클럽은 디렉토리 전용이라 가입 기능 없음.</p>
+      <code>user_id uuid FK, club_id uuid FK, role text CHECK('manager','member'), status text CHECK('pending','active','left'), joined_at timestamptz, left_at timestamptz</code>
+    </div>
+  </div>
+
+  <div class="change-item">
+    <div class="change-icon">🔧</div>
+    <div class="change-body">
+      <h4>변경: <code>user_sports</code>에 <code>region_code</code> 추가</h4>
+      <p>종목별 활동 지역을 별도로 관리. 테니스는 광주, 풋살은 서울처럼 종목마다 다른 지역 가능.</p>
+      <code>ALTER TABLE user_sports ADD COLUMN region_code text REFERENCES regions(code);</code>
+    </div>
+  </div>
+
+  <div class="change-item">
+    <div class="change-icon">🔍</div>
+    <div class="change-body">
+      <h4>검토: <code>user_tennis_orgs</code> 재정의</h4>
+      <p>user_sports에 region_code가 추가되면 user_tennis_orgs의 역할 중복 가능성 검토.
+      현재 테니스 전용 → 풋살 확장 시 별도 테이블(user_futsal_teams 등) 또는 통합 설계 결정 필요.</p>
+    </div>
+  </div>
+
+  <div class="change-item">
+    <div class="change-icon">🌱</div>
+    <div class="change-body">
+      <h4>데이터: <code>intent_examples</code> 시드 실행</h4>
+      <p>현재 0건. 종목별 7개 intent 카테고리당 5~10개 예시 문장을 Gemini 임베딩 후 INSERT 필요.
+      시드 부재 시 KNN 분류 비활성, 룰 기반 1차 분류만 동작.</p>
+    </div>
+  </div>
+
+  <div class="change-item">
+    <div class="change-icon">🔄</div>
+    <div class="change-body">
+      <h4>운영: <code>tennis-korea</code> 크롤러 재활성화</h4>
+      <p>현재 disabled 상태. 한국테니스협회 새 URL 확인 후 어드민에서 slug 업데이트 + enabled = true 적용 필요.</p>
+    </div>
+  </div>
+
+  <div class="change-item">
+    <div class="change-icon">🏗️</div>
+    <div class="change-body">
+      <h4>미래: 소셜 로그인 지원 (카카오/구글)</h4>
+      <p>현재 이메일 로그인 전용. 소셜 로그인 추가 시 handle_new_user 트리거에서
+      raw_user_meta_data 파싱 방식 확인 및 email nullable 여부 재검토.</p>
+    </div>
+  </div>
+</section>
+
+</div>
+</main>
+
+<!-- ===== 풋살 리서치 ===== -->
+<section id="futsal">
+  <h2>⚽ 풋살 도메인 리서치 (2026-05-22)</h2>
+  <div class="alert alert-info">
+    에이전트 3개 병렬 리서치 결과를 종합했습니다. Migration 025·026이 이 내용을 기반으로 작성되었습니다.
+  </div>
+
+  <!-- 협회 구조 -->
+  <h3>풋살 협회 구조</h3>
+  <div class="card">
+    <div class="card-header"><span class="badge badge-tbl">org</span><h3>한국 풋살 거버넌스 체계</h3></div>
+    <div class="card-body">
+      <div style="background:var(--gray-50);border-radius:var(--radius);padding:16px;font-family:monospace;font-size:13px;line-height:2;margin-bottom:16px;">
+        FIFA<br>
+        &nbsp;└─ AFC (아시아축구연맹)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ <strong>KFA (대한축구협회)</strong> — 풋살 국가대표 총괄<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ <strong>한국풋살연맹 (KFL)</strong> — 국내 리그·대회 위탁 운영<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ FK 슈퍼리그 (FK1, 세미프로 1부)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ FK 드림리그 (FK2, 세미프로 2부, 승강제)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─ FK CUP (전국 컵, 생활체육부 포함)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ 18개 시도 연맹<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ 지역 동호인 연합회 / S리그 등<br>
+        <br>
+        <strong>대한풋살협회 (KFA별도)</strong> — KFL과 병존하는 별도 단체 (풋살 규정·여자 대회 주관)
+      </div>
+      <table>
+        <tr><th>단체</th><th>약칭</th><th>웹사이트</th><th>역할</th></tr>
+        <tr><td>한국풋살연맹</td><td>KFL</td><td><code>futsal.or.kr</code></td><td>국내 리그·FK CUP·생활체육 대회 운영</td></tr>
+        <tr><td>대한풋살협회</td><td>KFA별도</td><td><code>koreafutsal.or.kr</code></td><td>풋살 규정, 여자 대회</td></tr>
+        <tr><td>대한축구협회</td><td>KFA</td><td><code>kfa.or.kr</code></td><td>국가대표, 전국대회 주최, JoinKFA 운영</td></tr>
+        <tr><td>경기도풋살연합회</td><td>—</td><td><code>ggfutsal.com</code></td><td>경기도 지역 동호인 대회</td></tr>
+        <tr><td>서울시민리그(S리그)</td><td>—</td><td><code>sleague.or.kr</code></td><td>서울시 공공 리그, 연 1회</td></tr>
+      </table>
+      <div class="alert alert-info" style="margin-top:12px;">
+        <strong>등급 체계</strong>
+        풋살은 테니스의 부수처럼 <strong>개인 등급 체계가 공식화되어 있지 않습니다.</strong>
+        대신 대회별로 연령·성별·실력 축을 조합해 부서를 구분합니다.
+        앱의 <code>user_sports.grade</code>(beginner/intermediate/advanced)는 자체 분류로 유지합니다.
+      </div>
+    </div>
+  </div>
+
+  <!-- 크롤 대상 사이트 -->
+  <h3>크롤 대상 사이트 (우선순위 순)</h3>
+  <div class="card">
+    <div class="card-body">
+      <table>
+        <tr><th>순위</th><th>사이트</th><th>URL</th><th>대상</th><th>로그인</th><th>구조</th><th>크롤 난이도</th></tr>
+        <tr><td>1</td><td>한국풋살연맹</td><td><code>futsal.or.kr</code></td><td>전국 공식</td><td>불필요</td><td>PHP 게시판</td><td><span class="badge badge-done">낮음</span></td></tr>
+        <tr><td>2</td><td>스포위크</td><td><code>spoweek.com/event</code></td><td>전국 민간</td><td>불필요</td><td>정형 목록</td><td><span class="badge badge-done">낮음</span></td></tr>
+        <tr><td>3</td><td>경기도풋살연합회</td><td><code>ggfutsal.com</code></td><td>경기도</td><td>불필요</td><td>PHP bbs</td><td><span class="badge badge-done">낮음</span></td></tr>
+        <tr><td>4</td><td>S리그 (서울시민리그)</td><td><code>sleague.or.kr</code></td><td>서울</td><td>불필요</td><td>정적 HTML</td><td><span class="badge badge-done">낮음</span></td></tr>
+        <tr><td>5</td><td>위밋업</td><td><code>wemeetup.org/event</code></td><td>전국(여성)</td><td>불필요</td><td>게시판</td><td><span class="badge badge-done">낮음</span></td></tr>
+        <tr><td>—</td><td>JoinKFA</td><td><code>joinkfa.com</code></td><td>전국 공식</td><td>필수</td><td>동적 SPA</td><td><span class="badge badge-todo">높음</span></td></tr>
+        <tr><td>—</td><td>플랩풋볼</td><td><code>plabfootball.com</code></td><td>소셜 매치</td><td>대부분 필수</td><td>앱 중심</td><td><span class="badge badge-todo">높음</span></td></tr>
+        <tr><td>—</td><td>모두의풋살 카페</td><td><code>cafe.naver.com</code></td><td>커뮤니티</td><td>필수</td><td>네이버</td><td><span class="badge badge-new">매우 높음</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 테니스 vs 풋살 필드 차이 -->
+  <h3>테니스 vs 풋살 — 대회 필드 비교</h3>
+  <div class="card">
+    <div class="card-body">
+      <table>
+        <tr><th>필드</th><th>테니스</th><th>풋살</th><th>처리 방법</th></tr>
+        <tr><td>참가 단위</td><td>개인/복식 파트너</td><td><strong>팀 (5~15명)</strong></td><td><code>entry_fee_unit='per_team'</code> 기본값 확인</td></tr>
+        <tr><td>인제 구분</td><td>없음</td><td><strong>5/6/7인제 혼재</strong></td><td>신규 컬럼 <code>player_count</code></td></tr>
+        <tr><td>성별 부서</td><td>없음 (혼성)</td><td><strong>남자부/여자부/혼성부</strong></td><td>신규 컬럼 <code>division_gender</code></td></tr>
+        <tr><td>연령 부서</td><td>없음</td><td><strong>성인/유소년/직장인 등</strong></td><td>신규 컬럼 <code>division_age_group</code></td></tr>
+        <tr><td>실력 부서</td><td>등급 (y1to3 등)</td><td>상급/중급/하급 (비공식)</td><td>기존 <code>eligible_grades</code> 유지</td></tr>
+        <tr><td>모집 인원</td><td>없음</td><td>팀 수 상한 (30팀 등)</td><td>신규 컬럼 <code>team_count_max</code></td></tr>
+        <tr><td>팀 엔트리</td><td>없음</td><td>최소 7명, 최대 15명</td><td>신규 컬럼 <code>roster_min/max</code></td></tr>
+        <tr><td>구장 타입</td><td>없음</td><td>실내/실외, 인조잔디/마루</td><td>신규 컬럼 <code>venue_type, surface_type</code></td></tr>
+        <tr><td>경기 방식</td><td>자유 텍스트</td><td>조별+토너먼트가 표준</td><td>신규 컬럼 <code>match_format</code></td></tr>
+        <tr><td>협회 enum</td><td><code>tennis_org</code></td><td><strong>futsal_org 신규</strong></td><td>신규 enum 추가</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 신규 컬럼 상세 -->
+  <h3>Migration 025 — 신규 컬럼 상세</h3>
+  <div class="card">
+    <div class="card-header"><span class="badge badge-tbl">ALTER TABLE</span><h3>tournaments 풋살 필드 추가</h3><small style="margin-left:auto;color:#6b7280">migration 025</small></div>
+    <div class="card-body">
+      <table>
+        <tr><th>컬럼</th><th>타입</th><th>허용값</th><th>설명</th></tr>
+        <tr><td><code>player_count</code></td><td>integer</td><td>5·6·7·8</td><td>인제 구분. 5=FIFA공식, 6=동호인최다</td></tr>
+        <tr><td><code>division_gender</code></td><td>text</td><td>male·female·mixed</td><td>성별 부서. null=제한없음</td></tr>
+        <tr><td><code>division_age_group</code></td><td>text</td><td>adult·youth·elementary·senior·workplace·open</td><td>연령/자격 부서</td></tr>
+        <tr><td><code>team_count_max</code></td><td>integer</td><td>—</td><td>모집 팀 수 상한. 마감 여부 판단용</td></tr>
+        <tr><td><code>team_count_current</code></td><td>integer</td><td>—</td><td>현재 접수 팀 수. 크롤러 갱신</td></tr>
+        <tr><td><code>roster_min</code></td><td>integer</td><td>—</td><td>팀 최소 등록 선수 수 (예: 7)</td></tr>
+        <tr><td><code>roster_max</code></td><td>integer</td><td>—</td><td>팀 최대 등록 선수 수 (예: 15)</td></tr>
+        <tr><td><code>venue_type</code></td><td>text</td><td>indoor·outdoor</td><td>실내(마루/우레탄) / 실외(인조잔디)</td></tr>
+        <tr><td><code>surface_type</code></td><td>text</td><td>artificial_turf·wood_floor·urethane·concrete</td><td>구장 표면</td></tr>
+        <tr><td><code>match_format</code></td><td>text</td><td>group_knockout·round_robin·knockout_only·league</td><td>경기 방식 구조화</td></tr>
+        <tr><td><code>host_futsal_orgs</code></td><td>futsal_org[]</td><td>kfl·kfa_futsal·kfa·sleague·gg_futsal·local</td><td>주최 협회 배열</td></tr>
+      </table>
+      <div class="alert alert-success" style="margin-top:12px;">
+        <strong>모든 컬럼 nullable</strong>
+        테니스 기존 데이터에 영향 없음. 풋살 크롤러가 파악한 정보만 채웁니다.
+        <code>entry_fee_unit</code>은 migration 009에서 이미 추가됨 (default 'per_team' 확인 완료).
+      </div>
+    </div>
+  </div>
+
+  <!-- 크롤 소스 등록 -->
+  <h3>Migration 026 — 풋살 크롤 소스 등록</h3>
+  <div class="card">
+    <div class="card-body">
+      <table>
+        <tr><th>slug</th><th>이름</th><th>지역</th><th>상태</th><th>비고</th></tr>
+        <tr><td><code>futsal-kfl</code></td><td>한국풋살연맹</td><td>전국</td><td><span class="badge badge-todo">disabled</span></td><td>파서 검증 후 활성화</td></tr>
+        <tr><td><code>futsal-spoweek</code></td><td>스포위크</td><td>전국</td><td><span class="badge badge-todo">disabled</span></td><td>종목 필터링 필요</td></tr>
+        <tr><td><code>futsal-ggfutsal</code></td><td>경기도풋살연합회</td><td>경기</td><td><span class="badge badge-todo">disabled</span></td><td>PHP bbs 파싱</td></tr>
+        <tr><td><code>futsal-sleague</code></td><td>서울시민리그</td><td>서울</td><td><span class="badge badge-todo">disabled</span></td><td>연 1회 시즌, 모니터링 필요</td></tr>
+        <tr><td><code>futsal-wemeetup</code></td><td>위밋업</td><td>전국(여성)</td><td><span class="badge badge-todo">disabled</span></td><td>여성 대회 중심</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 앱 검색 필터 -->
+  <h3>앱 풋살 대회 검색 필터 설계</h3>
+  <div class="card">
+    <div class="card-body">
+      <table>
+        <tr><th>우선순위</th><th>필터명</th><th>컬럼</th><th>타입</th></tr>
+        <tr><td>1</td><td>지역</td><td><code>region / region_code</code></td><td>select</td></tr>
+        <tr><td>2</td><td>날짜 범위</td><td><code>start_date</code></td><td>date range</td></tr>
+        <tr><td>3</td><td>인제 (5/6/7인제)</td><td><code>player_count</code></td><td>select</td></tr>
+        <tr><td>4</td><td>성별 부서</td><td><code>division_gender</code></td><td>select</td></tr>
+        <tr><td>5</td><td>연령 부서</td><td><code>division_age_group</code></td><td>select</td></tr>
+        <tr><td>6</td><td>구장 타입</td><td><code>venue_type</code></td><td>select</td></tr>
+        <tr><td>7</td><td>실력 부서</td><td><code>eligible_grades</code></td><td>multiselect</td></tr>
+        <tr><td>8</td><td>참가비 상한</td><td><code>entry_fee</code></td><td>range</td></tr>
+        <tr><td>9</td><td>잔여 슬롯</td><td><code>team_count_max - team_count_current</code></td><td>boolean</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 팀 논의 ===== -->
+<section id="discussion">
+  <h2>🗣️ 팀 논의 필요 항목</h2>
+  <div class="alert alert-info">
+    아래는 현재 설계에서 발견된 <strong>잠재적 문제점과 설계 부채</strong>입니다.
+    팀원과 함께 방향을 결정해야 할 사항들입니다. 결정 내용을 이 문서에 기록해주세요.
+  </div>
+
+  <!-- 논의 1 -->
+  <div class="card">
+    <div class="card-header" style="background:#fef3c7;">
+      <span style="font-size:20px;">⚠️</span>
+      <h3 style="color:#92400e;">논의 1 — <code>user_role</code> enum 확장성</h3>
+      <span class="badge badge-todo" style="margin-left:auto;">미결정</span>
+    </div>
+    <div class="card-body">
+      <h4>현재 상태</h4>
+      <p style="font-size:13px;margin:8px 0;">현재 <code>user_role</code> enum은 <code>user</code> | <code>admin</code> 2개만 존재합니다.</p>
+
+      <h4 style="margin-top:16px;">문제</h4>
+      <p style="font-size:13px;margin:8px 0;">PostgreSQL enum은 값 추가(<code>ADD VALUE</code>)는 가능하지만 <strong>삭제·이름 변경·순서 변경이 불가</strong>합니다.
+      나중에 역할이 세분화되면(예: 콘텐츠 관리자, 클럽 관리자 등) enum 자체를 교체해야 하는 작업이 발생합니다.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+        <div style="background:var(--success-light);border-radius:var(--radius);padding:12px;">
+          <strong style="font-size:13px;color:var(--success);">✅ 옵션 A — enum에 미리 추가</strong>
+          <p style="font-size:12px;margin-top:6px;color:#166534;">
+            지금 <code>staff</code>를 미리 추가해두고 향후 사용. enum은 그대로 유지.<br><br>
+            <code>user</code> | <code>staff</code> | <code>admin</code><br><br>
+            장점: 간단, 현재 코드 변경 최소화<br>
+            단점: 역할이 더 세분화되면 여전히 한계
+          </p>
+        </div>
+        <div style="background:var(--primary-light);border-radius:var(--radius);padding:12px;">
+          <strong style="font-size:13px;color:var(--primary);">🔵 옵션 B — permissions jsonb 추가</strong>
+          <p style="font-size:12px;margin-top:6px;color:#1e40af;">
+            <code>users</code>에 <code>permissions jsonb</code> 컬럼 추가. 역할별 권한을 유연하게 표현.<br><br>
+            예: <code>{"can_approve": true, "can_crawl": true}</code><br><br>
+            장점: 무한 확장 가능, 세밀한 권한 제어<br>
+            단점: RLS 정책 복잡해짐, 타입 안전성 약해짐
+          </p>
+        </div>
+      </div>
+
+      <div class="alert alert-warning" style="margin-top:12px;">
+        <strong>논의 포인트</strong>
+        어드민이 앞으로 얼마나 세분화될 예정인가요? 현재 1~2명의 어드민이라면 A안으로 충분합니다.
+        여러 팀원이 각각 다른 권한을 가져야 한다면 B안을 검토하세요.
+      </div>
+
+      <table style="margin-top:12px;">
+        <tr><th>결정 사항</th><td style="width:70%;">[ 미결정 ] &nbsp; 날짜: ____</td></tr>
+        <tr><th>결정 근거</th><td></td></tr>
+        <tr><th>담당 Migration</th><td>025_xxx.sql</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 논의 2 -->
+  <div class="card">
+    <div class="card-header" style="background:#fef3c7;">
+      <span style="font-size:20px;">⚠️</span>
+      <h3 style="color:#92400e;">논의 2 — <code>tournaments</code> 지역 컬럼 중복</h3>
+      <span class="badge badge-todo" style="margin-left:auto;">미결정</span>
+    </div>
+    <div class="card-body">
+      <h4>현재 상태 (중복)</h4>
+      <table style="margin:8px 0;">
+        <tr><th>컬럼</th><th>타입</th><th>출처</th><th>예시</th></tr>
+        <tr><td><code>region</code></td><td>text</td><td>크롤러가 자유 텍스트로 저장</td><td>"광주", "전남", "서울"</td></tr>
+        <tr><td><code>region_code</code></td><td>text FK→regions</td><td>구조화된 권역 코드</td><td>"gwangju", "jeonnam"</td></tr>
+      </table>
+
+      <h4 style="margin-top:12px;">문제</h4>
+      <p style="font-size:13px;margin:8px 0;">크롤러가 <code>region</code>(자유 텍스트)에 저장하고, <code>region_code</code>는 별도로 매핑해야 합니다.
+      이 두 값이 불일치하면 지역 필터 버그가 발생합니다. 현재 크롤러가 <code>region_code</code>를 채우고 있는지 확인 필요.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+        <div style="background:var(--success-light);border-radius:var(--radius);padding:12px;">
+          <strong style="font-size:13px;color:var(--success);">✅ 옵션 A — region 제거, region_code만 사용</strong>
+          <p style="font-size:12px;margin-top:6px;color:#166534;">
+            크롤러가 region_code를 직접 저장.<br>
+            regions 테이블의 display_name_ko를 UI에서 활용.<br><br>
+            장점: 정합성 보장, 단일 진실 소스<br>
+            단점: 크롤러 코드 수정 필요, 기존 데이터 마이그레이션
+          </p>
+        </div>
+        <div style="background:var(--gray-100);border-radius:var(--radius);padding:12px;">
+          <strong style="font-size:13px;color:var(--gray-700);">🔘 옵션 B — 둘 다 유지 (현상 유지)</strong>
+          <p style="font-size:12px;margin-top:6px;color:var(--gray-600);">
+            region은 크롤 원본 보관용, region_code는 검색용으로 역할 분리.<br><br>
+            장점: 현재 코드 변경 없음<br>
+            단점: 불일치 버그 위험 지속
+          </p>
+        </div>
+      </div>
+
+      <table style="margin-top:12px;">
+        <tr><th>결정 사항</th><td style="width:70%;">[ 미결정 ] &nbsp; 날짜: ____</td></tr>
+        <tr><th>결정 근거</th><td></td></tr>
+        <tr><th>담당 Migration</th><td>025_xxx.sql (옵션 A 선택 시)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 논의 3 -->
+  <div class="card">
+    <div class="card-header" style="background:#fef3c7;">
+      <span style="font-size:20px;">⚠️</span>
+      <h3 style="color:#92400e;">논의 3 — <code>tournaments</code> 협회 컬럼 중복</h3>
+      <span class="badge badge-todo" style="margin-left:auto;">미결정</span>
+    </div>
+    <div class="card-body">
+      <h4>현재 상태 (중복)</h4>
+      <table style="margin:8px 0;">
+        <tr><th>컬럼</th><th>타입</th><th>설명</th></tr>
+        <tr><td><code>host_associations</code></td><td>text[]</td><td>주최 협회명 자유 텍스트 배열</td></tr>
+        <tr><td><code>host_orgs</code></td><td>tennis_org[]</td><td>주최 협회 enum 배열 (GIN 인덱스)</td></tr>
+        <tr><td><code>division_label_local</code></td><td>text</td><td>자유 부서명 ("골드부" 등)</td></tr>
+        <tr><td><code>division_kta_standard</code></td><td>text</td><td>KTA 표준 부서명</td></tr>
+      </table>
+
+      <h4 style="margin-top:12px;">문제</h4>
+      <p style="font-size:13px;margin:8px 0;">
+        <code>host_associations</code>와 <code>host_orgs</code>는 같은 정보를 다른 형태로 저장합니다.
+        크롤러가 enum으로 변환하지 않으면 <code>host_orgs</code>가 빈 배열이 되어 의미가 없습니다.
+        현재 실제로 크롤러가 이 컬럼들을 채우고 있는지 확인 필요.
+      </p>
+
+      <div class="alert alert-warning" style="margin-top:8px;">
+        <strong>논의 포인트</strong>
+        크롤러가 실제로 이 컬럼들을 활용하고 있나요? 활용하지 않는다면 MVP 단계에서
+        <code>host_orgs</code>, <code>division_kta_standard</code>는 사용 전까지 무시하고,
+        나중에 정리하는 방향이 현실적입니다.
+      </div>
+
+      <table style="margin-top:12px;">
+        <tr><th>결정 사항</th><td style="width:70%;">[ 미결정 ] &nbsp; 날짜: ____</td></tr>
+        <tr><th>결정 근거</th><td></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 논의 4 -->
+  <div class="card">
+    <div class="card-header" style="background:#fef3c7;">
+      <span style="font-size:20px;">⚠️</span>
+      <h3 style="color:#92400e;">논의 4 — <code>user_tennis_orgs</code> 필요성</h3>
+      <span class="badge badge-todo" style="margin-left:auto;">미결정</span>
+    </div>
+    <div class="card-body">
+      <h4>현재 상태</h4>
+      <p style="font-size:13px;margin:8px 0;">
+        사용자가 여러 테니스 협회에 다른 등급(division)으로 등록될 수 있다는 가정으로 만들어진 테이블입니다.
+        한 사람이 KATO 골드부이면서 광주협회 챌린저부일 수 있는 경우입니다.
+      </p>
+
+      <h4 style="margin-top:12px;">검토 포인트</h4>
+      <ul style="font-size:13px;margin:8px 0 0 16px;line-height:2;">
+        <li>현재 앱에서 이 테이블을 <strong>실제로 읽거나 쓰는 코드가 있나요?</strong> → 없다면 MVP에서 제거 검토</li>
+        <li>온보딩 화면에서 협회 다중 선택을 받고 있나요?</li>
+        <li><code>user_sports</code>에 region_code가 추가되면 역할이 겹칩니다</li>
+        <li>풋살 확장 시 <code>user_futsal_teams</code>같은 별도 테이블이 필요할 수도 있는데, 지금 구조가 맞는지 확인</li>
+      </ul>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+        <div style="background:var(--danger-light);border-radius:var(--radius);padding:12px;">
+          <strong style="font-size:13px;color:var(--danger);">🗑️ 옵션 A — MVP에서 비활성화</strong>
+          <p style="font-size:12px;margin-top:6px;color:#991b1b;">
+            테이블은 두되 앱에서 사용하지 않음.<br>
+            나중에 필요할 때 다시 설계.<br><br>
+            장점: 지금 당장 복잡성 제거<br>
+            단점: 데이터 없이 나중에 도입하면 마이그레이션 필요
+          </p>
+        </div>
+        <div style="background:var(--success-light);border-radius:var(--radius);padding:12px;">
+          <strong style="font-size:13px;color:var(--success);">✅ 옵션 B — 그대로 유지</strong>
+          <p style="font-size:12px;margin-top:6px;color:#166534;">
+            온보딩에서 협회 선택을 받아 저장.<br>
+            대회 검색 시 협회 필터로 활용.<br><br>
+            장점: 도메인 정합성 높음<br>
+            단점: 온보딩 복잡도 증가, UX 부담
+          </p>
+        </div>
+      </div>
+
+      <table style="margin-top:12px;">
+        <tr><th>결정 사항</th><td style="width:70%;">[ 미결정 ] &nbsp; 날짜: ____</td></tr>
+        <tr><th>결정 근거</th><td></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 논의 5 -->
+  <div class="card">
+    <div class="card-header" style="background:#ecfdf5;">
+      <span style="font-size:20px;">ℹ️</span>
+      <h3 style="color:#065f46;">논의 5 — 컬럼 수와 테이블 분리 수준 (참고)</h3>
+      <span class="badge badge-done" style="margin-left:auto;">팀 확인 권장</span>
+    </div>
+    <div class="card-body">
+      <p style="font-size:13px;margin-bottom:12px;">
+        <code>tournaments</code> 테이블이 30개 컬럼으로 많아 보일 수 있지만 <strong>PostgreSQL에서 컬럼 수는 성능 문제가 없습니다.</strong>
+        필요한 컬럼만 SELECT하면 되고, 인덱스 구조가 적절히 잡혀 있습니다.
+      </p>
+
+      <table>
+        <tr><th>우려 사항</th><th>실제 영향</th><th>판단</th></tr>
+        <tr>
+          <td>tournaments 30개 컬럼</td>
+          <td>SELECT 성능에 영향 없음. 인덱스 기반 조회.</td>
+          <td><span class="badge badge-done">문제없음</span></td>
+        </tr>
+        <tr>
+          <td>user_sports / user_tennis_orgs 분리</td>
+          <td>JOIN 1회 추가. 규모에서 무시 가능.</td>
+          <td><span class="badge badge-done">문제없음</span></td>
+        </tr>
+        <tr>
+          <td>region text + region_code FK 중복</td>
+          <td>데이터 불일치 버그 가능성</td>
+          <td><span class="badge badge-todo">논의 2 참조</span></td>
+        </tr>
+        <tr>
+          <td>user_role enum 2개값</td>
+          <td>세분화 시 ALTER TYPE 필요</td>
+          <td><span class="badge badge-todo">논의 1 참조</span></td>
+        </tr>
+      </table>
+
+      <div class="alert alert-success" style="margin-top:12px;">
+        <strong>결론</strong>
+        현재 설계는 MVP 수준에서 충분합니다. 지금 당장 뜯어고칠 필요는 없습니다.
+        논의 1(역할 확장)과 논의 2(지역 중복)만 방향을 정해두면
+        나머지는 실제로 불편해질 때 리팩터링해도 늦지 않습니다.
+      </div>
+    </div>
+  </div>
+
+  <!-- 논의 진행 방법 -->
+  <div class="alert alert-info" style="margin-top:8px;">
+    <strong>논의 진행 방법</strong>
+    각 카드의 "결정 사항" 칸에 결정 내용과 날짜를 기록하고, 결정된 항목은
+    <span class="badge badge-done">완료</span> 배지로 변경해주세요.
+    Migration이 필요한 경우 번호(025~)를 배정 후 이 문서에 링크를 추가합니다.
+  </div>
+</section>
+
+<footer style="background:var(--gray-900);color:var(--gray-300);padding:20px 0;font-size:13px;text-align:center;">
+  Match-up DB 설계 문서 · 2026-05-21 · Migration 001~024
+</footer>
+
+</body>
+</html>
