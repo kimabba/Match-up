@@ -57,15 +57,12 @@ export function requireServiceRole(
   const auth = req.headers.get('Authorization') ?? '';
   const token = auth.replace('Bearer ', '');
   if (!token) {
-    return { error: new Response(JSON.stringify({ error: 'missing auth' }), { status: 401 }) };
+    return { error: errorResponse('Missing token in Authorization header', 401) };
   }
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    if (payload.role !== 'service_role') {
-      return { error: new Response(JSON.stringify({ error: 'forbidden' }), { status: 403 }) };
-    }
-  } catch {
-    return { error: new Response(JSON.stringify({ error: 'invalid token' }), { status: 401 }) };
+
+  const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+  if (!serviceKey || token !== serviceKey) {
+    return { error: errorResponse('Forbidden: Invalid Service Key', 403) };
   }
   return {};
 }
