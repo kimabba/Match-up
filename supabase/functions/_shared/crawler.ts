@@ -76,13 +76,16 @@ export async function upsertTournament(
     .maybeSingle();
 
   if (existing) {
-    // 변경된 필드만 업데이트 (전체 비교 생략하고 항상 업데이트)
+    // 변경된 필드만 업데이트. description 이 undefined 면 기존 값 유지 (덮어쓰지 않음)
+    const updatePayload: Record<string, unknown> = {
+      title: t.title,
+      organizer: t.organizer ?? null,
+    };
+    if (t.description !== undefined) updatePayload.description = t.description ?? null;
     const { error } = await audit.supabase
       .from('tournaments')
       .update({
-        title: t.title,
-        organizer: t.organizer ?? null,
-        description: t.description ?? null,
+        ...updatePayload,
         start_date: t.start_date,
         end_date: t.end_date ?? null,
         application_deadline: t.application_deadline ?? null,

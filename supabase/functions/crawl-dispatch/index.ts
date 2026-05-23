@@ -190,10 +190,11 @@ Deno.serve(async (req) => {
       const audit = await startAudit(row.slug);
       let result: CrawlResult;
       try {
+        // force=true 이면 etag/lastModified 를 null 로 전달해 파서 내 content-hash 체크도 우회
         result = await parser(sourceArg, {
           audit,
-          previousEtag: row.last_etag,
-          previousLastModified: row.last_modified,
+          previousEtag: body.force ? null : row.last_etag,
+          previousLastModified: body.force ? null : row.last_modified,
         });
       } catch (e) {
         const msg = (e as Error).message;
