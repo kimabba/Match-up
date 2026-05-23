@@ -94,12 +94,29 @@ class ApiService {
 
   // ===== admin: review queue (Phase 3) =====
 
-  /// 023 마이그레이션의 `tournament_review_queue` view 조회.
-  /// 크롤러 draft + 사용자 제보 draft 통합 + `submission_kind` 분류 포함.
-  /// RLS 가 admin 만 draft 접근을 허용하므로 호출자는 admin 이어야 함.
+  /// Draft 대회 목록 — admin 전용.
+  /// view 대신 tournaments 직접 조회 (view의 is_admin() WHERE절이
+  /// PostgREST 컨텍스트에서 올바르게 평가되지 않는 문제 우회).
+  /// RLS tournaments_published_read 가 is_admin() 케이스를 이미 허용.
   Future<List<Map<String, dynamic>>> tournamentReviewQueue() async {
-    final rows = await _supabase.from('tournament_review_queue').select();
-    return List<Map<String, dynamic>>.from(rows);
+    final rows = await _supabase
+        .from('tournaments')
+        .select(
+          'id, sport, title, organizer, description, start_date, end_date, '
+          'application_deadline, region, location, eligible_grades, entry_fee, '
+          'format, source, source_url, submitted_by, created_at',
+        )
+        .eq('status', 'draft')
+        .order('created_at', ascending: false);
+    return (rows as List).map((r) {
+      final m = Map<String, dynamic>.from(r as Map);
+      final src = m['source'] as String? ?? '';
+      final submittedBy = m['submitted_by'];
+      m['submission_kind'] =
+          (src == 'user_submission' || submittedBy != null) ? 'user' : 'crawler';
+      m['submitted_by_email'] = null;
+      return m;
+    }).toList();
   }
 
   /// `tournaments_bulk_approve` RPC — admin 만 호출 가능.
