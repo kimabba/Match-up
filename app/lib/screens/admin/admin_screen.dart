@@ -625,6 +625,11 @@ class _AdminScreenState extends ConsumerState<AdminScreen>
               ),
               const Spacer(),
               FilledButton.icon(
+                // 전역 테마 minimumSize: Size.fromHeight(52) = Size(∞, 52)를 오버라이드.
+                // Row 안에서 무한 너비 constraint 에러 방지.
+                style: FilledButton.styleFrom(
+                  minimumSize: const Size(0, 44),
+                ),
                 onPressed:
                     (_selectedDraftIds.isEmpty || _bulkActionInFlight)
                         ? null
@@ -640,6 +645,9 @@ class _AdminScreenState extends ConsumerState<AdminScreen>
               ),
               const SizedBox(width: 8),
               OutlinedButton.icon(
+                style: OutlinedButton.styleFrom(
+                  minimumSize: const Size(0, 44),
+                ),
                 onPressed:
                     (_selectedDraftIds.isEmpty || _bulkActionInFlight)
                         ? null
@@ -756,11 +764,17 @@ class _AdminScreenState extends ConsumerState<AdminScreen>
                           Row(
                             children: [
                               FilledButton(
+                                style: FilledButton.styleFrom(
+                                  minimumSize: const Size(0, 36),
+                                ),
                                 onPressed: () => _approve(id),
                                 child: const Text('승인'),
                               ),
                               const SizedBox(width: 8),
                               OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                  minimumSize: const Size(0, 36),
+                                ),
                                 onPressed: () => _reject(id),
                                 child: const Text('거절'),
                               ),

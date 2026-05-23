@@ -221,8 +221,11 @@ class _DetailBody extends StatelessWidget {
             ),
           ),
 
-          // 설명
-          if (t.description != null) ...[
+          // 설명 (JS 코드가 섞인 크롤 데이터는 숨김)
+          if (t.description != null &&
+              !t.description!.contains('function ') &&
+              !t.description!.contains('var ') &&
+              t.description!.trim().isNotEmpty) ...[
             const SizedBox(height: AppSpacing.xl),
             Text('대회 소개', style: tt.titleSmall?.copyWith(color: cs.onSurfaceVariant)),
             const SizedBox(height: AppSpacing.sm),
@@ -230,6 +233,8 @@ class _DetailBody extends StatelessWidget {
               child: Text(
                 t.description!,
                 style: tt.bodyMedium?.copyWith(height: 1.6),
+                maxLines: 8,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],

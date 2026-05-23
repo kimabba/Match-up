@@ -158,8 +158,15 @@ async function fetchDetail(
   const title = (h3El?.textContent ?? '').replace(/\s+/g, ' ').trim() || titleHint;
   if (!title) return null;
 
-  // 페이지 전체 텍스트에서 날짜 추출
-  const bodyText = (dom.querySelector('body')?.textContent ?? '').replace(/\s+/g, ' ');
+  // script/style 제거 후 텍스트 추출 (JS 코드가 description에 포함되지 않도록)
+  const bodyEl = dom.querySelector('body');
+  if (bodyEl) {
+    const scriptNodes = bodyEl.querySelectorAll('script, style');
+    for (const node of scriptNodes) {
+      node.parentNode?.removeChild(node);
+    }
+  }
+  const bodyText = (dom.querySelector('body')?.textContent ?? '').replace(/\s+/g, ' ').trim();
 
   // 대회일 추출: 가장 먼저 등장하는 유효 날짜를 start_date 로 사용
   const startDate = extractDate(bodyText) ?? extractDate(title);
@@ -169,7 +176,7 @@ async function fetchDetail(
 
   return {
     title,
-    description: bodyText ? bodyText.slice(0, 1500) : undefined,
+    description: bodyText ? bodyText.slice(0, 800) : undefined,
     start_date: startDate,
     application_deadline: extractApplicationDeadline(bodyText) ?? undefined,
     region,
