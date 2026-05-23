@@ -158,7 +158,7 @@ async function fetchDetail(
   const title = (h3El?.textContent ?? '').replace(/\s+/g, ' ').trim() || titleHint;
   if (!title) return null;
 
-  // 노이즈 태그(script/style/nav/header/footer) 제거 후 텍스트 추출
+  // 노이즈 태그 제거 후 body 텍스트 추출
   const bodyEl = dom.querySelector('body');
   if (bodyEl) {
     const noiseNodes = bodyEl.querySelectorAll(
@@ -168,7 +168,6 @@ async function fetchDetail(
       node.parentNode?.removeChild(node);
     }
   }
-  // 전체 body 텍스트 (날짜·등급 추출용)
   const bodyText = (dom.querySelector('body')?.textContent ?? '').replace(/\s+/g, ' ').trim();
 
   // 대회일 추출: 가장 먼저 등장하는 유효 날짜를 start_date 로 사용
@@ -177,9 +176,18 @@ async function fetchDetail(
 
   const grades = extractTennisGradesFromText(`${title} ${bodyText}`);
 
+  // 네비게이션 텍스트는 제목보다 앞에 있으므로, 제목 이후 텍스트만 description 으로 사용
+  // 제목 첫 10자로 위치를 찾아 슬라이스 (nav 오염 제거)
+  const titleAnchor = title.slice(0, 10);
+  const titlePos = bodyText.indexOf(titleAnchor);
+  const contentAfterTitle = titlePos !== -1
+    ? bodyText.slice(titlePos + title.length).trim()
+    : bodyText;
+  const description = contentAfterTitle.length > 20 ? contentAfterTitle.slice(0, 1200) : undefined;
+
   return {
     title,
-    description: undefined, // 크롤 소스는 source_url로 원문 제공; 텍스트 추출 시 nav 오염 우려
+    description,
     start_date: startDate,
     application_deadline: extractApplicationDeadline(bodyText) ?? undefined,
     region,

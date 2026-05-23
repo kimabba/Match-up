@@ -221,43 +221,34 @@ class _DetailBody extends StatelessWidget {
             ),
           ),
 
-          // 대회 소개 (사용자 제출 대회에만 description 있음)
+          // 대회 요강
           if (t.description != null && t.description!.trim().isNotEmpty) ...[
             const SizedBox(height: AppSpacing.xl),
-            Text('대회 소개', style: tt.titleSmall?.copyWith(color: cs.onSurfaceVariant)),
+            Text('대회 요강', style: tt.titleSmall?.copyWith(color: cs.onSurfaceVariant)),
             const SizedBox(height: AppSpacing.sm),
             AppCard(
-              child: Text(
-                t.description!,
-                style: tt.bodyMedium?.copyWith(height: 1.6),
+              child: _ExpandableText(
+                text: t.description!,
+                style: tt.bodyMedium?.copyWith(height: 1.7),
               ),
             ),
           ],
 
-          // 원본 공고 (크롤 소스 대회)
+          // 원본 공고 링크 (접기 형태)
           if (t.sourceUrl != null) ...[
-            const SizedBox(height: AppSpacing.xl),
-            Text('공식 공고', style: tt.titleSmall?.copyWith(color: cs.onSurfaceVariant)),
             const SizedBox(height: AppSpacing.sm),
-            AppCard(
-              child: InkWell(
-                onTap: () => launchUrl(
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton.icon(
+                onPressed: () => launchUrl(
                   Uri.parse(t.sourceUrl!),
                   mode: LaunchMode.externalApplication,
                 ),
-                borderRadius: BorderRadius.circular(8),
-                child: Row(
-                  children: [
-                    Icon(Icons.article_outlined, color: cs.primary, size: 20),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        '대회 공식 요강 · 접수 페이지',
-                        style: tt.bodyMedium?.copyWith(color: cs.primary),
-                      ),
-                    ),
-                    Icon(Icons.open_in_new_rounded, color: cs.primary, size: 16),
-                  ],
+                icon: const Icon(Icons.open_in_new_rounded, size: 14),
+                label: const Text('원문 보기'),
+                style: TextButton.styleFrom(
+                  foregroundColor: cs.onSurfaceVariant,
+                  textStyle: tt.labelSmall,
                 ),
               ),
             ),
@@ -317,6 +308,46 @@ class _Divider extends StatelessWidget {
     return Divider(
       height: 1,
       color: cs.outlineVariant.withValues(alpha: 0.5),
+    );
+  }
+}
+
+/// 일정 줄 이상이면 "더 보기" 토글을 제공하는 텍스트 위젯
+class _ExpandableText extends StatefulWidget {
+  final String text;
+  final TextStyle? style;
+  const _ExpandableText({required this.text, this.style});
+
+  @override
+  State<_ExpandableText> createState() => _ExpandableTextState();
+}
+
+class _ExpandableTextState extends State<_ExpandableText> {
+  bool _expanded = false;
+  static const int _collapsedLines = 6;
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          widget.text,
+          style: widget.style,
+          maxLines: _expanded ? null : _collapsedLines,
+          overflow: _expanded ? TextOverflow.visible : TextOverflow.ellipsis,
+        ),
+        const SizedBox(height: 8),
+        GestureDetector(
+          onTap: () => setState(() => _expanded = !_expanded),
+          child: Text(
+            _expanded ? '접기' : '더 보기',
+            style: tt.labelSmall?.copyWith(color: cs.primary),
+          ),
+        ),
+      ],
     );
   }
 }
