@@ -1,4 +1,6 @@
 SUPABASE ?= supabase-beta
+# 원격 Supabase 프로젝트 ref (make backend 에서 사용)
+PROJECT_REF ?= bsjdgwmveokanclqwtvx
 # iOS Simulator: ffmpeg_kit arm64 미지원으로 현재 macOS 로 실행
 # 추후 iOS 빌드 준비되면: DEVICE_ID = 35686810-DADA-43C3-B3BF-E420C50AFF8B
 DEVICE_ID := macos
@@ -25,7 +27,7 @@ reset:
 	@echo "앱 캐시 초기화 완료. make app 으로 재실행하세요."
 
 # ────────────────────────────────────────────────────
-# 최초 1회 — Docker Desktop 실행 후
+# 최초 1회 — 로컬 개발 환경 (Docker Desktop 필요, 현재 미사용)
 # ────────────────────────────────────────────────────
 setup:
 	@echo "1) Supabase 로컬 스택 기동..."
@@ -40,10 +42,10 @@ setup:
 # 매일 개발 — 터미널 두 개 열기
 # ────────────────────────────────────────────────────
 
-# 터미널 1: 백엔드 (Edge Functions 핫리로드)
+# 터미널 1: 백엔드 (Edge Functions 로컬 핫리로드 → 원격 DB 연결)
 backend:
 	@test -f supabase/functions/.env || (echo "supabase/functions/.env 파일이 없습니다. .env.example 을 복사해서 GEMINI_API_KEY 를 채우세요." && exit 1)
-	$(SUPABASE) functions serve --env-file ./supabase/functions/.env
+	$(SUPABASE) functions serve --env-file ./supabase/functions/.env --project-ref $(PROJECT_REF)
 
 # 터미널 2: Flutter 앱 (My Mac - Designed for iPad 모바일 레이아웃)
 app:
