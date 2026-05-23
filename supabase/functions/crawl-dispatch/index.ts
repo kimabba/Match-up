@@ -66,8 +66,8 @@ interface SkippedEntry {
 }
 
 // 최소 실행 간격(시간). schedule_cron 표현식의 정밀 평가 대신 사용.
-// MVP: 하루 1회 보장. body.force 또는 body.slug 명시 시 무시.
-const MIN_INTERVAL_HOURS = 20;
+// 30분 단위 크롤링을 지원하기 위해 24분(0.4시간)으로 조정. body.force 또는 body.slug 명시 시 무시.
+const MIN_INTERVAL_HOURS = 0.4;
 
 function isDue(lastCrawledAt: string | null): boolean {
   if (!lastCrawledAt) return true;
