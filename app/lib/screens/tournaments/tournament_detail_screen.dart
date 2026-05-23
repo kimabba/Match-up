@@ -9,7 +9,7 @@ import '../../state/providers.dart';
 import '../../theme/tokens.dart';
 import '../../utils/grade_labels.dart';
 import '../../widgets/app_card.dart';
-import '../../widgets/app_buttons.dart';
+
 
 class TournamentDetailScreen extends ConsumerStatefulWidget {
   const TournamentDetailScreen({super.key, required this.tournamentId});
@@ -221,11 +221,8 @@ class _DetailBody extends StatelessWidget {
             ),
           ),
 
-          // 설명 (JS 코드가 섞인 크롤 데이터는 숨김)
-          if (t.description != null &&
-              !t.description!.contains('function ') &&
-              !t.description!.contains('var ') &&
-              t.description!.trim().isNotEmpty) ...[
+          // 대회 소개 (사용자 제출 대회에만 description 있음)
+          if (t.description != null && t.description!.trim().isNotEmpty) ...[
             const SizedBox(height: AppSpacing.xl),
             Text('대회 소개', style: tt.titleSmall?.copyWith(color: cs.onSurfaceVariant)),
             const SizedBox(height: AppSpacing.sm),
@@ -233,21 +230,35 @@ class _DetailBody extends StatelessWidget {
               child: Text(
                 t.description!,
                 style: tt.bodyMedium?.copyWith(height: 1.6),
-                maxLines: 8,
-                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
 
-          // 원본 공고 버튼
+          // 원본 공고 (크롤 소스 대회)
           if (t.sourceUrl != null) ...[
             const SizedBox(height: AppSpacing.xl),
-            AppPrimaryButton(
-              label: '원본 공고 열기',
-              icon: Icons.open_in_new_rounded,
-              onPressed: () => launchUrl(
-                Uri.parse(t.sourceUrl!),
-                mode: LaunchMode.externalApplication,
+            Text('공식 공고', style: tt.titleSmall?.copyWith(color: cs.onSurfaceVariant)),
+            const SizedBox(height: AppSpacing.sm),
+            AppCard(
+              child: InkWell(
+                onTap: () => launchUrl(
+                  Uri.parse(t.sourceUrl!),
+                  mode: LaunchMode.externalApplication,
+                ),
+                borderRadius: BorderRadius.circular(8),
+                child: Row(
+                  children: [
+                    Icon(Icons.article_outlined, color: cs.primary, size: 20),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        '대회 공식 요강 · 접수 페이지',
+                        style: tt.bodyMedium?.copyWith(color: cs.primary),
+                      ),
+                    ),
+                    Icon(Icons.open_in_new_rounded, color: cs.primary, size: 16),
+                  ],
+                ),
               ),
             ),
           ],

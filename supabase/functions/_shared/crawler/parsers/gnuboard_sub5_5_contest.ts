@@ -158,14 +158,17 @@ async function fetchDetail(
   const title = (h3El?.textContent ?? '').replace(/\s+/g, ' ').trim() || titleHint;
   if (!title) return null;
 
-  // script/style 제거 후 텍스트 추출 (JS 코드가 description에 포함되지 않도록)
+  // 노이즈 태그(script/style/nav/header/footer) 제거 후 텍스트 추출
   const bodyEl = dom.querySelector('body');
   if (bodyEl) {
-    const scriptNodes = bodyEl.querySelectorAll('script, style');
-    for (const node of scriptNodes) {
+    const noiseNodes = bodyEl.querySelectorAll(
+      'script, style, nav, header, footer, aside, .gnb, .lnb, .snb',
+    );
+    for (const node of noiseNodes) {
       node.parentNode?.removeChild(node);
     }
   }
+  // 전체 body 텍스트 (날짜·등급 추출용)
   const bodyText = (dom.querySelector('body')?.textContent ?? '').replace(/\s+/g, ' ').trim();
 
   // 대회일 추출: 가장 먼저 등장하는 유효 날짜를 start_date 로 사용
@@ -176,7 +179,7 @@ async function fetchDetail(
 
   return {
     title,
-    description: bodyText ? bodyText.slice(0, 800) : undefined,
+    description: undefined, // 크롤 소스는 source_url로 원문 제공; 텍스트 추출 시 nav 오염 우려
     start_date: startDate,
     application_deadline: extractApplicationDeadline(bodyText) ?? undefined,
     region,
