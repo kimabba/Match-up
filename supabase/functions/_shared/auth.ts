@@ -67,12 +67,28 @@ export function requireServiceRole(
   return {};
 }
 
+// pg_cron / invoke_edge_function 에서 사용하는 내부 호출 인증.
+// SUPABASE_SERVICE_ROLE_KEY 가 platform 버전에 따라 달라질 수 있어,
+// INTERNAL_CRON_JWT env var 를 별도로 설정해 비교한다.
+export function requireCronSecret(
+  req: Request,
+): { error: Response } | Record<string, never> {
+  const auth = req.headers.get('Authorization') ?? '';
+  const token = auth.replace('Bearer ', '').trim();
+  const cronJwt = Deno.env.get('INTERNAL_CRON_JWT');
+  if (cronJwt && token === cronJwt) return {};
+  return { error: errorResponse('Forbidden: Invalid Internal Token', 403) };
+}
+
 export function requireServiceRoleOrAdmin(
   req: Request,
 ): Promise<{ error: Response } | Record<string, never>> {
+  // 1) cron secret (pg_cron / invoke_edge_function 내부 호출)
+  const cronResult = requireCronSecret(req);
+  if (!('error' in cronResult)) return Promise.resolve({});
+  // 2) service_role JWT
   const srResult = requireServiceRole(req);
   if (!('error' in srResult)) return Promise.resolve({});
-  // admin 통과 시 user/supabase 객체는 현재 호출처들이 사용하지 않으므로 빈 객체로 정규화
-  // (반환 타입 시그니처와 일치 + 모든 callers 가 'error in auth' 만 분기).
+  // 3) admin 사용자 JWT
   return requireAdmin(req).then((r) => ('error' in r ? r : ({} as Record<string, never>)));
 }

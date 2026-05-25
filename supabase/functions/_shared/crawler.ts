@@ -10,7 +10,8 @@ export interface CrawlerTournament {
   application_deadline?: string;
   region?: string;
   location?: string;
-  eligible_grades: string[]; // ['rookie','div5',...]
+  eligible_grades: string[]; // ['gj_m_gold','gj_m_general',...]
+  division_label_local?: string; // '골드부 · 일반부' — UI 표시용
   entry_fee?: number;
   prize?: string;
   format?: string;
@@ -92,6 +93,7 @@ export async function upsertTournament(
         region: t.region ?? null,
         location: t.location ?? null,
         eligible_grades: t.eligible_grades,
+        division_label_local: t.division_label_local ?? null,
         entry_fee: t.entry_fee ?? null,
         prize: t.prize ?? null,
         format: t.format ?? null,
@@ -113,12 +115,13 @@ export async function upsertTournament(
     region: t.region ?? null,
     location: t.location ?? null,
     eligible_grades: t.eligible_grades,
+    division_label_local: t.division_label_local ?? null,
     entry_fee: t.entry_fee ?? null,
     prize: t.prize ?? null,
     format: t.format ?? null,
     source: audit.source,
     source_url: t.source_url,
-    status: 'draft', // 관리자 승인 대기 (어드민 화면 SSF-272 후 일괄 승인)
+    status: 'draft',
   });
   if (error) throw new Error(`upsertTournament insert: ${error.message}`);
   audit.inserted++;
@@ -230,22 +233,57 @@ export function extractApplicationDeadline(text: string): string | null {
 }
 
 /**
- * 페이지 전체 텍스트에서 등급 키워드 자동 추출.
- * 광주/전남 협회 공고문 패턴: "신입부", "5부", "4부"... "오픈" 등.
+ * 광주/전남 생활체육 협회 공고 텍스트에서 부서 코드 추출.
+ * org: 'gj' | 'jn' — prefix로 사용됨 (예: 'gj_m_gold')
  *
- * 정밀하지 않으니 사이트별 파서에서 override 권장.
+ * 반환값:
+ *   codes:  eligible_grades 에 저장할 {org}_{suffix} 코드 배열
+ *   label:  division_label_local 에 저장할 한국어 표시 문자열 (예: "골드부 · 일반부")
  */
-export function extractTennisGradesFromText(text: string): string[] {
-  const found: Set<string> = new Set();
-  if (/신입|노부|새내기|초보/i.test(text)) found.add('rookie');
-  if (/\b5\s*부\b|5부|디비전5|d5/i.test(text)) found.add('div5');
-  if (/\b4\s*부\b|4부|디비전4|d4/i.test(text)) found.add('div4');
-  if (/\b3\s*부\b|3부|디비전3|d3/i.test(text)) found.add('div3');
-  if (/\b2\s*부\b|2부|디비전2|d2/i.test(text)) found.add('div2');
-  if (/\b1\s*부\b|1부|디비전1|d1|오픈/i.test(text)) found.add('div1');
-  // 모든 부수 대회면 전체
-  if (found.size === 0 && /(전\s*부수|모든\s*부수)/i.test(text)) {
-    return ['rookie', 'div5', 'div4', 'div3', 'div2', 'div1'];
+export function extractGJDivisions(
+  text: string,
+  org: 'gj' | 'jn',
+): { codes: string[]; label: string } {
+  const KEYWORD_MAP: Array<{ keywords: string[]; suffix: string; label: string }> = [
+    { keywords: ['오픈부', '남자오픈', '오픈'],              suffix: 'm_open',       label: '오픈부' },
+    { keywords: ['골드부', '골드'],                          suffix: 'm_gold',       label: '골드부' },
+    { keywords: ['남자일반부', '일반부', '남자일반'],        suffix: 'm_general',    label: '일반부' },
+    { keywords: ['지도자부', '지도자'],                      suffix: 'm_instructor', label: '지도자부' },
+    { keywords: ['마스터즈부', '마스터즈'],                  suffix: 'm_masters',    label: '마스터즈부' },
+    { keywords: ['남자신인부', '신인부', '신인'],            suffix: 'm_rookie',     label: '신인부' },
+    { keywords: ['베테랑부', '베테랑'],                      suffix: 'm_veteran',    label: '베테랑부' },
+    { keywords: ['초급자부', '비입상자부', '초급자'],        suffix: 'm_beginner',   label: '초급자부' },
+    { keywords: ['여자오픈부', '여자오픈'],                  suffix: 'w_open',       label: '여자오픈부' },
+    { keywords: ['우승자부', '여자우승자', '국화', '금배'],  suffix: 'w_winner',     label: '여자우승자부' },
+    { keywords: ['여자신인부', '여자신인'],                  suffix: 'w_rookie',     label: '여자신인부' },
+    { keywords: ['부부부', '부부'],                          suffix: 'couple',       label: '부부부' },
+    { keywords: ['크로스'],                                  suffix: 'cross',        label: '크로스대회' },
+  ];
+
+  const foundCodes: string[] = [];
+  const foundLabels: string[] = [];
+
+  for (const entry of KEYWORD_MAP) {
+    const matched = entry.keywords.some((kw) => text.includes(kw));
+    if (matched) {
+      foundCodes.push(`${org}_${entry.suffix}`);
+      foundLabels.push(entry.label);
+    }
   }
-  return [...found];
+
+  // 아무것도 매칭 안 되면 오픈부+일반부를 기본으로
+  if (foundCodes.length === 0) {
+    foundCodes.push(`${org}_m_open`, `${org}_m_general`);
+    foundLabels.push('오픈부', '일반부');
+  }
+
+  return { codes: foundCodes, label: foundLabels.join(' · ') };
+}
+
+/**
+ * @deprecated extractGJDivisions 사용 권장.
+ * 구 파서 호환용으로만 유지.
+ */
+export function extractTennisGradesFromText(_text: string): string[] {
+  return [];
 }

@@ -24,7 +24,7 @@ import {
   type CrawlerTournament,
   extractApplicationDeadline,
   extractDate,
-  extractTennisGradesFromText,
+  extractGJDivisions,
   upsertTournament,
 } from '../../crawler.ts';
 import type { CrawlResult, CrawlSource, ParserContext, ParserFn } from '../types.ts';
@@ -146,6 +146,7 @@ async function fetchDetail(
   detailUrl: string,
   region: string,
   titleHint: string,
+  org: 'gj' | 'jn',
 ): Promise<CrawlerTournament | null> {
   const res = await fetch(detailUrl, { headers: COMMON_HEADERS });
   if (!res.ok) return null;
@@ -174,10 +175,12 @@ async function fetchDetail(
   const startDate = extractDate(bodyText) ?? extractDate(title);
   if (!startDate) return null;
 
-  const grades = extractTennisGradesFromText(`${title} ${bodyText}`);
+  const { codes: gradeCodes, label: divisionLabel } = extractGJDivisions(
+    `${title} ${bodyText}`,
+    org,
+  );
 
   // 네비게이션 텍스트는 제목보다 앞에 있으므로, 제목 이후 텍스트만 description 으로 사용
-  // 제목 첫 10자로 위치를 찾아 슬라이스 (nav 오염 제거)
   const titleAnchor = title.slice(0, 10);
   const titlePos = bodyText.indexOf(titleAnchor);
   const contentAfterTitle = titlePos !== -1
@@ -191,7 +194,8 @@ async function fetchDetail(
     start_date: startDate,
     application_deadline: extractApplicationDeadline(bodyText) ?? undefined,
     region,
-    eligible_grades: grades,
+    eligible_grades: gradeCodes,
+    division_label_local: divisionLabel,
     source_url: detailUrl,
     organizer: region ? `${region}테니스협회` : undefined,
   };
@@ -272,10 +276,11 @@ export const gnuboardSub5_5ContestParser: ParserFn = async (
   }
 
   // 4) 상세 페이지 처리
+  const org: 'gj' | 'jn' = source.slug.includes('gwangju') ? 'gj' : 'jn';
   const errors: string[] = [];
   for (const item of items.slice(0, 30)) {
     try {
-      const detail = await fetchDetail(item.url, region, item.title);
+      const detail = await fetchDetail(item.url, region, item.title, org);
       if (detail) {
         await upsertTournament(ctx.audit, 'tennis', detail);
       }

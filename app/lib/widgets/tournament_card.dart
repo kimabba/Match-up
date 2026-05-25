@@ -29,7 +29,9 @@ class TournamentCard extends StatelessWidget {
     final tt = Theme.of(context).textTheme;
     final isTennis = tournament.sport == 'tennis';
     final accentColor = isTennis ? cs.primary : cs.tertiary;
-    final grades = tournament.eligibleGrades.map(gradeLabel).join(' · ');
+    final grades = (tournament.divisionLabelLocal?.isNotEmpty == true)
+        ? tournament.divisionLabelLocal!
+        : formatEligibleGrades(tournament.eligibleGrades);
 
     return Padding(
       padding: const EdgeInsets.only(bottom: AppSpacing.sm),

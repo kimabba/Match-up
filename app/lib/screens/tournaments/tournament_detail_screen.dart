@@ -100,7 +100,10 @@ class _DetailBody extends StatelessWidget {
     final tt = Theme.of(context).textTheme;
     final isTennis = t.sport == 'tennis';
     final accentColor = isTennis ? cs.primary : cs.tertiary;
-    final grades = t.eligibleGrades.map(gradeLabel).join(' · ');
+    // division_label_local이 있으면 우선 사용, 없으면 eligible_grades 코드에서 생성
+    final grades = (t.divisionLabelLocal?.isNotEmpty == true)
+        ? t.divisionLabelLocal!
+        : formatEligibleGrades(t.eligibleGrades);
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppSpacing.lg),

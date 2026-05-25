@@ -27,8 +27,9 @@ class _TournamentSubmitScreenState
   final _description = TextEditingController();
   final _sourceUrl = TextEditingController();
   Sport _sport = Sport.tennis;
+  String _tennisOrg = 'gj'; // 테니스 주최 협회
   DateTime? _startDate;
-  final Set<String> _grades = {};
+  final Set<String> _grades = {}; // eligible_grades ({org}_{div} 코드)
   bool _busy = false;
   String? _error;
 
@@ -69,6 +70,7 @@ class _TournamentSubmitScreenState
       _error = null;
     });
     try {
+      final gradeList = _grades.toList();
       await ref.read(apiProvider).submitTournament({
         'sport': sportToString(_sport),
         'title': _title.text.trim(),
@@ -78,7 +80,9 @@ class _TournamentSubmitScreenState
         'start_date': _startDate!.toIso8601String().substring(0, 10),
         if (_region.text.trim().isNotEmpty) 'region': _region.text.trim(),
         if (_location.text.trim().isNotEmpty) 'location': _location.text.trim(),
-        'eligible_grades': _grades.toList(),
+        'eligible_grades': gradeList,
+        if (_sport == Sport.tennis)
+          'division_label_local': formatEligibleGrades(gradeList),
         if (_sourceUrl.text.trim().isNotEmpty) 'source_url': _sourceUrl.text.trim(),
       });
       if (mounted) {
@@ -94,11 +98,21 @@ class _TournamentSubmitScreenState
     }
   }
 
+  // 테니스 협회 선택 목록 (제보에서 자주 쓰이는 협회만)
+  static const _tennisOrgOptions = <(String, String)>[
+    ('gj',    '광주협회 (GJTA)'),
+    ('jn',    '전남협회 (JNTA)'),
+    ('kta',   'KTA'),
+    ('kata',  'KATA'),
+    ('ktfs',  'KTFS'),
+    ('kstf',  'KSTF (시니어)'),
+    ('local', '지역/클럽 자체'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
-    final grades = gradesFor(_sport);
 
     return Scaffold(
       appBar: AppBar(title: const Text('대회 제보')),
@@ -145,6 +159,7 @@ class _TournamentSubmitScreenState
               onSelectionChanged: (v) => setState(() {
                 _sport = v.first;
                 _grades.clear();
+                _tennisOrg = 'gj';
               }),
             ),
             const SizedBox(height: AppSpacing.lg),
@@ -201,25 +216,60 @@ class _TournamentSubmitScreenState
             ),
             const SizedBox(height: AppSpacing.lg),
 
-            // 등급 선택
-            _Label('출전 가능 등급 *'),
-            const SizedBox(height: AppSpacing.sm),
-            Wrap(
-              spacing: AppSpacing.sm,
-              runSpacing: AppSpacing.sm,
-              children: [
-                for (final g in grades)
-                  FilterChip(
-                    label: Text(gradeLabel(g)),
-                    selected: _grades.contains(g),
-                    onSelected: (s) => setState(() {
-                      s ? _grades.add(g) : _grades.remove(g);
-                    }),
-                    selectedColor: cs.primaryContainer,
-                    checkmarkColor: cs.onPrimaryContainer,
-                  ),
-              ],
-            ),
+            // 테니스: 협회 선택 → 부서 선택 / 풋살: 등급 선택
+            if (_sport == Sport.tennis) ...[
+              _Label('주최 협회 *'),
+              const SizedBox(height: AppSpacing.sm),
+              DropdownButtonFormField<String>(
+                value: _tennisOrg,
+                decoration: _inputDeco('협회 선택'),
+                items: _tennisOrgOptions
+                    .map((e) => DropdownMenuItem(value: e.$1, child: Text(e.$2)))
+                    .toList(),
+                onChanged: (v) => setState(() {
+                  _tennisOrg = v!;
+                  _grades.clear();
+                }),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              _Label('출전 부서 * (복수 선택 가능)'),
+              const SizedBox(height: AppSpacing.sm),
+              Wrap(
+                spacing: AppSpacing.sm,
+                runSpacing: AppSpacing.sm,
+                children: [
+                  for (final d in divisionsForOrg(_tennisOrg))
+                    FilterChip(
+                      label: Text(d.label),
+                      selected: _grades.contains(d.code),
+                      onSelected: (s) => setState(() {
+                        s ? _grades.add(d.code) : _grades.remove(d.code);
+                      }),
+                      selectedColor: cs.primaryContainer,
+                      checkmarkColor: cs.onPrimaryContainer,
+                    ),
+                ],
+              ),
+            ] else ...[
+              _Label('출전 가능 등급 *'),
+              const SizedBox(height: AppSpacing.sm),
+              Wrap(
+                spacing: AppSpacing.sm,
+                runSpacing: AppSpacing.sm,
+                children: [
+                  for (final g in gradesFor(_sport))
+                    FilterChip(
+                      label: Text(gradeLabel(g)),
+                      selected: _grades.contains(g),
+                      onSelected: (s) => setState(() {
+                        s ? _grades.add(g) : _grades.remove(g);
+                      }),
+                      selectedColor: cs.primaryContainer,
+                      checkmarkColor: cs.onPrimaryContainer,
+                    ),
+                ],
+              ),
+            ],
             const SizedBox(height: AppSpacing.lg),
 
             TextFormField(
