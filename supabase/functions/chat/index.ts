@@ -860,7 +860,7 @@ Deno.serve(async (req) => {
               supabase.rpc('tournaments_semantic_search', {
                 p_user_id: user.id,
                 p_query_embedding: vectorLiteral,
-                p_only_my_grade: true,
+                p_only_my_grade: false, // RAG는 관련성 우선; 등급 필터는 목록 화면에서만
                 p_match_count: 5,
                 p_sport: requestedSport ?? null,
               }),
