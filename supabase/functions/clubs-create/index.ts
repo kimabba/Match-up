@@ -56,5 +56,5 @@ Deno.serve(async (req) => {
     status: 'active',
   });
 
-  return jsonResponse({ club }, 201);
+  return jsonResponse({ club }, { status: 201 });
 });
