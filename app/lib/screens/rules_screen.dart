@@ -290,79 +290,89 @@ class _DailyRuleQuizCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
     final quiz = _quizForToday(sport);
 
     return Material(
-      color: const Color(0xFFFEF3C7),
-      borderRadius: BorderRadius.circular(16),
-      child: InkWell(
-        onTap: () => _showQuiz(context, quiz),
-        borderRadius: BorderRadius.circular(16),
-        child: Padding(
-          padding: const EdgeInsets.all(AppSpacing.lg),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(18),
+      clipBehavior: Clip.antiAlias,
+      child: Ink(
+        height: 126,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/rules/rule-quiz-cover.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: InkWell(
+          onTap: () => _showQuiz(context, quiz),
+          child: DecoratedBox(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  Color(0xF20A1832),
+                  Color(0xC90A1832),
+                  Color(0x250A1832),
+                ],
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(AppSpacing.lg),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
-                          Icons.lightbulb_outline_rounded,
-                          color: Color(0xFFD97706),
-                          size: 18,
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: AppSpacing.sm,
+                            vertical: AppSpacing.xs,
+                          ),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFD9F84B),
+                            borderRadius: AppRadius.pill,
+                          ),
+                          child: Text(
+                            'TODAY QUIZ',
+                            style: tt.labelSmall?.copyWith(
+                              color: const Color(0xFF111827),
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
                         ),
-                        const SizedBox(width: AppSpacing.xs),
+                        const SizedBox(height: AppSpacing.sm),
                         Text(
                           '오늘의 룰 퀴즈',
                           style: tt.titleSmall?.copyWith(
-                            color: cs.onSurface,
+                            color: Colors.white,
                             fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          quiz.question,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: tt.bodySmall?.copyWith(
+                            color: Colors.white.withValues(alpha: 0.82),
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: AppSpacing.xs),
-                    Text(
-                      quiz.question,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: tt.bodySmall?.copyWith(
-                        color: cs.onSurfaceVariant,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                  const Icon(
+                    Icons.arrow_forward_rounded,
+                    size: 22,
+                    color: Colors.white,
+                  ),
+                ],
               ),
-              const SizedBox(width: AppSpacing.md),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      sport == 'tennis'
-                          ? 'assets/images/tournaments/tennis-cover.jpg'
-                          : 'assets/images/tournaments/futsal-cover.jpg',
-                      width: 78,
-                      height: 68,
-                      fit: BoxFit.cover,
-                    ),
-                    Positioned(
-                      right: AppSpacing.xs,
-                      bottom: AppSpacing.xs,
-                      child: Icon(
-                        Icons.chevron_right_rounded,
-                        size: 20,
-                        color: Colors.white.withValues(alpha: 0.94),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
@@ -911,6 +921,27 @@ void _showArticle(BuildContext context, RuleArticle article) {
 
 IconData _iconForCategory(String category) {
   final lower = category.toLowerCase();
+  if (lower.contains('점수') || lower.contains('score')) {
+    return Icons.scoreboard_rounded;
+  }
+  if (lower.contains('서브') || lower.contains('serve')) {
+    return Icons.sports_tennis_rounded;
+  }
+  if (lower.contains('발리') || lower.contains('volley')) {
+    return Icons.flash_on_rounded;
+  }
+  if (lower.contains('라인') || lower.contains('line')) {
+    return Icons.straighten_rounded;
+  }
+  if (lower.contains('복식') || lower.contains('double')) {
+    return Icons.groups_2_rounded;
+  }
+  if (lower.contains('시간') || lower.contains('time')) {
+    return Icons.timer_outlined;
+  }
+  if (lower.contains('교체') || lower.contains('substitution')) {
+    return Icons.swap_horiz_rounded;
+  }
   if (lower.contains('경기') || lower.contains('game') || lower.contains('진행')) {
     return Icons.sports_score_rounded;
   }
