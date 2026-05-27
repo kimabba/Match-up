@@ -83,3 +83,9 @@ final isAdminProvider = FutureProvider<bool>((ref) async {
       .maybeSingle();
   return row?['role'] == 'admin';
 });
+
+/// 관리자 룰 목록 (종목 필터, null=전체). 작업 후 invalidate 로 새로고침.
+final adminRulesProvider =
+    FutureProvider.autoDispose.family<List<RuleArticle>, String?>((ref, sport) {
+  return ref.watch(apiProvider).adminListRules(sport: sport);
+});
