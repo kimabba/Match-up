@@ -230,6 +230,10 @@ class RuleArticle {
   final String category;
   final String title;
   final String body;
+  final int orderIdx;
+  final bool published;
+  final DateTime? embeddingUpdatedAt;
+  final DateTime? updatedAt;
 
   RuleArticle({
     required this.id,
@@ -237,7 +241,14 @@ class RuleArticle {
     required this.category,
     required this.title,
     required this.body,
+    this.orderIdx = 0,
+    this.published = true,
+    this.embeddingUpdatedAt,
+    this.updatedAt,
   });
+
+  /// embedding_updated_at 이 null 이면 임베딩 대기(재계산 필요), 아니면 최신.
+  bool get embeddingPending => embeddingUpdatedAt == null;
 
   factory RuleArticle.fromJson(Map<String, dynamic> j) => RuleArticle(
         id: j['id'] as String,
@@ -245,6 +256,14 @@ class RuleArticle {
         category: j['category'] as String,
         title: j['title'] as String,
         body: j['body'] as String,
+        orderIdx: (j['order_idx'] as int?) ?? 0,
+        published: (j['published'] as bool?) ?? true,
+        embeddingUpdatedAt: j['embedding_updated_at'] != null
+            ? DateTime.parse(j['embedding_updated_at'] as String)
+            : null,
+        updatedAt: j['updated_at'] != null
+            ? DateTime.parse(j['updated_at'] as String)
+            : null,
       );
 }
 
