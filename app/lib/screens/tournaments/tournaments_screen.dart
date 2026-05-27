@@ -171,42 +171,38 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
             child: _error != null
                 ? _TournamentErrorState(message: _error!, onRetry: _search)
                 : _results == null
-                ? const SizedBox.shrink()
-                : _results!.isEmpty
-                ? const AppEmptyState(
-                    icon: Icons.search_off_rounded,
-                    title: '검색 결과 없음',
-                    description: '다른 검색어나 필터로 시도해 보세요.',
-                  )
-                : ListView.builder(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.lg,
-                      vertical: AppSpacing.lg,
-                    ),
-                    itemCount: _results!.length,
-                    itemBuilder: (_, i) {
-                      final tournament = _results![i];
-                      final favs = favorites.valueOrNull ?? const <String>{};
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-                        child: TournamentCard(
-                          tournament: tournament,
-                          isFavorite: favs.contains(tournament.id),
-                          onTap: () =>
-                              context.push('/tournaments/${tournament.id}'),
-                          onFavoriteToggle: () async {
-                            await ref
-                                .read(apiProvider)
-                                .toggleFavorite(
-                                  tournament.id,
-                                  !favs.contains(tournament.id),
-                                );
-                            ref.invalidate(favoriteIdsProvider);
-                          },
-                        ),
-                      );
-                    },
-                  ),
+                    ? const SizedBox.shrink()
+                    : _results!.isEmpty
+                        ? const AppEmptyState(
+                            icon: Icons.search_off_rounded,
+                            title: '검색 결과 없음',
+                            description: '다른 검색어나 필터로 시도해 보세요.',
+                          )
+                        : ListView.builder(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppSpacing.lg,
+                              vertical: AppSpacing.lg,
+                            ),
+                            itemCount: _results!.length,
+                            itemBuilder: (_, i) {
+                              final tournament = _results![i];
+                              final favs =
+                                  favorites.valueOrNull ?? const <String>{};
+                              return TournamentCard(
+                                tournament: tournament,
+                                isFavorite: favs.contains(tournament.id),
+                                onTap: () => context
+                                    .push('/tournaments/${tournament.id}'),
+                                onFavoriteToggle: () async {
+                                  await ref.read(apiProvider).toggleFavorite(
+                                        tournament.id,
+                                        !favs.contains(tournament.id),
+                                      );
+                                  ref.invalidate(favoriteIdsProvider);
+                                },
+                              );
+                            },
+                          ),
           ),
         ],
       ),
@@ -355,7 +351,7 @@ class _MyGradeSection extends ConsumerWidget {
               if (list.isEmpty) return const SizedBox.shrink();
               final favs = favorites.valueOrNull ?? const <String>{};
               return SizedBox(
-                height: 260,
+                height: 210,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   padding: const EdgeInsets.symmetric(
@@ -370,6 +366,7 @@ class _MyGradeSection extends ConsumerWidget {
                       width: 260,
                       child: TournamentCard(
                         tournament: tournament,
+                        compact: true,
                         isFavorite: favs.contains(tournament.id),
                         onTap: () =>
                             context.push('/tournaments/${tournament.id}'),

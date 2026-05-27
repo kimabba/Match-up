@@ -304,32 +304,28 @@ class _DailyRuleQuizCard extends StatelessWidget {
           padding: const EdgeInsets.all(AppSpacing.lg),
           child: Row(
             children: [
-              Container(
-                width: 48,
-                height: 48,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFFFE39A),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.lightbulb_outline_rounded,
-                  color: Color(0xFFD97706),
-                  size: 28,
-                ),
-              ),
-              const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '오늘의 룰 퀴즈',
-                      style: tt.titleSmall?.copyWith(
-                        color: cs.onSurface,
-                        fontWeight: FontWeight.w900,
-                      ),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.lightbulb_outline_rounded,
+                          color: Color(0xFFD97706),
+                          size: 18,
+                        ),
+                        const SizedBox(width: AppSpacing.xs),
+                        Text(
+                          '오늘의 룰 퀴즈',
+                          style: tt.titleSmall?.copyWith(
+                            color: cs.onSurface,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 3),
+                    const SizedBox(height: AppSpacing.xs),
                     Text(
                       quiz.question,
                       maxLines: 2,
@@ -341,7 +337,31 @@ class _DailyRuleQuizCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Icon(Icons.chevron_right_rounded, color: cs.onSurfaceVariant),
+              const SizedBox(width: AppSpacing.md),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Stack(
+                  children: [
+                    Image.asset(
+                      sport == 'tennis'
+                          ? 'assets/images/tournaments/tennis-cover.jpg'
+                          : 'assets/images/tournaments/futsal-cover.jpg',
+                      width: 78,
+                      height: 68,
+                      fit: BoxFit.cover,
+                    ),
+                    Positioned(
+                      right: AppSpacing.xs,
+                      bottom: AppSpacing.xs,
+                      child: Icon(
+                        Icons.chevron_right_rounded,
+                        size: 20,
+                        color: Colors.white.withValues(alpha: 0.94),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

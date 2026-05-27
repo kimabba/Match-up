@@ -12,7 +12,7 @@ class _Msg {
   List<Map<String, dynamic>> citations;
 
   _Msg({required this.role, required this.content})
-    : citations = <Map<String, dynamic>>[];
+      : citations = <Map<String, dynamic>>[];
 }
 
 class ChatScreen extends ConsumerStatefulWidget {
@@ -181,7 +181,7 @@ class _EmptyHint extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: AppSpacing.lg),
-          const _CoachBotLogo(size: 76, iconSize: 38, elevated: true),
+          const _CoachBotVisual(size: 108),
           const SizedBox(height: AppSpacing.md),
           Text(
             '코치봇에게 물어보세요',
@@ -249,56 +249,27 @@ class _EmptyHint extends StatelessWidget {
   }
 }
 
-class _CoachBotLogo extends StatelessWidget {
-  const _CoachBotLogo({
-    required this.size,
-    required this.iconSize,
-    this.elevated = false,
-  });
+class _CoachBotVisual extends StatelessWidget {
+  const _CoachBotVisual({required this.size});
 
   final double size;
-  final double iconSize;
-  final bool elevated;
 
   @override
   Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [cs.primary, cs.secondary],
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(26),
+      child: Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          boxShadow: AppShadows.elevatedFor(Theme.of(context).brightness),
         ),
-        borderRadius: BorderRadius.circular(size * 0.32),
-        boxShadow: elevated
-            ? AppShadows.elevatedFor(Theme.of(context).brightness)
-            : null,
-      ),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Icon(Icons.smart_toy_rounded, size: iconSize, color: cs.onPrimary),
-          Positioned(
-            right: size * 0.14,
-            bottom: size * 0.14,
-            child: Container(
-              width: size * 0.22,
-              height: size * 0.22,
-              decoration: BoxDecoration(
-                color: cs.tertiary,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: cs.onPrimary,
-                  width: size < 40 ? 1.2 : 2,
-                ),
-              ),
-            ),
-          ),
-        ],
+        child: Image.asset(
+          'assets/images/coachbot/coachbot-avatar.jpg',
+          width: size,
+          height: size,
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }
@@ -473,8 +444,7 @@ class _CitationRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
-    final title =
-        citation['title']?.toString() ??
+    final title = citation['title']?.toString() ??
         citation['url']?.toString() ??
         citation['source']?.toString() ??
         '';
@@ -486,9 +456,9 @@ class _CitationRow extends StatelessWidget {
       child: GestureDetector(
         onTap: url != null
             ? () => launchUrl(
-                Uri.parse(url),
-                mode: LaunchMode.externalApplication,
-              )
+                  Uri.parse(url),
+                  mode: LaunchMode.externalApplication,
+                )
             : null,
         child: Row(
           children: [

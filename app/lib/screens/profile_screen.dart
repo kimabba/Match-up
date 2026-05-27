@@ -385,9 +385,8 @@ class _ProfileHeaderContent extends StatelessWidget {
               CircleAvatar(
                 radius: 42,
                 backgroundColor: cs.onPrimary.withValues(alpha: 0.2),
-                backgroundImage: avatarBytes == null
-                    ? null
-                    : MemoryImage(avatarBytes!),
+                backgroundImage:
+                    avatarBytes == null ? null : MemoryImage(avatarBytes!),
                 child: avatarBytes == null
                     ? Text(
                         initial,
@@ -642,19 +641,7 @@ class _MyClubsSection extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(16),
                           child: Row(
                             children: [
-                              Container(
-                                width: 54,
-                                height: 54,
-                                decoration: BoxDecoration(
-                                  color: cs.secondaryContainer,
-                                  borderRadius: BorderRadius.circular(14),
-                                ),
-                                child: Icon(
-                                  Icons.groups_rounded,
-                                  color: cs.onSecondaryContainer,
-                                  size: 28,
-                                ),
-                              ),
+                              _ProfileSportThumbnail(sport: club.sport),
                               const SizedBox(width: AppSpacing.md),
                               Expanded(
                                 child: Column(
@@ -821,21 +808,7 @@ class _SportCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(16),
       child: Row(
         children: [
-          Container(
-            width: 54,
-            height: 54,
-            decoration: BoxDecoration(
-              color: isTennis ? cs.tertiaryContainer : cs.secondaryContainer,
-              borderRadius: BorderRadius.circular(14),
-            ),
-            child: Icon(
-              isTennis
-                  ? Icons.sports_tennis_rounded
-                  : Icons.sports_soccer_rounded,
-              color: accentColor,
-              size: 28,
-            ),
-          ),
+          _ProfileSportThumbnail(sport: sport.sport),
           const SizedBox(width: AppSpacing.md),
           Expanded(
             child: Column(
@@ -872,6 +845,44 @@ class _SportCard extends StatelessWidget {
               ),
             ),
         ],
+      ),
+    );
+  }
+}
+
+class _ProfileSportThumbnail extends StatelessWidget {
+  const _ProfileSportThumbnail({required this.sport});
+
+  final String sport;
+
+  @override
+  Widget build(BuildContext context) {
+    final isTennis = sport == 'tennis';
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(14),
+      child: SizedBox(
+        width: 54,
+        height: 54,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(
+              isTennis
+                  ? 'assets/images/tournaments/tennis-cover.jpg'
+                  : 'assets/images/tournaments/futsal-cover.jpg',
+              fit: BoxFit.cover,
+            ),
+            ColoredBox(color: Colors.black.withValues(alpha: 0.18)),
+            Icon(
+              isTennis
+                  ? Icons.sports_tennis_rounded
+                  : Icons.sports_soccer_rounded,
+              color: Colors.white,
+              size: 23,
+            ),
+          ],
+        ),
       ),
     );
   }

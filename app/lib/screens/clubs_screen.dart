@@ -162,8 +162,7 @@ class _MyClubsTab extends ConsumerWidget {
     }
 
     // pending(대기중) 클럽을 맨 위로
-    final sorted = [...clubs!]
-      ..sort((a, b) {
+    final sorted = [...clubs!]..sort((a, b) {
         if (a.isPending && !b.isPending) return -1;
         if (!a.isPending && b.isPending) return 1;
         return 0;
@@ -309,26 +308,26 @@ class _SearchTab extends StatelessWidget {
           child: clubs == null
               ? const SizedBox.shrink()
               : clubs!.isEmpty
-              ? const AppEmptyState(
-                  icon: Icons.groups_rounded,
-                  title: '등록된 클럽이 없습니다',
-                  description: '다른 검색어나 필터로 시도해 보세요.',
-                )
-              : ListView.builder(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.lg,
-                    vertical: AppSpacing.lg,
-                  ),
-                  itemCount: clubs!.length,
-                  itemBuilder: (_, i) => Padding(
-                    padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-                    child: _ClubCard(
-                      club: clubs![i],
-                      showRole: false,
-                      onChanged: onJoined,
+                  ? const AppEmptyState(
+                      icon: Icons.groups_rounded,
+                      title: '등록된 클럽이 없습니다',
+                      description: '다른 검색어나 필터로 시도해 보세요.',
+                    )
+                  : ListView.builder(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.lg,
+                        vertical: AppSpacing.lg,
+                      ),
+                      itemCount: clubs!.length,
+                      itemBuilder: (_, i) => Padding(
+                        padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                        child: _ClubCard(
+                          club: clubs![i],
+                          showRole: false,
+                          onChanged: onJoined,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
         ),
       ],
     );
@@ -366,20 +365,9 @@ class _ClubCard extends ConsumerWidget {
       variant: AppCardVariant.elevated,
       child: Row(
         children: [
-          Container(
-            width: 56,
-            height: 56,
-            decoration: BoxDecoration(
-              color: isTennis ? cs.tertiaryContainer : cs.secondaryContainer,
-              borderRadius: BorderRadius.circular(14),
-            ),
-            child: Icon(
-              isTennis
-                  ? Icons.sports_tennis_rounded
-                  : Icons.sports_soccer_rounded,
-              color: accentColor,
-              size: 28,
-            ),
+          _ClubSportThumbnail(
+            sport: club.sport,
+            accentColor: accentColor,
           ),
           const SizedBox(width: AppSpacing.md),
           Expanded(
@@ -438,6 +426,48 @@ class _ClubCard extends ConsumerWidget {
   }
 }
 
+class _ClubSportThumbnail extends StatelessWidget {
+  const _ClubSportThumbnail({
+    required this.sport,
+    required this.accentColor,
+  });
+
+  final String sport;
+  final Color accentColor;
+
+  @override
+  Widget build(BuildContext context) {
+    final isTennis = sport == 'tennis';
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(14),
+      child: SizedBox(
+        width: 56,
+        height: 56,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(
+              isTennis
+                  ? 'assets/images/tournaments/tennis-cover.jpg'
+                  : 'assets/images/tournaments/futsal-cover.jpg',
+              fit: BoxFit.cover,
+            ),
+            ColoredBox(color: Colors.black.withValues(alpha: 0.18)),
+            Icon(
+              isTennis
+                  ? Icons.sports_tennis_rounded
+                  : Icons.sports_soccer_rounded,
+              color: Colors.white,
+              size: 24,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _RoleChip extends StatelessWidget {
   final String role;
   const _RoleChip({required this.role});
@@ -462,8 +492,8 @@ class _RoleChip extends StatelessWidget {
       child: Text(
         label,
         style: Theme.of(context).textTheme.labelSmall?.copyWith(
-          color: Theme.of(context).colorScheme.onPrimaryContainer,
-        ),
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
+            ),
       ),
     );
   }
