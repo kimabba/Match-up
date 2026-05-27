@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../config.dart';
@@ -251,7 +254,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                     ),
                     FilledButton.tonal(
-                      onPressed: _busy ? null : () => _devLogin(),
+                      onPressed: _busy ? null : () => _devLogin('ssfak@naver.com'),
                       style: FilledButton.styleFrom(
                         minimumSize: const Size.fromHeight(48),
                         shape: RoundedRectangleBorder(borderRadius: AppRadius.pill),
@@ -269,20 +272,29 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     );
   }
 
-  Future<void> _devLogin() async {
-    // DEV_ADMIN_EMAIL / DEV_ADMIN_PASSWORD 환경변수 또는 기본값
-    const email = String.fromEnvironment('DEV_ADMIN_EMAIL', defaultValue: '');
-    const password = String.fromEnvironment('DEV_ADMIN_PASSWORD', defaultValue: '');
-    if (email.isEmpty || password.isEmpty) {
-      setState(() => _error = 'DEV_ADMIN_EMAIL / DEV_ADMIN_PASSWORD를 .env.local에 추가하세요');
-      return;
-    }
+  Future<void> _devLogin(String email) async {
     setState(() { _busy = true; _error = null; });
     try {
+      // 1) dev-auth Edge Function 호출 → magic link 토큰 획득
+      final baseUrl = AppConfig.apiBaseUrl;
+      final res = await http.post(
+        Uri.parse('$baseUrl/dev-auth'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'email': email}),
+      );
+      if (res.statusCode >= 400) {
+        setState(() => _error = 'dev-auth 실패: ${res.body}');
+        return;
+      }
+      final data = jsonDecode(res.body) as Map<String, dynamic>;
+      final token = data['hashed_token'] as String;
+
+      // 2) verifyOTP로 세션 설정
       final supa = ref.read(supabaseProvider);
-      await supa.auth.signInWithPassword(email: email, password: password);
-    } on AuthException catch (e) {
-      setState(() => _error = e.message);
+      await supa.auth.verifyOTP(
+        tokenHash: token,
+        type: OtpType.magiclink,
+      );
     } catch (e) {
       setState(() => _error = e.toString());
     } finally {

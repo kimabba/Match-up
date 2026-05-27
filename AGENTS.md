@@ -31,6 +31,21 @@ Read only the docs needed for the task:
 | Speed-gun/video/ball tracking logic | `docs/rules/SPEED_GUN_RULES.md` |
 | Harness scripts, CI, custom rule checks | `docs/rules/HARNESS.md` |
 
+## Knowledge base (현재 상태 문서)
+
+프로젝트의 현재 상태를 파악하려면 `docs/kb/` 참조:
+
+| 문서 | 내용 |
+|---|---|
+| `docs/kb/architecture.md` | 시스템 아키텍처, Edge Function 목록, 인증 |
+| `docs/kb/database.md` | 전체 DB 스키마, RLS, 트리거 |
+| `docs/kb/clubs.md` | 클럽 관리 워크플로우 |
+| `docs/kb/domain-tennis.md` | 테니스 협회·부서코드 체계 |
+| `docs/kb/domain-futsal.md` | 풋살 도메인 |
+| `docs/kb/crawler.md` | 크롤러 시스템 |
+| `docs/kb/flutter-app.md` | Flutter 앱 구조·상태관리 |
+| `docs/kb/ai-chat.md` | AI 챗봇·RAG 시스템 |
+
 ## Common checks
 
 Run the smallest relevant set, or use the common harness:
