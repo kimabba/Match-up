@@ -369,6 +369,7 @@ class _ClubCard extends ConsumerWidget {
           _ClubSportThumbnail(
             sport: club.sport,
             accentColor: accentColor,
+            logoUrl: club.logoUrl,
           ),
           const SizedBox(width: AppSpacing.md),
           Expanded(
@@ -426,10 +427,12 @@ class _ClubSportThumbnail extends StatelessWidget {
   const _ClubSportThumbnail({
     required this.sport,
     required this.accentColor,
+    this.logoUrl,
   });
 
   final String sport;
   final Color accentColor;
+  final String? logoUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -440,25 +443,39 @@ class _ClubSportThumbnail extends StatelessWidget {
       child: SizedBox(
         width: 56,
         height: 56,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Image.asset(
-              isTennis
-                  ? 'assets/images/tournaments/tennis-cover.jpg'
-                  : 'assets/images/tournaments/futsal-cover.jpg',
-              fit: BoxFit.cover,
-            ),
-            ColoredBox(color: Colors.black.withValues(alpha: 0.18)),
-            Icon(
-              isTennis
-                  ? Icons.sports_tennis_rounded
-                  : Icons.sports_soccer_rounded,
-              color: Colors.white,
-              size: 24,
-            ),
-          ],
-        ),
+        child: logoUrl == null || logoUrl!.isEmpty
+            ? Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.asset(
+                    isTennis
+                        ? 'assets/images/tournaments/tennis-cover.jpg'
+                        : 'assets/images/tournaments/futsal-cover.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                  ColoredBox(color: Colors.black.withValues(alpha: 0.18)),
+                  Icon(
+                    isTennis
+                        ? Icons.sports_tennis_rounded
+                        : Icons.sports_soccer_rounded,
+                    color: Colors.white,
+                    size: 24,
+                  ),
+                ],
+              )
+            : Image.network(
+                logoUrl!,
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) => ColoredBox(
+                  color: accentColor.withValues(alpha: 0.16),
+                  child: Icon(
+                    isTennis
+                        ? Icons.sports_tennis_rounded
+                        : Icons.sports_soccer_rounded,
+                    color: accentColor,
+                  ),
+                ),
+              ),
       ),
     );
   }

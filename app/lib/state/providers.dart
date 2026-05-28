@@ -62,6 +62,16 @@ final favoriteIdsProvider = FutureProvider<Set<String>>((ref) async {
   return api.myFavoriteIds();
 });
 
+/// MY 페이지용 관심/예정 대회 기록
+final myTournamentRecordsProvider =
+    FutureProvider<List<Tournament>>((ref) async {
+  ref.watch(authStateProvider);
+  final api = ref.watch(apiProvider);
+  return api
+      .myFavoriteTournaments(limit: 5)
+      .timeout(const Duration(seconds: 2));
+});
+
 /// 수동 종목 오버라이드 (null이면 userSports primary 사용)
 final sportOverrideProvider = StateProvider<String?>((_) => null);
 
