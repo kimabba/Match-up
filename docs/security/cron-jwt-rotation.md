@@ -78,6 +78,44 @@ select public.invoke_edge_function('embed-pending', '{}'::jsonb);
 - cron job 로그(`net._http_response`)에서 401/403 이 사라졌는지 확인
 - 옛 키로 호출 시 거부되는지 확인 (Revoke 반영)
 
+## 진행 상태 (2026-05-28)
+
+- ✅ cron 비밀번호를 service_role JWT → 랜덤값으로 분리 (Vault `internal_cron_jwt`, 96자)
+- ✅ 034 마이그레이션 원격 적용, `invoke_edge_function` 이 Vault 사용 (200 검증 완료)
+- ✅ Edge Function `INTERNAL_CRON_JWT` env 교체
+- ✅ 레포 PRIVATE 전환 (추가 노출 차단)
+- ⛔ **노출된 service_role JWT 자체는 아직 유효** — 아래 마이그레이션 후 revoke 필요
+
+## 노출 키 완전 차단 — legacy → 새 API 키 마이그레이션 (별도 세션)
+
+노출된 service_role JWT 는 legacy HS256 JWT secret 으로 서명되어 있다. 이를 revoke
+하려면 먼저 legacy JWT-based API keys(`anon`/`service_role`)를 비활성화해야 한다
+(같은 secret 을 공유하므로, revoke 시 정상 anon 키까지 함께 무효화되기 때문).
+→ 새 publishable/secret API key 체계로 전환이 선행되어야 한다.
+
+**영향 범위**
+- 앱: `--dart-define=SUPABASE_ANON_KEY` 를 `sb_publishable_...` 로 교체 후 재빌드 (코드 변경 없음)
+- service_role 사용 Edge Function 5곳: `embed-pending`, `notify-cron`, `crawl-dispatch`,
+  `seed-intent-examples`, `_shared/supabase.ts`(serviceClient) — 새 secret key 동작 검증 필요
+
+**절차**
+1. Settings → API Keys 에서 publishable/secret key 발급·확인
+2. (전환기) legacy 와 새 키가 병행 동작하므로, 새 키로 앱·Edge 동작 먼저 검증
+3. 앱 재빌드: `SUPABASE_ANON_KEY = sb_publishable_...`
+4. Edge Function 의 `SUPABASE_SERVICE_ROLE_KEY` 의존부가 새 secret key 로 정상 동작하는지 확인
+5. API Keys → `anon`/`service_role` legacy 키 **Disable**
+6. JWT Keys → Legacy HS256 (Shared Secret) → **Revoke**
+7. 검증: 노출 JWT 로 REST 호출 시 **401** 확인
+   ```
+   curl -s -o /dev/null -w "%{http_code}" \
+     -H "apikey: <노출JWT>" -H "Authorization: Bearer <노출JWT>" \
+     "https://bsjdgwmveokanclqwtvx.supabase.co/rest/v1/users?select=id&limit=1"
+   ```
+
+**참고**
+- 새 API keys: https://supabase.com/docs/guides/api/api-keys
+- JWT Signing Keys: https://supabase.com/docs/guides/auth/signing-keys
+
 ## 재발 방지
 
 - 시크릿은 SQL/코드에 하드코딩하지 않고 Vault 또는 환경변수에서 읽는다
