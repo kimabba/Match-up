@@ -354,9 +354,9 @@ function buildContextPrompt(
       parts.push(`[관련 대회 — ${label}]`);
       for (const t of bySport.get(sport)!) {
         parts.push(
-          `- (id: ${t.id}) ${escapeForData(t.title)} | ${t.start_date} | ${escapeForData(t.region ?? '지역미상')} | 출전등급: ${
-            t.eligible_grades.join(', ')
-          }`,
+          `- (id: ${t.id}) ${escapeForData(t.title)} | ${t.start_date} | ${
+            escapeForData(t.region ?? '지역미상')
+          } | 출전등급: ${t.eligible_grades.join(', ')}`,
         );
       }
       parts.push('');

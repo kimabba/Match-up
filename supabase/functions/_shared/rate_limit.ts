@@ -2,9 +2,9 @@ import { SupabaseClient } from '@supabase/supabase-js';
 import { errorResponse } from './cors.ts';
 
 export interface RateLimitConfig {
-  bucket: string;          // 'chat' / 'semantic-search' / ...
-  maxPerWindow: number;    // 윈도우당 허용 호출 수
-  windowSeconds: number;   // 윈도우 길이(초)
+  bucket: string; // 'chat' / 'semantic-search' / ...
+  maxPerWindow: number; // 윈도우당 허용 호출 수
+  windowSeconds: number; // 윈도우 길이(초)
 }
 
 interface RpcRow {
