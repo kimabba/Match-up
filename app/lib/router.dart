@@ -134,8 +134,49 @@ class _MainShell extends ConsumerWidget {
     final loc = GoRouterState.of(context).matchedLocation;
     final idx = _indexOf(loc);
     final cs = Theme.of(context).colorScheme;
+    final activeSport = ref.watch(activeSportProvider);
+
     return Scaffold(
-      body: child,
+      body: Column(
+        children: [
+          // 종목 스왑 바
+          SafeArea(
+            bottom: false,
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+              color: Theme.of(context).colorScheme.surfaceContainerLowest,
+              child: Row(
+                children: [
+                  Icon(
+                    activeSport == 'futsal'
+                        ? Icons.sports_soccer_rounded
+                        : Icons.sports_tennis_rounded,
+                    size: 18,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  const SizedBox(width: 8),
+                  SegmentedButton<String>(
+                    segments: const [
+                      ButtonSegment(value: 'tennis', label: Text('테니스')),
+                      ButtonSegment(value: 'futsal', label: Text('풋살')),
+                    ],
+                    selected: {activeSport ?? 'tennis'},
+                    onSelectionChanged: (s) {
+                      ref.read(sportOverrideProvider.notifier).state = s.first;
+                    },
+                    style: SegmentedButton.styleFrom(
+                      visualDensity: VisualDensity.compact,
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Expanded(child: child),
+        ],
+      ),
       bottomNavigationBar: DecoratedBox(
         decoration: BoxDecoration(
           color: cs.surfaceContainerLow,

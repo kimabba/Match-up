@@ -5,6 +5,7 @@ import '../../models/admin.dart';
 import '../../models/crawl_source.dart';
 import '../../models/tournament.dart';
 import '../../state/providers.dart';
+import 'knowledge_base_tab.dart';
 
 class AdminScreen extends ConsumerStatefulWidget {
   const AdminScreen({super.key});
@@ -43,7 +44,7 @@ class _AdminScreenState extends ConsumerState<AdminScreen>
   @override
   void initState() {
     super.initState();
-    _tab = TabController(length: 4, vsync: this);
+    _tab = TabController(length: 5, vsync: this);
     _tab.addListener(_onTabChanged);
     _startRefreshTimer();
     _loadLogs();
@@ -592,6 +593,7 @@ class _AdminScreenState extends ConsumerState<AdminScreen>
             Tab(text: 'Draft 승인'),
             Tab(text: '크롤 소스'),
             Tab(text: '클럽 승인'),
+            Tab(text: '지식베이스'),
           ],
         ),
       ),
@@ -602,6 +604,7 @@ class _AdminScreenState extends ConsumerState<AdminScreen>
           _buildDraftsTab(),
           _buildSourcesTab(),
           _buildPendingClubsTab(),
+          const KnowledgeBaseTab(),
         ],
       ),
       floatingActionButton: _tab.index == 2
