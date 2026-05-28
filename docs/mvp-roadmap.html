@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Match-up MVP 로드맵</title>
+  <style>
+    :root {
+      --ink: #14201a;
+      --muted: #607064;
+      --paper: #fbfcf6;
+      --panel: #ffffff;
+      --line: #dce4d8;
+      --green: #2e7d32;
+      --lime: #d9f24f;
+      --blue: #1e3a8a;
+      --orange: #e86b2f;
+      --red: #b3261e;
+      --shadow: 0 18px 54px rgba(20, 32, 26, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 16% 12%, rgba(217, 242, 79, 0.32), transparent 30%),
+        linear-gradient(135deg, #f6f8ee 0%, #eef5ef 46%, #f8fbf4 100%);
+      color: var(--ink);
+      font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      line-height: 1.55;
+    }
+
+    header {
+      padding: 56px 24px 28px;
+      border-bottom: 1px solid rgba(46, 125, 50, 0.18);
+    }
+
+    main {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto 72px;
+    }
+
+    .hero {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
+      gap: 28px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      padding: 7px 12px;
+      border: 1px solid rgba(46, 125, 50, 0.22);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 860px;
+      font-size: clamp(36px, 6vw, 72px);
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+    }
+
+    .lead {
+      max-width: 780px;
+      margin: 24px 0 0;
+      color: #334239;
+      font-size: 19px;
+      font-weight: 600;
+    }
+
+    .hero-panel {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel strong {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    .hero-panel p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    section { margin-top: 34px; }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 25px;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 17px;
+    }
+
+    p { margin: 0 0 12px; }
+
+    /* ── 타임라인 ──────────────────────────────────── */
+    .timeline {
+      position: relative;
+      padding-left: 42px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--green), var(--lime), var(--blue));
+      border-radius: 99px;
+    }
+
+    .sprint {
+      position: relative;
+      margin-bottom: 36px;
+    }
+
+    .sprint-dot {
+      position: absolute;
+      left: -42px;
+      top: 2px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      font-weight: 900;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+    }
+
+    .sprint-dot.s1 { background: var(--red); }
+    .sprint-dot.s2 { background: var(--green); }
+    .sprint-dot.s3 { background: var(--blue); }
+    .sprint-dot.s4 { background: var(--orange); }
+
+    .sprint-header {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .sprint-title {
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .sprint-date {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .sprint-desc {
+      color: #334239;
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+
+    /* ── 이슈 카드 ─────────────────────────────────── */
+    .issues {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 12px;
+    }
+
+    .issue {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 6px 18px rgba(20, 32, 26, 0.05);
+    }
+
+    .issue-id {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .issue h4 {
+      margin: 0 0 10px;
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .issue ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .issue li {
+      font-size: 13px;
+      color: #334239;
+      margin: 5px 0;
+    }
+
+    .tag {
+      display: inline-flex;
+      margin: 8px 6px 0 0;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .tag.red { background: #fdebea; color: var(--red); }
+    .tag.green { background: #edf5ec; color: #285f2d; }
+    .tag.blue { background: #e7ecfb; color: var(--blue); }
+    .tag.orange { background: #fff0e8; color: #9b3d10; }
+
+    .priority-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .priority-badge.urgent { background: #fdebea; color: var(--red); }
+    .priority-badge.high { background: #fff0e8; color: #9b3d10; }
+    .priority-badge.medium { background: #e7ecfb; color: var(--blue); }
+
+    /* ── 요약 카드 ──────────────────────────────────── */
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .metric {
+      padding: 18px;
+      border: 1px solid rgba(46, 125, 50, 0.18);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .metric b {
+      display: block;
+      font-size: 34px;
+      line-height: 1;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .note {
+      padding: 16px 18px;
+      border-left: 4px solid var(--green);
+      border-radius: 8px;
+      background: #edf5ec;
+      color: #1b3d20;
+      font-size: 14px;
+    }
+
+    .scope-out {
+      padding: 20px;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.6);
+    }
+
+    .scope-out h3 {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .scope-out li {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 5px 0;
+    }
+
+    footer {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto 42px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .hero, .metric-row { grid-template-columns: 1fr; }
+      .issues { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Match-up MVP 로드맵 · 2026-05-28</div>
+      <h1>7월 22일까지,<br>스토어 제출 가능한 MVP</h1>
+      <p class="lead">
+        업무 이후 시간 + 주말, 2주 스프린트 기준.
+        보안 마무리 → 핵심 동선 QA → 클럽 활동 → AI·운영 → 배포 준비 순서로 진행한다.
+      </p>
+    </div>
+    <aside class="hero-panel">
+      <strong>작업 조건</strong>
+      <p>
+        평일 저녁 1~2시간 + 주말 3~4시간 = 스프린트당 약 20시간.<br>
+        2주마다 만나서 마일스톤 단위로 체크.<br>
+        Claude Code 병행으로 개발 속도 확보.
+      </p>
+    </aside>
+  </div>
+</header>
+
+<main>
+
+  <section>
+    <div class="metric-row">
+      <div class="metric"><b>4</b><span>스프린트 (2주 단위)</span></div>
+      <div class="metric"><b>10</b><span>이슈 (Linear SSF-344 ~ 353)</span></div>
+      <div class="metric"><b>~75h</b><span>총 예상 작업 시간</span></div>
+      <div class="metric"><b>7/22</b><span>목표 배포일</span></div>
+    </div>
+  </section>
+
+  <!-- ── 타임라인 ──────────────────────────────────── -->
+  <section>
+    <h2>스프린트 타임라인</h2>
+    <div class="timeline">
+
+      <!-- Sprint 1 -->
+      <div class="sprint">
+        <div class="sprint-dot s1">1</div>
+        <div class="sprint-header">
+          <span class="sprint-title">보안 + 핵심 동선</span>
+          <span class="sprint-date">5/28 ~ 6/10</span>
+        </div>
+        <p class="sprint-desc">
+          노출된 JWT를 무효화하고 새 키 체계로 전환한다. 이후 가입부터 대회·클럽까지 핵심 동선을 실기기에서 검증한다.
+        </p>
+        <div class="issues">
+          <div class="issue">
+            <div class="issue-id">SSF-344 <span class="priority-badge urgent">Urgent</span></div>
+            <h4>JWT 키 로테이션 + Vault cron JWT 전환 완료</h4>
+            <ul>
+              <li>Supabase 대시보드에서 JWT Signing Keys 로테이션</li>
+              <li>이전 키 Revoke</li>
+              <li>Vault에 새 INTERNAL_CRON_JWT 저장</li>
+              <li>.env.local, Edge Function secrets 교체</li>
+              <li>크롤러 cron 동작 확인</li>
+            </ul>
+            <span class="tag red">보안 최우선</span>
+            <span class="tag green">마감 6/3</span>
+          </div>
+          <div class="issue">
+            <div class="issue-id">SSF-345 <span class="priority-badge high">High</span></div>
+            <h4>핵심 동선 E2E QA: 가입 → 온보딩 → 대회 → 즐겨찾기 → 제보</h4>
+            <ul>
+              <li>신규 가입 (이메일)</li>
+              <li>온보딩 (종목·등급 등록)</li>
+              <li>대회 검색 (등급 필터)</li>
+              <li>즐겨찾기 추가/제거</li>
+              <li>대회 제보 (draft → 승인)</li>
+              <li>종목 스왑 (테니스↔풋살)</li>
+            </ul>
+            <span class="tag blue">MVP 품질</span>
+            <span class="tag green">마감 6/8</span>
+          </div>
+          <div class="issue">
+            <div class="issue-id">SSF-346 <span class="priority-badge high">High</span></div>
+            <h4>클럽 동선 QA: 생성 → 승인 → 가입 → 승인/거절</h4>
+            <ul>
+              <li>클럽 생성 요청 (테니스/풋살)</li>
+              <li>어드민 승인/거절</li>
+              <li>다른 사용자 가입 신청</li>
+              <li>owner가 가입 승인/거절</li>
+              <li>멤버 탈퇴 + 내 클럽 확인</li>
+            </ul>
+            <span class="tag green">마감 6/10</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sprint 2 -->
+      <div class="sprint">
+        <div class="sprint-dot s2">2</div>
+        <div class="sprint-header">
+          <span class="sprint-title">클럽 활동 + 데이터 품질</span>
+          <span class="sprint-date">6/11 ~ 6/24</span>
+        </div>
+        <p class="sprint-desc">
+          클럽 상세를 전체화면으로 전환하고 모임 일정 기능을 완성한다. 크롤링 대회의 부서코드·날짜 정확도를 검수한다.
+        </p>
+        <div class="issues">
+          <div class="issue">
+            <div class="issue-id">SSF-347 <span class="priority-badge high">High</span></div>
+            <h4>클럽 활동 MVP: 전체화면 전환 + 일정 생성/참석</h4>
+            <ul>
+              <li>바텀시트 → <code>/clubs/:id</code> 전체화면</li>
+              <li>멤버 목록 (role 뱃지)</li>
+              <li>모임 일정 생성 (official/casual)</li>
+              <li>참석/불참 토글</li>
+              <li>가입 신청 관리 UI</li>
+            </ul>
+            <span class="tag green">DB + Flutter</span>
+            <span class="tag green">마감 6/20</span>
+          </div>
+          <div class="issue">
+            <div class="issue-id">SSF-348 <span class="priority-badge high">High</span></div>
+            <h4>크롤링 대회 데이터 품질 검수 + 파서 수정</h4>
+            <ul>
+              <li>광주/전남 대회 부서코드 샘플 검증</li>
+              <li>날짜·지역·주최 매핑 오류 확인</li>
+              <li>파서 오매칭 수정 + 재크롤</li>
+            </ul>
+            <span class="tag orange">데이터 품질</span>
+            <span class="tag green">마감 6/24</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sprint 3 -->
+      <div class="sprint">
+        <div class="sprint-dot s3">3</div>
+        <div class="sprint-header">
+          <span class="sprint-title">AI·운영 + 종합 QA</span>
+          <span class="sprint-date">6/25 ~ 7/8</span>
+        </div>
+        <p class="sprint-desc">
+          AI 비용을 관리하고, 푸시 알림과 어드민 화면을 검증한 뒤, 전체 앱을 실기기에서 종합 테스트한다.
+        </p>
+        <div class="issues">
+          <div class="issue">
+            <div class="issue-id">SSF-349 <span class="priority-badge medium">Medium</span></div>
+            <h4>AI 챗봇 비용·품질 관리</h4>
+            <ul>
+              <li>QA cache 히트율 + 정형 질문 커버리지 확대</li>
+              <li>Search Grounding 발동 기준 정리</li>
+              <li>응답 품질 샘플 검증 (10건+)</li>
+            </ul>
+            <span class="tag blue">AI/RAG</span>
+            <span class="tag green">마감 7/1</span>
+          </div>
+          <div class="issue">
+            <div class="issue-id">SSF-350 <span class="priority-badge high">High</span></div>
+            <h4>푸시 알림 + 어드민 종합 QA</h4>
+            <ul>
+              <li>D-3 / 마감 알림 실기기 수신</li>
+              <li>검수 큐, 크롤 소스, 클럽 승인</li>
+              <li>지식베이스 CRUD</li>
+            </ul>
+            <span class="tag green">마감 7/5</span>
+          </div>
+          <div class="issue">
+            <div class="issue-id">SSF-351 <span class="priority-badge high">High</span></div>
+            <h4>전체 E2E 종합 검증 (iOS/Android)</h4>
+            <ul>
+              <li>전체 동선: 가입 → 대회 → 클럽 → 챗봇 → 더보기</li>
+              <li>에러·빈 상태·로딩 점검</li>
+              <li>발견 버그 이슈 등록 + 수정</li>
+            </ul>
+            <span class="tag blue">MVP 품질</span>
+            <span class="tag green">마감 7/8</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sprint 4 -->
+      <div class="sprint">
+        <div class="sprint-dot s4">4</div>
+        <div class="sprint-header">
+          <span class="sprint-title">배포 준비</span>
+          <span class="sprint-date">7/9 ~ 7/22</span>
+        </div>
+        <p class="sprint-desc">
+          카카오 로그인을 구현하고 스토어 제출에 필요한 메타데이터·약관·빌드를 마무리한다.
+        </p>
+        <div class="issues">
+          <div class="issue">
+            <div class="issue-id">SSF-352 <span class="priority-badge high">High</span></div>
+            <h4>카카오 로그인 구현</h4>
+            <ul>
+              <li>카카오 개발자 앱 등록</li>
+              <li>kakao-auth Edge Function</li>
+              <li>Flutter 카카오 로그인 버튼</li>
+              <li>앱 스킴·딥링크 설정</li>
+              <li>개인정보 동의 흐름</li>
+            </ul>
+            <span class="tag green">Auth</span>
+            <span class="tag green">마감 7/15</span>
+          </div>
+          <div class="issue">
+            <div class="issue-id">SSF-353 <span class="priority-badge high">High</span></div>
+            <h4>스토어 배포 준비</h4>
+            <ul>
+              <li>앱 아이콘·스플래시 최종화</li>
+              <li>개인정보 처리방침·이용약관 연결</li>
+              <li>스토어 메타데이터 작성</li>
+              <li>dev-auth 프로덕션 차단 확인</li>
+              <li>릴리스 빌드 (iOS + Android)</li>
+              <li>내부 배포 (TestFlight / 내부 트랙)</li>
+            </ul>
+            <span class="tag orange">배포</span>
+            <span class="tag green">마감 7/22</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 스코프 아웃 ───────────────────────────────── -->
+  <section>
+    <div class="scope-out">
+      <h3>MVP 이후 (스코프 아웃)</h3>
+      <ul>
+        <li>스피드건 production — ML 모델 파일, 정확도 테스트, 저품질 입력 경고</li>
+        <li>풋살 크롤러 소스 확보 + 파서 추가</li>
+        <li>다크 모드 최적화</li>
+        <li>클럽 로고 업로드 기능</li>
+        <li>클럽 강퇴 기능</li>
+        <li>대회 참가 신청 인앱 처리</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── 안내 ──────────────────────────────────────── -->
+  <section>
+    <div class="note">
+      <strong>팀 공유 요약:</strong>
+      보안 키 전환을 먼저 끝내고, 핵심 동선(가입 → 대회 → 클럽) QA → 클럽 활동 MVP → AI·운영 종합 검증 → 카카오 로그인 + 스토어 제출 순서로 진행한다.
+      2주마다 만나서 마일스톤 단위로 진행을 체크하고, 발견한 버그는 즉시 이슈로 등록한다.
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  기준: project-current-map.html (2026-05-28), Linear 프로젝트 Match-up App (SSF-344 ~ SSF-353).
+  작성일: 2026-05-28.
+</footer>
+
+</body>
+</html>
