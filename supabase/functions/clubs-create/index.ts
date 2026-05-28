@@ -1,5 +1,5 @@
 // clubs-create: 클럽 생성 요청 (status='pending' → 어드민 승인 대기)
-// POST { sport, name, region?, address?, contact?, website?, description? }
+// POST { sport, name, region?, address?, logo_url?, contact?, website?, description? }
 
 import { errorResponse, jsonResponse, preflight } from '../_shared/cors.ts';
 import { requireUser } from '../_shared/auth.ts';
@@ -37,6 +37,7 @@ Deno.serve(async (req) => {
       name,
       region: (body.region as string | undefined)?.trim() || null,
       address: (body.address as string | undefined)?.trim() || null,
+      logo_url: (body.logo_url as string | undefined)?.trim() || null,
       contact: (body.contact as string | undefined)?.trim() || null,
       website: (body.website as string | undefined)?.trim() || null,
       description: (body.description as string | undefined)?.trim() || null,

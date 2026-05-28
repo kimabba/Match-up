@@ -62,8 +62,9 @@ class Tournament {
       organizer: j['organizer'] as String?,
       description: j['description'] as String?,
       startDate: DateTime.parse(j['start_date'] as String),
-      endDate:
-          j['end_date'] != null ? DateTime.parse(j['end_date'] as String) : null,
+      endDate: j['end_date'] != null
+          ? DateTime.parse(j['end_date'] as String)
+          : null,
       applicationDeadline: j['application_deadline'] != null
           ? DateTime.parse(j['application_deadline'] as String)
           : null,
@@ -135,7 +136,9 @@ class UserTennisOrg {
     final scoreVal = j['score'];
     final double? score = scoreVal == null
         ? null
-        : (scoreVal is num ? scoreVal.toDouble() : double.tryParse('$scoreVal'));
+        : (scoreVal is num
+            ? scoreVal.toDouble()
+            : double.tryParse('$scoreVal'));
     return UserTennisOrg(
       org: j['org'] as String,
       divisionLocal: j['division_local'] as String?,
@@ -165,6 +168,7 @@ class Club {
   final String name;
   final String? region;
   final String? address;
+  final String? logoUrl;
   final String? contact;
   final String? website;
   final String? description;
@@ -181,6 +185,7 @@ class Club {
     required this.name,
     this.region,
     this.address,
+    this.logoUrl,
     this.contact,
     this.website,
     this.description,
@@ -191,12 +196,12 @@ class Club {
     this.myRole,
   });
 
-  bool get isPending  => status == 'pending';
+  bool get isPending => status == 'pending';
   bool get isApproved => status == 'approved';
   bool get isRejected => status == 'rejected';
-  bool get isMember   => myRole != null;
-  bool get isOwner    => myRole == 'owner';
-  bool get isManager  => myRole == 'manager' || myRole == 'owner';
+  bool get isMember => myRole != null;
+  bool get isOwner => myRole == 'owner';
+  bool get isManager => myRole == 'manager' || myRole == 'owner';
 
   factory Club.fromJson(Map<String, dynamic> j) {
     // club_members join 결과에서 현재 사용자 role 추출
@@ -212,6 +217,7 @@ class Club {
       name: j['name'] as String,
       region: j['region'] as String?,
       address: j['address'] as String?,
+      logoUrl: j['logo_url'] as String?,
       contact: j['contact'] as String?,
       website: j['website'] as String?,
       description: j['description'] as String?,
@@ -268,8 +274,8 @@ class RuleArticle {
 }
 
 class UserSport {
-  final String sport;   // 'tennis' / 'futsal'
-  final String grade;   // 'div3' / 'intermediate' 등
+  final String sport; // 'tennis' / 'futsal'
+  final String grade; // 'div3' / 'intermediate' 등
   final bool isPrimary;
 
   UserSport({required this.sport, required this.grade, this.isPrimary = false});

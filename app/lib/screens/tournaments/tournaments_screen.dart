@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../config.dart';
 import '../../models/tournament.dart';
 import '../../state/providers.dart';
 import '../../theme/tokens.dart';
@@ -21,6 +23,7 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
   String _q = '';
   List<Tournament>? _results;
   bool _loading = false;
+  bool _usingPreviewData = false;
   String? _error;
 
   Future<void> _search() async {
@@ -29,6 +32,15 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
       _error = null;
     });
     final api = ref.read(apiProvider);
+    if (!kReleaseMode && AppConfig.apiBaseUrl.contains('127.0.0.1')) {
+      setState(() {
+        _results = _previewTournaments(ref.read(activeSportProvider));
+        _usingPreviewData = true;
+        _loading = false;
+      });
+      return;
+    }
+
     List<Tournament> res;
     try {
       res = await api.searchTournaments(
@@ -38,6 +50,15 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
         limit: 100,
       );
     } catch (e) {
+      if (!kReleaseMode && mounted) {
+        setState(() {
+          _results = _previewTournaments(ref.read(activeSportProvider));
+          _usingPreviewData = true;
+          _error = null;
+          _loading = false;
+        });
+        return;
+      }
       if (mounted) {
         setState(() {
           _results = const [];
@@ -50,6 +71,7 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
     if (mounted) {
       setState(() {
         _results = res;
+        _usingPreviewData = false;
         _loading = false;
       });
     }
@@ -167,6 +189,7 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
             ),
           ),
           if (_loading) LinearProgressIndicator(color: cs.primary),
+          if (_usingPreviewData) const _PreviewDataBanner(),
           Expanded(
             child: _error != null
                 ? _TournamentErrorState(message: _error!, onRetry: _search)
@@ -203,6 +226,121 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
                               );
                             },
                           ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+List<Tournament> _previewTournaments(String? sport) {
+  final now = DateTime.now();
+  if (sport == 'futsal') {
+    return [
+      Tournament(
+        id: 'preview-futsal-1',
+        sport: 'futsal',
+        title: '서울 풋살 위클리 컵',
+        organizer: '매치업 풋살 커뮤니티',
+        description: '주말 저녁에 열리는 5대5 풋살 모집전',
+        startDate: now.add(const Duration(days: 9)),
+        endDate: now.add(const Duration(days: 9)),
+        applicationDeadline: now.add(const Duration(days: 4)),
+        region: '수도권',
+        location: '서울 송파 풋살파크',
+        eligibleGrades: const ['beginner', 'intermediate'],
+        entryFee: 80000,
+        prize: '우승팀 구장 이용권',
+        format: '5대5 조별리그',
+        status: 'published',
+      ),
+      Tournament(
+        id: 'preview-futsal-2',
+        sport: 'futsal',
+        title: '부산 야간 풋살 리그',
+        organizer: '부산 풋살 연합',
+        description: '퇴근 후 참여 가능한 지역 풋살 리그',
+        startDate: now.add(const Duration(days: 18)),
+        endDate: now.add(const Duration(days: 18)),
+        applicationDeadline: now.add(const Duration(days: 11)),
+        region: '부산·울산·경남',
+        location: '부산 사직 풋살장',
+        eligibleGrades: const ['advanced'],
+        entryFee: 100000,
+        prize: '우승 트로피',
+        format: '토너먼트',
+        status: 'published',
+      ),
+    ];
+  }
+  return [
+    Tournament(
+      id: 'preview-tennis-1',
+      sport: 'tennis',
+      title: '광주 오픈 테니스 챌린지',
+      organizer: '광주테니스협회',
+      description: '지역 동호인을 위한 복식 대회',
+      startDate: now.add(const Duration(days: 12)),
+      endDate: now.add(const Duration(days: 13)),
+      applicationDeadline: now.add(const Duration(days: 5)),
+      region: '광주',
+      location: '염주실내테니스장',
+      eligibleGrades: const ['novice', 'beginner'],
+      entryFee: 40000,
+      entryFeeUnit: 'per_person',
+      prize: '우승 상품권',
+      format: '복식 조별리그',
+      status: 'published',
+    ),
+    Tournament(
+      id: 'preview-tennis-2',
+      sport: 'tennis',
+      title: '수도권 동호인 랭킹전',
+      organizer: 'KATA 수도권 지부',
+      description: '등급별 자동 추천에 맞춘 랭킹전',
+      startDate: now.add(const Duration(days: 21)),
+      endDate: now.add(const Duration(days: 21)),
+      applicationDeadline: now.add(const Duration(days: 14)),
+      region: '수도권',
+      location: '분당 테니스파크',
+      eligibleGrades: const ['intermediate', 'advanced'],
+      entryFee: 50000,
+      entryFeeUnit: 'per_person',
+      prize: '랭킹 포인트',
+      format: '복식 토너먼트',
+      status: 'published',
+    ),
+  ];
+}
+
+class _PreviewDataBanner extends StatelessWidget {
+  const _PreviewDataBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.sm,
+      ),
+      color: cs.tertiaryContainer.withValues(alpha: 0.7),
+      child: Row(
+        children: [
+          Icon(Icons.visibility_rounded,
+              size: 18, color: cs.onTertiaryContainer),
+          const SizedBox(width: AppSpacing.xs),
+          Expanded(
+            child: Text(
+              '백엔드 연결 전 디자인 미리보기 데이터입니다.',
+              style: tt.labelMedium?.copyWith(
+                color: cs.onTertiaryContainer,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
           ),
         ],
       ),

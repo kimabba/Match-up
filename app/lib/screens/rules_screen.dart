@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../config.dart';
 import '../models/tournament.dart';
 import '../state/providers.dart';
 import '../theme/tokens.dart';
@@ -26,6 +29,7 @@ class _RulesScreenState extends ConsumerState<RulesScreen>
   String? _activeSport;
   String? _error;
   bool _loading = true;
+  bool _usingPreviewData = false;
   String _query = '';
 
   @override
@@ -55,12 +59,27 @@ class _RulesScreenState extends ConsumerState<RulesScreen>
     final sport = ref.read(activeSportProvider);
     _activeSport = sport;
 
+    if (!kReleaseMode && AppConfig.apiBaseUrl.contains('127.0.0.1')) {
+      setState(() {
+        if (sport != null) {
+          _activeByCat = _previewRulesFor(sport);
+        } else {
+          _tennisByCat = _previewRulesFor('tennis');
+          _futsalByCat = _previewRulesFor('futsal');
+        }
+        _usingPreviewData = true;
+        _loading = false;
+      });
+      return;
+    }
+
     try {
       if (sport != null) {
         final rules = await api.listRules(sport);
         if (!mounted) return;
         setState(() {
           _activeByCat = _groupByCategory(rules);
+          _usingPreviewData = false;
           _loading = false;
         });
       } else {
@@ -70,11 +89,26 @@ class _RulesScreenState extends ConsumerState<RulesScreen>
         setState(() {
           _tennisByCat = _groupByCategory(tennis);
           _futsalByCat = _groupByCategory(futsal);
+          _usingPreviewData = false;
           _loading = false;
         });
       }
     } catch (e) {
       if (!mounted) return;
+      if (!kReleaseMode) {
+        setState(() {
+          if (sport != null) {
+            _activeByCat = _previewRulesFor(sport);
+          } else {
+            _tennisByCat = _previewRulesFor('tennis');
+            _futsalByCat = _previewRulesFor('futsal');
+          }
+          _usingPreviewData = true;
+          _error = null;
+          _loading = false;
+        });
+        return;
+      }
       setState(() {
         _error = '룰북을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.';
         _loading = false;
@@ -118,11 +152,14 @@ class _RulesScreenState extends ConsumerState<RulesScreen>
         appBar: AppBar(
           title: BrandedAppBarTitle(title: _titleForSport(_activeSport!)),
         ),
+        backgroundColor: cs.surfaceContainerLow,
+        floatingActionButton: const _AskCoachFab(),
         body: _RuleBookBody(
           grouped: _activeByCat,
           sport: _activeSport!,
           query: _query,
           searchController: _search,
+          usingPreviewData: _usingPreviewData,
         ),
       );
     }
@@ -141,6 +178,8 @@ class _RulesScreenState extends ConsumerState<RulesScreen>
           unselectedLabelColor: cs.onSurfaceVariant,
         ),
       ),
+      backgroundColor: cs.surfaceContainerLow,
+      floatingActionButton: const _AskCoachFab(),
       body: TabBarView(
         controller: _tab,
         children: [
@@ -149,12 +188,14 @@ class _RulesScreenState extends ConsumerState<RulesScreen>
             sport: 'tennis',
             query: _query,
             searchController: _search,
+            usingPreviewData: _usingPreviewData,
           ),
           _RuleBookBody(
             grouped: _futsalByCat,
             sport: 'futsal',
             query: _query,
             searchController: _search,
+            usingPreviewData: _usingPreviewData,
           ),
         ],
       ),
@@ -170,12 +211,14 @@ class _RuleBookBody extends StatelessWidget {
     required this.sport,
     required this.query,
     required this.searchController,
+    required this.usingPreviewData,
   });
 
   final Map<String, List<RuleArticle>>? grouped;
   final String sport;
   final String query;
   final TextEditingController searchController;
+  final bool usingPreviewData;
 
   @override
   Widget build(BuildContext context) {
@@ -190,6 +233,12 @@ class _RuleBookBody extends StatelessWidget {
           AppSpacing.xxxl,
         ),
         children: [
+          _RuleSearchCard(controller: searchController, sport: sport),
+          if (usingPreviewData) ...[
+            const SizedBox(height: AppSpacing.sm),
+            const _PreviewRulesBanner(),
+          ],
+          const SizedBox(height: AppSpacing.lg),
           _DailyRuleQuizCard(sport: sport),
           const SizedBox(height: AppSpacing.xl),
           const AppEmptyState(
@@ -210,6 +259,10 @@ class _RuleBookBody extends StatelessWidget {
       ),
       children: [
         _RuleSearchCard(controller: searchController, sport: sport),
+        if (usingPreviewData) ...[
+          const SizedBox(height: AppSpacing.sm),
+          const _PreviewRulesBanner(),
+        ],
         const SizedBox(height: AppSpacing.lg),
         _DailyRuleQuizCard(sport: sport),
         const SizedBox(height: AppSpacing.xl),
@@ -243,6 +296,77 @@ class _RuleBookBody extends StatelessWidget {
   }
 }
 
+class _AskCoachFab extends StatelessWidget {
+  const _AskCoachFab();
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton.extended(
+      onPressed: () => context.go('/'),
+      icon: const Icon(Icons.chat_bubble_rounded, size: 18),
+      label: const Text('이 상황은 어떻게 되나요?'),
+      extendedPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+    );
+  }
+}
+
+Map<String, List<RuleArticle>> _previewRulesFor(String sport) {
+  final data = sport == 'futsal' ? _previewFutsalRules : _previewTennisRules;
+  return {
+    for (final entry in data.entries)
+      entry.key: [
+        for (var i = 0; i < entry.value.length; i++)
+          RuleArticle(
+            id: 'preview-$sport-${entry.key}-$i',
+            sport: sport,
+            category: entry.key,
+            title: entry.value[i].$1,
+            body: entry.value[i].$2,
+            orderIdx: i,
+            published: true,
+          ),
+      ],
+  };
+}
+
+const _previewTennisRules = <String, List<(String, String)>>{
+  '경기 진행': [
+    ('타이브레이크는 언제 하나요?', '세트 스코어가 6-6이 되면 보통 타이브레이크로 세트 승자를 정합니다.'),
+    ('듀스와 어드밴티지', '40-40 이후에는 연속 두 포인트를 먼저 따야 게임을 가져갑니다.'),
+  ],
+  '서브': [
+    ('서브 폴트와 더블 폴트 차이', '첫 서브 실패는 폴트, 두 번째 서브까지 실패하면 더블 폴트로 상대 포인트입니다.'),
+    ('렛 서브 처리', '서브가 네트를 맞고 서비스 박스에 들어가면 렛으로 다시 서브합니다.'),
+  ],
+  '발리': [
+    ('네트 근처 발리 기본', '공이 바운드되기 전에 처리하는 샷이며, 네트를 건드리면 실점이 될 수 있습니다.'),
+    ('오버넷 판정', '상대 코트 위에서 공을 치는 행위는 상황에 따라 반칙으로 판단될 수 있습니다.'),
+  ],
+  '복식/라인': [
+    ('복식 코트 라인', '복식은 양쪽 앨리까지 포함한 넓은 코트를 사용합니다.'),
+    ('라인 판정', '공이 라인에 조금이라도 닿으면 인으로 봅니다.'),
+  ],
+};
+
+const _previewFutsalRules = <String, List<(String, String)>>{
+  '경기 진행': [
+    ('풋살 경기 시간', '일반적으로 전후반으로 나뉘며 대회 규정에 따라 러닝타임 또는 스톱타임을 적용합니다.'),
+    ('선수 교체', '지정된 교체 구역과 절차를 지키면 경기 중 반복 교체가 가능합니다.'),
+  ],
+  '판정 규칙': [
+    ('킥인 재개', '볼이 터치라인을 넘으면 손으로 던지지 않고 킥인으로 경기를 재개합니다.'),
+    ('골키퍼 4초 제한', '골키퍼는 자기 진영에서 볼을 4초 넘게 컨트롤할 수 없습니다.'),
+  ],
+  '매너 & 에티켓': [
+    ('슬라이딩과 접촉', '무리한 슬라이딩과 위험한 접촉은 파울 또는 경고가 될 수 있습니다.'),
+    ('경기장 매너', '심판 판정과 상대 팀을 존중하고, 과한 항의는 삼가야 합니다.'),
+  ],
+  '대회 규정': [
+    ('동률 순위 산정', '승점이 같으면 골득실, 다득점, 승자승 등 대회별 기준을 따릅니다.'),
+    ('선수 등록 확인', '대회 시작 전 참가 명단과 등번호, 자격 기준을 확인합니다.'),
+  ],
+};
+
 class _RuleSearchCard extends StatelessWidget {
   const _RuleSearchCard({required this.controller, required this.sport});
 
@@ -259,12 +383,12 @@ class _RuleSearchCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(14),
       padding: const EdgeInsets.symmetric(
         horizontal: AppSpacing.lg,
-        vertical: AppSpacing.sm,
+        vertical: AppSpacing.xs,
       ),
       child: TextField(
         controller: controller,
         decoration: InputDecoration(
-          hintText: '룰 검색하기',
+          hintText: '룰 검색하기...',
           prefixIcon: Icon(Icons.search_rounded, color: cs.onSurfaceVariant),
           suffixIcon: Icon(
             sport == 'tennis'
@@ -278,6 +402,46 @@ class _RuleSearchCard extends StatelessWidget {
           focusedBorder: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
         ),
+      ),
+    );
+  }
+}
+
+class _PreviewRulesBanner extends StatelessWidget {
+  const _PreviewRulesBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    final tt = Theme.of(context).textTheme;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.md,
+        vertical: AppSpacing.sm,
+      ),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFEDD5),
+        borderRadius: BorderRadius.circular(AppRadius.md),
+      ),
+      child: Row(
+        children: [
+          const Icon(
+            Icons.visibility_rounded,
+            size: 18,
+            color: Color(0xFFEA580C),
+          ),
+          const SizedBox(width: AppSpacing.xs),
+          Expanded(
+            child: Text(
+              '백엔드 연결 전 디자인 미리보기 룰북입니다.',
+              style: tt.labelMedium?.copyWith(
+                color: const Color(0xFF9A3412),
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -635,7 +799,7 @@ class _CategoryGrid extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: AppSpacing.sm,
         mainAxisSpacing: AppSpacing.sm,
-        childAspectRatio: 1.55,
+        childAspectRatio: 1.2,
       ),
       itemBuilder: (context, index) {
         final entry = entries[index];
@@ -698,23 +862,24 @@ class _CategoryCard extends StatelessWidget {
     final tt = Theme.of(context).textTheme;
     final accent = _accentFor(context, sport);
     final accentContainer = _accentContainerFor(context, sport);
+    final description = _descriptionForCategory(title);
 
     return AppCard(
       onTap: onTap,
       variant: AppCardVariant.elevated,
       borderRadius: BorderRadius.circular(14),
-      padding: const EdgeInsets.all(AppSpacing.md),
+      padding: const EdgeInsets.all(AppSpacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 38,
-            height: 38,
+            width: 44,
+            height: 44,
             decoration: BoxDecoration(
               color: accentContainer,
-              borderRadius: BorderRadius.circular(AppRadius.md),
+              borderRadius: BorderRadius.circular(14),
             ),
-            child: Icon(icon, color: accent, size: 22),
+            child: Icon(icon, color: accent, size: 26),
           ),
           const Spacer(),
           Text(
@@ -723,10 +888,33 @@ class _CategoryCard extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 2),
+          const SizedBox(height: AppSpacing.xs),
           Text(
-            '$count개 규칙',
-            style: tt.labelSmall?.copyWith(color: cs.onSurfaceVariant),
+            description,
+            style: tt.labelSmall?.copyWith(
+              color: cs.onSurfaceVariant,
+              height: 1.25,
+            ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.sm,
+              vertical: AppSpacing.xs,
+            ),
+            decoration: BoxDecoration(
+              color: cs.surfaceContainerHighest,
+              borderRadius: AppRadius.pill,
+            ),
+            child: Text(
+              '$count개 규칙',
+              style: tt.labelSmall?.copyWith(
+                color: cs.onSurfaceVariant,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
           ),
         ],
       ),
@@ -955,6 +1143,44 @@ IconData _iconForCategory(String category) {
     return Icons.emoji_events_rounded;
   }
   return Icons.menu_book_rounded;
+}
+
+String _descriptionForCategory(String category) {
+  final lower = category.toLowerCase();
+  if (lower.contains('점수') || lower.contains('score')) {
+    return '포인트 · 게임 · 세트';
+  }
+  if (lower.contains('서브') || lower.contains('serve')) {
+    return '폴트 · 렛 · 순서';
+  }
+  if (lower.contains('발리') || lower.contains('volley')) {
+    return '네트 플레이 · 접촉';
+  }
+  if (lower.contains('라인') || lower.contains('line')) {
+    return '인/아웃 · 코트 범위';
+  }
+  if (lower.contains('복식') || lower.contains('double')) {
+    return '파트너 · 위치 · 라인';
+  }
+  if (lower.contains('시간') || lower.contains('time')) {
+    return '제한 시간 · 진행 속도';
+  }
+  if (lower.contains('교체') || lower.contains('substitution')) {
+    return '선수 교체 · 절차';
+  }
+  if (lower.contains('경기') || lower.contains('game') || lower.contains('진행')) {
+    return '시간 · 득점 · 흐름';
+  }
+  if (lower.contains('판정') || lower.contains('파울') || lower.contains('규칙')) {
+    return '킥인 · 파울 · 판정';
+  }
+  if (lower.contains('매너') || lower.contains('에티켓')) {
+    return '경기장 매너';
+  }
+  if (lower.contains('대회') || lower.contains('토너먼트')) {
+    return '토너먼트 규정';
+  }
+  return '핵심 규칙 모음';
 }
 
 Color _accentFor(BuildContext context, String sport) {

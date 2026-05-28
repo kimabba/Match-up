@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -175,6 +176,21 @@ class ApiService {
     return rows.map((r) => r['tournament_id'] as String).toSet();
   }
 
+  Future<List<Tournament>> myFavoriteTournaments({int limit = 5}) async {
+    final rows = await _supabase
+        .from('tournament_favorites')
+        .select('created_at, tournaments(*)')
+        .order('created_at', ascending: false)
+        .limit(limit);
+
+    return (rows as List)
+        .map((row) => row as Map<String, dynamic>)
+        .map((row) => row['tournaments'])
+        .whereType<Map<String, dynamic>>()
+        .map(Tournament.fromJson)
+        .toList();
+  }
+
   // ===== clubs =====
   Future<List<Club>> searchClubs(
       {String? sport, String? region, String? q}) async {
@@ -210,6 +226,7 @@ class ApiService {
     required String name,
     String? region,
     String? address,
+    String? logoUrl,
     String? contact,
     String? website,
     String? description,
@@ -222,6 +239,7 @@ class ApiService {
         'name': name,
         if (region != null && region.isNotEmpty) 'region': region,
         if (address != null && address.isNotEmpty) 'address': address,
+        if (logoUrl != null && logoUrl.isNotEmpty) 'logo_url': logoUrl,
         if (contact != null && contact.isNotEmpty) 'contact': contact,
         if (website != null && website.isNotEmpty) 'website': website,
         if (description != null && description.isNotEmpty)
@@ -231,6 +249,29 @@ class ApiService {
     _check(res);
     final body = jsonDecode(res.body) as Map<String, dynamic>;
     return Club.fromJson(body['club'] as Map<String, dynamic>);
+  }
+
+  Future<String> uploadClubLogo({
+    required Uint8List bytes,
+    required String extension,
+    required String contentType,
+  }) async {
+    final userId = _supabase.auth.currentUser?.id;
+    if (userId == null) throw StateError('Not authenticated');
+
+    final safeExt = extension.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '');
+    final ext = safeExt.isEmpty ? 'jpg' : safeExt.toLowerCase();
+    final path = '$userId/${DateTime.now().millisecondsSinceEpoch}.$ext';
+
+    await _supabase.storage.from('club-logos').uploadBinary(
+          path,
+          bytes,
+          fileOptions: FileOptions(
+            contentType: contentType,
+            upsert: true,
+          ),
+        );
+    return _supabase.storage.from('club-logos').getPublicUrl(path);
   }
 
   Future<void> joinClub(String clubId, {String? message}) async {
@@ -395,8 +436,8 @@ class ApiService {
   /// 관리자용: published 무관 전체 룰. embedding vector 는 제외(무거움).
   Future<List<RuleArticle>> adminListRules({String? sport}) async {
     var q = _supabase.from('rule_articles').select(
-      'id, sport, category, title, body, order_idx, published, embedding_updated_at, updated_at',
-    );
+          'id, sport, category, title, body, order_idx, published, embedding_updated_at, updated_at',
+        );
     if (sport != null) q = q.eq('sport', sport);
     final rows = await q.order('sport').order('category').order('order_idx');
     return (rows as List)
@@ -434,8 +475,7 @@ class ApiService {
   Future<void> recomputeRuleEmbedding(String id) async {
     await _supabase
         .from('rule_articles')
-        .update({'embedding': null, 'embedding_updated_at': null})
-        .eq('id', id);
+        .update({'embedding': null, 'embedding_updated_at': null}).eq('id', id);
     final res = await http.post(
       _uri('embed-pending'),
       headers: await _authHeaders(),

@@ -178,6 +178,8 @@ class _Header extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
+    final isTennis = club.sport == 'tennis';
+    final accent = isTennis ? cs.tertiary : cs.secondary;
     final meta = [
       sportLabelFromString(club.sport),
       if (club.region != null) club.region!,
@@ -188,10 +190,42 @@ class _Header extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(
           AppSpacing.xl, AppSpacing.md, AppSpacing.xl, AppSpacing.md),
       color: cs.surfaceContainerLowest,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          Text(meta, style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant)),
+          Container(
+            width: 64,
+            height: 64,
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              color: accent.withValues(alpha: 0.16),
+              borderRadius: BorderRadius.circular(18),
+            ),
+            child: club.logoUrl == null || club.logoUrl!.isEmpty
+                ? Icon(
+                    isTennis
+                        ? Icons.sports_tennis_rounded
+                        : Icons.sports_soccer_rounded,
+                    color: accent,
+                    size: 30,
+                  )
+                : Image.network(
+                    club.logoUrl!,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => Icon(
+                      isTennis
+                          ? Icons.sports_tennis_rounded
+                          : Icons.sports_soccer_rounded,
+                      color: accent,
+                    ),
+                  ),
+          ),
+          const SizedBox(width: AppSpacing.md),
+          Expanded(
+            child: Text(
+              meta,
+              style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+            ),
+          ),
         ],
       ),
     );
@@ -488,7 +522,8 @@ class _EventCardState extends ConsumerState<_EventCard> {
           const SizedBox(height: AppSpacing.xs),
           Row(
             children: [
-              Icon(Icons.schedule_rounded, size: 15, color: cs.onSurfaceVariant),
+              Icon(Icons.schedule_rounded,
+                  size: 15, color: cs.onSurfaceVariant),
               const SizedBox(width: 4),
               Text(_fmtDateTime(e.startsAt),
                   style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant)),
@@ -660,7 +695,8 @@ class _EventCreateSheetState extends ConsumerState<_EventCreateSheet> {
           OutlinedButton.icon(
             onPressed: _pickDateTime,
             icon: const Icon(Icons.calendar_today_rounded, size: 18),
-            label: Text(_startsAt == null ? '일시 선택 *' : _fmtDateTime(_startsAt!)),
+            label:
+                Text(_startsAt == null ? '일시 선택 *' : _fmtDateTime(_startsAt!)),
           ),
           if (canOfficial) ...[
             const SizedBox(height: AppSpacing.md),

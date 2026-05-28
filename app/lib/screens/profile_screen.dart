@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -242,6 +242,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             sliver: SliverList(
               delegate: SliverChildListDelegate([
                 const _MyClubsSection(),
+                const SizedBox(height: AppSpacing.xl),
+                const _MyTournamentRecordsSection(),
                 const SizedBox(height: AppSpacing.xl),
                 _SportsSection(sports: sports),
                 const SizedBox(height: AppSpacing.xl),
@@ -726,6 +728,373 @@ class _MyClubEmptyContent extends StatelessWidget {
     );
   }
 }
+
+class _MyTournamentRecordsSection extends ConsumerWidget {
+  const _MyTournamentRecordsSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+    final records = ref.watch(myTournamentRecordsProvider);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _SectionHeader(
+          title: '내 대회 기록',
+          action: _SectionActionButton(
+            label: '대회 보기',
+            onTap: () => context.go('/tournaments'),
+          ),
+        ),
+        const SizedBox(height: AppSpacing.md),
+        records.when(
+          loading: () => const _TournamentRecordSkeleton(),
+          error: (_, __) => !kReleaseMode
+              ? _TournamentRecordsList(
+                  tournaments: _previewTournamentRecords(),
+                  preview: true,
+                )
+              : AppCard(
+                  variant: AppCardVariant.elevated,
+                  borderRadius: BorderRadius.circular(16),
+                  child: Text(
+                    '대회 기록을 불러오지 못했습니다.',
+                    style: tt.bodyMedium?.copyWith(color: cs.onSurfaceVariant),
+                  ),
+                ),
+          data: (items) => items.isEmpty
+              ? AppCard(
+                  variant: AppCardVariant.elevated,
+                  borderRadius: BorderRadius.circular(16),
+                  child: _TournamentRecordEmptyContent(cs: cs, tt: tt),
+                )
+              : _TournamentRecordsList(tournaments: items),
+        ),
+      ],
+    );
+  }
+}
+
+class _TournamentRecordsList extends StatelessWidget {
+  const _TournamentRecordsList({
+    required this.tournaments,
+    this.preview = false,
+  });
+
+  final List<Tournament> tournaments;
+  final bool preview;
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+
+    return Column(
+      children: [
+        if (preview) ...[
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.md,
+              vertical: AppSpacing.sm,
+            ),
+            decoration: BoxDecoration(
+              color: const Color(0xFFFFEDD5),
+              borderRadius: BorderRadius.circular(AppRadius.md),
+            ),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.visibility_rounded,
+                  size: 18,
+                  color: Color(0xFFEA580C),
+                ),
+                const SizedBox(width: AppSpacing.xs),
+                Expanded(
+                  child: Text(
+                    '백엔드 연결 전 디자인 미리보기 기록입니다.',
+                    style: tt.labelMedium?.copyWith(
+                      color: const Color(0xFF9A3412),
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: AppSpacing.sm),
+        ],
+        SizedBox(
+          height: 174,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: tournaments.length,
+            separatorBuilder: (_, __) => const SizedBox(width: AppSpacing.sm),
+            itemBuilder: (context, index) {
+              final tournament = tournaments[index];
+              final isTennis = tournament.sport == 'tennis';
+              final accent = isTennis ? cs.tertiary : cs.secondary;
+              return SizedBox(
+                width: 270,
+                child: AppCard(
+                  onTap: preview
+                      ? null
+                      : () => context.push('/tournaments/${tournament.id}'),
+                  variant: AppCardVariant.elevated,
+                  borderRadius: BorderRadius.circular(16),
+                  padding: EdgeInsets.zero,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 58,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                isTennis
+                                    ? 'assets/images/tournaments/tennis-cover.jpg'
+                                    : 'assets/images/tournaments/futsal-cover.jpg',
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          child: Stack(
+                            children: [
+                              Positioned.fill(
+                                child: ColoredBox(
+                                  color: Colors.black.withValues(alpha: 0.22),
+                                ),
+                              ),
+                              Positioned(
+                                left: AppSpacing.md,
+                                bottom: AppSpacing.sm,
+                                child: _RecordBadge(
+                                  icon: isTennis
+                                      ? Icons.sports_tennis_rounded
+                                      : Icons.sports_soccer_rounded,
+                                  label: sportLabelFromString(tournament.sport),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(AppSpacing.md),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: AppSpacing.sm,
+                                      vertical: AppSpacing.xs,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: accent.withValues(alpha: 0.14),
+                                      borderRadius: AppRadius.pill,
+                                    ),
+                                    child: Text(
+                                      _recordStatusLabel(tournament),
+                                      style: tt.labelSmall?.copyWith(
+                                        color: accent,
+                                        fontWeight: FontWeight.w900,
+                                      ),
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  Icon(
+                                    Icons.bookmark_rounded,
+                                    size: 18,
+                                    color: cs.primary,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: AppSpacing.sm),
+                              Text(
+                                tournament.title,
+                                style: tt.titleSmall?.copyWith(
+                                  fontWeight: FontWeight.w900,
+                                  height: 1.2,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(height: AppSpacing.xs),
+                              Text(
+                                [
+                                  _shortDate(tournament.startDate),
+                                  tournament.region,
+                                ].whereType<String>().join(' · '),
+                                style: tt.bodySmall?.copyWith(
+                                  color: cs.onSurfaceVariant,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _RecordBadge extends StatelessWidget {
+  const _RecordBadge({required this.icon, required this.label});
+
+  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.sm,
+        vertical: AppSpacing.xs,
+      ),
+      decoration: BoxDecoration(
+        color: const Color(0xE6FFFFFF),
+        borderRadius: AppRadius.pill,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 14, color: const Color(0xFF111827)),
+          const SizedBox(width: AppSpacing.xs),
+          Text(
+            label,
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  color: const Color(0xFF111827),
+                  fontWeight: FontWeight.w900,
+                ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _TournamentRecordSkeleton extends StatelessWidget {
+  const _TournamentRecordSkeleton();
+
+  @override
+  Widget build(BuildContext context) {
+    return const AppCard(
+      variant: AppCardVariant.elevated,
+      child: SizedBox(
+        height: 88,
+        child: Center(child: CircularProgressIndicator()),
+      ),
+    );
+  }
+}
+
+class _TournamentRecordEmptyContent extends StatelessWidget {
+  const _TournamentRecordEmptyContent({required this.cs, required this.tt});
+
+  final ColorScheme cs;
+  final TextTheme tt;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          width: 54,
+          height: 54,
+          decoration: BoxDecoration(
+            color: cs.primaryContainer,
+            borderRadius: BorderRadius.circular(14),
+          ),
+          child: Icon(
+            Icons.emoji_events_rounded,
+            color: cs.onPrimaryContainer,
+            size: 28,
+          ),
+        ),
+        const SizedBox(width: AppSpacing.md),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '아직 저장한 대회가 없습니다',
+                style: tt.titleMedium?.copyWith(fontWeight: FontWeight.w900),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                '관심 대회를 저장하면 내 대회 기록에 표시됩니다.',
+                style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+              ),
+            ],
+          ),
+        ),
+        Icon(Icons.chevron_right_rounded, color: cs.onSurfaceVariant),
+      ],
+    );
+  }
+}
+
+List<Tournament> _previewTournamentRecords() {
+  final now = DateTime.now();
+  return [
+    Tournament(
+      id: 'preview-my-tennis',
+      sport: 'tennis',
+      title: '광주 오픈 테니스 챌린지',
+      organizer: '광주테니스협회',
+      description: 'MY 화면 디자인 미리보기용 대회입니다.',
+      startDate: now.add(const Duration(days: 12)),
+      applicationDeadline: now.add(const Duration(days: 5)),
+      region: '광주',
+      location: '염주실내테니스장',
+      eligibleGrades: const ['novice', 'beginner'],
+      entryFee: 40000,
+      entryFeeUnit: 'per_person',
+      status: 'published',
+    ),
+    Tournament(
+      id: 'preview-my-futsal',
+      sport: 'futsal',
+      title: '서울 풋살 위클리 컵',
+      organizer: '매치업 풋살 커뮤니티',
+      description: 'MY 화면 디자인 미리보기용 대회입니다.',
+      startDate: now.add(const Duration(days: 9)),
+      applicationDeadline: now.add(const Duration(days: 4)),
+      region: '수도권',
+      location: '서울 송파 풋살파크',
+      eligibleGrades: const ['beginner', 'intermediate'],
+      entryFee: 80000,
+      status: 'published',
+    ),
+  ];
+}
+
+String _recordStatusLabel(Tournament tournament) {
+  final deadline = tournament.applicationDeadline;
+  if (deadline == null) return '관심 대회';
+  final today = DateTime.now();
+  final daysLeft =
+      deadline.difference(DateTime(today.year, today.month, today.day)).inDays;
+  if (daysLeft < 0) return '마감';
+  if (daysLeft == 0) return '오늘 마감';
+  return 'D-$daysLeft';
+}
+
+String _shortDate(DateTime date) => '${date.month}.${date.day}';
 
 // ────────────────────────────────────────────────────────────
 // 등록 종목·등급 섹션
