@@ -10,7 +10,7 @@
  *  - 외부 검색 citation 미수신. DB 기반 citation 은 호출 측(chat/index.ts)에서 처리.
  */
 
-const MODEL = Deno.env.get('GEMINI_MODEL') ?? 'gemini-2.5-flash-lite';
+const MODEL = Deno.env.get('GEMINI_MODEL') ?? 'gemini-3.1-flash-lite';
 
 function apiKey(): string {
   const k = Deno.env.get('GEMINI_API_KEY');
