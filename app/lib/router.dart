@@ -6,6 +6,8 @@ import 'screens/admin/admin_screen.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/auth/onboarding_screen.dart';
 import 'screens/chat_screen.dart';
+import 'models/tournament.dart';
+import 'screens/clubs/club_detail_screen.dart';
 import 'screens/clubs_screen.dart';
 import 'screens/more_screen.dart';
 import 'screens/profile_screen.dart';
@@ -75,6 +77,11 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/tournaments/submit',
         builder: (_, __) => const TournamentSubmitScreen(),
+      ),
+      GoRoute(
+        path: '/clubs/:id',
+        builder: (_, state) =>
+            ClubDetailScreen(club: state.extra as Club),
       ),
       GoRoute(
         path: '/tournaments/:id',

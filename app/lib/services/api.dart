@@ -6,6 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../config.dart';
 import '../models/admin.dart';
+import '../models/club_event.dart';
 import '../models/crawl_source.dart';
 import '../models/tournament.dart';
 
@@ -286,6 +287,74 @@ class ApiService {
       }),
     );
     _check(res);
+  }
+
+  // ===== club activity (members / events) =====
+
+  /// 클럽 active 멤버 목록 (owner → manager → member 순).
+  Future<List<ClubMember>> clubMembers(String clubId) async {
+    final rows = await _supabase
+        .from('club_members')
+        .select('user_id, role, joined_at, users(display_name)')
+        .eq('club_id', clubId)
+        .eq('status', 'active')
+        .order('joined_at');
+    final members =
+        List<Map<String, dynamic>>.from(rows).map(ClubMember.fromJson).toList();
+    const rank = {'owner': 0, 'manager': 1, 'member': 2};
+    members.sort((a, b) => (rank[a.role] ?? 3).compareTo(rank[b.role] ?? 3));
+    return members;
+  }
+
+  /// 다가오는 모임 일정 (참석자 수 + 본인 응답 포함).
+  Future<List<ClubEvent>> clubEvents(String clubId) async {
+    final nowIso = DateTime.now().toUtc().toIso8601String();
+    final rows = await _supabase
+        .from('club_events')
+        .select('*, club_event_attendees(user_id, status)')
+        .eq('club_id', clubId)
+        .gte('starts_at', nowIso)
+        .order('starts_at');
+    final uid = _supabase.auth.currentUser?.id;
+    return List<Map<String, dynamic>>.from(rows)
+        .map((j) => ClubEvent.fromJson(j, currentUserId: uid))
+        .toList();
+  }
+
+  /// 모임 생성. type='official'은 운영진만(서버 RLS 가 강제).
+  Future<void> createClubEvent({
+    required String clubId,
+    required String type,
+    required String title,
+    String? description,
+    String? locationText,
+    required DateTime startsAt,
+  }) async {
+    final uid = _supabase.auth.currentUser?.id;
+    if (uid == null) throw StateError('Not authenticated');
+    await _supabase.from('club_events').insert({
+      'club_id': clubId,
+      'created_by': uid,
+      'type': type,
+      'title': title,
+      if (description != null && description.isNotEmpty)
+        'description': description,
+      if (locationText != null && locationText.isNotEmpty)
+        'location_text': locationText,
+      'starts_at': startsAt.toUtc().toIso8601String(),
+    });
+  }
+
+  /// 참석/불참 응답 (upsert).
+  Future<void> respondEvent(String eventId, {required bool going}) async {
+    final uid = _supabase.auth.currentUser?.id;
+    if (uid == null) throw StateError('Not authenticated');
+    await _supabase.from('club_event_attendees').upsert({
+      'event_id': eventId,
+      'user_id': uid,
+      'status': going ? 'going' : 'not_going',
+      'responded_at': DateTime.now().toUtc().toIso8601String(),
+    }, onConflict: 'event_id,user_id');
   }
 
   // ===== admin: clubs =====

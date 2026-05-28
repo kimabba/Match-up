@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../models/tournament.dart';
@@ -415,14 +416,9 @@ class _ClubCard extends ConsumerWidget {
     );
   }
 
-  void _showDetail(BuildContext context, WidgetRef ref) {
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(borderRadius: AppRadius.sheet),
-      isScrollControlled: true,
-      builder: (_) =>
-          _ClubDetailSheet(club: club, ref: ref, onChanged: onChanged),
-    );
+  Future<void> _showDetail(BuildContext context, WidgetRef ref) async {
+    await context.push('/clubs/${club.id}', extra: club);
+    onChanged();
   }
 }
 
@@ -519,161 +515,6 @@ class _StatusChip extends StatelessWidget {
       child: Text(
         label,
         style: Theme.of(context).textTheme.labelSmall?.copyWith(color: color),
-      ),
-    );
-  }
-}
-
-// ─── 클럽 상세 바텀시트 ──────────────────────────────────────────────────────
-
-class _ClubDetailSheet extends ConsumerStatefulWidget {
-  final Club club;
-  final WidgetRef ref;
-  final VoidCallback onChanged;
-
-  const _ClubDetailSheet({
-    required this.club,
-    required this.ref,
-    required this.onChanged,
-  });
-
-  @override
-  ConsumerState<_ClubDetailSheet> createState() => _ClubDetailSheetState();
-}
-
-class _ClubDetailSheetState extends ConsumerState<_ClubDetailSheet> {
-  bool _inFlight = false;
-
-  Future<void> _join() async {
-    setState(() => _inFlight = true);
-    try {
-      await ref.read(apiProvider).joinClub(widget.club.id);
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('가입 신청이 완료되었습니다')));
-        Navigator.pop(context);
-        widget.onChanged();
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('가입 신청 실패: $e')));
-      }
-    } finally {
-      if (mounted) setState(() => _inFlight = false);
-    }
-  }
-
-  Future<void> _leave() async {
-    final ok = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('클럽 탈퇴'),
-        content: Text('${widget.club.name}에서 탈퇴할까요?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('취소'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(ctx, true),
-            style: FilledButton.styleFrom(backgroundColor: Colors.red),
-            child: const Text('탈퇴'),
-          ),
-        ],
-      ),
-    );
-    if (ok != true) return;
-    setState(() => _inFlight = true);
-    try {
-      await ref.read(apiProvider).leaveClub(widget.club.id);
-      if (mounted) {
-        Navigator.pop(context);
-        widget.onChanged();
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('탈퇴 실패: $e')));
-      }
-    } finally {
-      if (mounted) setState(() => _inFlight = false);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final tt = Theme.of(context).textTheme;
-    final cs = Theme.of(context).colorScheme;
-    final club = widget.club;
-    final isMember = club.isMember;
-    final isOwner = club.isOwner;
-
-    return Padding(
-      padding: const EdgeInsets.all(AppSpacing.xl),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(club.name, style: tt.headlineSmall),
-          const SizedBox(height: AppSpacing.xs),
-          Text(
-            [
-              sportLabelFromString(club.sport),
-              if (club.region != null) club.region!,
-              if (club.memberCount > 0) '${club.memberCount}명',
-            ].join(' · '),
-            style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
-          ),
-          if (club.contact != null) ...[
-            const SizedBox(height: AppSpacing.sm),
-            Text(
-              '연락처: ${club.contact!}',
-              style: tt.bodyMedium?.copyWith(color: cs.onSurfaceVariant),
-            ),
-          ],
-          if (club.address != null) ...[
-            const SizedBox(height: AppSpacing.xs),
-            Text(
-              '주소: ${club.address!}',
-              style: tt.bodyMedium?.copyWith(color: cs.onSurfaceVariant),
-            ),
-          ],
-          if (club.description != null) ...[
-            const SizedBox(height: AppSpacing.md),
-            Text(club.description!, style: tt.bodyMedium),
-          ],
-          const SizedBox(height: AppSpacing.lg),
-          if (!isMember)
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton.icon(
-                onPressed: _inFlight ? null : _join,
-                icon: _inFlight
-                    ? const SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : const Icon(Icons.person_add_rounded),
-                label: const Text('가입 신청'),
-              ),
-            )
-          else if (!isOwner)
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                onPressed: _inFlight ? null : _leave,
-                icon: const Icon(Icons.exit_to_app_rounded),
-                label: const Text('탈퇴'),
-                style: OutlinedButton.styleFrom(foregroundColor: Colors.red),
-              ),
-            ),
-          SizedBox(height: MediaQuery.of(context).viewInsets.bottom),
-        ],
       ),
     );
   }
