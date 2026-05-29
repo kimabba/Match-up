@@ -96,6 +96,7 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(activeSportProvider, (_, __) => _search());
     final cs = Theme.of(context).colorScheme;
     final favorites = ref.watch(favoriteIdsProvider);
 

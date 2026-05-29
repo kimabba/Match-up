@@ -122,6 +122,7 @@ class UserTennisOrg {
   final DateTime? expiresAt;
   final bool isPrimary;
   final String? regionCode;
+  final List<String> divisionCodes; // e.g. ['gj_m_gold', 'gj_m_general']
 
   UserTennisOrg({
     required this.org,
@@ -130,6 +131,7 @@ class UserTennisOrg {
     this.expiresAt,
     this.isPrimary = false,
     this.regionCode,
+    this.divisionCodes = const [],
   });
 
   factory UserTennisOrg.fromJson(Map<String, dynamic> j) {
@@ -148,6 +150,10 @@ class UserTennisOrg {
           : null,
       isPrimary: (j['is_primary'] as bool?) ?? false,
       regionCode: j['region_code'] as String?,
+      divisionCodes: (j['division_codes'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
     );
   }
 
@@ -159,6 +165,7 @@ class UserTennisOrg {
         'expires_at': expiresAt?.toIso8601String().substring(0, 10),
         'is_primary': isPrimary,
         'region_code': regionCode,
+        'division_codes': divisionCodes,
       };
 }
 

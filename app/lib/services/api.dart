@@ -490,6 +490,7 @@ class ApiService {
     required String message,
     String? conversationId,
     bool enableSearch = true,
+    String? activeSport,
   }) async* {
     final request = http.Request('POST', _uri('chat'));
     final headers = await _authHeaders();
@@ -501,6 +502,7 @@ class ApiService {
       'message': message,
       if (conversationId != null) 'conversation_id': conversationId,
       'enable_search': enableSearch,
+      if (activeSport != null) 'active_sport': activeSport,
     });
 
     final client = http.Client();

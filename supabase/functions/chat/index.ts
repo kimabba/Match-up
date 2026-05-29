@@ -437,6 +437,7 @@ Deno.serve(async (req) => {
 
   const conversationId = body.conversation_id ?? crypto.randomUUID();
   const userMessage = body.message.trim();
+  const clientActiveSport: string | undefined = body.active_sport;
 
   // 운영 로그용 user_id 해시 (PII 평문 노출 방지). 매 요청 1회 계산 후 모든 구조화 로그에서 재사용.
   const hashedUserId = await hashUserId(user.id);
@@ -579,7 +580,7 @@ Deno.serve(async (req) => {
         //    응답 분리/거부 분기를 위해 여기서도 명시적으로 처리).
         //  - 사용자가 메시지에 sport 키워드를 명시했고 그 종목이 미등록이면 LLM 호출 우회하고 거부 응답.
         //  - 명시 종목이 등록돼 있으면 RAG 결과를 그 종목으로 post-filter (다른 종목 컨텍스트 차단).
-        const requestedSport = intentResult.slots.sport;
+        const requestedSport = intentResult.slots.sport ?? clientActiveSport;
         const registeredSports = new Set(
           ((userSports ?? []) as UserSport[]).map((s) => s.sport),
         );

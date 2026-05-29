@@ -197,6 +197,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             score: double.tryParse(o.score.text.trim()),
             regionCode: _regionCode,
             isPrimary: o.org == _primaryOrg,
+            divisionCodes: o.selectedDivisionCodes.toList(),
           );
         }).toList();
         await api.saveTennisOrgs(orgRows);
@@ -603,12 +604,34 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             ],
           ),
           const SizedBox(height: AppSpacing.sm),
-          TextField(
-            controller: draft.divisionLocal,
-            decoration: const InputDecoration(
-              labelText: '부서·등급 (자유 입력)',
-              hintText: '예: 챌린저부 / 골드부 / 4부',
-            ),
+          Text('출전 부서 선택', style: tt.labelLarge),
+          const SizedBox(height: AppSpacing.xs),
+          Wrap(
+            spacing: AppSpacing.xs,
+            runSpacing: AppSpacing.xs,
+            children: tennisDivisions
+                .where((d) => d.org == draft.org)
+                .map((d) {
+              final selected = draft.selectedDivisionCodes.contains(d.code);
+              return FilterChip(
+                label: Text(d.label),
+                selected: selected,
+                onSelected: (v) {
+                  setState(() {
+                    if (v) {
+                      draft.selectedDivisionCodes.add(d.code);
+                    } else {
+                      draft.selectedDivisionCodes.remove(d.code);
+                    }
+                    draft.divisionLocal.text = tennisDivisions
+                        .where((td) =>
+                            draft.selectedDivisionCodes.contains(td.code))
+                        .map((td) => td.label)
+                        .join(' · ');
+                  });
+                },
+              );
+            }).toList(),
           ),
           const SizedBox(height: AppSpacing.sm),
           TextField(
@@ -898,6 +921,7 @@ class _OrgDraft {
   final String org;
   final TextEditingController divisionLocal = TextEditingController();
   final TextEditingController score = TextEditingController();
+  final Set<String> selectedDivisionCodes = {};
 
   _OrgDraft({required this.org});
 }

@@ -55,6 +55,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
       await for (final evt in api.chat(
         message: text,
         conversationId: _conversationId,
+        activeSport: ref.read(activeSportProvider),
       )) {
         if (!mounted) return;
         switch (evt.event) {
