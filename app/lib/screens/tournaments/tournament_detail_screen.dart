@@ -224,8 +224,10 @@ class _DetailBody extends StatelessWidget {
             ),
           ),
 
-          // 대회 요강
-          if (t.description != null && t.description!.trim().isNotEmpty) ...[
+          // 대회 요강 — 구조화된 메타데이터(파서 생성)는 이미 카드에 표시되므로 숨김
+          if (t.description != null &&
+              t.description!.trim().isNotEmpty &&
+              !t.description!.startsWith('참가부서:')) ...[
             const SizedBox(height: AppSpacing.xl),
             Text('대회 요강', style: tt.titleSmall?.copyWith(color: cs.onSurfaceVariant)),
             const SizedBox(height: AppSpacing.sm),
