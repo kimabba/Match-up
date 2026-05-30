@@ -78,13 +78,21 @@ select public.invoke_edge_function('embed-pending', '{}'::jsonb);
 - cron job 로그(`net._http_response`)에서 401/403 이 사라졌는지 확인
 - 옛 키로 호출 시 거부되는지 확인 (Revoke 반영)
 
-## 진행 상태 (2026-05-28)
+## 진행 상태 (2026-05-29 업데이트)
 
 - ✅ cron 비밀번호를 service_role JWT → 랜덤값으로 분리 (Vault `internal_cron_jwt`, 96자)
 - ✅ 034 마이그레이션 원격 적용, `invoke_edge_function` 이 Vault 사용 (200 검증 완료)
 - ✅ Edge Function `INTERNAL_CRON_JWT` env 교체
 - ✅ 레포 PRIVATE 전환 (추가 노출 차단)
+- ✅ `notify-cron` 인증 가드 수정: `requireServiceRole` → `requireServiceRoleOrAdmin`
+  - pg_cron이 INTERNAL_CRON_JWT(랜덤값)로 호출 시 `requireServiceRole`은 SERVICE_ROLE_KEY와
+    비교하므로 403 거부되는 버그. `requireServiceRoleOrAdmin`은 cron secret을 우선 체크하여 정상 통과.
+- ✅ `crawl-dispatch` config.toml 에 `verify_jwt = false` 추가
+  - INTERNAL_CRON_JWT가 랜덤값이므로 Supabase 의 JWT 검증(`verify_jwt = true` 기본값)이
+    핸들러 도달 전 401 반환. `net._http_response` 에서 간헐 401 확인됨.
 - ⛔ **노출된 service_role JWT 자체는 아직 유효** — 아래 마이그레이션 후 revoke 필요
+  - publishable key 발급 완료 확인 (`sb_publishable_...`)
+  - 앱을 publishable key로 전환 → legacy anon 비활성화 → HS256 secret revoke 순서로 진행
 
 ## 노출 키 완전 차단 — legacy → 새 API 키 마이그레이션 (별도 세션)
 
@@ -97,6 +105,7 @@ select public.invoke_edge_function('embed-pending', '{}'::jsonb);
 - 앱: `--dart-define=SUPABASE_ANON_KEY` 를 `sb_publishable_...` 로 교체 후 재빌드 (코드 변경 없음)
 - service_role 사용 Edge Function 5곳: `embed-pending`, `notify-cron`, `crawl-dispatch`,
   `seed-intent-examples`, `_shared/supabase.ts`(serviceClient) — 새 secret key 동작 검증 필요
+- `notify-cron` 은 cron secret 인증 누락 버그가 있었으며 `requireServiceRoleOrAdmin` 으로 수정 완료
 
 **절차**
 1. Settings → API Keys 에서 publishable/secret key 발급·확인

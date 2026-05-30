@@ -1,4 +1,4 @@
-SUPABASE ?= supabase-beta
+SUPABASE ?= supabase
 # 원격 Supabase 프로젝트 ref (make backend 에서 사용)
 PROJECT_REF ?= bsjdgwmveokanclqwtvx
 # iOS Simulator: ffmpeg_kit arm64 미지원으로 현재 macOS 로 실행
