@@ -180,19 +180,22 @@ async function fetchDetail(
     org,
   );
 
-  // 네비게이션 텍스트는 제목보다 앞에 있으므로, 제목 이후 텍스트만 description 으로 사용
-  const titleAnchor = title.slice(0, 10);
-  const titlePos = bodyText.indexOf(titleAnchor);
-  const contentAfterTitle = titlePos !== -1
-    ? bodyText.slice(titlePos + title.length).trim()
-    : bodyText;
-  const description = contentAfterTitle.length > 20 ? contentAfterTitle.slice(0, 1200) : undefined;
+  // 부서 테이블에서 부서별 신청/경기일 정보를 구조화된 description 으로 생성.
+  // 원본 사이트에 대회 설명 텍스트가 없으므로 (신청 폼 안내 보일러플레이트만 존재),
+  // 추출한 메타데이터를 조합해 유용한 설명을 만든다.
+  const descParts: string[] = [];
+  if (divisionLabel) descParts.push(`참가부서: ${divisionLabel}`);
+  const deadline = extractApplicationDeadline(bodyText) ?? undefined;
+  if (deadline) descParts.push(`신청마감: ${deadline}`);
+  descParts.push(`대회일: ${startDate}`);
+  if (region) descParts.push(`지역: ${region}`);
+  const description = descParts.length > 0 ? descParts.join(' | ') : undefined;
 
   return {
     title,
     description,
     start_date: startDate,
-    application_deadline: extractApplicationDeadline(bodyText) ?? undefined,
+    application_deadline: deadline,
     region,
     eligible_grades: gradeCodes,
     division_label_local: divisionLabel,
