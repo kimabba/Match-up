@@ -7,7 +7,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'config.dart';
 import 'router.dart';
 import 'services/api.dart';
-import 'services/notifications.dart';
+import 'services/notifications.dart'
+    if (dart.library.html) 'services/notifications_web.dart';
 import 'state/theme_provider.dart';
 import 'theme/app_theme.dart';
 
