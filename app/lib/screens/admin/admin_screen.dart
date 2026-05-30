@@ -8,7 +8,8 @@ import '../../state/providers.dart';
 import 'knowledge_base_tab.dart';
 
 class AdminScreen extends ConsumerStatefulWidget {
-  const AdminScreen({super.key});
+  const AdminScreen({super.key, this.initialTab = 0});
+  final int initialTab;
 
   @override
   ConsumerState<AdminScreen> createState() => _AdminScreenState();
@@ -44,7 +45,7 @@ class _AdminScreenState extends ConsumerState<AdminScreen>
   @override
   void initState() {
     super.initState();
-    _tab = TabController(length: 5, vsync: this);
+    _tab = TabController(length: 5, vsync: this, initialIndex: widget.initialTab);
     _tab.addListener(_onTabChanged);
     _startRefreshTimer();
     _loadLogs();
