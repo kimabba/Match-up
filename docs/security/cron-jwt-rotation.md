@@ -90,9 +90,10 @@ select public.invoke_edge_function('embed-pending', '{}'::jsonb);
 - ✅ `crawl-dispatch` config.toml 에 `verify_jwt = false` 추가
   - INTERNAL_CRON_JWT가 랜덤값이므로 Supabase 의 JWT 검증(`verify_jwt = true` 기본값)이
     핸들러 도달 전 401 반환. `net._http_response` 에서 간헐 401 확인됨.
-- ⛔ **노출된 service_role JWT 자체는 아직 유효** — 아래 마이그레이션 후 revoke 필요
-  - publishable key 발급 완료 확인 (`sb_publishable_...`)
-  - 앱을 publishable key로 전환 → legacy anon 비활성화 → HS256 secret revoke 순서로 진행
+- ✅ 앱을 publishable key(`sb_publishable_...`)로 전환 (2026-05-31)
+- ✅ Legacy `anon`/`service_role` JWT-based API keys **Disabled** (2026-05-31)
+- ✅ Legacy HS256 Shared Secret **Revoked** (2026-05-31)
+- ✅ Revoke 후 cron 전부 200 정상 동작 확인
 
 ## 노출 키 완전 차단 — legacy → 새 API 키 마이그레이션 (별도 세션)
 
