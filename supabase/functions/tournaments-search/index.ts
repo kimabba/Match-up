@@ -59,23 +59,11 @@ Deno.serve(async (req) => {
     p_query: q,
     p_limit: limit,
     p_offset: offset,
+    p_region_code: regionCode,
+    p_host_org: org,
   });
 
   if (error) return errorResponse(error.message, 500);
 
-  // region_code · org 는 RPC 시그니처가 아직 받지 않아 client-side 필터.
-  // 향후 RPC v2로 시그니처 확장 시 여기 제거.
-  const rawRows: unknown[] = Array.isArray(data) ? data : [];
-  const filtered = rawRows.filter((row): boolean => {
-    if (typeof row !== 'object' || row === null) return false;
-    const o = row as Record<string, unknown>;
-    if (regionCode && o.region_code !== regionCode) return false;
-    if (org) {
-      const hostOrgs = Array.isArray(o.host_orgs) ? o.host_orgs : [];
-      if (!hostOrgs.includes(org)) return false;
-    }
-    return true;
-  });
-
-  return jsonResponse({ tournaments: filtered, limit, offset });
+  return jsonResponse({ tournaments: Array.isArray(data) ? data : [], limit, offset });
 });
