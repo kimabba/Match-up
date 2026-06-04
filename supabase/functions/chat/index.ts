@@ -865,7 +865,11 @@ Deno.serve(async (req) => {
         let rules: SemanticRule[] = [];
         // RPC 자체가 실패했는지 (네트워크/DB 장애) — true 면 "DB 없음" 거절 대신 일시 오류 안내
         let ragErrored = false;
-        if (!vectorLiteral) {
+        // free_chat(인사, 잡담)에는 RAG 불필요 — 비용 절감 + 불필요한 citation 차단
+        const skipRag = intentResult.intent === 'free_chat';
+        if (skipRag) {
+          send('context', { tournaments: [], rules: [] });
+        } else if (!vectorLiteral) {
           ragErrored = true;
         } else {
           try {
