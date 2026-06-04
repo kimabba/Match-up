@@ -60,10 +60,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       final sports = sportsAsync.valueOrNull ?? const [];
       if (sports.isEmpty && loc != '/onboarding') return '/onboarding';
 
-      if (loc.startsWith('/admin')) {
-        final isAdmin = ref.read(isAdminProvider).valueOrNull ?? false;
-        if (!isAdmin) return '/';
-      }
+      // 앱에서는 어드민 경로 완전 차단 (웹 전용)
+      if (loc.startsWith('/admin')) return '/';
 
       if (loc == '/login') return '/';
       return null;

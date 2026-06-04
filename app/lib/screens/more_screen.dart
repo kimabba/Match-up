@@ -42,7 +42,7 @@ class MoreScreen extends ConsumerWidget {
         subtitle: '닉네임, 활동 지역, 종목·등급 수정',
         onTap: () => context.go('/onboarding'),
       ),
-      if (isAdmin)
+      if (kIsWeb && isAdmin)
         _MenuItem(
           icon: Icons.admin_panel_settings_outlined,
           label: '어드민',
