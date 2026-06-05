@@ -32,7 +32,11 @@ class TournamentCard extends StatelessWidget {
     final tt = Theme.of(context).textTheme;
     final isTennis = tournament.sport == 'tennis';
     final accentColor = isTennis ? cs.tertiary : cs.secondary;
-    final grades = tournament.eligibleGrades.map(gradeLabel).join(' · ');
+    final grades = tournament.eligibleGrades
+        .map((g) => divisionLabel(g) != g ? divisionLabel(g) : gradeLabel(g))
+        .toSet()
+        .take(3)
+        .join(' · ');
     final status = _status(context);
     final feeText = _entryFeeText();
 
