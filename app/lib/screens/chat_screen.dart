@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -411,13 +412,33 @@ class _MessageBubble extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SelectableText(
-                  msg.content.isEmpty ? '…' : msg.content,
-                  style: tt.bodyMedium?.copyWith(
-                    color: isUser ? cs.onPrimary : cs.onSurface,
-                    height: 1.5,
-                  ),
-                ),
+                isUser
+                    ? SelectableText(
+                        msg.content.isEmpty ? '…' : msg.content,
+                        style: tt.bodyMedium?.copyWith(
+                          color: cs.onPrimary,
+                          height: 1.5,
+                        ),
+                      )
+                    : MarkdownBody(
+                        data: _cleanAssistantContent(msg.content),
+                        selectable: true,
+                        styleSheet: MarkdownStyleSheet(
+                          p: tt.bodyMedium?.copyWith(
+                            color: cs.onSurface,
+                            height: 1.5,
+                          ),
+                          h3: tt.titleSmall?.copyWith(
+                            color: cs.onSurface,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          listBullet: tt.bodyMedium?.copyWith(color: cs.onSurface),
+                          strong: tt.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: cs.onSurface,
+                          ),
+                        ),
+                      ),
                 if (msg.citations.isNotEmpty) ...[
                   const SizedBox(height: AppSpacing.sm),
                   Divider(
@@ -435,6 +456,16 @@ class _MessageBubble extends StatelessWidget {
       ),
     );
   }
+}
+
+/// 어시스턴트 응답에서 raw 출처 ID 패턴 제거
+String _cleanAssistantContent(String content) {
+  if (content.isEmpty) return '…';
+  // "(출처: id xxx-xxx, ...)" or "(출처: xxx-xxx)" 패턴 제거
+  return content
+      .replaceAll(RegExp(r'\(출처:?\s*(?:id\s*)?[a-f0-9\-,\s]+\)'), '')
+      .replaceAll(RegExp(r'출처:\s*(?:id\s+)?[a-f0-9\-]+(?:,\s*(?:id\s+)?[a-f0-9\-]+)*'), '')
+      .trim();
 }
 
 class _CitationRow extends StatelessWidget {
