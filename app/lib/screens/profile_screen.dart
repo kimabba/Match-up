@@ -1127,10 +1127,13 @@ class _SportsSection extends StatelessWidget {
               child: Center(child: LinearProgressIndicator()),
             ),
           ),
-          error: (e, _) => AppCard(
+          error: (_, __) => AppCard(
             child: Padding(
               padding: AppSpacing.screen,
-              child: Text('$e', style: TextStyle(color: cs.error)),
+              child: Text(
+                '종목 정보를 불러오지 못했습니다.',
+                style: tt.bodyMedium?.copyWith(color: cs.onSurfaceVariant),
+              ),
             ),
           ),
           data: (list) => list.isEmpty

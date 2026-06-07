@@ -250,6 +250,8 @@ class _RuleBookBody extends StatelessWidget {
       );
     }
 
+    final hasQuery = query.isNotEmpty;
+
     return ListView(
       padding: const EdgeInsets.fromLTRB(
         AppSpacing.lg,
@@ -263,12 +265,18 @@ class _RuleBookBody extends StatelessWidget {
           const SizedBox(height: AppSpacing.sm),
           const _PreviewRulesBanner(),
         ],
-        const SizedBox(height: AppSpacing.lg),
-        _DailyRuleQuizCard(sport: sport),
+        if (!hasQuery) ...[
+          const SizedBox(height: AppSpacing.lg),
+          _DailyRuleQuizCard(sport: sport),
+          const SizedBox(height: AppSpacing.xl),
+          _CategoryGrid(grouped: grouped!, sport: sport),
+        ],
         const SizedBox(height: AppSpacing.xl),
-        _CategoryGrid(grouped: grouped!, sport: sport),
-        const SizedBox(height: AppSpacing.xl),
-        _PopularRulesList(articles: _popularArticles(filtered), sport: sport),
+        _PopularRulesList(
+          articles: _popularArticles(hasQuery ? filtered : grouped!),
+          sport: sport,
+          title: hasQuery ? '검색 결과' : '자주 찾는 룰',
+        ),
       ],
     );
   }
@@ -923,10 +931,15 @@ class _CategoryCard extends StatelessWidget {
 }
 
 class _PopularRulesList extends StatelessWidget {
-  const _PopularRulesList({required this.articles, required this.sport});
+  const _PopularRulesList({
+    required this.articles,
+    required this.sport,
+    this.title = '자주 찾는 룰',
+  });
 
   final List<RuleArticle> articles;
   final String sport;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -944,7 +957,7 @@ class _PopularRulesList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '자주 찾는 룰',
+          title,
           style: tt.titleSmall?.copyWith(fontWeight: FontWeight.w900),
         ),
         const SizedBox(height: AppSpacing.sm),

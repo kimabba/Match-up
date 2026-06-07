@@ -348,7 +348,7 @@ class _MembersTab extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snap.hasError) {
-          return Center(child: Text('멤버를 불러오지 못했습니다: ${snap.error}'));
+          return Center(child: Text('멤버를 불러오지 못했습니다.'));
         }
         final members = snap.data ?? const [];
         if (members.isEmpty) {
@@ -406,7 +406,7 @@ class _EventsTab extends ConsumerWidget {
               return const Center(child: CircularProgressIndicator());
             }
             if (snap.hasError) {
-              return Center(child: Text('일정을 불러오지 못했습니다: ${snap.error}'));
+              return Center(child: Text('일정을 불러오지 못했습니다.'));
             }
             final events = snap.data ?? const [];
             if (events.isEmpty) {

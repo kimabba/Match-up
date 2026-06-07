@@ -31,6 +31,7 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen>
   String _q = '';
   List<Club>? _clubs;
   bool _loading = false;
+  String? _searchError;
 
   @override
   void initState() {
@@ -67,12 +68,17 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen>
   }
 
   Future<void> _load() async {
-    setState(() => _loading = true);
+    setState(() {
+      _loading = true;
+      _searchError = null;
+    });
     try {
       final list = await ref
           .read(apiProvider)
           .searchClubs(sport: ref.read(activeSportProvider), q: _q);
       if (mounted) setState(() => _clubs = list);
+    } catch (_) {
+      if (mounted) setState(() => _searchError = '클럽 목록을 불러오지 못했습니다.');
     } finally {
       if (mounted) setState(() => _loading = false);
     }
@@ -123,6 +129,7 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen>
             sport: sport,
             clubs: _clubs,
             loading: _loading,
+            error: _searchError,
             onQueryChanged: (v) => _q = v,
             onSearch: _load,
             onJoined: () {
@@ -197,6 +204,7 @@ class _SearchTab extends StatelessWidget {
   final String? sport;
   final List<Club>? clubs;
   final bool loading;
+  final String? error;
   final ValueChanged<String> onQueryChanged;
   final VoidCallback onSearch;
   final VoidCallback onJoined;
@@ -206,6 +214,7 @@ class _SearchTab extends StatelessWidget {
     required this.sport,
     required this.clubs,
     required this.loading,
+    this.error,
     required this.onQueryChanged,
     required this.onSearch,
     required this.onJoined,
@@ -306,15 +315,23 @@ class _SearchTab extends StatelessWidget {
         ),
         if (loading) LinearProgressIndicator(color: cs.primary),
         Expanded(
-          child: clubs == null
-              ? const SizedBox.shrink()
-              : clubs!.isEmpty
-                  ? const AppEmptyState(
-                      icon: Icons.groups_rounded,
-                      title: '등록된 클럽이 없습니다',
-                      description: '다른 검색어나 필터로 시도해 보세요.',
-                    )
-                  : ListView.builder(
+          child: error != null
+              ? AppEmptyState(
+                  icon: Icons.wifi_off_rounded,
+                  title: error!,
+                  description: '네트워크 연결을 확인하고 다시 시도해 주세요.',
+                  actionLabel: '다시 시도',
+                  onAction: onSearch,
+                )
+              : clubs == null
+                  ? const SizedBox.shrink()
+                  : clubs!.isEmpty
+                      ? const AppEmptyState(
+                          icon: Icons.groups_rounded,
+                          title: '등록된 클럽이 없습니다',
+                          description: '다른 검색어나 필터로 시도해 보세요.',
+                        )
+                      : ListView.builder(
                       padding: const EdgeInsets.symmetric(
                         horizontal: AppSpacing.lg,
                         vertical: AppSpacing.lg,
