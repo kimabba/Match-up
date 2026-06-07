@@ -305,6 +305,19 @@ class ApiService {
     _check(res);
   }
 
+  Future<void> kickMember(String clubId, String targetUserId) async {
+    final res = await http.post(
+      _uri('clubs-join'),
+      headers: await _authHeaders(),
+      body: jsonEncode({
+        'club_id': clubId,
+        'action': 'kick',
+        'target_user_id': targetUserId,
+      }),
+    );
+    _check(res);
+  }
+
   /// 클럽 가입 신청 목록 조회 (owner/manager 전용).
   Future<List<Map<String, dynamic>>> pendingJoinRequests(String clubId) async {
     final rows = await _supabase

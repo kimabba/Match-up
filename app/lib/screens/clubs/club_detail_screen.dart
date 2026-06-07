@@ -135,7 +135,11 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen>
                   onLeave: _leave,
                 ),
                 isMember
-                    ? _MembersTab(future: _membersF!)
+                    ? _MembersTab(
+                        future: _membersF!,
+                        club: club,
+                        onChanged: _reload,
+                      )
                     : _memberOnlyNotice(cs, tt),
                 isMember
                     ? _EventsTab(
@@ -335,12 +339,18 @@ class _IntroTab extends StatelessWidget {
 }
 
 // ─── 멤버 탭 ──────────────────────────────────────────────────────
-class _MembersTab extends StatelessWidget {
+class _MembersTab extends ConsumerWidget {
   final Future<List<ClubMember>> future;
-  const _MembersTab({required this.future});
+  final Club club;
+  final VoidCallback onChanged;
+  const _MembersTab({
+    required this.future,
+    required this.club,
+    required this.onChanged,
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FutureBuilder<List<ClubMember>>(
       future: future,
       builder: (context, snap) {
@@ -348,7 +358,7 @@ class _MembersTab extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snap.hasError) {
-          return Center(child: Text('멤버를 불러오지 못했습니다.'));
+          return const Center(child: Text('멤버를 불러오지 못했습니다.'));
         }
         final members = snap.data ?? const [];
         if (members.isEmpty) {
@@ -370,17 +380,62 @@ class _MembersTab extends StatelessWidget {
                 ),
               ),
               title: Text(m.displayName ?? '익명'),
-              trailing: m.role == 'member'
-                  ? null
-                  : Chip(
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (m.role != 'member')
+                    Chip(
                       label: Text(m.roleLabel),
                       visualDensity: VisualDensity.compact,
                     ),
+                  if (club.isOwner && m.role == 'member')
+                    IconButton(
+                      icon: Icon(Icons.person_remove_rounded,
+                          color: cs.error, size: 20),
+                      tooltip: '강퇴',
+                      onPressed: () => _confirmKick(context, ref, m),
+                    ),
+                ],
+              ),
             );
           },
         );
       },
     );
+  }
+
+  Future<void> _confirmKick(BuildContext context, WidgetRef ref, ClubMember m) async {
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('멤버 강퇴'),
+        content: Text('${m.displayName ?? '이 멤버'}를 강퇴할까요?'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('취소')),
+          FilledButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            style: FilledButton.styleFrom(backgroundColor: Colors.red),
+            child: const Text('강퇴'),
+          ),
+        ],
+      ),
+    );
+    if (ok != true || !context.mounted) return;
+    try {
+      await ref.read(apiProvider).kickMember(club.id, m.userId);
+      onChanged();
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('${m.displayName ?? '멤버'}를 강퇴했습니다')),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('강퇴 실패: $e')),
+        );
+      }
+    }
   }
 }
 

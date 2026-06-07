@@ -1,5 +1,5 @@
-// clubs-join: 클럽 가입 신청 / 취소 / 탈퇴
-// POST { club_id, action: 'request'|'cancel'|'leave', message? }
+// clubs-join: 클럽 가입 신청 / 취소 / 탈퇴 / 강퇴
+// POST { club_id, action: 'request'|'cancel'|'leave'|'kick', message?, target_user_id? }
 
 import { errorResponse, jsonResponse, preflight } from '../_shared/cors.ts';
 import { requireUser } from '../_shared/auth.ts';
@@ -97,5 +97,32 @@ Deno.serve(async (req) => {
     return jsonResponse({ ok: true, action: 'left' });
   }
 
-  return errorResponse('action must be request|cancel|leave', 400);
+  if (action === 'kick') {
+    // 강퇴 (owner만, 자기 자신 불가)
+    const targetUserId = body.target_user_id as string | undefined;
+    if (!targetUserId) return errorResponse('target_user_id is required', 400);
+    if (targetUserId === userId) return errorResponse('Cannot kick yourself', 400);
+
+    const { data: caller } = await supa
+      .from('club_members')
+      .select('role')
+      .eq('club_id', clubId)
+      .eq('user_id', userId)
+      .eq('status', 'active')
+      .maybeSingle();
+    if (caller?.role !== 'owner') {
+      return errorResponse('Only owner can kick members', 403);
+    }
+
+    const { error } = await supa
+      .from('club_members')
+      .delete()
+      .eq('club_id', clubId)
+      .eq('user_id', targetUserId)
+      .eq('status', 'active');
+    if (error) return errorResponse(error.message, 500);
+    return jsonResponse({ ok: true, action: 'kicked' });
+  }
+
+  return errorResponse('action must be request|cancel|leave|kick', 400);
 });
