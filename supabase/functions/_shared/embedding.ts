@@ -7,7 +7,7 @@
  * https://ai.google.dev/gemini-api/docs/embeddings
  */
 
-const MODEL = Deno.env.get('GEMINI_EMBEDDING_MODEL') ?? 'gemini-embedding-001';
+const MODEL = Deno.env.get('GEMINI_EMBEDDING_MODEL') ?? 'gemini-embedding-2';
 export const EMBEDDING_DIM = 768;
 
 interface EmbedResponse {
