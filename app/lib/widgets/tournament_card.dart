@@ -23,152 +23,119 @@ class TournamentCard extends StatelessWidget {
   final VoidCallback? onFavoriteToggle;
   final bool compact;
 
-  static final _df = DateFormat('M월 d일 (E)', 'ko');
-  static final _fee = NumberFormat.decimalPattern('ko');
+  static final _df = DateFormat('M/d (E)', 'ko');
 
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
-    final isTennis = tournament.sport == 'tennis';
-    final accentColor = isTennis ? cs.tertiary : cs.secondary;
+    final status = _status(context);
     final grades = tournament.eligibleGrades
         .map((g) => divisionLabel(g) != g ? divisionLabel(g) : gradeLabel(g))
         .toSet()
         .take(3)
         .join(' · ');
-    final status = _status(context);
-    final feeText = _entryFeeText();
 
     return Padding(
       padding: const EdgeInsets.only(bottom: AppSpacing.sm),
       child: AppCard(
         onTap: onTap,
         variant: AppCardVariant.elevated,
-        padding: EdgeInsets.zero,
-        borderRadius: BorderRadius.circular(16),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _SportCover(
-                assetPath: isTennis
-                    ? 'assets/images/tournaments/tennis-cover.jpg'
-                    : 'assets/images/tournaments/futsal-cover.jpg',
-                sport: sportLabelFromString(tournament.sport),
-                icon: isTennis
-                    ? Icons.sports_tennis_rounded
-                    : Icons.sports_soccer_rounded,
-                height: compact ? 70 : 104,
-                onFavoriteToggle: onFavoriteToggle == null
-                    ? null
-                    : () {
-                        HapticFeedback.lightImpact();
-                        onFavoriteToggle!();
-                      },
-                isFavorite: isFavorite,
+        borderRadius: BorderRadius.circular(14),
+        padding: const EdgeInsets.all(AppSpacing.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Row 1: 상태 + D-day + 날짜
+            Row(
+              children: [
+                _StatusChip(
+                  label: status.label,
+                  foreground: status.foreground,
+                  background: status.background,
+                ),
+                if (_deadlineText().isNotEmpty) ...[
+                  const SizedBox(width: AppSpacing.sm),
+                  Text(
+                    _deadlineText(),
+                    style: tt.labelSmall?.copyWith(
+                      color: cs.error,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ],
+                const Spacer(),
+                Icon(Icons.calendar_today_rounded, size: 13, color: cs.onSurfaceVariant),
+                const SizedBox(width: 4),
+                Text(
+                  _dateText(),
+                  style: tt.labelSmall?.copyWith(color: cs.onSurfaceVariant),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.sm),
+
+            // Row 2: 타이틀
+            Text(
+              tournament.title,
+              style: tt.titleSmall?.copyWith(
+                fontWeight: FontWeight.w800,
+                height: 1.3,
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(
-                  compact ? AppSpacing.md : AppSpacing.lg,
-                  compact ? AppSpacing.sm : AppSpacing.md,
-                  compact ? AppSpacing.md : AppSpacing.lg,
-                  compact ? AppSpacing.md : AppSpacing.lg,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Wrap(
-                      spacing: AppSpacing.xs,
-                      runSpacing: AppSpacing.xs,
-                      children: [
-                        _Badge(
-                          label: status.label,
-                          foreground: status.foreground,
-                          background: status.background,
-                        ),
-                        _Badge(
-                          label: grades.isEmpty ? '전체 등급' : grades,
-                          foreground: cs.primary,
-                          background: cs.primaryContainer,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: AppSpacing.sm),
-                    Text(
-                      tournament.title,
-                      style: tt.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w900,
-                        height: 1.2,
-                      ),
-                      maxLines: compact ? 1 : 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    if (!compact && tournament.organizer != null) ...[
-                      const SizedBox(height: AppSpacing.xs),
-                      Text(
-                        tournament.organizer!,
-                        style: tt.bodySmall?.copyWith(
-                          color: cs.onSurfaceVariant,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                    const SizedBox(height: AppSpacing.sm),
-                    _MetaLine(
-                      icon: Icons.calendar_today_rounded,
-                      label: _dateText(),
-                      accentColor: accentColor,
-                    ),
-                    if (tournament.location != null ||
-                        tournament.region != null)
-                      _MetaLine(
-                        icon: Icons.place_rounded,
-                        label: [
-                          tournament.region,
-                          tournament.location,
-                        ].whereType<String>().join(' · '),
-                        accentColor: accentColor,
-                      ),
-                    if (!compact && feeText != null)
-                      _MetaLine(
-                        icon: Icons.payments_outlined,
-                        label: feeText,
-                        accentColor: accentColor,
-                      ),
-                    if (!compact && tournament.applicationDeadline != null) ...[
-                      const SizedBox(height: AppSpacing.sm),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: ClipRRect(
-                              borderRadius: AppRadius.pill,
-                              child: LinearProgressIndicator(
-                                value: _deadlineProgress(),
-                                minHeight: 6,
-                                backgroundColor: cs.outlineVariant,
-                                color: accentColor,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: AppSpacing.md),
-                          Text(
-                            _deadlineText(),
-                            style: tt.labelSmall?.copyWith(
-                              color: cs.onSurfaceVariant,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ],
-                ),
+              maxLines: compact ? 1 : 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+
+            // Row 3: 주최
+            if (!compact && tournament.organizer != null) ...[
+              const SizedBox(height: 2),
+              Text(
+                tournament.organizer!,
+                style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
-          ),
+            const SizedBox(height: AppSpacing.sm),
+
+            // Row 4: 지역 + 등급 + 즐겨찾기
+            Row(
+              children: [
+                if (tournament.region != null) ...[
+                  Icon(Icons.place_rounded, size: 14, color: cs.onSurfaceVariant),
+                  const SizedBox(width: 2),
+                  Text(
+                    tournament.region!,
+                    style: tt.labelSmall?.copyWith(color: cs.onSurfaceVariant),
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                ],
+                Expanded(
+                  child: Text(
+                    grades.isEmpty ? '전체 등급' : '🏆 $grades',
+                    style: tt.labelSmall?.copyWith(
+                      color: cs.primary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                if (onFavoriteToggle != null)
+                  GestureDetector(
+                    onTap: () {
+                      HapticFeedback.lightImpact();
+                      onFavoriteToggle!();
+                    },
+                    child: Icon(
+                      isFavorite ? Icons.bookmark_rounded : Icons.bookmark_outline_rounded,
+                      size: 22,
+                      color: isFavorite ? cs.primary : cs.onSurfaceVariant,
+                    ),
+                  ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -178,14 +145,7 @@ class TournamentCard extends StatelessWidget {
     final start = _df.format(tournament.startDate);
     final end = tournament.endDate;
     if (end == null || _isSameDay(tournament.startDate, end)) return start;
-    return '$start - ${_df.format(end)}';
-  }
-
-  String? _entryFeeText() {
-    final fee = tournament.entryFee;
-    if (fee == null || fee <= 0) return null;
-    final unit = tournament.entryFeeUnit == 'per_person' ? '인당' : '팀당';
-    return '$unit ${_fee.format(fee)}원';
+    return '$start~${_df.format(end)}';
   }
 
   _StatusBadgeData _status(BuildContext context) {
@@ -239,176 +199,40 @@ class TournamentCard extends StatelessWidget {
     final daysLeft = deadline
         .difference(DateTime(today.year, today.month, today.day))
         .inDays;
-    if (daysLeft < 0) return '마감';
+    if (daysLeft < 0) return '';
     if (daysLeft == 0) return 'D-Day';
-    return 'D-$daysLeft';
+    if (daysLeft <= 7) return 'D-$daysLeft';
+    return '';
   }
 
-  double _deadlineProgress() {
-    final deadline = tournament.applicationDeadline;
-    if (deadline == null) return 0;
-    final totalDays = deadline.difference(tournament.startDate).inDays.abs();
-    if (totalDays <= 0) return 1;
-    final daysLeft = deadline.difference(DateTime.now()).inDays;
-    return (1 - (daysLeft / totalDays)).clamp(0, 1).toDouble();
-  }
-
-  bool _isSameDay(DateTime a, DateTime b) {
-    return a.year == b.year && a.month == b.month && a.day == b.day;
-  }
+  bool _isSameDay(DateTime a, DateTime b) =>
+      a.year == b.year && a.month == b.month && a.day == b.day;
 }
 
-class _SportCover extends StatelessWidget {
-  const _SportCover({
-    required this.assetPath,
-    required this.sport,
-    required this.icon,
-    required this.height,
-    required this.isFavorite,
-    this.onFavoriteToggle,
-  });
-
-  final String assetPath;
-  final String sport;
-  final IconData icon;
-  final double height;
-  final bool isFavorite;
-  final VoidCallback? onFavoriteToggle;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: height,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Image.asset(assetPath, fit: BoxFit.cover),
-          const DecoratedBox(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color(0x12000000), Color(0x7A000000)],
-              ),
-            ),
-          ),
-          Positioned(
-            left: AppSpacing.md,
-            bottom: AppSpacing.sm,
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppSpacing.sm,
-                vertical: AppSpacing.xs,
-              ),
-              decoration: BoxDecoration(
-                color: const Color(0xE6FFFFFF),
-                borderRadius: AppRadius.pill,
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(icon, size: 14, color: const Color(0xFF111827)),
-                  const SizedBox(width: AppSpacing.xs),
-                  Text(
-                    sport,
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: const Color(0xFF111827),
-                          fontWeight: FontWeight.w900,
-                        ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          if (onFavoriteToggle != null)
-            Positioned(
-              top: AppSpacing.sm,
-              right: AppSpacing.sm,
-              child: _FavoriteButton(
-                isFavorite: isFavorite,
-                onTap: onFavoriteToggle!,
-                onImage: true,
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-class _Badge extends StatelessWidget {
-  const _Badge({
+class _StatusChip extends StatelessWidget {
+  final String label;
+  final Color foreground;
+  final Color background;
+  const _StatusChip({
     required this.label,
     required this.foreground,
     required this.background,
   });
 
-  final String label;
-  final Color foreground;
-  final Color background;
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.sm,
-        vertical: AppSpacing.xs,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
       decoration: BoxDecoration(
         color: background,
-        borderRadius: BorderRadius.circular(AppRadius.xs),
+        borderRadius: BorderRadius.circular(6),
       ),
       child: Text(
         label,
         style: Theme.of(context).textTheme.labelSmall?.copyWith(
               color: foreground,
-              fontWeight: FontWeight.w900,
+              fontWeight: FontWeight.w800,
             ),
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-      ),
-    );
-  }
-}
-
-class _MetaLine extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final Color accentColor;
-  const _MetaLine({
-    required this.icon,
-    required this.label,
-    required this.accentColor,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-    final tt = Theme.of(context).textTheme;
-    return Padding(
-      padding: const EdgeInsets.only(bottom: AppSpacing.xs),
-      child: Row(
-        children: [
-          Container(
-            width: 22,
-            height: 22,
-            decoration: BoxDecoration(
-              color: accentColor.withValues(alpha: 0.12),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Icon(icon, size: 13, color: accentColor),
-          ),
-          const SizedBox(width: AppSpacing.xs),
-          Expanded(
-            child: Text(
-              label,
-              style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -424,38 +248,4 @@ class _StatusBadgeData {
   final String label;
   final Color foreground;
   final Color background;
-}
-
-class _FavoriteButton extends StatelessWidget {
-  final bool isFavorite;
-  final VoidCallback onTap;
-  final bool onImage;
-  const _FavoriteButton({
-    required this.isFavorite,
-    required this.onTap,
-    this.onImage = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-    return IconButton(
-      onPressed: onTap,
-      tooltip: isFavorite ? '관심 대회 해제' : '관심 대회 저장',
-      style: IconButton.styleFrom(
-        backgroundColor: onImage ? const Color(0xDFFFFFFF) : Colors.transparent,
-        minimumSize: const Size(36, 36),
-        padding: const EdgeInsets.all(AppSpacing.sm),
-      ),
-      icon: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 200),
-        child: Icon(
-          key: ValueKey(isFavorite),
-          isFavorite ? Icons.bookmark_rounded : Icons.bookmark_outline_rounded,
-          color: isFavorite ? cs.primary : cs.onSurfaceVariant,
-          size: 20,
-        ),
-      ),
-    );
-  }
 }

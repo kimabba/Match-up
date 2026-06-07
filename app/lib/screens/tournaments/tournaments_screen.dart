@@ -490,7 +490,7 @@ class _MyGradeSection extends ConsumerWidget {
               if (list.isEmpty) return const SizedBox.shrink();
               final favs = favorites.valueOrNull ?? const <String>{};
               return SizedBox(
-                height: 240,
+                height: 150,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   padding: const EdgeInsets.symmetric(
