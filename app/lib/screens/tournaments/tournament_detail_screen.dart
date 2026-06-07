@@ -93,16 +93,21 @@ class _DetailBody extends StatelessWidget {
   final DateFormat df;
   const _DetailBody({required this.t, required this.df});
 
+  static final _feeFormat = NumberFormat.decimalPattern('ko');
+
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
     final isTennis = t.sport == 'tennis';
     final accentColor = isTennis ? cs.primary : cs.tertiary;
-    // division_label_local이 있으면 우선 사용, 없으면 eligible_grades 코드에서 생성
     final grades = (t.divisionLabelLocal?.isNotEmpty == true)
         ? t.divisionLabelLocal!
         : formatEligibleGrades(t.eligibleGrades);
+
+    final hasDescription = t.description != null &&
+        t.description!.trim().isNotEmpty &&
+        !t.description!.startsWith('참가부서:');
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppSpacing.lg),
@@ -130,116 +135,135 @@ class _DetailBody extends StatelessWidget {
               ),
               const SizedBox(width: AppSpacing.md),
               Expanded(
-                child: Text(
-                  t.title,
-                  style: tt.headlineSmall,
-                ),
+                child: Text(t.title, style: tt.headlineSmall),
               ),
             ],
           ),
-          const SizedBox(height: AppSpacing.xl),
+          const SizedBox(height: AppSpacing.lg),
 
-          // 기본 정보 카드
-          AppCard(
-            child: Column(
-              children: [
-                _InfoRow(
-                  icon: Icons.sports_rounded,
-                  label: '종목',
-                  value: sportLabelFromString(t.sport),
-                  accent: accentColor,
-                ),
-                _Divider(),
-                _InfoRow(
-                  icon: Icons.calendar_today_rounded,
-                  label: '시작일',
-                  value: df.format(t.startDate),
-                ),
-                if (t.applicationDeadline != null) ...[
-                  _Divider(),
-                  _InfoRow(
-                    icon: Icons.event_busy_rounded,
-                    label: '신청 마감',
-                    value: df.format(t.applicationDeadline!),
-                    accent: cs.error,
-                  ),
-                ],
-                if (t.region != null) ...[
-                  _Divider(),
-                  _InfoRow(
-                    icon: Icons.place_rounded,
-                    label: '지역',
-                    value: t.region!,
-                  ),
-                ],
-                if (t.location != null) ...[
-                  _Divider(),
-                  _InfoRow(
-                    icon: Icons.location_on_rounded,
-                    label: '상세 장소',
-                    value: t.location!,
-                  ),
-                ],
-                _Divider(),
-                _InfoRow(
-                  icon: Icons.emoji_events_rounded,
-                  label: '출전 등급',
-                  value: grades,
-                  accent: accentColor,
-                ),
-                if (t.entryFee != null) ...[
-                  _Divider(),
-                  _InfoRow(
-                    icon: Icons.payments_rounded,
-                    label: '참가비',
-                    value: '${t.entryFee}원',
-                  ),
-                ],
-                if (t.prize != null) ...[
-                  _Divider(),
-                  _InfoRow(
-                    icon: Icons.workspace_premium_rounded,
-                    label: '시상',
-                    value: t.prize!,
-                  ),
-                ],
-                if (t.format != null) ...[
-                  _Divider(),
-                  _InfoRow(
-                    icon: Icons.format_list_numbered_rounded,
-                    label: '진행 방식',
-                    value: t.format!,
-                  ),
-                ],
-                if (t.organizer != null) ...[
-                  _Divider(),
-                  _InfoRow(
-                    icon: Icons.business_rounded,
-                    label: '주최',
-                    value: t.organizer!,
-                  ),
-                ],
-              ],
-            ),
+          // 1. 기본 정보 (기본 열림)
+          _AccordionSection(
+            icon: Icons.info_outline_rounded,
+            title: '기본 정보',
+            initiallyExpanded: true,
+            children: [
+              _InfoRow(icon: Icons.sports_rounded, label: '종목', value: sportLabelFromString(t.sport), accent: accentColor),
+              _InfoRow(icon: Icons.calendar_today_rounded, label: '대회일', value: _dateText()),
+              if (t.region != null)
+                _InfoRow(icon: Icons.place_rounded, label: '지역', value: t.region!),
+              if (t.location != null)
+                _InfoRow(icon: Icons.location_on_rounded, label: '장소', value: t.location!),
+              if (t.organizer != null)
+                _InfoRow(icon: Icons.business_rounded, label: '주최', value: t.organizer!),
+            ],
           ),
 
-          // 대회 안내 문구 (수기 입력된 경우만 표시, 크롤 보일러플레이트 제외)
-          if (t.description != null &&
-              t.description!.trim().isNotEmpty &&
-              !t.description!.startsWith('참가부서:') &&
-              t.description!.length < 500) ...[
-            const SizedBox(height: AppSpacing.xl),
-            Text('대회 안내', style: tt.titleSmall?.copyWith(color: cs.onSurfaceVariant)),
-            const SizedBox(height: AppSpacing.sm),
-            AppCard(
-              child: Text(
-                t.description!,
-                style: tt.bodyMedium?.copyWith(height: 1.7),
-              ),
+          // 2. 출전 등급
+          _AccordionSection(
+            icon: Icons.emoji_events_rounded,
+            title: '출전 등급',
+            initiallyExpanded: true,
+            children: [
+              _InfoRow(icon: Icons.emoji_events_rounded, label: '부서', value: grades, accent: accentColor),
+              if (t.isJointEvent)
+                _InfoRow(icon: Icons.groups_rounded, label: '통합', value: '통합 대회'),
+            ],
+          ),
+
+          // 3. 참가 안내
+          _AccordionSection(
+            icon: Icons.how_to_reg_rounded,
+            title: '참가 안내',
+            initiallyExpanded: false,
+            children: [
+              if (t.applicationDeadline != null)
+                _InfoRow(icon: Icons.event_busy_rounded, label: '신청 마감', value: df.format(t.applicationDeadline!), accent: cs.error),
+              if (t.entryFee != null)
+                _InfoRow(
+                  icon: Icons.payments_rounded,
+                  label: '참가비',
+                  value: '${t.entryFeeUnit == 'per_person' ? '인당' : '팀당'} ${_feeFormat.format(t.entryFee!)}원',
+                ),
+              if (t.prize != null)
+                _InfoRow(icon: Icons.workspace_premium_rounded, label: '시상', value: t.prize!),
+              if (t.format != null)
+                _InfoRow(icon: Icons.format_list_numbered_rounded, label: '진행 방식', value: t.format!),
+              if (t.applicationDeadline == null && t.entryFee == null && t.prize == null && t.format == null)
+                _InfoRow(icon: Icons.info_outline, label: '안내', value: '상세 참가 안내는 주최 측에 문의해 주세요.'),
+            ],
+          ),
+
+          // 4. 대회 요강 (크롤된 상세 내용)
+          if (hasDescription)
+            _AccordionSection(
+              icon: Icons.article_rounded,
+              title: '대회 요강',
+              initiallyExpanded: false,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.lg,
+                    vertical: AppSpacing.sm,
+                  ),
+                  child: Text(
+                    t.description!,
+                    style: tt.bodyMedium?.copyWith(height: 1.7),
+                  ),
+                ),
+              ],
             ),
-          ],
+
           const SizedBox(height: AppSpacing.xxxl),
         ],
+      ),
+    );
+  }
+
+  String _dateText() {
+    final start = df.format(t.startDate);
+    final end = t.endDate;
+    if (end == null || _isSameDay(t.startDate, end)) return start;
+    return '$start ~ ${df.format(end)}';
+  }
+
+  bool _isSameDay(DateTime a, DateTime b) =>
+      a.year == b.year && a.month == b.month && a.day == b.day;
+}
+
+class _AccordionSection extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final bool initiallyExpanded;
+  final List<Widget> children;
+
+  const _AccordionSection({
+    required this.icon,
+    required this.title,
+    required this.children,
+    this.initiallyExpanded = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+      child: AppCard(
+        padding: EdgeInsets.zero,
+        child: ExpansionTile(
+          initiallyExpanded: initiallyExpanded,
+          tilePadding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+          childrenPadding: const EdgeInsets.only(bottom: AppSpacing.md),
+          shape: const Border(),
+          collapsedShape: const Border(),
+          leading: Icon(icon, size: 20, color: cs.primary),
+          title: Text(
+            title,
+            style: tt.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+          ),
+          children: children,
+        ),
       ),
     );
   }
@@ -281,18 +305,6 @@ class _InfoRow extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _Divider extends StatelessWidget {
-  const _Divider();
-  @override
-  Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-    return Divider(
-      height: 1,
-      color: cs.outlineVariant.withValues(alpha: 0.5),
     );
   }
 }
