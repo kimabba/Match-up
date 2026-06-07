@@ -257,44 +257,35 @@ class _DescSection {
   const _DescSection(this.text, {this.isHeader = false});
 }
 
-/// 크롤된 대회 요강 텍스트를 키워드 기반으로 섹션 분리
+/// 크롤된 대회 요강 텍스트를 키워드 기반으로 섹션 분리 + 자동 줄바꿈
 List<_DescSection> _parseDescription(String raw) {
-  // 핵심 키워드 앞에 줄바꿈 삽입
+  // 1단계: 핵심 키워드 앞에 줄바꿈 삽입
   var text = raw
-      .replaceAllMapped(
-        RegExp(r'(장\s*소|장\s*:)'),
-        (m) => '\n📍 장소: ',
-      )
-      .replaceAllMapped(
-        RegExp(r'(주\s*최|주최\s*:)'),
-        (m) => '\n🏢 주최: ',
-      )
-      .replaceAllMapped(
-        RegExp(r'(주\s*관|주관\s*:)'),
-        (m) => '\n🏢 주관: ',
-      )
-      .replaceAllMapped(
-        RegExp(r'(참가비|참\s*가\s*비\s*:)'),
-        (m) => '\n💰 참가비: ',
-      )
-      .replaceAllMapped(
-        RegExp(r'(입금계좌|입금\s*계좌\s*:)'),
-        (m) => '\n🏦 입금계좌: ',
-      )
-      .replaceAllMapped(
-        RegExp(r'(접수\s*마감|신청\s*마감)'),
-        (m) => '\n⏰ 접수마감: ',
-      )
-      .replaceAllMapped(
-        RegExp(r'(사\s*용\s*구|공\s*인\s*구)'),
-        (m) => '\n🎾 사용구: ',
-      )
-      .replaceAllMapped(
-        RegExp(r'(경기\s*종목|경기종목)'),
-        (m) => '\n🏅 경기종목:\n',
-      )
+      .replaceAllMapped(RegExp(r'(장\s*소\s*:?\s*)'), (m) => '\n📍 장소: ')
+      .replaceAllMapped(RegExp(r'(주\s*최\s*:?\s*)'), (m) => '\n🏢 주최: ')
+      .replaceAllMapped(RegExp(r'(주\s*관\s*:?\s*)'), (m) => '\n🏢 주관: ')
+      .replaceAllMapped(RegExp(r'(후\s*원\s*:?\s*)'), (m) => '\n🤝 후원: ')
+      .replaceAllMapped(RegExp(r'(협\s*찬\s*:?\s*)'), (m) => '\n🤝 협찬: ')
+      .replaceAllMapped(RegExp(r'(참가비\s*:?\s*|참\s*가\s*비\s*:?\s*)'), (m) => '\n💰 참가비: ')
+      .replaceAllMapped(RegExp(r'(입금계좌\s*:?\s*|입금\s*계좌\s*:?\s*)'), (m) => '\n🏦 입금계좌: ')
+      .replaceAllMapped(RegExp(r'(접수\s*마감|신청\s*마감)'), (m) => '\n⏰ 접수마감: ')
+      .replaceAllMapped(RegExp(r'(사\s*용\s*구\s*:?\s*|공\s*인\s*구\s*:?\s*)'), (m) => '\n🎾 사용구: ')
+      .replaceAllMapped(RegExp(r'(경기\s*종목\s*:?\s*)'), (m) => '\n🏅 경기종목:\n')
+      .replaceAllMapped(RegExp(r'(일\s*시\s*:?\s*)'), (m) => '\n📅 일시: ')
+      .replaceAllMapped(RegExp(r'(참가\s*접수\s*:?\s*)'), (m) => '\n📋 참가접수: ');
+
+  // 2단계: 특수 마커 줄바꿈
+  text = text
       .replaceAll(RegExp(r'[◈◇★●▶]\s*'), '\n• ')
       .replaceAll(RegExp(r'※\s*'), '\n※ ');
+
+  // 3단계: 자동 줄바꿈 — 문장 끝(. 다) 뒤 + 부서별 정보 분리
+  text = text
+      .replaceAllMapped(RegExp(r'(\.\s+)(?=[가-힣])'), (m) => '.\n')          // 마침표 뒤
+      .replaceAllMapped(RegExp(r'(다\.\s*)(?=[가-힣A-Z])'), (m) => '다.\n')    // "~합니다." 뒤
+      .replaceAllMapped(RegExp(r'(요\.\s*)(?=[가-힣A-Z])'), (m) => '요.\n')    // "~세요." 뒤
+      .replaceAllMapped(RegExp(r'(\)\s*)(?=[가-힣]{2,}부\s)'), (m) => ')\n')   // ") 골드부" → 줄바꿈
+      .replaceAllMapped(RegExp(r'(08시\d+분\s*)(?=[가-힣])'), (m) => '${m[1]}\n'); // 시간 뒤 부서 분리
 
   final lines = text
       .split('\n')
@@ -303,7 +294,7 @@ List<_DescSection> _parseDescription(String raw) {
       .toList();
 
   final sections = <_DescSection>[];
-  final headerPattern = RegExp(r'^(📍|🏢|💰|🏦|⏰|🎾|🏅)');
+  final headerPattern = RegExp(r'^(📍|🏢|💰|🏦|⏰|🎾|🏅|🤝|📅|📋)');
 
   for (final line in lines) {
     if (headerPattern.hasMatch(line)) {
