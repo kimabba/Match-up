@@ -200,31 +200,37 @@ class _DetailBody extends StatelessWidget {
               title: '대회 요강',
               initiallyExpanded: false,
               children: [
-                for (final section in _parseDescription(t.description!))
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.lg,
-                      vertical: AppSpacing.xs,
-                    ),
-                    child: section.isHeader
-                        ? Padding(
-                            padding: const EdgeInsets.only(top: AppSpacing.sm),
-                            child: Text(
-                              section.text,
-                              style: tt.labelLarge?.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: cs.primary,
-                              ),
-                            ),
-                          )
-                        : Text(
-                            section.text,
-                            style: tt.bodySmall?.copyWith(
-                              height: 1.6,
-                              color: cs.onSurfaceVariant,
-                            ),
-                          ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      for (final section in _parseDescription(t.description!))
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: AppSpacing.xs),
+                          child: section.isHeader
+                              ? Padding(
+                                  padding: const EdgeInsets.only(top: AppSpacing.sm),
+                                  child: Text(
+                                    section.text,
+                                    style: tt.labelLarge?.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      color: cs.primary,
+                                    ),
+                                  ),
+                                )
+                              : Text(
+                                  section.text,
+                                  style: tt.bodySmall?.copyWith(
+                                    height: 1.6,
+                                    color: cs.onSurfaceVariant,
+                                  ),
+                                ),
+                        ),
+                      const SizedBox(height: AppSpacing.sm),
+                    ],
                   ),
+                ),
               ],
             ),
 
