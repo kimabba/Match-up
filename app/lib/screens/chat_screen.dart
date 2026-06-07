@@ -162,18 +162,17 @@ class _EmptyHint extends StatelessWidget {
   final Future<void> Function(String) onSend;
   const _EmptyHint({required this.onSend});
 
+  static const _suggestions = [
+    ('🏆', '이번 주 대회', '이번 주 내 등급에 맞는 대회 알려줘'),
+    ('📖', '규칙 질문', '테니스 서브 기본 규칙 알려줘'),
+    ('📍', '구장 찾기', '광주 풋살장 알려줘'),
+    ('🏅', '등급 안내', '광주 테니스 협회 등급 체계 알려줘'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
-    const suggestions = [
-      ('이번 주말 내 등급 대회', '이번 주말 내 등급에 맞는 대회 알려줘'),
-      ('테니스 서브 규칙', '테니스 서브 기본 규칙 알려줘'),
-      ('광주 테니스 협회 정보', '광주 테니스 협회 등급 체계와 대회 정보 알려줘'),
-      ('풋살 파울 규칙', '풋살 누적 파울 규칙 알려줘'),
-      ('내 등급 클럽 추천', '내 등급에 맞는 클럽 추천해줘'),
-      ('대회 신청 방법', '동호인 테니스 대회 신청하는 방법 알려줘'),
-    ];
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(
         horizontal: AppSpacing.xl,
@@ -182,127 +181,78 @@ class _EmptyHint extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          const SizedBox(height: AppSpacing.xl),
+          // 아이콘
+          Container(
+            width: 72,
+            height: 72,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [cs.primary, cs.tertiary],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(22),
+            ),
+            child: const Icon(Icons.auto_awesome_rounded, size: 36, color: Colors.white),
+          ),
           const SizedBox(height: AppSpacing.lg),
-          const _CoachBotVisual(size: 108),
-          const SizedBox(height: AppSpacing.md),
           Text(
-            '코치봇에게 물어보세요',
+            '무엇이든 물어보세요',
             style: tt.titleLarge?.copyWith(fontWeight: FontWeight.w800),
-            textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppSpacing.xs),
           Text(
-            '내 등급 대회 검색, 종목 규칙, 협회 정보를 물어보세요',
-            style: tt.bodyMedium?.copyWith(color: cs.onSurfaceVariant),
+            '대회 · 규칙 · 구장 · 클럽 정보를\nAI 코치봇이 즉시 답변합니다',
+            style: tt.bodyMedium?.copyWith(
+              color: cs.onSurfaceVariant,
+              height: 1.5,
+            ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: AppSpacing.lg),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(AppSpacing.lg),
-            decoration: BoxDecoration(
-              color: cs.surfaceContainerLow,
-              borderRadius: BorderRadius.circular(18),
-              boxShadow: AppShadows.cardFor(Theme.of(context).brightness),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 42,
-                  height: 42,
-                  decoration: BoxDecoration(
-                    color: cs.secondaryContainer,
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: Icon(
-                    Icons.lightbulb_rounded,
-                    color: cs.onSecondaryContainer,
-                  ),
-                ),
-                const SizedBox(width: AppSpacing.md),
-                Expanded(
-                  child: Text(
-                    '규칙이 헷갈리는 상황이나 이번 주 참가 가능한 대회를 물어보세요.',
-                    style: tt.bodySmall?.copyWith(
-                      color: cs.onSurfaceVariant,
-                      height: 1.45,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: AppSpacing.lg),
-          GridView.count(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
-            childAspectRatio: 3.5,
-            mainAxisSpacing: AppSpacing.sm,
-            crossAxisSpacing: AppSpacing.sm,
-            children: [
-              for (final (label, msg) in suggestions.take(4))
-                _SuggestionChip(label, onTap: () => onSend(msg)),
-            ],
-          ),
+          const SizedBox(height: AppSpacing.xl),
+          // 추천 질문 카드
+          for (final (emoji, label, msg) in _suggestions) ...[
+            _SuggestionCard(emoji: emoji, label: label, onTap: () => onSend(msg)),
+            const SizedBox(height: AppSpacing.sm),
+          ],
         ],
       ),
     );
   }
 }
 
-class _CoachBotVisual extends StatelessWidget {
-  const _CoachBotVisual({required this.size});
-
-  final double size;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(26),
-      child: Container(
-        width: size,
-        height: size,
-        decoration: BoxDecoration(
-          boxShadow: AppShadows.elevatedFor(Theme.of(context).brightness),
-        ),
-        child: Image.asset(
-          'assets/images/coachbot/coachbot-avatar.jpg',
-          width: size,
-          height: size,
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
-}
-
-class _SuggestionChip extends StatelessWidget {
-  final String text;
+class _SuggestionCard extends StatelessWidget {
+  final String emoji;
+  final String label;
   final VoidCallback? onTap;
-  const _SuggestionChip(this.text, {this.onTap});
+  const _SuggestionCard({required this.emoji, required this.label, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.md,
-          vertical: AppSpacing.sm,
-        ),
-        decoration: BoxDecoration(
-          color: cs.surfaceContainerLow,
-          borderRadius: AppRadius.pill,
-          border: Border.all(color: cs.outlineVariant),
-          boxShadow: AppShadows.cardFor(Theme.of(context).brightness),
-        ),
-        child: Text(
-          text,
-          style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
-          textAlign: TextAlign.center,
+    return Material(
+      color: cs.surfaceContainerLow,
+      borderRadius: BorderRadius.circular(14),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(14),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
+          child: Row(
+            children: [
+              Text(emoji, style: const TextStyle(fontSize: 22)),
+              const SizedBox(width: AppSpacing.md),
+              Expanded(
+                child: Text(
+                  label,
+                  style: tt.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+                ),
+              ),
+              Icon(Icons.arrow_forward_ios_rounded, size: 14, color: cs.onSurfaceVariant),
+            ],
+          ),
         ),
       ),
     );
