@@ -193,23 +193,38 @@ class _DetailBody extends StatelessWidget {
             ],
           ),
 
-          // 4. 대회 요강 (크롤된 상세 내용)
+          // 4. 대회 요강 (크롤된 상세 내용 → 정형화)
           if (hasDescription)
             _AccordionSection(
               icon: Icons.article_rounded,
               title: '대회 요강',
               initiallyExpanded: false,
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.lg,
-                    vertical: AppSpacing.sm,
+                for (final section in _parseDescription(t.description!))
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.lg,
+                      vertical: AppSpacing.xs,
+                    ),
+                    child: section.isHeader
+                        ? Padding(
+                            padding: const EdgeInsets.only(top: AppSpacing.sm),
+                            child: Text(
+                              section.text,
+                              style: tt.labelLarge?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: cs.primary,
+                              ),
+                            ),
+                          )
+                        : Text(
+                            section.text,
+                            style: tt.bodySmall?.copyWith(
+                              height: 1.6,
+                              color: cs.onSurfaceVariant,
+                            ),
+                          ),
                   ),
-                  child: Text(
-                    t.description!,
-                    style: tt.bodyMedium?.copyWith(height: 1.7),
-                  ),
-                ),
               ],
             ),
 
@@ -228,6 +243,71 @@ class _DetailBody extends StatelessWidget {
 
   bool _isSameDay(DateTime a, DateTime b) =>
       a.year == b.year && a.month == b.month && a.day == b.day;
+}
+
+class _DescSection {
+  final String text;
+  final bool isHeader;
+  const _DescSection(this.text, {this.isHeader = false});
+}
+
+/// 크롤된 대회 요강 텍스트를 키워드 기반으로 섹션 분리
+List<_DescSection> _parseDescription(String raw) {
+  // 핵심 키워드 앞에 줄바꿈 삽입
+  var text = raw
+      .replaceAllMapped(
+        RegExp(r'(장\s*소|장\s*:)'),
+        (m) => '\n📍 장소: ',
+      )
+      .replaceAllMapped(
+        RegExp(r'(주\s*최|주최\s*:)'),
+        (m) => '\n🏢 주최: ',
+      )
+      .replaceAllMapped(
+        RegExp(r'(주\s*관|주관\s*:)'),
+        (m) => '\n🏢 주관: ',
+      )
+      .replaceAllMapped(
+        RegExp(r'(참가비|참\s*가\s*비\s*:)'),
+        (m) => '\n💰 참가비: ',
+      )
+      .replaceAllMapped(
+        RegExp(r'(입금계좌|입금\s*계좌\s*:)'),
+        (m) => '\n🏦 입금계좌: ',
+      )
+      .replaceAllMapped(
+        RegExp(r'(접수\s*마감|신청\s*마감)'),
+        (m) => '\n⏰ 접수마감: ',
+      )
+      .replaceAllMapped(
+        RegExp(r'(사\s*용\s*구|공\s*인\s*구)'),
+        (m) => '\n🎾 사용구: ',
+      )
+      .replaceAllMapped(
+        RegExp(r'(경기\s*종목|경기종목)'),
+        (m) => '\n🏅 경기종목:\n',
+      )
+      .replaceAll(RegExp(r'[◈◇★●▶]\s*'), '\n• ')
+      .replaceAll(RegExp(r'※\s*'), '\n※ ');
+
+  final lines = text
+      .split('\n')
+      .map((l) => l.trim())
+      .where((l) => l.isNotEmpty)
+      .toList();
+
+  final sections = <_DescSection>[];
+  final headerPattern = RegExp(r'^(📍|🏢|💰|🏦|⏰|🎾|🏅)');
+
+  for (final line in lines) {
+    if (headerPattern.hasMatch(line)) {
+      sections.add(_DescSection(line, isHeader: true));
+    } else {
+      sections.add(_DescSection(line));
+    }
+  }
+
+  return sections;
 }
 
 class _AccordionSection extends StatelessWidget {
