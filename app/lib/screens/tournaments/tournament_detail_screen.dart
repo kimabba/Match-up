@@ -106,8 +106,7 @@ class _DetailBody extends StatelessWidget {
         : formatEligibleGrades(t.eligibleGrades);
 
     final hasDescription = t.description != null &&
-        t.description!.trim().isNotEmpty &&
-        !t.description!.startsWith('참가부서:');
+        t.description!.trim().isNotEmpty;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppSpacing.lg),
@@ -259,8 +258,24 @@ class _DescSection {
 
 /// 크롤된 대회 요강 텍스트를 키워드 기반으로 섹션 분리 + 자동 줄바꿈
 List<_DescSection> _parseDescription(String raw) {
+  // 0단계: 하단 보일러플레이트 제거 (협회 사이트 공통 푸터)
+  var text = raw;
+  for (final marker in ['개인정보 취급방침', 'COPYRIGHT', '홈페이지바로가기']) {
+    final idx = text.indexOf(marker);
+    if (idx > 0) text = text.substring(0, idx);
+  }
+  text = text.trim();
+  if (text.isEmpty) return [];
+
+  // 0.5단계: 파이프 구분 메타데이터 (참가부서: ... | 신청마감: ...) → 줄바꿈
+  text = text.replaceAll(' | ', '\n');
+
   // 1단계: 핵심 키워드 앞에 줄바꿈 삽입
-  var text = raw
+  text = text
+      .replaceAllMapped(RegExp(r'(참가부서\s*:?\s*)'), (m) => '\n🏅 참가부서: ')
+      .replaceAllMapped(RegExp(r'(신청마감\s*:?\s*)'), (m) => '\n⏰ 신청마감: ')
+      .replaceAllMapped(RegExp(r'(대회일\s*:?\s*)'), (m) => '\n📅 대회일: ')
+      .replaceAllMapped(RegExp(r'(지역\s*:?\s*)'), (m) => '\n📍 지역: ')
       .replaceAllMapped(RegExp(r'(장\s*소\s*:?\s*)'), (m) => '\n📍 장소: ')
       .replaceAllMapped(RegExp(r'(주\s*최\s*:?\s*)'), (m) => '\n🏢 주최: ')
       .replaceAllMapped(RegExp(r'(주\s*관\s*:?\s*)'), (m) => '\n🏢 주관: ')
