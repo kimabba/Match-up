@@ -180,20 +180,36 @@ async function fetchDetail(
     org,
   );
 
-  // 부서 테이블에서 부서별 신청/경기일 정보를 구조화된 description 으로 생성.
-  // 원본 사이트에 대회 설명 텍스트가 없으므로 (신청 폼 안내 보일러플레이트만 존재),
-  // 추출한 메타데이터를 조합해 유용한 설명을 만든다.
+  const deadline = extractApplicationDeadline(bodyText) ?? undefined;
+
+  // description: 메타데이터 헤더 + 원문 본문 (보일러플레이트 제거)
   const descParts: string[] = [];
   if (divisionLabel) descParts.push(`참가부서: ${divisionLabel}`);
-  const deadline = extractApplicationDeadline(bodyText) ?? undefined;
   if (deadline) descParts.push(`신청마감: ${deadline}`);
   descParts.push(`대회일: ${startDate}`);
   if (region) descParts.push(`지역: ${region}`);
-  const description = descParts.length > 0 ? descParts.join(' | ') : undefined;
+  const metaLine = descParts.join(' | ');
+
+  // 원문에서 보일러플레이트 제거 후 본문 추출
+  let rawBody = bodyText;
+  for (const marker of ['개인정보 취급방침', 'COPYRIGHT', '홈페이지바로가기']) {
+    const idx = rawBody.indexOf(marker);
+    if (idx > 0) rawBody = rawBody.substring(0, idx);
+  }
+  // 신청 폼 안내 보일러플레이트 제거
+  const formBoilerIdx = rawBody.indexOf('참가신청 선수 변경시');
+  const contentBody = formBoilerIdx >= 0
+    ? rawBody.substring(formBoilerIdx + '참가신청 선수 변경시 대기 마지막(대기) 순으로 변경됩니다.'.length).trim()
+    : rawBody.trim();
+
+  // 메타 + 본문 결합 (본문이 메타보다 실질적으로 길면 포함)
+  const description = contentBody.length > metaLine.length + 20
+    ? `${metaLine}\n\n${contentBody}`
+    : metaLine;
 
   return {
     title,
-    description,
+    description: description || undefined,
     start_date: startDate,
     application_deadline: deadline,
     region,
