@@ -73,6 +73,21 @@ export function isValidRegionCode(value: string): value is RegionCode {
   return (REGION_CODES as readonly string[]).includes(value);
 }
 
+// 한글 권역명(REGION_LABELS) → RegionCode 역매핑.
+const REGION_CODE_BY_LABEL: Record<string, RegionCode> = Object.fromEntries(
+  (Object.entries(REGION_LABELS) as Array<[RegionCode, string]>).map(
+    ([code, label]) => [label, code],
+  ),
+) as Record<string, RegionCode>;
+
+/** 한글 권역명(예: '광주')을 RegionCode('gwangju')로 변환. 미매칭/빈값이면 null. */
+export function regionCodeFromLabel(
+  label: string | null | undefined,
+): RegionCode | null {
+  if (!label) return null;
+  return REGION_CODE_BY_LABEL[label.trim()] ?? null;
+}
+
 // =========================
 // EntryFeeUnit
 // =========================
