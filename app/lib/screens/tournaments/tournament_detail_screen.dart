@@ -336,12 +336,12 @@ class _DetailBody extends StatelessWidget {
               ),
 
               // 4. 대회 요강 (크롤된 상세 내용 → 정형화)
-              if (hasDescription)
-                _AccordionSection(
-                  icon: Icons.article_rounded,
-                  title: '대회 요강',
-                  initiallyExpanded: false,
-                  children: [
+              _AccordionSection(
+                icon: Icons.article_rounded,
+                title: '대회 요강',
+                initiallyExpanded: false,
+                children: [
+                  if (hasDescription && t.description!.length > 100)
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -352,9 +352,29 @@ class _DetailBody extends StatelessWidget {
                           _DescriptionLine(section: section),
                         const SizedBox(height: AppSpacing.sm),
                       ],
+                    )
+                  else
+                    Padding(
+                      padding: const EdgeInsets.all(AppSpacing.lg),
+                      child: Row(
+                        children: [
+                          Icon(Icons.info_outline_rounded,
+                              size: 18, color: cs.onSurfaceVariant),
+                          const SizedBox(width: AppSpacing.sm),
+                          Expanded(
+                            child: Text(
+                              '상세 요강이 아직 공지되지 않았습니다.\n주최 측에서 공지하면 자동으로 업데이트됩니다.',
+                              style: tt.bodySmall?.copyWith(
+                                color: cs.onSurfaceVariant,
+                                height: 1.5,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
+                ],
+              ),
 
               const SizedBox(height: AppSpacing.xxxl),
             ],
