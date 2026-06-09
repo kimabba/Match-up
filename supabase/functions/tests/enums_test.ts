@@ -8,6 +8,7 @@ import {
   isValidGrade,
   rankOf,
   REGION_CODES,
+  regionCodeFromLabel,
   TENNIS_GRADES,
   TENNIS_ORGS,
 } from '../_shared/enums.ts';
@@ -15,6 +16,17 @@ import {
 Deno.test('shared enums expose stable sport grade order', () => {
   assertEquals(TENNIS_GRADES, ['under1y', 'y1to3', 'y3to5', 'over5y']);
   assertEquals(FUTSAL_GRADES, ['beginner', 'intermediate', 'advanced']);
+});
+
+Deno.test('regionCodeFromLabel maps 한글 권역명 → RegionCode', () => {
+  assertEquals(regionCodeFromLabel('광주'), 'gwangju');
+  assertEquals(regionCodeFromLabel('전남'), 'jeonnam');
+  assertEquals(regionCodeFromLabel('수도권'), 'seoul_metro');
+  assertEquals(regionCodeFromLabel(' 광주 '), 'gwangju'); // trim
+  assertEquals(regionCodeFromLabel('없는지역'), null);
+  assertEquals(regionCodeFromLabel(''), null);
+  assertEquals(regionCodeFromLabel(null), null);
+  assertEquals(regionCodeFromLabel(undefined), null);
 });
 
 Deno.test('shared enums expose tennis org and region catalogs', () => {

@@ -1,5 +1,6 @@
 import { SupabaseClient } from '@supabase/supabase-js';
 import { serviceClient } from './supabase.ts';
+import { regionCodeFromLabel } from './enums.ts';
 
 export interface CrawlerTournament {
   title: string;
@@ -69,6 +70,8 @@ export async function upsertTournament(
   t: CrawlerTournament,
 ): Promise<'inserted' | 'updated' | 'skipped'> {
   audit.fetched++;
+  // 한글 권역명 → region_code (서버사이드 지역 필터용). 미매칭이면 null.
+  const regionCode = regionCodeFromLabel(t.region);
   const { data: existing } = await audit.supabase
     .from('tournaments')
     .select(
@@ -95,6 +98,7 @@ export async function upsertTournament(
         end_date: t.end_date ?? null,
         application_deadline: t.application_deadline ?? null,
         region: t.region ?? null,
+        region_code: regionCode,
         location: t.location ?? null,
         eligible_grades: t.eligible_grades,
         division_label_local: t.division_label_local ?? null,
@@ -117,6 +121,7 @@ export async function upsertTournament(
     end_date: t.end_date ?? null,
     application_deadline: t.application_deadline ?? null,
     region: t.region ?? null,
+    region_code: regionCode,
     location: t.location ?? null,
     eligible_grades: t.eligible_grades,
     division_label_local: t.division_label_local ?? null,
