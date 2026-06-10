@@ -7,7 +7,9 @@ final themeModeProvider = StateNotifierProvider<ThemeModeController, ThemeMode>(
 );
 
 class ThemeModeController extends StateNotifier<ThemeMode> {
-  ThemeModeController() : super(ThemeMode.system) {
+  // 기본값은 라이트. 사용자가 설정에서 dark/system 을 선택하면 prefs 에 저장돼 유지됨.
+  // (테마 정밀 수정 전까지 임시 — 다크 테마 폴리시는 추후 결정)
+  ThemeModeController() : super(ThemeMode.light) {
     _load();
   }
 
@@ -19,7 +21,8 @@ class ThemeModeController extends StateNotifier<ThemeMode> {
     state = switch (v) {
       'light' => ThemeMode.light,
       'dark' => ThemeMode.dark,
-      _ => ThemeMode.system,
+      'system' => ThemeMode.system,
+      _ => ThemeMode.light, // 저장된 설정 없으면 라이트
     };
   }
 
