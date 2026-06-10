@@ -191,6 +191,49 @@ class ApiService {
         .toList();
   }
 
+  Future<void> toggleClubFavorite(String clubId, bool favorite) async {
+    final userId = _supabase.auth.currentUser?.id;
+    if (userId == null) throw StateError('Not authenticated');
+
+    if (favorite) {
+      await _supabase.from('club_favorites').upsert({
+        'user_id': userId,
+        'club_id': clubId,
+      });
+    } else {
+      await _supabase
+          .from('club_favorites')
+          .delete()
+          .eq('user_id', userId)
+          .eq('club_id', clubId);
+    }
+  }
+
+  Future<Set<String>> myClubFavoriteIds() async {
+    final userId = _supabase.auth.currentUser?.id;
+    if (userId == null) return {};
+    final rows = await _supabase
+        .from('club_favorites')
+        .select('club_id')
+        .eq('user_id', userId);
+    return rows.map((r) => r['club_id'] as String).toSet();
+  }
+
+  Future<List<Club>> myFavoriteClubs({int limit = 50}) async {
+    final rows = await _supabase
+        .from('club_favorites')
+        .select('created_at, clubs(*)')
+        .order('created_at', ascending: false)
+        .limit(limit);
+
+    return (rows as List)
+        .map((row) => row as Map<String, dynamic>)
+        .map((row) => row['clubs'])
+        .whereType<Map<String, dynamic>>()
+        .map(Club.fromJson)
+        .toList();
+  }
+
   // ===== clubs =====
   Future<List<Club>> searchClubs(
       {String? sport, String? region, String? q}) async {
