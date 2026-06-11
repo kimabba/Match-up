@@ -524,7 +524,7 @@ Deno.serve(async (req) => {
         // 클라가 보낸 id 는 신뢰하지 않는다. user 클라이언트(RLS)로 재조회해
         // 가시성을 보장한 뒤에만 상세 컨텍스트로 사용한다.
         if (selectedEntity?.type === 'tournament') {
-          const { data: selRow } = await supabase
+          const { data: selRow, error: selErr } = await supabase
             .from('tournaments')
             .select(
               'id, sport, title, region, location, start_date, end_date, ' +
@@ -533,6 +533,9 @@ Deno.serve(async (req) => {
             .eq('id', selectedEntity.id)
             .maybeSingle();
 
+          if (selErr) {
+            throw new Error(`tournament visibility check failed: ${selErr.message}`);
+          }
           if (!selRow) {
             send('context', { tournaments: [], rules: [] });
             send('delta', {
