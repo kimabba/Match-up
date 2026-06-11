@@ -34,7 +34,7 @@ class ChatTournamentCard extends StatelessWidget {
           : item.startDate,
       if (item.entryFee != null) '${item.entryFee}원',
       if (item.format != null) item.format!,
-    ].join(' · ');
+    ].where((s) => s.isNotEmpty).join(' · ');
 
     return AppCard(
       variant: AppCardVariant.outlined,
@@ -54,6 +54,8 @@ class ChatTournamentCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   item.title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: tt.titleSmall?.copyWith(fontWeight: FontWeight.w900),
                 ),
               ),

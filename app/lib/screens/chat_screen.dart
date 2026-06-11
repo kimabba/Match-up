@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../models/chat_ui.dart';
+import '../services/api.dart';
 import '../state/providers.dart';
 import '../theme/tokens.dart';
 import '../widgets/chat_tournament_card.dart';
@@ -56,55 +57,14 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     final assistantIdx = _messages.length - 1;
     final api = ref.read(apiProvider);
 
-    try {
-      await for (final evt in api.chat(
+    await _consumeChatStream(
+      api.chat(
         message: text,
         conversationId: _conversationId,
         activeSport: ref.read(activeSportProvider),
-      )) {
-        if (!mounted) return;
-        switch (evt.event) {
-          case 'meta':
-            _conversationId = evt.data['conversation_id'] as String?;
-          case 'delta':
-            setState(() {
-              _messages[assistantIdx].content +=
-                  evt.data['text'] as String? ?? '';
-            });
-            _scrollToBottom();
-          case 'citation':
-            final items = (evt.data['items'] as List?) ?? const [];
-            setState(() {
-              _messages[assistantIdx].citations = [
-                ..._messages[assistantIdx].citations,
-                ...items.cast<Map<String, dynamic>>(),
-              ];
-            });
-          case 'ui':
-            final blocks = ChatUiBlock.listFromEvent(evt.data);
-            if (blocks.isNotEmpty) {
-              setState(() {
-                _messages[assistantIdx].uiBlocks = [
-                  ..._messages[assistantIdx].uiBlocks,
-                  ...blocks,
-                ];
-              });
-              _scrollToBottom();
-            }
-          case 'error':
-            setState(() {
-              _messages[assistantIdx].content +=
-                  '\n\n[오류] ${_formatChatError(evt.data['message'])}';
-            });
-        }
-      }
-    } catch (e) {
-      setState(() {
-        _messages[assistantIdx].content += '\n\n[연결 실패] ${_formatChatError(e)}';
-      });
-    } finally {
-      if (mounted) setState(() => _busy = false);
-    }
+      ),
+      assistantIdx,
+    );
   }
 
   Future<void> _sendWithEntity(String message, String entityId) async {
@@ -119,13 +79,21 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     final assistantIdx = _messages.length - 1;
     final api = ref.read(apiProvider);
 
-    try {
-      await for (final evt in api.chat(
+    await _consumeChatStream(
+      api.chat(
         message: message,
         conversationId: _conversationId,
         activeSport: ref.read(activeSportProvider),
         selectedEntity: {'type': 'tournament', 'id': entityId},
-      )) {
+      ),
+      assistantIdx,
+    );
+  }
+
+  Future<void> _consumeChatStream(
+      Stream<ChatStreamEvent> stream, int assistantIdx) async {
+    try {
+      await for (final evt in stream) {
         if (!mounted) return;
         switch (evt.event) {
           case 'meta':
