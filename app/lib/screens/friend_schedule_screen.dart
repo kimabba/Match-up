@@ -11,22 +11,44 @@ class FriendScheduleScreen extends StatefulWidget {
 }
 
 class _FriendScheduleScreenState extends State<FriendScheduleScreen> {
-  static final DateTime _month = DateTime(2026, 6);
-  static final DateTime _today = DateTime(2026, 6, 11);
+  late DateTime _today;
+  late DateTime _month;
   _FriendListMode _mode = _FriendListMode.activity;
-  int? _selectedDay = 14;
+  int? _selectedDay;
 
-  static const Map<int, List<_FriendActivityType>> _activityByDay = {
-    9: [_FriendActivityType.tournament],
-    11: [_FriendActivityType.club],
-    14: [_FriendActivityType.tournament, _FriendActivityType.club],
-    18: [_FriendActivityType.club],
-    21: [_FriendActivityType.tournament],
-    26: [_FriendActivityType.club],
+  static const Map<String, List<_FriendActivityType>> _activityByDate = {
+    '2026-05-24': [_FriendActivityType.club],
+    '2026-05-30': [_FriendActivityType.tournament],
+    '2026-06-09': [_FriendActivityType.tournament],
+    '2026-06-11': [_FriendActivityType.club],
+    '2026-06-14': [_FriendActivityType.tournament, _FriendActivityType.club],
+    '2026-06-18': [_FriendActivityType.club],
+    '2026-06-21': [_FriendActivityType.tournament],
+    '2026-06-26': [_FriendActivityType.club],
+    '2026-07-03': [_FriendActivityType.club],
+    '2026-07-12': [_FriendActivityType.tournament],
+    '2026-07-19': [_FriendActivityType.tournament, _FriendActivityType.club],
   };
 
-  static const Map<int, List<_FriendActivityPreview>> _activityDetailByDay = {
-    9: [
+  static const Map<String, List<_FriendActivityPreview>> _activityDetailByDate =
+      {
+    '2026-05-24': [
+      _FriendActivityPreview(
+        type: _FriendActivityType.club,
+        friendName: '준호',
+        title: '서울 풋살 러너스 정기 모임',
+        status: '참석 예정',
+      ),
+    ],
+    '2026-05-30': [
+      _FriendActivityPreview(
+        type: _FriendActivityType.tournament,
+        friendName: '서연',
+        title: '광주 오픈 테니스 챌린지',
+        status: '참가 확정',
+      ),
+    ],
+    '2026-06-09': [
       _FriendActivityPreview(
         type: _FriendActivityType.tournament,
         friendName: '지훈',
@@ -34,7 +56,7 @@ class _FriendScheduleScreenState extends State<FriendScheduleScreen> {
         status: '참가 확정',
       ),
     ],
-    11: [
+    '2026-06-11': [
       _FriendActivityPreview(
         type: _FriendActivityType.club,
         friendName: '준호',
@@ -42,7 +64,7 @@ class _FriendScheduleScreenState extends State<FriendScheduleScreen> {
         status: '참석 예정',
       ),
     ],
-    14: [
+    '2026-06-14': [
       _FriendActivityPreview(
         type: _FriendActivityType.tournament,
         friendName: '지훈',
@@ -56,7 +78,7 @@ class _FriendScheduleScreenState extends State<FriendScheduleScreen> {
         status: '참석 예정',
       ),
     ],
-    18: [
+    '2026-06-18': [
       _FriendActivityPreview(
         type: _FriendActivityType.club,
         friendName: '준호',
@@ -64,7 +86,7 @@ class _FriendScheduleScreenState extends State<FriendScheduleScreen> {
         status: '참석 예정',
       ),
     ],
-    21: [
+    '2026-06-21': [
       _FriendActivityPreview(
         type: _FriendActivityType.tournament,
         friendName: '민지',
@@ -72,7 +94,7 @@ class _FriendScheduleScreenState extends State<FriendScheduleScreen> {
         status: '대회 신청 완료',
       ),
     ],
-    26: [
+    '2026-06-26': [
       _FriendActivityPreview(
         type: _FriendActivityType.club,
         friendName: '준호',
@@ -80,7 +102,85 @@ class _FriendScheduleScreenState extends State<FriendScheduleScreen> {
         status: '참석 예정',
       ),
     ],
+    '2026-07-03': [
+      _FriendActivityPreview(
+        type: _FriendActivityType.club,
+        friendName: '민지',
+        title: '수도권 풋살 위클리',
+        status: '참석 예정',
+      ),
+    ],
+    '2026-07-12': [
+      _FriendActivityPreview(
+        type: _FriendActivityType.tournament,
+        friendName: '지훈',
+        title: '여름 테니스 챔피언십',
+        status: '참가 확정',
+      ),
+    ],
+    '2026-07-19': [
+      _FriendActivityPreview(
+        type: _FriendActivityType.tournament,
+        friendName: '민지',
+        title: '서울 풋살 썸머컵',
+        status: '대회 신청 완료',
+      ),
+      _FriendActivityPreview(
+        type: _FriendActivityType.club,
+        friendName: '준호',
+        title: '서울 풋살 러너스 친선전',
+        status: '참석 예정',
+      ),
+    ],
   };
+
+  @override
+  void initState() {
+    super.initState();
+    final now = DateTime.now();
+    _today = DateTime(now.year, now.month, now.day);
+    _month = DateTime(_today.year, _today.month);
+    _selectedDay = _today.day;
+  }
+
+  Map<int, List<_FriendActivityType>> get _activityByDay {
+    final result = <int, List<_FriendActivityType>>{};
+    for (final entry in _activityByDate.entries) {
+      final date = DateTime.tryParse(entry.key);
+      if (date == null) continue;
+      if (date.year == _month.year && date.month == _month.month) {
+        result[date.day] = entry.value;
+      }
+    }
+    return result;
+  }
+
+  Map<int, List<_FriendActivityPreview>> get _activityDetailByDay {
+    final result = <int, List<_FriendActivityPreview>>{};
+    for (final entry in _activityDetailByDate.entries) {
+      final date = DateTime.tryParse(entry.key);
+      if (date == null) continue;
+      if (date.year == _month.year && date.month == _month.month) {
+        result[date.day] = entry.value;
+      }
+    }
+    return result;
+  }
+
+  void _changeMonth(int delta) {
+    setState(() {
+      _month = DateTime(_month.year, _month.month + delta);
+      _selectedDay = _month.year == _today.year && _month.month == _today.month
+          ? _today.day
+          : _firstActivityDayForMonth();
+      _mode = _FriendListMode.activity;
+    });
+  }
+
+  int? _firstActivityDayForMonth() {
+    final days = _activityDetailByDay.keys.toList()..sort();
+    return days.isEmpty ? null : days.first;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +240,11 @@ class _FriendScheduleScreenState extends State<FriendScheduleScreen> {
         padding: const EdgeInsets.only(bottom: AppSpacing.huge),
         children: [
           const SizedBox(height: AppSpacing.xs),
-          _MonthHeader(month: _month),
+          _MonthHeader(
+            month: _month,
+            onPrevious: () => _changeMonth(-1),
+            onNext: () => _changeMonth(1),
+          ),
           const SizedBox(height: AppSpacing.sm),
           const Divider(height: 1),
           Padding(
@@ -196,8 +300,14 @@ class _FriendScheduleScreenState extends State<FriendScheduleScreen> {
 
 class _MonthHeader extends StatelessWidget {
   final DateTime month;
+  final VoidCallback onPrevious;
+  final VoidCallback onNext;
 
-  const _MonthHeader({required this.month});
+  const _MonthHeader({
+    required this.month,
+    required this.onPrevious,
+    required this.onNext,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -206,7 +316,7 @@ class _MonthHeader extends StatelessWidget {
       children: [
         _RoundIconButton(
           icon: Icons.chevron_left_rounded,
-          onPressed: () {},
+          onPressed: onPrevious,
         ),
         const SizedBox(width: AppSpacing.sm),
         Container(
@@ -229,7 +339,7 @@ class _MonthHeader extends StatelessWidget {
         const SizedBox(width: AppSpacing.sm),
         _RoundIconButton(
           icon: Icons.chevron_right_rounded,
-          onPressed: () {},
+          onPressed: onNext,
         ),
       ],
     );
