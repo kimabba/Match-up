@@ -18,14 +18,14 @@ class TournamentChatCardItem {
     required this.id,
     required this.title,
     required this.sport,
-    required this.region,
-    required this.location,
+    this.region,
+    this.location,
     required this.startDate,
-    required this.endDate,
+    this.endDate,
     required this.eligible,
     required this.eligibleGrades,
-    required this.entryFee,
-    required this.format,
+    this.entryFee,
+    this.format,
   });
 
   /// 필수 필드(id, title, sport, start_date)가 없으면 null 을 반환해 호출자가 건너뛴다.
@@ -50,7 +50,8 @@ class TournamentChatCardItem {
       endDate: j['end_date'] as String?,
       eligible: (j['eligible'] as bool?) ?? false,
       eligibleGrades:
-          (j['eligible_grades'] as List?)?.cast<String>() ?? const [],
+          (j['eligible_grades'] as List?)?.whereType<String>().toList() ??
+              const [],
       entryFee: j['entry_fee'] as int?,
       format: j['format'] as String?,
     );

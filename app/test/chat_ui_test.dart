@@ -59,5 +59,39 @@ void main() {
       final blocks = ChatUiBlock.listFromEvent(data);
       expect(blocks.single.tournamentItems, isEmpty);
     });
+
+    test('club entity block yields no tournament items but is still emitted', () {
+      final data = {
+        'blocks': [
+          {'type': 'cards', 'entity': 'club', 'items': []}
+        ],
+      };
+      final blocks = ChatUiBlock.listFromEvent(data);
+      expect(blocks.length, 1);
+      expect(blocks.first.entity, 'club');
+      expect(blocks.first.tournamentItems, isEmpty);
+    });
+
+    test('non-string eligible_grades elements are filtered, not thrown', () {
+      final data = {
+        'blocks': [
+          {
+            'type': 'cards',
+            'entity': 'tournament',
+            'items': [
+              {
+                'id': '11111111-1111-1111-1111-111111111111',
+                'title': 'T',
+                'sport': 'tennis',
+                'start_date': '2026-06-13',
+                'eligible_grades': ['ok', 1, null],
+              }
+            ],
+          }
+        ],
+      };
+      final item = ChatUiBlock.listFromEvent(data).single.tournamentItems.single;
+      expect(item.eligibleGrades, ['ok']);
+    });
   });
 }
