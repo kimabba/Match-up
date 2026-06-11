@@ -22,7 +22,11 @@ import {
   type IntentResult,
 } from '../_shared/intent.ts';
 import type { RegionCode } from '../_shared/enums.ts';
-import { buildTournamentCards, type TournamentCardRow } from '../_shared/chat_cards.ts';
+import {
+  buildTournamentCards,
+  parseSelectedEntity,
+  type TournamentCardRow,
+} from '../_shared/chat_cards.ts';
 
 /**
  * POST /chat
@@ -53,6 +57,7 @@ interface ChatBody {
   message: string;
   conversation_id?: string;
   active_sport?: string;
+  selected_entity?: unknown;
 }
 
 interface UserSport {
@@ -469,6 +474,10 @@ Deno.serve(async (req) => {
   const userMessage = body.message.trim();
   const clientActiveSport: string | undefined = body.active_sport;
 
+  // 카드 액션 후속 요청의 선택 엔티티. 잘못된 타입/형식은 무시(검증 실패 시 일반 흐름).
+  const selectedEntityResult = parseSelectedEntity(body.selected_entity);
+  const selectedEntity = selectedEntityResult.ok ? selectedEntityResult.value : null;
+
   // 운영 로그용 user_id 해시 (PII 평문 노출 방지). 매 요청 1회 계산 후 모든 구조화 로그에서 재사용.
   const hashedUserId = await hashUserId(user.id);
 
@@ -510,6 +519,31 @@ Deno.serve(async (req) => {
 
       try {
         send('meta', { conversation_id: conversationId });
+
+        // ---- 카드 액션 후속: selected_entity(tournament) 결정적 처리 ----
+        // 클라가 보낸 id 는 신뢰하지 않는다. user 클라이언트(RLS)로 재조회해
+        // 가시성을 보장한 뒤에만 상세 컨텍스트로 사용한다.
+        if (selectedEntity?.type === 'tournament') {
+          const { data: selRow } = await supabase
+            .from('tournaments')
+            .select(
+              'id, sport, title, region, location, start_date, end_date, ' +
+                'application_deadline, entry_fee, format, eligible_grades',
+            )
+            .eq('id', selectedEntity.id)
+            .maybeSingle();
+
+          if (!selRow) {
+            send('context', { tournaments: [], rules: [] });
+            send('delta', {
+              text: '현재 매치업 DB에서 이 항목을 확인할 수 없습니다. ' +
+                '정보가 변경되었거나 접근 권한이 없을 수 있습니다.',
+            });
+            send('done', {});
+            controller.close();
+            return;
+          }
+        }
 
         // ---- 임베딩 (캐시 lookup + RAG 양쪽에서 재사용) ----
         let vectorLiteral: string | null = null;
@@ -746,6 +780,7 @@ Deno.serve(async (req) => {
             send('context', { tournaments: [], rules: [] });
             send('delta', { text: answerText });
             send('citation', { items: citations });
+            // 카드는 최대 10건 표시(citation 은 컨텍스트 절약 위해 5건).
             send('ui', {
               blocks: [
                 {
