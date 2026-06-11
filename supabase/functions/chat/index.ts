@@ -22,6 +22,7 @@ import {
   type IntentResult,
 } from '../_shared/intent.ts';
 import type { RegionCode } from '../_shared/enums.ts';
+import { buildTournamentCards, type TournamentCardRow } from '../_shared/chat_cards.ts';
 
 /**
  * POST /chat
@@ -136,19 +137,6 @@ interface IntentClassifyRow {
   similarity: number;
 }
 
-interface TournamentSearchRow {
-  id: string;
-  sport: 'tennis' | 'futsal';
-  title: string;
-  start_date: string;
-  end_date: string | null;
-  region: string | null;
-  location: string | null;
-  eligible_grades: string[];
-  entry_fee: number | null;
-  format: string | null;
-}
-
 /**
  * tournament_search routing 결과를 마크다운 템플릿으로 렌더.
  *
@@ -161,7 +149,7 @@ interface TournamentSearchRow {
  * LLM 호출 없이 결정적으로 생성 — 같은 입력에 같은 출력.
  */
 function renderTournamentSearchTemplate(
-  rows: TournamentSearchRow[],
+  rows: TournamentCardRow[],
   ctx: {
     sport?: 'tennis' | 'futsal';
     region: string | null;
@@ -185,7 +173,7 @@ function renderTournamentSearchTemplate(
   lines.push('');
 
   // 종목별 그룹핑 — sport 명시 없을 때 섹션 분리.
-  const groups = new Map<string, TournamentSearchRow[]>();
+  const groups = new Map<string, TournamentCardRow[]>();
   for (const r of rows) {
     const k = r.sport;
     const arr = groups.get(k);
@@ -730,7 +718,7 @@ Deno.serve(async (req) => {
               }),
             );
           } else if (Array.isArray(rows) && rows.length > 0) {
-            const typedRows = rows as TournamentSearchRow[];
+            const typedRows = rows as TournamentCardRow[];
             const answerText = renderTournamentSearchTemplate(typedRows, {
               sport: intentResult.slots.sport,
               region: regionLabel,
@@ -758,6 +746,15 @@ Deno.serve(async (req) => {
             send('context', { tournaments: [], rules: [] });
             send('delta', { text: answerText });
             send('citation', { items: citations });
+            send('ui', {
+              blocks: [
+                {
+                  type: 'cards',
+                  entity: 'tournament',
+                  items: buildTournamentCards(typedRows),
+                },
+              ],
+            });
 
             // assistant 메시지 영구 저장 (대화 이력 일관성)
             await supabase.from('chat_messages').insert({
