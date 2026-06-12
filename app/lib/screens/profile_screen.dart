@@ -174,7 +174,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   Divider(color: cs.outlineVariant.withValues(alpha: 0.5)),
                   _NotificationSwitchTile(
                     icon: Icons.smart_toy_outlined,
-                    title: '코치봇 알림',
+                    title: '라운드 코치 알림',
                     subtitle: '답변·추천 업데이트',
                     value: coach,
                     onChanged: (value) => setDialogState(() => coach = value),

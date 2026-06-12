@@ -179,7 +179,7 @@ class _MainShell extends ConsumerWidget {
   final Widget child;
 
   static const _tabs = [
-    ('/', Icons.auto_awesome_outlined, '코치봇'),
+    ('/', Icons.auto_awesome_outlined, '라운드 코치'),
     ('/tournaments', Icons.emoji_events_outlined, '대회'),
     ('/clubs', Icons.groups_outlined, '클럽'),
     ('/more', Icons.grid_view_outlined, '더보기'),
