@@ -243,7 +243,7 @@ final _previewManagedClubs = [
   Club(
     id: 'preview-managed-tennis',
     sport: 'tennis',
-    name: '매치업 테니스 크루',
+    name: '올라운드 테니스 크루',
     region: '광주',
     address: '염주실내테니스장',
     description: '초보부터 함께 치는 테니스 모임',

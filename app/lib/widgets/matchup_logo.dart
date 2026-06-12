@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 class MatchUpLogo extends StatelessWidget {
@@ -19,10 +21,9 @@ class MatchUpLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
-    final foreground = textColor ?? cs.primary;
-    final accent = dotColor ?? cs.secondary;
+    final foreground = textColor ?? cs.onSurface;
 
-    final wordmark = RichText(
+    final brandName = RichText(
       text: TextSpan(
         style: TextStyle(
           color: foreground,
@@ -33,24 +34,32 @@ class MatchUpLogo extends StatelessWidget {
           height: 1,
         ),
         children: [
-          const TextSpan(text: 'Match'),
+          const TextSpan(text: 'ALL'),
           TextSpan(
-            text: '•',
-            style: TextStyle(color: accent),
+            text: 'ROUND',
+            style: TextStyle(color: textColor ?? cs.primary),
           ),
-          const TextSpan(text: 'Up'),
         ],
       ),
     );
 
-    if (!showMark) return wordmark;
+    final lockup = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _AllroundMark(size: fontSize < 20 ? 26 : markSize),
+        SizedBox(width: fontSize < 20 ? 7 : 9),
+        brandName,
+      ],
+    );
+
+    if (!showMark) return lockup;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _MatchUpMark(size: markSize),
+        _AllroundMark(size: markSize),
         const SizedBox(width: 8),
-        wordmark,
+        brandName,
       ],
     );
   }
@@ -96,8 +105,8 @@ class BrandedAppBarTitle extends StatelessWidget {
   }
 }
 
-class _MatchUpMark extends StatelessWidget {
-  const _MatchUpMark({required this.size});
+class _AllroundMark extends StatelessWidget {
+  const _AllroundMark({required this.size});
 
   final double size;
 
@@ -105,48 +114,96 @@ class _MatchUpMark extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
 
-    return Container(
+    return SizedBox(
       width: size,
       height: size,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [cs.primary, cs.secondary],
+      child: CustomPaint(
+        painter: _AllroundMarkPainter(
+          background: cs.primary,
+          orbit: cs.secondary,
+          accent: cs.tertiary,
         ),
-        borderRadius: BorderRadius.circular(size * 0.28),
-      ),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Icon(
-            Icons.sports_soccer_rounded,
-            color: cs.onPrimary,
-            size: size * 0.46,
-          ),
-          Positioned(
-            right: size * 0.12,
-            bottom: size * 0.12,
-            child: Container(
-              width: size * 0.28,
-              height: size * 0.28,
-              decoration: BoxDecoration(
-                color: cs.tertiary,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: cs.onPrimary,
-                  width: size < 40 ? 1.2 : 2,
-                ),
-              ),
-              child: Icon(
-                Icons.sports_tennis_rounded,
-                color: cs.onPrimary,
-                size: size * 0.17,
-              ),
-            ),
-          ),
-        ],
       ),
     );
+  }
+}
+
+class _AllroundMarkPainter extends CustomPainter {
+  const _AllroundMarkPainter({
+    required this.background,
+    required this.orbit,
+    required this.accent,
+  });
+
+  final Color background;
+  final Color orbit;
+  final Color accent;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final side = math.min(size.width, size.height);
+    final rect = Offset.zero & Size(side, side);
+    final radius = side * 0.34;
+
+    final bgPaint = Paint()..color = background;
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(rect, Radius.circular(radius)),
+      bgPaint,
+    );
+
+    final center = Offset(side * 0.5, side * 0.51);
+    final orbitStroke = side * 0.09;
+    final orbitRect = Rect.fromCircle(center: center, radius: side * 0.25);
+    final whiteStroke = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = orbitStroke;
+
+    canvas.drawArc(
+        orbitRect, math.pi * 0.06, math.pi * 1.36, false, whiteStroke);
+
+    final orbitPaint = Paint()
+      ..color = orbit
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = side * 0.075;
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: side * 0.34),
+      math.pi * 1.12,
+      math.pi * 0.48,
+      false,
+      orbitPaint,
+    );
+
+    final slashPaint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = side * 0.105;
+    canvas.drawLine(
+      Offset(side * 0.34, side * 0.68),
+      Offset(side * 0.68, side * 0.32),
+      slashPaint,
+    );
+
+    final accentPaint = Paint()..color = accent;
+    canvas.drawCircle(
+        Offset(side * 0.71, side * 0.28), side * 0.095, accentPaint);
+
+    final smallNodePaint = Paint()
+      ..color = Colors.white.withValues(alpha: 0.95);
+    canvas.drawCircle(
+      Offset(side * 0.29, side * 0.72),
+      side * 0.055,
+      smallNodePaint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _AllroundMarkPainter oldDelegate) {
+    return background != oldDelegate.background ||
+        orbit != oldDelegate.orbit ||
+        accent != oldDelegate.accent;
   }
 }
