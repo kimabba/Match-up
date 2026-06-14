@@ -182,7 +182,7 @@ class ApiService {
     if (userId == null) return [];
     final rows = await _supabase
         .from('tournament_favorites')
-        .select('created_at, tournaments(*)')
+        .select('created_at, tournaments(*, tennis_tournament_details(*), futsal_tournament_details(*))')
         .eq('user_id', userId)
         .order('created_at', ascending: false)
         .limit(limit);

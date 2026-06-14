@@ -51,10 +51,18 @@ class Tournament {
   });
 
   factory Tournament.fromJson(Map<String, dynamic> j) {
+    // 확장 테이블 데이터 (JOIN 시 nested, RPC 시 flat — 둘 다 호환)
+    final tennis = j['tennis_tournament_details'] as Map<String, dynamic>?;
+    final futsal = j['futsal_tournament_details'] as Map<String, dynamic>?;
+    final ext = tennis ?? futsal;
+
     final grades = (j['eligible_grades'] as List?)?.cast<String>() ?? const [];
     final hostAssoc =
+        (ext?['host_associations'] as List?)?.cast<String>() ??
         (j['host_associations'] as List?)?.cast<String>() ?? const [];
-    final hostOrgs = (j['host_orgs'] as List?)?.cast<String>() ?? const [];
+    final hostOrgs =
+        (ext?['host_orgs'] as List?)?.cast<String>() ??
+        (j['host_orgs'] as List?)?.cast<String>() ?? const [];
     return Tournament(
       id: j['id'] as String,
       sport: j['sport'] as String,
@@ -80,9 +88,12 @@ class Tournament {
       regionCode: j['region_code'] as String?,
       hostAssociations: hostAssoc,
       hostOrgs: hostOrgs,
-      divisionLabelLocal: j['division_label_local'] as String?,
-      divisionKtaStandard: j['division_kta_standard'] as String?,
-      isJointEvent: (j['is_joint_event'] as bool?) ?? false,
+      divisionLabelLocal: ext?['division_label_local'] as String? ??
+          j['division_label_local'] as String?,
+      divisionKtaStandard: ext?['division_kta_standard'] as String? ??
+          j['division_kta_standard'] as String?,
+      isJointEvent: ext?['is_joint_event'] as bool? ??
+          j['is_joint_event'] as bool? ?? false,
     );
   }
 }
