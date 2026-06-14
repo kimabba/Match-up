@@ -8,14 +8,16 @@
 ```
 Layer 0: users                    ✅ 확정
 Layer 1: user_sports              ✅ 확정 (현행 유지)
-Layer 1: user_tennis_orgs         🔶 검토 중 (컬럼 추가 논의)
-Layer 2: tournaments              ⬜ 미시작
-Layer 2: clubs                    ⬜ 미시작
-Layer 3: club_members             ⬜ 미시작 (권한 컬럼 추가 확정)
-Layer 4: club_events, club_posts  ⬜ 미시작
-Layer 5: notifications            ⬜ 미시작
-Layer 6: match_records, rankings  ⬜ 미시작
-Layer 7: friendships, schedules   ⬜ 미시작
+Layer 1: user_tennis_orgs         ✅ 확정 (PK 변경 + 컬럼 정리)
+Layer 2: tournaments              ✅ 확정 (공통+확장 분리, JY-59 재검토)
+Layer 2: clubs                    ✅ 확정 (meeting_days/monthly_fee/gender 추가)
+Layer 3: club_members             ✅ 확정 (권한 boolean 컬럼 3개 추가)
+Layer 4: club_events              ✅ 확정 (casual 제거, 운영자만)
+Layer 4: club_posts/comments/mentions ✅ 확정 (신규 3개 테이블)
+Layer 4: Storage club-posts       ✅ 확정 (1280px 압축, 10MB, 5장)
+Layer 5: notifications            ✅ 확정 (통합 테이블, 8종 type)
+Layer 6: match_entries, match_rounds ✅ 확정 (대회 참가 + 라운드 상세)
+Layer 7: schedule_shares          ✅ 확정 (파트너 자동 + 수동 이벤트 공유)
 ```
 
 ## Layer 0: users — 확정
@@ -56,38 +58,33 @@ user_sports (
 
 종목 전용 프로필(play_style, ntrp 등)은 불필요 — 테니스/풋살 공용이어야 하므로.
 
-## Layer 1: user_tennis_orgs — 🔶 검토 중
+## Layer 1: user_tennis_orgs — ✅ 확정
 
-### 현재 구조
+### 핵심 변경: PK `(user_id, org)` → `(user_id, org, division)`
+한 사용자가 같은 협회에서 여러 부서(골드부+오픈부 등)에 출전 가능. 부서별 점수/포인트가 다름.
+
 ```sql
 user_tennis_orgs (
-  user_id        uuid FK
-  org            tennis_org
-  division_local text          -- '골드부' 등
-  score          numeric(3,1)  -- 0~10
-  expires_at     date
-  is_primary     boolean
-  region_code    text FK
-  created_at     timestamptz
-  updated_at     timestamptz
-  PK (user_id, org)
+  user_id         uuid         NOT NULL FK
+  org             tennis_org   NOT NULL     -- 소속 협회 (gj, kta, kato...)
+  division        text         NOT NULL     -- 출전 부서 (골드부, 오픈부...)
+  score           numeric(5,1)              -- 등급 점수 (협회별 의미 다름, 통합)
+  ranking_points  int                       -- 누적 랭킹 포인트 (KATA 등)
+  player_origin   text                      -- 선수 출신 단계 (elementary/middle/high/university/professional/instructor)
+  is_primary      boolean      DEFAULT false -- 주 부서 여부
+  region_code     text FK → regions         -- 활동 지역
+  created_at      timestamptz  DEFAULT now()
+  updated_at      timestamptz  DEFAULT now()
+  PK (user_id, org, division)
 )
 ```
 
-### 리서치 대조 — 빠진 항목 3개
-
-1. **grade_level text** — KATO 그룹(MA/A/1/2/3/4) 또는 광주 급수(1.0~6.0)
-   - 현재 score와 division_local에 혼재됨
-   - score는 협회마다 의미가 다름 (광주=급수, KTA=합산점수, 제주=개인점수, KATA=랭킹포인트)
-
-2. **ranking_points int** — KATA 베스트15 누적 포인트
-   - score(0~10)로는 수백~수천 단위 포인트 저장 불가
-
-3. **is_player_origin boolean** — 선수 출신 여부
-   - 광주 등급 체계에서 참가 자격이 완전히 달라짐
-
-### 미결 질문
-- 이 3개 컬럼을 추가할지, 아니면 오버킬인지 사용자 결정 대기 중
+### 변경 사유
+- grade_level 제거 → score로 통합 (KATO 그룹도 숫자 매핑)
+- expires_at 제거 → 협회 데이터 크롤로 가져오므로 자체 만료 관리 불필요
+- is_player_origin boolean → player_origin text (초등/중등/고등/대학/실업/지도자 단계별)
+- score 범위 확대: numeric(3,1) → numeric(5,1) (전북 13점 수용)
+- 검증: 10개 패턴 테스트 9 PASS / 1 FAIL(선수출신) → 해결 완료
 
 ## 클럽 기능 — 이전 브레인스토밍 확정 사항
 
