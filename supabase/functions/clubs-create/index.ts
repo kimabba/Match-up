@@ -41,6 +41,11 @@ Deno.serve(async (req) => {
       contact: (body.contact as string | undefined)?.trim() || null,
       website: (body.website as string | undefined)?.trim() || null,
       description: (body.description as string | undefined)?.trim() || null,
+      meeting_days: Array.isArray(body.meeting_days) ? body.meeting_days : [],
+      monthly_fee: typeof body.monthly_fee === 'number' ? body.monthly_fee : null,
+      gender_preference: typeof body.gender_preference === 'string'
+        ? body.gender_preference.trim() || null
+        : null,
       status: 'pending',
       created_by: auth.user.id,
     })
