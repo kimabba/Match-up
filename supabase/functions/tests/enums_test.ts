@@ -6,6 +6,7 @@ import {
   getDivisionLabel,
   getDivisionsForOrg,
   isValidGrade,
+  isValidPlayerOrigin,
   rankOf,
   REGION_CODES,
   regionCodeFromLabel,
@@ -128,4 +129,17 @@ Deno.test('getDivisionsForOrg returns divisions for gj', () => {
 Deno.test('getDivisionLabel returns label or fallback', () => {
   assertEquals(getDivisionLabel('gj_m_gold'), '골드부');
   assertEquals(getDivisionLabel('unknown_code'), 'unknown_code');
+});
+
+// ─── isValidPlayerOrigin ─────────────────────────────────────
+
+Deno.test('isValidPlayerOrigin accepts valid origins', () => {
+  assertEquals(isValidPlayerOrigin('elementary'), true);
+  assertEquals(isValidPlayerOrigin('professional'), true);
+  assertEquals(isValidPlayerOrigin('instructor'), true);
+});
+
+Deno.test('isValidPlayerOrigin rejects invalid values', () => {
+  assertEquals(isValidPlayerOrigin('pro'), false);
+  assertEquals(isValidPlayerOrigin(''), false);
 });
