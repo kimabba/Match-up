@@ -12,6 +12,7 @@ import '../models/club_post.dart';
 import '../models/crawl_source.dart';
 import '../models/app_notification.dart';
 import '../models/match_record.dart';
+import '../models/schedule_share.dart';
 import '../models/tournament.dart';
 
 /// Edge Functions REST + SSE 클라이언트.
@@ -1044,6 +1045,41 @@ class ApiService {
 
   Future<void> deleteMatchRound(String roundId) async {
     await _supabase.from('match_rounds').delete().eq('id', roundId);
+  }
+
+  // ── 일정 공유 ──────────────────────────────────────────────
+
+  Future<void> shareSchedule({
+    required String sharedWith,
+    required String eventType,
+    required String eventId,
+  }) async {
+    final userId = _supabase.auth.currentUser!.id;
+    await _supabase.from('schedule_shares').upsert({
+      'shared_by': userId,
+      'shared_with': sharedWith,
+      'event_type': eventType,
+      'event_id': eventId,
+    });
+  }
+
+  Future<List<ScheduleShare>> mySharedSchedules() async {
+    final rows = await _supabase
+        .from('schedule_shares')
+        .select('*, shared_by_user:users!shared_by(name), shared_with_user:users!shared_with(name)')
+        .order('created_at', ascending: false);
+    return rows.map((r) => ScheduleShare.fromJson(r)).toList();
+  }
+
+  Future<void> respondToShare(String shareId, {required bool accept}) async {
+    await _supabase
+        .from('schedule_shares')
+        .update({'status': accept ? 'accepted' : 'declined'})
+        .eq('id', shareId);
+  }
+
+  Future<void> deleteShare(String shareId) async {
+    await _supabase.from('schedule_shares').delete().eq('id', shareId);
   }
 }
 
