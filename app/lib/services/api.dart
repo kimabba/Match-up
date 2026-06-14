@@ -279,6 +279,9 @@ class ApiService {
     String? contact,
     String? website,
     String? description,
+    List<String>? meetingDays,
+    int? monthlyFee,
+    String? genderPreference,
   }) async {
     final res = await http.post(
       _uri('clubs-create'),
@@ -293,6 +296,11 @@ class ApiService {
         if (website != null && website.isNotEmpty) 'website': website,
         if (description != null && description.isNotEmpty)
           'description': description,
+        if (meetingDays != null && meetingDays.isNotEmpty)
+          'meeting_days': meetingDays,
+        if (monthlyFee != null) 'monthly_fee': monthlyFee,
+        if (genderPreference != null && genderPreference.isNotEmpty)
+          'gender_preference': genderPreference,
       }),
     );
     _check(res);
@@ -424,10 +432,9 @@ class ApiService {
         .toList();
   }
 
-  /// 모임 생성. type='official'은 운영진만(서버 RLS 가 강제).
+  /// 모임 생성.
   Future<void> createClubEvent({
     required String clubId,
-    required String type,
     required String title,
     String? description,
     String? locationText,
@@ -438,7 +445,6 @@ class ApiService {
     await _supabase.from('club_events').insert({
       'club_id': clubId,
       'created_by': uid,
-      'type': type,
       'title': title,
       if (description != null && description.isNotEmpty)
         'description': description,

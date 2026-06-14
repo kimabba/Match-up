@@ -24,9 +24,12 @@ class _ClubCreateScreenState extends ConsumerState<ClubCreateScreen> {
   final _contact = TextEditingController();
   final _website = TextEditingController();
   final _description = TextEditingController();
+  final _monthlyFee = TextEditingController();
   Uint8List? _logoBytes;
   String _logoExtension = 'jpg';
   String _logoContentType = 'image/jpeg';
+  Set<String> _meetingDays = {};
+  String? _genderPreference;
   bool _submitting = false;
 
   @override
@@ -37,6 +40,7 @@ class _ClubCreateScreenState extends ConsumerState<ClubCreateScreen> {
     _contact.dispose();
     _website.dispose();
     _description.dispose();
+    _monthlyFee.dispose();
     super.dispose();
   }
 
@@ -52,6 +56,7 @@ class _ClubCreateScreenState extends ConsumerState<ClubCreateScreen> {
               contentType: _logoContentType,
             );
       }
+      final fee = int.tryParse(_monthlyFee.text.trim());
       await ref.read(apiProvider).createClub(
             sport: _sport,
             name: _name.text.trim(),
@@ -61,6 +66,9 @@ class _ClubCreateScreenState extends ConsumerState<ClubCreateScreen> {
             contact: _contact.text.trim(),
             website: _website.text.trim(),
             description: _description.text.trim(),
+            meetingDays: _meetingDays.toList(),
+            monthlyFee: fee,
+            genderPreference: _genderPreference,
           );
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -355,6 +363,55 @@ class _ClubCreateScreenState extends ConsumerState<ClubCreateScreen> {
               ),
               keyboardType: TextInputType.url,
               textInputAction: TextInputAction.next,
+            ),
+            const SizedBox(height: AppSpacing.md),
+
+            // 정기 모임 요일
+            Text('정기 모임 요일',
+                style: Theme.of(context).textTheme.labelLarge),
+            const SizedBox(height: AppSpacing.sm),
+            Wrap(
+              spacing: AppSpacing.xs,
+              children: ['월', '화', '수', '목', '금', '토', '일']
+                  .map((d) => FilterChip(
+                        label: Text(d),
+                        selected: _meetingDays.contains(d),
+                        onSelected: (v) => setState(() {
+                          if (v) {
+                            _meetingDays.add(d);
+                          } else {
+                            _meetingDays.remove(d);
+                          }
+                        }),
+                      ))
+                  .toList(),
+            ),
+            const SizedBox(height: AppSpacing.md),
+
+            TextFormField(
+              controller: _monthlyFee,
+              decoration: const InputDecoration(
+                labelText: '월 회비 (원)',
+                hintText: '예: 30000',
+              ),
+              keyboardType: TextInputType.number,
+              textInputAction: TextInputAction.next,
+            ),
+            const SizedBox(height: AppSpacing.md),
+
+            // 성별 선호
+            Text('성별 선호',
+                style: Theme.of(context).textTheme.labelLarge),
+            const SizedBox(height: AppSpacing.sm),
+            SegmentedButton<String?>(
+              segments: const [
+                ButtonSegment(value: null, label: Text('무관')),
+                ButtonSegment(value: 'male', label: Text('남성')),
+                ButtonSegment(value: 'female', label: Text('여성')),
+              ],
+              selected: {_genderPreference},
+              onSelectionChanged: (s) =>
+                  setState(() => _genderPreference = s.first),
             ),
             const SizedBox(height: AppSpacing.md),
 

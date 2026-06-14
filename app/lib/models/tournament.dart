@@ -178,6 +178,9 @@ class Club {
   final String? statusReason;
   final int memberCount;
   final String? createdBy;
+  final List<String> meetingDays;
+  final int? monthlyFee;
+  final String? genderPreference;
   // 현재 사용자의 멤버십 정보 (조회 시 join)
   final String? myRole; // 'owner'|'manager'|'member'|null
 
@@ -195,6 +198,9 @@ class Club {
     this.statusReason,
     this.memberCount = 0,
     this.createdBy,
+    this.meetingDays = const [],
+    this.monthlyFee,
+    this.genderPreference,
     this.myRole,
   });
 
@@ -227,6 +233,9 @@ class Club {
       statusReason: j['status_reason'] as String?,
       memberCount: (j['member_count'] as int?) ?? 0,
       createdBy: j['created_by'] as String?,
+      meetingDays: (j['meeting_days'] as List?)?.cast<String>() ?? const [],
+      monthlyFee: j['monthly_fee'] as int?,
+      genderPreference: j['gender_preference'] as String?,
       myRole: myRole,
     );
   }
