@@ -11,6 +11,7 @@ import '../models/club_event.dart';
 import '../models/club_post.dart';
 import '../models/crawl_source.dart';
 import '../models/app_notification.dart';
+import '../models/match_record.dart';
 import '../models/tournament.dart';
 
 /// Edge Functions REST + SSE 클라이언트.
@@ -972,6 +973,77 @@ class ApiService {
     if (res.statusCode >= 400) {
       throw Exception('${res.statusCode}: ${res.body}');
     }
+  }
+
+  // ── 경기 이력 ──────────────────────────────────────────────
+
+  Future<List<MatchEntry>> myMatchEntries({int limit = 50}) async {
+    final rows = await _supabase
+        .from('match_entries')
+        .select('*, tournaments(title), match_rounds(*)')
+        .order('created_at', ascending: false)
+        .limit(limit);
+    return rows.map((r) => MatchEntry.fromJson(r)).toList();
+  }
+
+  Future<MatchEntry> addMatchEntry({
+    required String tournamentId,
+    required String division,
+    String? partnerId,
+    String? partnerName,
+    String? teamName,
+    String? finalRound,
+    int pointsEarned = 0,
+  }) async {
+    final userId = _supabase.auth.currentUser!.id;
+    final row = await _supabase
+        .from('match_entries')
+        .insert({
+          'user_id': userId,
+          'tournament_id': tournamentId,
+          'division': division,
+          'partner_id': partnerId,
+          'partner_name': partnerName,
+          'team_name': teamName,
+          'final_round': finalRound,
+          'points_earned': pointsEarned,
+        })
+        .select('*, tournaments(title)')
+        .single();
+    return MatchEntry.fromJson(row);
+  }
+
+  Future<void> deleteMatchEntry(String entryId) async {
+    await _supabase.from('match_entries').delete().eq('id', entryId);
+  }
+
+  Future<MatchRound> addMatchRound({
+    required String entryId,
+    required String round,
+    String? opponent1Name,
+    String? opponent2Name,
+    String? score,
+    required String result,
+    DateTime? playedAt,
+  }) async {
+    final row = await _supabase
+        .from('match_rounds')
+        .insert({
+          'entry_id': entryId,
+          'round': round,
+          'opponent_1_name': opponent1Name,
+          'opponent_2_name': opponent2Name,
+          'score': score,
+          'result': result,
+          'played_at': playedAt?.toIso8601String().substring(0, 10),
+        })
+        .select()
+        .single();
+    return MatchRound.fromJson(row);
+  }
+
+  Future<void> deleteMatchRound(String roundId) async {
+    await _supabase.from('match_rounds').delete().eq('id', roundId);
   }
 }
 
