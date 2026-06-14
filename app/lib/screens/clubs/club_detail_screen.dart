@@ -544,7 +544,6 @@ class _EventCardState extends ConsumerState<_EventCard> {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
     final e = widget.event;
-    final badgeColor = e.isOfficial ? cs.primary : cs.secondary;
 
     return AppCard(
       variant: AppCardVariant.elevated,
@@ -553,19 +552,6 @@ class _EventCardState extends ConsumerState<_EventCard> {
         children: [
           Row(
             children: [
-              Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.sm, vertical: 2),
-                decoration: BoxDecoration(
-                  color: badgeColor.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(99),
-                ),
-                child: Text(
-                  e.isOfficial ? '공식' : '번개',
-                  style: tt.labelSmall?.copyWith(
-                      color: badgeColor, fontWeight: FontWeight.w700),
-                ),
-              ),
               const Spacer(),
               Text('${e.goingCount}명 참석',
                   style: tt.labelSmall?.copyWith(color: cs.onSurfaceVariant)),
@@ -649,7 +635,6 @@ class _EventCreateSheetState extends ConsumerState<_EventCreateSheet> {
   final _location = TextEditingController();
   final _desc = TextEditingController();
   DateTime? _startsAt;
-  String _type = 'casual';
   bool _busy = false;
 
   @override
@@ -691,7 +676,6 @@ class _EventCreateSheetState extends ConsumerState<_EventCreateSheet> {
     try {
       await ref.read(apiProvider).createClubEvent(
             clubId: widget.club.id,
-            type: _type,
             title: _title.text.trim(),
             description: _desc.text.trim(),
             locationText: _location.text.trim(),
@@ -711,7 +695,6 @@ class _EventCreateSheetState extends ConsumerState<_EventCreateSheet> {
   @override
   Widget build(BuildContext context) {
     final tt = Theme.of(context).textTheme;
-    final canOfficial = widget.club.isManager;
     return Padding(
       padding: EdgeInsets.only(
         left: AppSpacing.xl,
@@ -753,17 +736,6 @@ class _EventCreateSheetState extends ConsumerState<_EventCreateSheet> {
             label:
                 Text(_startsAt == null ? '일시 선택 *' : _fmtDateTime(_startsAt!)),
           ),
-          if (canOfficial) ...[
-            const SizedBox(height: AppSpacing.md),
-            SegmentedButton<String>(
-              segments: const [
-                ButtonSegment(value: 'casual', label: Text('번개')),
-                ButtonSegment(value: 'official', label: Text('공식')),
-              ],
-              selected: {_type},
-              onSelectionChanged: (s) => setState(() => _type = s.first),
-            ),
-          ],
           const SizedBox(height: AppSpacing.lg),
           FilledButton(
             onPressed: _busy ? null : _submit,

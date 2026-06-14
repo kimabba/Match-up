@@ -66,7 +66,7 @@ Deno.serve(async (req) => {
   // 일반 검색: approved 클럽만
   let query = auth.supabase
     .from('clubs')
-    .select('*, club_members(role, status)')
+    .select('*, meeting_days, monthly_fee, gender_preference, club_members(role, status)')
     .eq('status', 'approved')
     .limit(limit);
 
