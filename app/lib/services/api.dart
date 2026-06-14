@@ -371,7 +371,7 @@ class ApiService {
   Future<List<Map<String, dynamic>>> pendingJoinRequests(String clubId) async {
     final rows = await _supabase
         .from('club_join_requests')
-        .select('id, user_id, message, created_at, users(display_name, email)')
+        .select('id, user_id, message, created_at, users(name, email)')
         .eq('club_id', clubId)
         .eq('status', 'pending')
         .order('created_at');
@@ -398,7 +398,7 @@ class ApiService {
   Future<List<ClubMember>> clubMembers(String clubId) async {
     final rows = await _supabase
         .from('club_members')
-        .select('user_id, role, joined_at, users(display_name)')
+        .select('user_id, role, joined_at, users(name)')
         .eq('club_id', clubId)
         .eq('status', 'active')
         .order('joined_at');
@@ -624,7 +624,7 @@ class ApiService {
     await _supabase.rpc('ensure_profile');
     await _supabase
         .from('users')
-        .update({'display_name': displayName}).eq('id', userId);
+        .update({'name': displayName}).eq('id', userId);
   }
 
   Future<List<UserSport>> myUserSports() async {
@@ -692,14 +692,15 @@ class ApiService {
   }
 
   /// 단일 협회 삭제.
-  Future<void> deleteTennisOrg(String org) async {
+  Future<void> deleteTennisOrg(String org, String division) async {
     final userId = _supabase.auth.currentUser?.id;
-    if (userId == null) throw StateError('Not authenticated');
+    if (userId == null) return;
     await _supabase
         .from('user_tennis_orgs')
         .delete()
         .eq('user_id', userId)
-        .eq('org', org);
+        .eq('org', org)
+        .eq('division', division);
   }
 
   // ===== admin =====

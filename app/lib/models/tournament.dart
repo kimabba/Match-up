@@ -117,21 +117,21 @@ class Region {
 
 class UserTennisOrg {
   final String org; // 'kta'|'kato'|...|'gj'|'jn'|'local'
-  final String? divisionLocal;
-  final double? score; // 1.0~10.0 (KTA) / 1~9 (제주)
-  final DateTime? expiresAt;
+  final String division; // text NOT NULL (PK의 일부)
+  final double? score;
   final bool isPrimary;
   final String? regionCode;
-  final List<String> divisionCodes; // e.g. ['gj_m_gold', 'gj_m_general']
+  final int? rankingPoints;
+  final String? playerOrigin;
 
   UserTennisOrg({
     required this.org,
-    this.divisionLocal,
+    required this.division,
     this.score,
-    this.expiresAt,
     this.isPrimary = false,
     this.regionCode,
-    this.divisionCodes = const [],
+    this.rankingPoints,
+    this.playerOrigin,
   });
 
   factory UserTennisOrg.fromJson(Map<String, dynamic> j) {
@@ -143,29 +143,24 @@ class UserTennisOrg {
             : double.tryParse('$scoreVal'));
     return UserTennisOrg(
       org: j['org'] as String,
-      divisionLocal: j['division_local'] as String?,
+      division: j['division'] as String,
       score: score,
-      expiresAt: j['expires_at'] != null
-          ? DateTime.parse(j['expires_at'] as String)
-          : null,
       isPrimary: (j['is_primary'] as bool?) ?? false,
       regionCode: j['region_code'] as String?,
-      divisionCodes: (j['division_codes'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          const [],
+      rankingPoints: j['ranking_points'] as int?,
+      playerOrigin: j['player_origin'] as String?,
     );
   }
 
   Map<String, dynamic> toUpsert(String userId) => {
         'user_id': userId,
         'org': org,
-        'division_local': divisionLocal,
+        'division': division,
         'score': score,
-        'expires_at': expiresAt?.toIso8601String().substring(0, 10),
         'is_primary': isPrimary,
         'region_code': regionCode,
-        'division_codes': divisionCodes,
+        'ranking_points': rankingPoints,
+        'player_origin': playerOrigin,
       };
 }
 
