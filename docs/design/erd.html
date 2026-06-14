@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Match-up DB ERD</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif; background: #fff; color: #111; padding: 32px; max-width: 880px; margin: 0 auto; font-size: 14px; line-height: 1.5; }
+
+  h1 { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
+  .meta { color: #999; font-size: 12px; margin: 4px 0 24px; }
+
+  .summary { display: flex; gap: 24px; margin-bottom: 28px; font-size: 13px; color: #666; }
+  .summary span { font-weight: 700; color: #111; }
+
+  .layer { margin-bottom: 2px; }
+  .layer-head {
+    padding: 9px 14px;
+    background: #f5f5f5;
+    border: 1px solid #e5e5e5;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+  }
+  .layer-head:hover { background: #efefef; }
+  .layer-head .cnt { font-weight: 400; color: #999; }
+
+  .layer-body { border: 1px solid #e5e5e5; border-top: none; }
+  .layer-body.hide { display: none; }
+
+  .tbl { border-bottom: 1px solid #f0f0f0; }
+  .tbl:last-child { border-bottom: none; }
+
+  .tbl-head {
+    padding: 8px 14px;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .tbl-head:hover { background: #fafafa; }
+  .tbl-name { font-weight: 700; font-size: 13px; }
+  .tbl-desc { color: #999; font-size: 12px; flex: 1; }
+  .tbl-tag {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .tag-new { background: #e8f5e9; color: #2e7d32; }
+  .tag-mod { background: #fff8e1; color: #f57f17; }
+  .tag-ext { background: #f5f5f5; color: #bbb; }
+  .tbl-arrow { color: #ccc; font-size: 10px; transition: transform 0.15s; }
+  .tbl-arrow.on { transform: rotate(90deg); }
+
+  .cols { display: none; padding: 0 14px 10px 14px; }
+  .cols.on { display: block; }
+
+  table.ct { width: 100%; border-collapse: collapse; font-size: 12px; }
+  table.ct th {
+    text-align: left;
+    padding: 4px 6px;
+    font-weight: 600;
+    color: #aaa;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #eee;
+  }
+  table.ct td { padding: 4px 6px; border-bottom: 1px solid #f8f8f8; vertical-align: top; }
+  table.ct tr.new-row td { background: #fafff7; }
+
+  .cn { font-weight: 600; color: #222; }
+  .ct-type { font-family: 'SF Mono', 'Fira Code', Menlo, monospace; font-size: 11px; color: #7c4dff; }
+  .ct-desc { color: #888; }
+  .pk { color: #d32f2f; }
+  .fk { color: #1565c0; }
+
+  .rels { margin-top: 4px; padding: 6px 8px; background: #f8f8f8; border-radius: 4px; font-size: 11px; color: #888; }
+  .rels div { padding: 1px 0; }
+</style>
+</head>
+<body>
+
+<h1>Match-up DB Schema</h1>
+<p class="meta">2026-06-14</p>
+
+<div class="summary">
+  <div>전체 <span>29</span></div>
+  <div>기존 <span>20</span></div>
+  <div>수정 <span>5</span></div>
+  <div>신규 <span>9</span></div>
+</div>
+
+<div id="root"></div>
+
+<script>
+const D=[
+{l:"Layer 0 — 사용자",t:[
+{n:"users",s:"mod",d:"사용자 프로필",c:[
+{n:"id",t:"uuid PK",d:"",p:1},{n:"email",t:"text",d:""},{n:"name",t:"text",d:"실명",w:1},{n:"nickname",t:"text",d:"닉네임",w:1},{n:"avatar_url",t:"text",d:"프로필 사진",w:1},{n:"phone",t:"text",d:"연락처",w:1},{n:"birth_year",t:"int",d:"출생 연도",w:1},{n:"gender",t:"text",d:"male / female",w:1},{n:"bio",t:"text",d:"자기소개",w:1},{n:"primary_region",t:"text FK",d:"주 활동 지역",f:1,w:1},{n:"interest_regions",t:"text[]",d:"관심 지역 (max 3)",w:1},{n:"role",t:"user_role",d:"user / admin"},{n:"created_at",t:"timestamptz",d:""},{n:"updated_at",t:"timestamptz",d:""}
+],r:[]}
+]},
+
+{l:"Layer 1 — 종목 / 협회",t:[
+{n:"user_sports",s:"ext",d:"종목 등록 (테니스/풋살)",c:[
+{n:"user_id",t:"uuid FK",d:"",f:1},{n:"sport",t:"enum",d:"tennis / futsal"},{n:"grade",t:"text",d:"경력 등급"},{n:"is_primary",t:"boolean",d:"주 종목"}
+],r:["PK: (user_id, sport)"]},
+{n:"user_tennis_orgs",s:"mod",d:"테니스 협회별 부서 등록",c:[
+{n:"user_id",t:"uuid FK",d:"",f:1},{n:"org",t:"tennis_org",d:"협회 (kta, gj, kato...)"},{n:"division",t:"text",d:"부서 (골드부, 오픈부...)",p:1,w:1},{n:"score",t:"numeric(5,1)",d:"등급 점수",w:1},{n:"ranking_points",t:"int",d:"누적 포인트",w:1},{n:"player_origin",t:"text",d:"선수 출신 단계",w:1},{n:"is_primary",t:"boolean",d:"주 부서"},{n:"region_code",t:"text FK",d:"활동 지역",f:1}
+],r:["PK: (user_id, org, division)","한 협회에서 여러 부서 출전 가능"]}
+]},
+
+{l:"Layer 2 — 대회",t:[
+{n:"tournaments",s:"mod",d:"대회 공통 정보",c:[
+{n:"id",t:"uuid PK",d:"",p:1},{n:"sport",t:"text",d:"tennis / futsal"},{n:"title",t:"text",d:"대회명"},{n:"organizer",t:"text",d:"주최"},{n:"description",t:"text",d:"대회 요강"},{n:"start_date",t:"date",d:"시작일"},{n:"end_date",t:"date",d:"종료일"},{n:"application_deadline",t:"date",d:"신청 마감"},{n:"region_code",t:"text FK",d:"지역",f:1},{n:"eligible_grades",t:"text[]",d:"출전 가능 부서"},{n:"entry_fee",t:"int",d:"참가비"},{n:"status",t:"enum",d:"draft / published / closed"},{n:"embedding",t:"vector(768)",d:"AI 검색"}
+],r:["종목 전용 컬럼은 확장 테이블에 분리"]},
+{n:"tennis_tournament_details",s:"new",d:"테니스 전용 (1:1)",c:[
+{n:"tournament_id",t:"uuid PK FK",d:"",p:1,f:1},{n:"host_orgs",t:"tennis_org[]",d:"주최 협회"},{n:"division_kta_standard",t:"text",d:"KTA 표준"},{n:"division_gender",t:"text",d:"성별"},{n:"division_age_group",t:"text",d:"연령대"},{n:"is_joint_event",t:"boolean",d:"통합 대회"}
+],r:[]},
+{n:"futsal_tournament_details",s:"new",d:"풋살 전용 (1:1)",c:[
+{n:"tournament_id",t:"uuid PK FK",d:"",p:1,f:1},{n:"venue_type",t:"text",d:"indoor / outdoor"},{n:"surface_type",t:"text",d:"바닥 재질"},{n:"match_format",t:"text",d:"경기 방식"},{n:"player_count",t:"int",d:"참가 인원"},{n:"roster_min",t:"int",d:"팀 최소 인원"},{n:"roster_max",t:"int",d:"팀 최대 인원"}
+],r:[]}
+]},
+
+{l:"Layer 2 — 클럽",t:[
+{n:"clubs",s:"mod",d:"동호회",c:[
+{n:"id",t:"uuid PK",d:"",p:1},{n:"sport",t:"text",d:"tennis / futsal"},{n:"name",t:"text",d:"클럽명"},{n:"region",t:"text",d:"지역"},{n:"logo_url",t:"text",d:"로고"},{n:"meeting_days",t:"text[]",d:"모임 요일",w:1},{n:"monthly_fee",t:"int",d:"월회비",w:1},{n:"gender_preference",t:"text",d:"male / female / mixed",w:1},{n:"status",t:"text",d:"pending / approved / rejected"},{n:"member_count",t:"int",d:"멤버 수 (자동)"}
+],r:[]}
+]},
+
+{l:"Layer 3 — 클럽 멤버십",t:[
+{n:"club_members",s:"mod",d:"멤버 + 권한",c:[
+{n:"id",t:"uuid PK",d:"",p:1},{n:"club_id",t:"uuid FK",d:"",f:1},{n:"user_id",t:"uuid FK",d:"",f:1},{n:"role",t:"text",d:"owner / manager / member"},{n:"status",t:"text",d:"active / left / banned"},{n:"can_kick",t:"boolean",d:"강퇴 권한",w:1},{n:"can_create_event",t:"boolean",d:"일정 등록 권한",w:1},{n:"can_post_notice",t:"boolean",d:"공지 작성 권한",w:1}
+],r:["UNIQUE(club_id, user_id)","owner는 모든 권한 자동"]},
+{n:"club_join_requests",s:"ext",d:"가입 신청",c:[
+{n:"id",t:"uuid PK",d:"",p:1},{n:"club_id",t:"uuid FK",d:"",f:1},{n:"user_id",t:"uuid FK",d:"",f:1},{n:"status",t:"text",d:"pending / approved / rejected"}
+],r:[]}
+]},
+
+{l:"Layer 4 — 일정 / 게시판",t:[
+{n:"club_events",s:"mod",d:"클럽 일정 (운영자만 등록)",c:[
+{n:"id",t:"uuid PK",d:"",p:1},{n:"club_id",t:"uuid FK",d:"",f:1},{n:"created_by",t:"uuid FK",d:"작성자",f:1},{n:"title",t:"text",d:"제목"},{n:"description",t:"text",d:"설명"},{n:"location_text",t:"text",d:"장소"},{n:"starts_at",t:"timestamptz",d:"시작 시각"}
+],r:["type 컬럼 제거 (모두 공식)"]},
+{n:"club_event_attendees",s:"ext",d:"참석 응답",c:[
+{n:"event_id",t:"uuid FK",d:"",f:1},{n:"user_id",t:"uuid FK",d:"",f:1},{n:"status",t:"text",d:"going / not_going"}
+],r:["UNIQUE(event_id, user_id)"]},
+{n:"club_posts",s:"new",d:"게시판",c:[
+{n:"id",t:"uuid PK",d:"",p:1},{n:"club_id",t:"uuid FK",d:"",f:1},{n:"author_id",t:"uuid FK",d:"",f:1},{n:"tag",t:"text",d:"notice / free / recruit / photo"},{n:"title",t:"text",d:"제목"},{n:"body",t:"text",d:"내용"},{n:"image_urls",t:"text[]",d:"이미지 (max 5, 1280px)"}
+],r:["notice: owner 또는 can_post_notice만","Storage: club-posts 버킷"]},
+{n:"club_post_comments",s:"new",d:"댓글 (1단)",c:[
+{n:"id",t:"uuid PK",d:"",p:1},{n:"post_id",t:"uuid FK",d:"",f:1},{n:"author_id",t:"uuid FK",d:"",f:1},{n:"body",t:"text",d:"내용"}
+],r:[]},
+{n:"club_post_mentions",s:"new",d:"멘션 (@사용자)",c:[
+{n:"id",t:"uuid PK",d:"",p:1},{n:"post_id",t:"uuid FK",d:"",f:1},{n:"comment_id",t:"uuid FK",d:"댓글에서 멘션 (nullable)",f:1},{n:"mentioned_user_id",t:"uuid FK",d:"알림 대상",f:1}
+],r:["INSERT 시 알림 생성"]}
+]},
+
+{l:"Layer 5 — 알림",t:[
+{n:"notifications",s:"new",d:"통합 알림 (8종)",c:[
+{n:"id",t:"uuid PK",d:"",p:1},{n:"user_id",t:"uuid FK",d:"받는 사람",f:1},{n:"type",t:"text",d:"tournament_d3 / club_notice / club_mention..."},{n:"title",t:"text",d:"알림 제목"},{n:"body",t:"text",d:"알림 내용"},{n:"reference_type",t:"text",d:"tournament / club_event / club_post"},{n:"reference_id",t:"uuid",d:"대상 ID"},{n:"club_id",t:"uuid",d:"클럽 ID"},{n:"is_read",t:"boolean",d:"읽음 여부"},{n:"status",t:"text",d:"pending / sent / failed"}
+],r:["UNIQUE(user_id, type, reference_id)","본인만 읽기, service_role만 생성"]},
+{n:"device_tokens",s:"ext",d:"FCM 토큰",c:[
+{n:"user_id",t:"uuid FK",d:"",f:1},{n:"token",t:"text",d:"FCM 토큰"},{n:"platform",t:"text",d:"ios / android / web"}
+],r:["PK: (user_id, token)","최대 10개"]}
+]},
+
+{l:"Layer 6 — 경기 이력",t:[
+{n:"match_entries",s:"new",d:"대회 참가 기록",c:[
+{n:"id",t:"uuid PK",d:"",p:1},{n:"user_id",t:"uuid FK",d:"참가자",f:1},{n:"tournament_id",t:"uuid FK",d:"대회",f:1},{n:"division",t:"text",d:"참가 부서"},{n:"partner_id",t:"uuid FK",d:"복식 파트너",f:1},{n:"partner_name",t:"text",d:"비회원 파트너"},{n:"team_name",t:"text",d:"풋살 팀명"},{n:"final_round",t:"text",d:"최종 진출 단계"},{n:"points_earned",t:"int",d:"획득 포인트"},{n:"source",t:"text",d:"manual / crawl / admin"}
+],r:["성장 그래프: points_earned 누적","파트너 전적: partner_id 집계"]},
+{n:"match_rounds",s:"new",d:"라운드별 상세 (스코어, 상대)",c:[
+{n:"id",t:"uuid PK",d:"",p:1},{n:"entry_id",t:"uuid FK",d:"match_entries",f:1},{n:"round",t:"text",d:"1회전 / 8강 / 결승..."},{n:"opponent_1_id",t:"uuid FK",d:"상대 1",f:1},{n:"opponent_1_name",t:"text",d:"비회원 상대"},{n:"opponent_2_id",t:"uuid FK",d:"상대 2 (복식)",f:1},{n:"opponent_2_name",t:"text",d:""},{n:"score",t:"text",d:"6:3, 6:4"},{n:"result",t:"text",d:"win / lose"},{n:"played_at",t:"date",d:"경기 날짜"}
+],r:["상대 전적: opponent_id GROUP BY","승률: result 집계"]}
+]},
+
+{l:"Layer 7 — 일정 공유",t:[
+{n:"schedule_shares",s:"new",d:"이벤트 단위 일정 공유",c:[
+{n:"id",t:"uuid PK",d:"",p:1},{n:"shared_by",t:"uuid FK",d:"공유한 사람",f:1},{n:"shared_with",t:"uuid FK",d:"공유받는 사람",f:1},{n:"event_type",t:"text",d:"tournament / club_event"},{n:"event_id",t:"uuid",d:"대상 이벤트"},{n:"status",t:"text",d:"pending / accepted / declined"}
+],r:["파트너 자동: match_entries.partner_id","수동: 이벤트 단위 공유"]}
+]},
+
+{l:"기존 유지",t:[
+{n:"regions",s:"ext",d:"지역 코드 (8개 권역)",c:[{n:"code",t:"text PK",d:"gwangju, seoul_metro...",p:1},{n:"display_name_ko",t:"text",d:""}],r:[]},
+{n:"venues",s:"ext",d:"풋살 구장 (269곳)",c:[{n:"id / name / region / venue_type",t:"...",d:""}],r:[]},
+{n:"chat_messages",s:"ext",d:"AI 챗봇 대화",c:[{n:"user_id / conversation_id / role / content",t:"...",d:""}],r:[]},
+{n:"rule_articles",s:"ext",d:"룰북 콘텐츠",c:[{n:"sport / category / title / body / embedding",t:"...",d:""}],r:[]},
+{n:"crawl_sources + crawl_audit",s:"ext",d:"크롤러",c:[{n:"slug / url / parser_module",t:"...",d:""}],r:[]},
+{n:"tournament_favorites",s:"ext",d:"대회 즐겨찾기",c:[{n:"user_id + tournament_id",t:"uuid FK",d:"",f:1}],r:[]},
+{n:"club_favorites",s:"ext",d:"클럽 즐겨찾기",c:[{n:"user_id + club_id",t:"uuid FK",d:"",f:1}],r:[]}
+]}
+];
+
+const tags={new:['신규','tag-new'],mod:['수정','tag-mod'],ext:['','tag-ext']};
+
+function R(){
+document.getElementById('root').innerHTML=D.map((l,i)=>`
+<div class="layer">
+<div class="layer-head" onclick="document.getElementById('lb${i}').classList.toggle('hide')">
+<span>${l.l}</span><span class="cnt">${l.t.length}</span>
+</div>
+<div class="layer-body" id="lb${i}">
+${l.t.map((t,j)=>{
+const tg=tags[t.s];
+return `<div class="tbl">
+<div class="tbl-head" onclick="var c=document.getElementById('c${i}_${j}'),a=document.getElementById('a${i}_${j}');c.classList.toggle('on');a.classList.toggle('on')">
+<span class="tbl-name">${t.n}</span>
+${tg[0]?`<span class="tbl-tag ${tg[1]}">${tg[0]}</span>`:''}
+<span class="tbl-desc">${t.d}</span>
+<span class="tbl-arrow" id="a${i}_${j}">&#9654;</span>
+</div>
+<div class="cols" id="c${i}_${j}">
+<table class="ct"><tr><th>컬럼</th><th>타입</th><th>설명</th></tr>
+${t.c.map(c=>`<tr${c.w?' class="new-row"':''}>
+<td class="cn ${c.p?'pk':''} ${c.f?'fk':''}">${c.n}</td>
+<td class="ct-type">${c.t}</td>
+<td class="ct-desc">${c.d}</td>
+</tr>`).join('')}
+</table>
+${t.r.length?`<div class="rels">${t.r.map(r=>`<div>${r}</div>`).join('')}</div>`:''}
+</div></div>`;}).join('')}
+</div></div>`).join('');
+}
+R();
+</script>
+</body>
+</html>
