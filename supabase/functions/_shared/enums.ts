@@ -281,7 +281,12 @@ export const SPORT_LABELS: Record<Sport, string> = {
 // Player Origin (선수 출신 단계)
 // =========================
 export const PLAYER_ORIGINS = [
-  'elementary', 'middle', 'high', 'university', 'professional', 'instructor',
+  'elementary',
+  'middle',
+  'high',
+  'university',
+  'professional',
+  'instructor',
 ] as const;
 export type PlayerOrigin = typeof PLAYER_ORIGINS[number];
 
