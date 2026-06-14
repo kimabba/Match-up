@@ -24,7 +24,7 @@ class ClubMember {
     return ClubMember(
       userId: j['user_id'] as String,
       role: (j['role'] as String?) ?? 'member',
-      displayName: user?['display_name'] as String?,
+      displayName: user?['name'] as String?,
       joinedAt: j['joined_at'] != null
           ? DateTime.tryParse(j['joined_at'] as String)
           : null,

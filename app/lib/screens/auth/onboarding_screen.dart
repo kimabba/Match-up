@@ -197,13 +197,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         final orgRows = _orgs.map((o) {
           return UserTennisOrg(
             org: o.org,
-            divisionLocal: o.divisionLocal.text.trim().isEmpty
-                ? null
+            division: o.divisionLocal.text.trim().isEmpty
+                ? 'default'
                 : o.divisionLocal.text.trim(),
             score: double.tryParse(o.score.text.trim()),
             regionCode: _regionCode,
             isPrimary: o.org == _primaryOrg,
-            divisionCodes: o.selectedDivisionCodes.toList(),
           );
         }).toList();
         await api.saveTennisOrgs(orgRows);

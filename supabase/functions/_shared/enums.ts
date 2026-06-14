@@ -277,6 +277,32 @@ export const SPORT_LABELS: Record<Sport, string> = {
   futsal: '풋살',
 };
 
+// =========================
+// Player Origin (선수 출신 단계)
+// =========================
+export const PLAYER_ORIGINS = [
+  'elementary',
+  'middle',
+  'high',
+  'university',
+  'professional',
+  'instructor',
+] as const;
+export type PlayerOrigin = typeof PLAYER_ORIGINS[number];
+
+export const PLAYER_ORIGIN_LABELS: Record<PlayerOrigin, string> = {
+  elementary: '초등 선수 출신',
+  middle: '중등 선수 출신',
+  high: '고등 선수 출신',
+  university: '대학 선수 출신',
+  professional: '실업 선수 출신',
+  instructor: '지도자',
+};
+
+export function isValidPlayerOrigin(value: string): value is PlayerOrigin {
+  return (PLAYER_ORIGINS as readonly string[]).includes(value);
+}
+
 export function rankOf(sport: Sport, grade: string): number | null {
   if (sport === 'tennis' && grade in TENNIS_RANK) return TENNIS_RANK[grade as TennisGrade];
   if (sport === 'futsal' && grade in FUTSAL_RANK) return FUTSAL_RANK[grade as FutsalGrade];
