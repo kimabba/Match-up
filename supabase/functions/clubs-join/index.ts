@@ -105,12 +105,12 @@ Deno.serve(async (req) => {
 
     const { data: caller } = await supa
       .from('club_members')
-      .select('role')
+      .select('role, can_kick')
       .eq('club_id', clubId)
       .eq('user_id', userId)
       .eq('status', 'active')
       .maybeSingle();
-    if (caller?.role !== 'owner') {
+    if (caller?.role !== 'owner' && !caller?.can_kick) {
       return errorResponse('Only owner can kick members', 403);
     }
 

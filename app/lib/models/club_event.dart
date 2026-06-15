@@ -24,7 +24,7 @@ class ClubMember {
     return ClubMember(
       userId: j['user_id'] as String,
       role: (j['role'] as String?) ?? 'member',
-      displayName: user?['display_name'] as String?,
+      displayName: user?['name'] as String?,
       joinedAt: j['joined_at'] != null
           ? DateTime.tryParse(j['joined_at'] as String)
           : null,
@@ -36,7 +36,6 @@ class ClubEvent {
   final String id;
   final String clubId;
   final String createdBy;
-  final String type; // 'official' | 'casual'
   final String title;
   final String? description;
   final String? locationText;
@@ -48,7 +47,6 @@ class ClubEvent {
     required this.id,
     required this.clubId,
     required this.createdBy,
-    required this.type,
     required this.title,
     this.description,
     this.locationText,
@@ -57,7 +55,6 @@ class ClubEvent {
     this.myStatus,
   });
 
-  bool get isOfficial => type == 'official';
   bool get iAmGoing => myStatus == 'going';
 
   factory ClubEvent.fromJson(
@@ -78,7 +75,6 @@ class ClubEvent {
       id: j['id'] as String,
       clubId: j['club_id'] as String,
       createdBy: j['created_by'] as String,
-      type: (j['type'] as String?) ?? 'casual',
       title: j['title'] as String,
       description: j['description'] as String?,
       locationText: j['location_text'] as String?,

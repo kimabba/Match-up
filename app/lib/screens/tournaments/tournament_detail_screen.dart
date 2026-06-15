@@ -46,7 +46,7 @@ class _TournamentDetailScreenState
       final supa = ref.read(supabaseProvider);
       final row = await supa
           .from('tournaments')
-          .select()
+          .select('*, tennis_tournament_details(*), futsal_tournament_details(*)')
           .eq('id', widget.tournamentId)
           .single();
       setState(() {

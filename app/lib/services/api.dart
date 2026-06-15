@@ -8,7 +8,11 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../config.dart';
 import '../models/admin.dart';
 import '../models/club_event.dart';
+import '../models/club_post.dart';
 import '../models/crawl_source.dart';
+import '../models/app_notification.dart';
+import '../models/match_record.dart';
+import '../models/schedule_share.dart';
 import '../models/tournament.dart';
 
 /// Edge Functions REST + SSE 클라이언트.
@@ -181,7 +185,7 @@ class ApiService {
     if (userId == null) return [];
     final rows = await _supabase
         .from('tournament_favorites')
-        .select('created_at, tournaments(*)')
+        .select('created_at, tournaments(*, tennis_tournament_details(*), futsal_tournament_details(*))')
         .eq('user_id', userId)
         .order('created_at', ascending: false)
         .limit(limit);
@@ -279,6 +283,9 @@ class ApiService {
     String? contact,
     String? website,
     String? description,
+    List<String>? meetingDays,
+    int? monthlyFee,
+    String? genderPreference,
   }) async {
     final res = await http.post(
       _uri('clubs-create'),
@@ -293,6 +300,11 @@ class ApiService {
         if (website != null && website.isNotEmpty) 'website': website,
         if (description != null && description.isNotEmpty)
           'description': description,
+        if (meetingDays != null && meetingDays.isNotEmpty)
+          'meeting_days': meetingDays,
+        if (monthlyFee != null) 'monthly_fee': monthlyFee,
+        if (genderPreference != null && genderPreference.isNotEmpty)
+          'gender_preference': genderPreference,
       }),
     );
     _check(res);
@@ -371,7 +383,7 @@ class ApiService {
   Future<List<Map<String, dynamic>>> pendingJoinRequests(String clubId) async {
     final rows = await _supabase
         .from('club_join_requests')
-        .select('id, user_id, message, created_at, users(display_name, email)')
+        .select('id, user_id, message, created_at, users(name, email)')
         .eq('club_id', clubId)
         .eq('status', 'pending')
         .order('created_at');
@@ -398,7 +410,7 @@ class ApiService {
   Future<List<ClubMember>> clubMembers(String clubId) async {
     final rows = await _supabase
         .from('club_members')
-        .select('user_id, role, joined_at, users(display_name)')
+        .select('user_id, role, joined_at, users(name)')
         .eq('club_id', clubId)
         .eq('status', 'active')
         .order('joined_at');
@@ -424,10 +436,9 @@ class ApiService {
         .toList();
   }
 
-  /// 모임 생성. type='official'은 운영진만(서버 RLS 가 강제).
+  /// 모임 생성.
   Future<void> createClubEvent({
     required String clubId,
-    required String type,
     required String title,
     String? description,
     String? locationText,
@@ -438,7 +449,6 @@ class ApiService {
     await _supabase.from('club_events').insert({
       'club_id': clubId,
       'created_by': uid,
-      'type': type,
       'title': title,
       if (description != null && description.isNotEmpty)
         'description': description,
@@ -624,7 +634,7 @@ class ApiService {
     await _supabase.rpc('ensure_profile');
     await _supabase
         .from('users')
-        .update({'display_name': displayName}).eq('id', userId);
+        .update({'name': displayName}).eq('id', userId);
   }
 
   Future<List<UserSport>> myUserSports() async {
@@ -692,14 +702,15 @@ class ApiService {
   }
 
   /// 단일 협회 삭제.
-  Future<void> deleteTennisOrg(String org) async {
+  Future<void> deleteTennisOrg(String org, String division) async {
     final userId = _supabase.auth.currentUser?.id;
-    if (userId == null) throw StateError('Not authenticated');
+    if (userId == null) return;
     await _supabase
         .from('user_tennis_orgs')
         .delete()
         .eq('user_id', userId)
-        .eq('org', org);
+        .eq('org', org)
+        .eq('division', division);
   }
 
   // ===== admin =====
@@ -838,6 +849,123 @@ class ApiService {
     return jsonDecode(res.body) as Map<String, dynamic>;
   }
 
+  // ── 클럽 게시판 ──────────────────────────────────────────────
+
+  Future<List<ClubPost>> clubPosts(String clubId, {String? tag}) async {
+    var query = _supabase
+        .from('club_posts')
+        .select('*, users!author_id(name), club_post_comments(id)')
+        .eq('club_id', clubId);
+    if (tag != null) query = query.eq('tag', tag);
+    final rows = await query.order('created_at', ascending: false).limit(50);
+    return rows.map((r) => ClubPost.fromJson(r)).toList();
+  }
+
+  Future<ClubPost> createPost({
+    required String clubId,
+    required String tag,
+    required String title,
+    required String body,
+    List<String> imageUrls = const [],
+  }) async {
+    final userId = _supabase.auth.currentUser!.id;
+    final row = await _supabase
+        .from('club_posts')
+        .insert({
+          'club_id': clubId,
+          'author_id': userId,
+          'tag': tag,
+          'title': title,
+          'body': body,
+          'image_urls': imageUrls,
+        })
+        .select('*, users!author_id(name)')
+        .single();
+    return ClubPost.fromJson(row);
+  }
+
+  Future<void> deletePost(String postId) async {
+    await _supabase.from('club_posts').delete().eq('id', postId);
+  }
+
+  Future<List<ClubPostComment>> postComments(String postId) async {
+    final rows = await _supabase
+        .from('club_post_comments')
+        .select('*, users!author_id(name)')
+        .eq('post_id', postId)
+        .order('created_at');
+    return rows.map((r) => ClubPostComment.fromJson(r)).toList();
+  }
+
+  Future<ClubPostComment> addComment({
+    required String postId,
+    required String body,
+  }) async {
+    final userId = _supabase.auth.currentUser!.id;
+    final row = await _supabase
+        .from('club_post_comments')
+        .insert({
+          'post_id': postId,
+          'author_id': userId,
+          'body': body,
+        })
+        .select('*, users!author_id(name)')
+        .single();
+    return ClubPostComment.fromJson(row);
+  }
+
+  Future<void> deleteComment(String commentId) async {
+    await _supabase.from('club_post_comments').delete().eq('id', commentId);
+  }
+
+  Future<String> uploadPostImage({
+    required String clubId,
+    required Uint8List bytes,
+    required String extension,
+    required String contentType,
+  }) async {
+    final userId = _supabase.auth.currentUser!.id;
+    final path = '$userId/${DateTime.now().millisecondsSinceEpoch}.$extension';
+    await _supabase.storage.from('club-posts').uploadBinary(
+      path, bytes,
+      fileOptions: FileOptions(contentType: contentType, upsert: true),
+    );
+    return _supabase.storage.from('club-posts').getPublicUrl(path);
+  }
+
+  // ── 알림 ──────────────────────────────────────────────────
+
+  Future<List<AppNotification>> myNotifications({int limit = 50}) async {
+    final rows = await _supabase
+        .from('notifications')
+        .select()
+        .order('created_at', ascending: false)
+        .limit(limit);
+    return rows.map((r) => AppNotification.fromJson(r)).toList();
+  }
+
+  Future<int> unreadNotificationCount() async {
+    final res = await _supabase
+        .from('notifications')
+        .select('id')
+        .eq('is_read', false);
+    return (res as List).length;
+  }
+
+  Future<void> markNotificationRead(String id) async {
+    await _supabase
+        .from('notifications')
+        .update({'is_read': true})
+        .eq('id', id);
+  }
+
+  Future<void> markAllNotificationsRead() async {
+    await _supabase
+        .from('notifications')
+        .update({'is_read': true})
+        .eq('is_read', false);
+  }
+
   // ===== helpers =====
   static String _ymd(DateTime d) =>
       '${d.year.toString().padLeft(4, '0')}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
@@ -846,6 +974,112 @@ class ApiService {
     if (res.statusCode >= 400) {
       throw Exception('${res.statusCode}: ${res.body}');
     }
+  }
+
+  // ── 경기 이력 ──────────────────────────────────────────────
+
+  Future<List<MatchEntry>> myMatchEntries({int limit = 50}) async {
+    final rows = await _supabase
+        .from('match_entries')
+        .select('*, tournaments(title), match_rounds(*)')
+        .order('created_at', ascending: false)
+        .limit(limit);
+    return rows.map((r) => MatchEntry.fromJson(r)).toList();
+  }
+
+  Future<MatchEntry> addMatchEntry({
+    required String tournamentId,
+    required String division,
+    String? partnerId,
+    String? partnerName,
+    String? teamName,
+    String? finalRound,
+    int pointsEarned = 0,
+  }) async {
+    final userId = _supabase.auth.currentUser!.id;
+    final row = await _supabase
+        .from('match_entries')
+        .insert({
+          'user_id': userId,
+          'tournament_id': tournamentId,
+          'division': division,
+          'partner_id': partnerId,
+          'partner_name': partnerName,
+          'team_name': teamName,
+          'final_round': finalRound,
+          'points_earned': pointsEarned,
+        })
+        .select('*, tournaments(title)')
+        .single();
+    return MatchEntry.fromJson(row);
+  }
+
+  Future<void> deleteMatchEntry(String entryId) async {
+    await _supabase.from('match_entries').delete().eq('id', entryId);
+  }
+
+  Future<MatchRound> addMatchRound({
+    required String entryId,
+    required String round,
+    String? opponent1Name,
+    String? opponent2Name,
+    String? score,
+    required String result,
+    DateTime? playedAt,
+  }) async {
+    final row = await _supabase
+        .from('match_rounds')
+        .insert({
+          'entry_id': entryId,
+          'round': round,
+          'opponent_1_name': opponent1Name,
+          'opponent_2_name': opponent2Name,
+          'score': score,
+          'result': result,
+          'played_at': playedAt?.toIso8601String().substring(0, 10),
+        })
+        .select()
+        .single();
+    return MatchRound.fromJson(row);
+  }
+
+  Future<void> deleteMatchRound(String roundId) async {
+    await _supabase.from('match_rounds').delete().eq('id', roundId);
+  }
+
+  // ── 일정 공유 ──────────────────────────────────────────────
+
+  Future<void> shareSchedule({
+    required String sharedWith,
+    required String eventType,
+    required String eventId,
+  }) async {
+    final userId = _supabase.auth.currentUser!.id;
+    await _supabase.from('schedule_shares').upsert({
+      'shared_by': userId,
+      'shared_with': sharedWith,
+      'event_type': eventType,
+      'event_id': eventId,
+    });
+  }
+
+  Future<List<ScheduleShare>> mySharedSchedules() async {
+    final rows = await _supabase
+        .from('schedule_shares')
+        .select('*, shared_by_user:users!shared_by(name), shared_with_user:users!shared_with(name)')
+        .order('created_at', ascending: false);
+    return rows.map((r) => ScheduleShare.fromJson(r)).toList();
+  }
+
+  Future<void> respondToShare(String shareId, {required bool accept}) async {
+    await _supabase
+        .from('schedule_shares')
+        .update({'status': accept ? 'accepted' : 'declined'})
+        .eq('id', shareId);
+  }
+
+  Future<void> deleteShare(String shareId) async {
+    await _supabase.from('schedule_shares').delete().eq('id', shareId);
   }
 }
 
