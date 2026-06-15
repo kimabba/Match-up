@@ -121,6 +121,7 @@ class _RulesScreenState extends ConsumerState<RulesScreen>
   Map<String, List<RuleArticle>> _groupByCategory(List<RuleArticle> list) {
     final out = <String, List<RuleArticle>>{};
     for (final article in list) {
+      if (_shouldHideRuleCategory(article.sport, article.category)) continue;
       out.putIfAbsent(article.category, () => []).add(article);
     }
     return out;
@@ -324,19 +325,24 @@ Map<String, List<RuleArticle>> _previewRulesFor(String sport) {
   final data = sport == 'futsal' ? _previewFutsalRules : _previewTennisRules;
   return {
     for (final entry in data.entries)
-      entry.key: [
-        for (var i = 0; i < entry.value.length; i++)
-          RuleArticle(
-            id: 'preview-$sport-${entry.key}-$i',
-            sport: sport,
-            category: entry.key,
-            title: entry.value[i].$1,
-            body: entry.value[i].$2,
-            orderIdx: i,
-            published: true,
-          ),
-      ],
+      if (!_shouldHideRuleCategory(sport, entry.key))
+        entry.key: [
+          for (var i = 0; i < entry.value.length; i++)
+            RuleArticle(
+              id: 'preview-$sport-${entry.key}-$i',
+              sport: sport,
+              category: entry.key,
+              title: entry.value[i].$1,
+              body: entry.value[i].$2,
+              orderIdx: i,
+              published: true,
+            ),
+        ],
   };
+}
+
+bool _shouldHideRuleCategory(String sport, String category) {
+  return sport == 'futsal' && category.contains('연맹');
 }
 
 const _previewTennisRules = <String, List<(String, String)>>{
@@ -378,10 +384,6 @@ const _previewFutsalRules = <String, List<(String, String)>>{
   '장비/경기장': [
     ('풋살공과 피치', '풋살은 반발력이 낮은 4호공과 전용 피치를 사용합니다.'),
     ('기본 장비', '유니폼, 스타킹, 신발, 정강이 보호대를 착용하고 골키퍼는 구분되는 색상을 입습니다.'),
-  ],
-  '연맹 안내': [
-    ('한국풋살연맹', '국내 풋살 대회, FK리그, 심판 양성, 클럽 등록 등을 담당하는 공식 기관입니다.'),
-    ('경기규칙서', '2024-25 경기규칙서는 한국풋살연맹과 FIFA 풋살 경기 규칙을 기준으로 정리됩니다.'),
   ],
 };
 

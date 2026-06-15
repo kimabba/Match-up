@@ -132,8 +132,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
       }
     } catch (e) {
       setState(() {
-        _messages[assistantIdx].content +=
-            '\n\n[연결 실패] ${_formatChatError(e)}';
+        _messages[assistantIdx].content += '\n\n[연결 실패] ${_formatChatError(e)}';
       });
     } finally {
       if (mounted) setState(() => _busy = false);
@@ -178,7 +177,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     final cs = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(title: const BrandedAppBarTitle(title: '코치봇')),
+      appBar: AppBar(title: const BrandedAppBarTitle(title: '라운드 코치')),
       body: Column(
         children: [
           Expanded(
@@ -234,20 +233,59 @@ class _EmptyHint extends StatelessWidget {
         children: [
           const SizedBox(height: AppSpacing.xl),
           Container(
-            width: 72,
-            height: 72,
+            width: double.infinity,
+            height: 206,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [cs.primary, cs.tertiary],
+                colors: [
+                  cs.primaryContainer,
+                  cs.secondaryContainer,
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
-              borderRadius: BorderRadius.circular(22),
+              borderRadius: BorderRadius.circular(28),
             ),
-            child: const Icon(
-              Icons.auto_awesome_rounded,
-              size: 36,
-              color: Colors.white,
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                Positioned(
+                  top: AppSpacing.md,
+                  right: AppSpacing.lg,
+                  child: Icon(
+                    Icons.auto_awesome_rounded,
+                    color: cs.primary.withValues(alpha: 0.22),
+                    size: 34,
+                  ),
+                ),
+                Positioned(
+                  left: AppSpacing.lg,
+                  bottom: AppSpacing.lg,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.sm,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: cs.surface.withValues(alpha: 0.82),
+                      borderRadius: BorderRadius.circular(999),
+                    ),
+                    child: Text(
+                      '라운드 코치',
+                      style: tt.labelMedium?.copyWith(
+                        color: cs.primary,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
+                ),
+                Image.asset(
+                  'assets/images/coach/round-coach.png',
+                  height: 200,
+                  fit: BoxFit.contain,
+                  alignment: Alignment.bottomCenter,
+                ),
+              ],
             ),
           ),
           const SizedBox(height: AppSpacing.lg),
@@ -257,7 +295,7 @@ class _EmptyHint extends StatelessWidget {
           ),
           const SizedBox(height: AppSpacing.xs),
           Text(
-            '대회 · 규칙 · 구장 · 클럽 정보를\nAI 코치봇이 즉시 답변합니다',
+            '대회 · 규칙 · 구장 · 클럽 정보를\n코치처럼 쉽게 알려드릴게요',
             style: tt.bodyMedium?.copyWith(
               color: cs.onSurfaceVariant,
               height: 1.5,

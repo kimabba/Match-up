@@ -174,7 +174,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   Divider(color: cs.outlineVariant.withValues(alpha: 0.5)),
                   _NotificationSwitchTile(
                     icon: Icons.smart_toy_outlined,
-                    title: '코치봇 알림',
+                    title: '라운드 코치 알림',
                     subtitle: '답변·추천 업데이트',
                     value: coach,
                     onChanged: (value) => setDialogState(() => coach = value),
@@ -1070,7 +1070,7 @@ List<Tournament> _previewTournamentRecords() {
       id: 'preview-my-futsal',
       sport: 'futsal',
       title: '서울 풋살 위클리 컵',
-      organizer: '매치업 풋살 커뮤니티',
+      organizer: '올라운드 풋살 커뮤니티',
       description: 'MY 화면 디자인 미리보기용 대회입니다.',
       startDate: now.add(const Duration(days: 9)),
       applicationDeadline: now.add(const Duration(days: 4)),

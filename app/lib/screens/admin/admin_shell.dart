@@ -82,7 +82,7 @@ class _AdminSidebar extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
               child: Text(
-                'Match-up',
+                '올라운드',
                 style: textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: colorScheme.primary,

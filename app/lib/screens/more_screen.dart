@@ -29,14 +29,14 @@ class MoreScreen extends ConsumerWidget {
         label: '맞춤 설정',
         subtitle: '활동 지역, 종목, 등급 수정',
         color: AppSportColors.futsal,
-        onTap: () => context.go('/onboarding'),
+        onTap: () => context.push('/onboarding'),
       ),
       _MenuItem(
         icon: Icons.calendar_month_rounded,
-        label: '친구 일정 보러가기',
+        label: '친구 일정',
         subtitle: '내 일정과 참여 기록 확인',
         color: const Color(0xFF7C3AED),
-        onTap: () => context.go('/profile'),
+        onTap: () => context.go('/friend-schedule'),
       ),
       _MenuItem(
         icon: Icons.bookmark_rounded,
@@ -54,13 +54,6 @@ class MoreScreen extends ConsumerWidget {
         subtitle: '테니스와 풋살 규칙 확인',
         color: AppSportColors.tennis,
         onTap: () => context.go('/rules'),
-      ),
-      _MenuItem(
-        icon: Icons.groups_rounded,
-        label: '팀원모집',
-        subtitle: '함께 뛸 팀원과 클럽 찾기',
-        color: const Color(0xFF06B6D4),
-        onTap: () => context.go('/clubs'),
       ),
       if (!kIsWeb)
         _MenuItem(

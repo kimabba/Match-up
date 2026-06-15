@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Match-up 브랜드 팔레트.
+/// 올라운드 브랜드 팔레트.
 class AppPalette {
   AppPalette._();
   static const Color primaryBlue = Color(0xFF1E3A8A);

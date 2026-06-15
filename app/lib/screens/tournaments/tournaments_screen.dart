@@ -260,7 +260,7 @@ List<Tournament> _previewTournaments(String? sport) {
         id: 'preview-futsal-1',
         sport: 'futsal',
         title: '서울 풋살 위클리 컵',
-        organizer: '매치업 풋살 커뮤니티',
+        organizer: '올라운드 풋살 커뮤니티',
         description: '주말 저녁에 열리는 5대5 풋살 모집전',
         startDate: now.add(const Duration(days: 9)),
         endDate: now.add(const Duration(days: 9)),
