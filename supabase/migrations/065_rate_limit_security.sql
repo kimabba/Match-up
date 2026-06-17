@@ -15,8 +15,13 @@
 begin;
 
 -- 1) consume_rate_limit: service_role 전용으로 제한
+--    PostgreSQL 함수는 기본적으로 PUBLIC 에 EXECUTE 권한이 있고 anon/authenticated 가
+--    이를 상속하므로, PUBLIC 에서 회수한 뒤 service_role 에만 부여해야 한다.
+--    (anon/authenticated 만 revoke 하면 PUBLIC 상속 권한이 남아 우회 가능)
 revoke execute on function public.consume_rate_limit(uuid, text, integer, integer)
-  from anon, authenticated;
+  from public, anon, authenticated;
+grant execute on function public.consume_rate_limit(uuid, text, integer, integer)
+  to service_role;
 
 -- 2) chat_rate_limit: service_role 전용 의도 명시
 drop policy if exists chat_rate_limit_service_only on public.chat_rate_limit;
