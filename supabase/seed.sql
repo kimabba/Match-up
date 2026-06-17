@@ -83,7 +83,29 @@ insert into public.rule_articles (sport, category, title, body, order_idx) value
  '풋살은 경기 도중 무제한 교체가 가능합니다. 교체 박스에서만 교체할 수 있으며, 나가는 선수가 완전히 코트를 벗어난 후 들어가야 합니다. 골키퍼 교체는 데드볼 상황에서만 가능합니다.',
  1);
 
--- regions: 045_seed_regions.sql 마이그레이션이 정식으로 시드하므로 seed.sql 에서는 생략.
+-- =========================
+-- regions (권역 매핑 — 광주·전남 2026.05.01 분리 반영)
+--   045_seed_regions.sql 이 정식 시드(ON CONFLICT DO UPDATE)이므로
+--   여기서는 충돌 시 무시. enum 일관성 검사(check_enums.py)용으로 유지.
+-- =========================
+insert into public.regions(code, display_name_ko, governing_associations, uses_kato, uses_kata, notes) values
+  ('gwangju', '광주', ARRAY['KTA-광주(GJTA)'], false, false,
+   '2026-05-01 전남과 분리 운영. 자체 스포츠공정위, 자체 디비전리그. 약 130 클럽 1.5만 동호인. 자체 부서: 골드/금배/일반/신인. 자체 등급 1~6급+신인.'),
+  ('jeonnam', '전남', ARRAY['KTA-전남'], false, false,
+   '2026-05-01 광주와 분리 운영. 시·군 협회(여수·광양·순천·목포·나주·강진·해남·영광 등) 산하. 일부 합동 대회 잔존.'),
+  ('seoul_metro', '수도권', ARRAY['KTA-서울','KTA-경기','KTA-인천'], true, true,
+   'KATA 본부 위치. 동호인 1인이 KATA+KATO+KTA 동시 등록 일반.'),
+  ('busan_ulsan_gn', '부산·울산·경남', ARRAY['KTA-부산','KTA-울산','KTA-경남'], true, false,
+   'KATO 비중 큼, 부산오픈챌린저 등.'),
+  ('daegu_gb', '대구·경북', ARRAY['KTA-대구','KTA-경북'], true, false,
+   '울진금강송배 KATO 전국대회. 아카시아배 등 합동.'),
+  ('chungcheong', '충청', ARRAY['KTA-대전','KTA-충남','KTA-충북','KTA-세종'], false, false,
+   '시니어연맹 별도 활성.'),
+  ('gangwon', '강원', ARRAY['KTA-강원'], false, false,
+   '도 단위 메이저 대회 중심(평창백일홍배).'),
+  ('jeju', '제주', ARRAY['KTA-제주'], false, false,
+   '자체 점수제(1~9), 가장 독자적. 2026 혼복 등급 미반영.')
+on conflict (code) do nothing;
 
 -- =========================
 -- clubs (디렉토리 시드)
