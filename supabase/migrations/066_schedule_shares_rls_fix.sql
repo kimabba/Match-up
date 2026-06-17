@@ -39,7 +39,8 @@ security definer
 set search_path = public
 as $$
 begin
-  if auth.uid() = new.shared_with and auth.uid() is distinct from new.shared_by then
+  -- 수신자 판단은 OLD 행 기준 (NEW 기준이면 shared_with 를 남으로 바꿔치기해 가드 우회 가능)
+  if auth.uid() = old.shared_with and auth.uid() is distinct from old.shared_by then
     if new.shared_by   is distinct from old.shared_by
     or new.shared_with is distinct from old.shared_with
     or new.event_type  is distinct from old.event_type
