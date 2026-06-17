@@ -79,6 +79,19 @@ export async function saveRawDocument(
   parseError?: string,
 ): Promise<void> {
   const contentHash = await sha256Hex(rawHtml);
+  // 파싱 실패 등으로 tournamentId 가 없을 때, 같은 게시글이 과거에 파싱 성공해
+  // 연결돼 있었다면 그 연결(tournament_id)을 끊지 않도록 기존 값을 보존한다.
+  // (일시적 파싱 실패가 멀쩡한 대회와의 링크를 지우는 데이터 손상 방지)
+  let finalTournamentId = tournamentId;
+  if (finalTournamentId === null) {
+    const { data: prev } = await audit.supabase
+      .from('crawl_documents')
+      .select('tournament_id')
+      .eq('source', audit.source)
+      .eq('source_url', sourceUrl)
+      .maybeSingle();
+    finalTournamentId = prev?.tournament_id ?? null;
+  }
   const { error } = await audit.supabase
     .from('crawl_documents')
     .upsert(
@@ -89,7 +102,7 @@ export async function saveRawDocument(
         content_hash: contentHash,
         http_status: 200,
         fetched_at: new Date().toISOString(),
-        tournament_id: tournamentId,
+        tournament_id: finalTournamentId,
         parse_status: parseStatus,
         parse_error: parseError ?? null,
       },

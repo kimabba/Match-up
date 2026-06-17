@@ -365,10 +365,12 @@ export const gnuboardSub5_5ContestParser: ParserFn = async (
     }
   }
 
-  // 상세를 가져왔는데 단 한 건도 파싱 성공하지 못하면 사이트 구조 변경을 의심하고
-  // 경고를 남긴다 → dispatcher 가 partial/failed + last_error 로 기록해 알림이 뜨게 한다.
-  // (개별 게시글의 파싱 실패는 정상일 수 있으므로 "전부 실패"일 때만 경고)
-  if (parseFailures > 0 && ctx.audit.inserted + ctx.audit.updated === 0) {
+  // 상세를 가져왔는데 단 한 건도 파싱 성공하지 못하면 사이트 구조 변경을 의심한다.
+  // status='error' 로 반환해 dispatcher 가 last_status=error + last_error 로 기록 →
+  // 수동 실행 UI/운영에서 "성공"으로 오인되지 않게 한다.
+  // (개별 게시글의 파싱 실패는 정상일 수 있으므로 "전부 실패"일 때만 error 처리)
+  const allFailed = parseFailures > 0 && ctx.audit.inserted + ctx.audit.updated === 0;
+  if (allFailed) {
     errors.push(`상세 ${parseFailures}건 모두 파싱 실패 — 사이트 구조 변경 의심`);
   }
 
@@ -376,7 +378,7 @@ export const gnuboardSub5_5ContestParser: ParserFn = async (
     fetched_count: ctx.audit.fetched,
     inserted_count: ctx.audit.inserted,
     updated_count: ctx.audit.updated,
-    status: 'ok',
+    status: allFailed ? 'error' : 'ok',
     error: errors.length > 0 ? errors.slice(0, 5).join('\n') : undefined,
     etag: effectiveEtag,
     last_modified: listing.lastModified ?? null,
