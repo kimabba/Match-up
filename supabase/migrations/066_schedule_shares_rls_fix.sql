@@ -39,15 +39,15 @@ security definer
 set search_path = public
 as $$
 begin
-  -- identity 컬럼(shared_by/shared_with/event)은 발신자·수신자 누구든 UPDATE 로 변경 불가.
-  -- (발신자/수신자 조건부 가드는 shared_by/shared_with 를 서로 바꿔치기해 우회 가능 →
-  --  남이 보낸 가짜 공유 위조. UPDATE 는 status 변경만 허용하고 공유 생성은 INSERT 로만.)
-  if new.shared_by   is distinct from old.shared_by
-  or new.shared_with is distinct from old.shared_with
-  or new.event_type  is distinct from old.event_type
-  or new.event_id    is distinct from old.event_id then
-    raise exception 'schedule_shares: only status can be updated';
-  end if;
+  -- UPDATE 는 status 변경만 허용. 나머지 컬럼은 OLD 값으로 강제 복원해 변조를 무력화한다.
+  -- (조건부 가드는 shared_by/shared_with 바꿔치기로 우회 가능했고, id/created_at 같은
+  --  audit 컬럼까지 모두 보호하려면 명시적 OLD 할당이 가장 견고하다.)
+  new.id          := old.id;
+  new.shared_by   := old.shared_by;
+  new.shared_with := old.shared_with;
+  new.event_type  := old.event_type;
+  new.event_id    := old.event_id;
+  new.created_at  := old.created_at;
   return new;
 end;
 $$;
