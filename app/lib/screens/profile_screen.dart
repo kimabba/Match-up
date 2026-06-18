@@ -1061,7 +1061,7 @@ List<Tournament> _previewTournamentRecords() {
       applicationDeadline: now.add(const Duration(days: 5)),
       region: '광주',
       location: '염주실내테니스장',
-      eligibleGrades: const ['novice', 'beginner'],
+      eligibleGrades: const ['under1y', 'y1to3'],
       entryFee: 40000,
       entryFeeUnit: 'per_person',
       status: 'published',
@@ -1076,9 +1076,10 @@ List<Tournament> _previewTournamentRecords() {
       applicationDeadline: now.add(const Duration(days: 4)),
       region: '수도권',
       location: '서울 송파 풋살파크',
-      eligibleGrades: const ['beginner', 'intermediate'],
+      eligibleGrades: const ['intro', 'beginner', 'intermediate'],
       entryFee: 80000,
       status: 'published',
+      futsalEventCategory: 'private',
     ),
   ];
 }
@@ -1100,12 +1101,43 @@ String _shortDate(DateTime date) => '${date.month}.${date.day}';
 // 등록 종목·등급 섹션
 // ────────────────────────────────────────────────────────────
 
-class _SportsSection extends StatelessWidget {
+class _SportsSection extends ConsumerWidget {
   final AsyncValue<List<UserSport>> sports;
   const _SportsSection({required this.sports});
 
+  Future<void> _setPrimarySport(
+    BuildContext context,
+    WidgetRef ref,
+    List<UserSport> sports,
+    String sport,
+  ) async {
+    final updated = sports
+        .map(
+          (s) => UserSport(
+            sport: s.sport,
+            grade: s.grade,
+            isPrimary: s.sport == sport,
+          ),
+        )
+        .toList();
+
+    try {
+      await ref.read(apiProvider).saveUserSports(updated);
+      ref.invalidate(userSportsProvider);
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('${sportLabelFromString(sport)} 기준으로 변경했습니다.')),
+      );
+    } catch (_) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('주 종목을 변경하지 못했습니다. 다시 시도해 주세요.')),
+      );
+    }
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
 
@@ -1153,7 +1185,17 @@ class _SportsSection extends StatelessWidget {
                       .map(
                         (s) => Padding(
                           padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-                          child: _SportCard(sport: s),
+                          child: _SportCard(
+                            sport: s,
+                            onSetPrimary: s.isPrimary
+                                ? null
+                                : () => _setPrimarySport(
+                                      context,
+                                      ref,
+                                      list,
+                                      s.sport,
+                                    ),
+                          ),
                         ),
                       )
                       .toList(),
@@ -1166,7 +1208,8 @@ class _SportsSection extends StatelessWidget {
 
 class _SportCard extends StatelessWidget {
   final UserSport sport;
-  const _SportCard({required this.sport});
+  final VoidCallback? onSetPrimary;
+  const _SportCard({required this.sport, this.onSetPrimary});
 
   @override
   Widget build(BuildContext context) {
@@ -1215,6 +1258,11 @@ class _SportCard extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
+            )
+          else if (onSetPrimary != null)
+            TextButton(
+              onPressed: onSetPrimary,
+              child: const Text('주 종목으로 설정'),
             ),
         ],
       ),
