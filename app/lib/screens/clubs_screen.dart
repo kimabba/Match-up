@@ -32,6 +32,8 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
   String? _searchError;
   _ClubSearchFilters _clubFilters = const _ClubSearchFilters();
   late Set<String> _clubInterests;
+  bool _showOpenRecruitingOnly = false;
+  final Set<String> _closedRecruitingPostIds = {};
 
   @override
   void initState() {
@@ -224,6 +226,18 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
                   ),
                   const SizedBox(height: AppSpacing.xl),
                 ],
+                _TeamRecruitingBoard(
+                  posts: _visibleRecruitingPosts(_clubInterests),
+                  showOpenOnly: _showOpenRecruitingOnly,
+                  canManage: managedClubs.isNotEmpty,
+                  onShowOpenOnlyChanged: (value) {
+                    setState(() => _showOpenRecruitingOnly = value);
+                  },
+                  onClosePost: (post) {
+                    setState(() => _closedRecruitingPostIds.add(post.id));
+                  },
+                ),
+                const SizedBox(height: AppSpacing.xl),
                 Row(
                   children: [
                     Expanded(
@@ -333,6 +347,96 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
     ]..sort((a, b) => b.score.compareTo(a.score));
     return scored.map((item) => item.club).toList();
   }
+
+  List<_RecruitingPostPreview> _visibleRecruitingPosts(Set<String> interests) {
+    final now = DateTime.now();
+    final posts = [
+      for (final post in _previewRecruitingPosts)
+        post.copyWith(
+            isClosed:
+                post.isClosed || _closedRecruitingPostIds.contains(post.id)),
+    ].where((post) {
+      if (!interests.contains(post.sport)) return false;
+      if (post.isClosed && post.closedAt != null) {
+        return now.difference(post.closedAt!).inHours < 24;
+      }
+      return true;
+    }).toList();
+
+    if (_showOpenRecruitingOnly) {
+      return posts.where((post) => !post.isClosed).toList();
+    }
+    return posts;
+  }
+}
+
+class _RecruitingPostPreview {
+  final String id;
+  final String sport;
+  final String clubName;
+  final String title;
+  final String region;
+  final String place;
+  final String schedule;
+  final String grade;
+  final String gender;
+  final String age;
+  final int fieldCount;
+  final int keeperCount;
+  final int totalCount;
+  final String cost;
+  final bool isClosed;
+  final DateTime? closedAt;
+
+  const _RecruitingPostPreview({
+    required this.id,
+    required this.sport,
+    required this.clubName,
+    required this.title,
+    required this.region,
+    required this.place,
+    required this.schedule,
+    required this.grade,
+    required this.gender,
+    required this.age,
+    required this.fieldCount,
+    required this.keeperCount,
+    required this.totalCount,
+    required this.cost,
+    this.isClosed = false,
+    this.closedAt,
+  });
+
+  _RecruitingPostPreview copyWith({
+    bool? isClosed,
+    DateTime? closedAt,
+  }) {
+    return _RecruitingPostPreview(
+      id: id,
+      sport: sport,
+      clubName: clubName,
+      title: title,
+      region: region,
+      place: place,
+      schedule: schedule,
+      grade: grade,
+      gender: gender,
+      age: age,
+      fieldCount: fieldCount,
+      keeperCount: keeperCount,
+      totalCount: totalCount,
+      cost: cost,
+      isClosed: isClosed ?? this.isClosed,
+      closedAt: closedAt ?? this.closedAt,
+    );
+  }
+
+  String get countLabel {
+    if (sport == 'futsal') {
+      return '필드 $fieldCount명 · 키퍼 $keeperCount명';
+    }
+    return '$totalCount명';
+  }
 }
 
 final _previewManagedClubs = [
@@ -355,6 +459,59 @@ final _previewManagedClubs = [
     description: '초보부터 함께 치는 테니스 모임',
     memberCount: 24,
     myRole: 'manager',
+  ),
+];
+
+final _previewRecruitingPosts = [
+  _RecruitingPostPreview(
+    id: 'preview-recruiting-futsal-open-1',
+    sport: 'futsal',
+    clubName: '광주 위너스 풋살클럽',
+    title: '주말 저녁 정기전 팀원 모집',
+    region: '광주',
+    place: '광주 북구 풋살파크 A구장',
+    schedule: '6/22 (토) 19:00',
+    grade: '초급 · 중급',
+    gender: '혼성',
+    age: '20대 · 30대',
+    fieldCount: 4,
+    keeperCount: 1,
+    totalCount: 5,
+    cost: '10,000원',
+  ),
+  _RecruitingPostPreview(
+    id: 'preview-recruiting-tennis-open-1',
+    sport: 'tennis',
+    clubName: '올라운드 테니스 크루',
+    title: '토요일 복식 랠리 멤버 모집',
+    region: '광주',
+    place: '염주실내테니스장',
+    schedule: '6/29 (토) 10:00',
+    grade: '신입 · 5부',
+    gender: '무관',
+    age: '무관',
+    fieldCount: 0,
+    keeperCount: 0,
+    totalCount: 2,
+    cost: '코트비 N분의 1',
+  ),
+  _RecruitingPostPreview(
+    id: 'preview-recruiting-futsal-closed-1',
+    sport: 'futsal',
+    clubName: '리얼 FS 신규회원 모집중',
+    title: '평일 야간 풋살 게스트 모집',
+    region: '광주',
+    place: '첨단 풋살파크',
+    schedule: '6/19 (수) 21:00',
+    grade: '입문 · 초급',
+    gender: '남성',
+    age: '30대',
+    fieldCount: 0,
+    keeperCount: 0,
+    totalCount: 0,
+    cost: '마감',
+    isClosed: true,
+    closedAt: DateTime(2026, 6, 17, 18),
   ),
 ];
 
@@ -671,6 +828,291 @@ class _SimpleActionCard extends StatelessWidget {
   }
 }
 
+class _TeamRecruitingBoard extends StatelessWidget {
+  final List<_RecruitingPostPreview> posts;
+  final bool showOpenOnly;
+  final bool canManage;
+  final ValueChanged<bool> onShowOpenOnlyChanged;
+  final ValueChanged<_RecruitingPostPreview> onClosePost;
+
+  const _TeamRecruitingBoard({
+    required this.posts,
+    required this.showOpenOnly,
+    required this.canManage,
+    required this.onShowOpenOnlyChanged,
+    required this.onClosePost,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+    final openCount = posts.where((post) => !post.isClosed).length;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(AppSpacing.md),
+      decoration: BoxDecoration(
+        color: cs.surfaceContainerLow,
+        borderRadius: BorderRadius.circular(22),
+        border: Border.all(color: cs.outlineVariant.withValues(alpha: 0.5)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '팀원모집 글',
+            style: tt.titleLarge?.copyWith(
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            showOpenOnly ? '모집중인 글만 보고 있어요.' : '모집중 글과 마감글을 함께 보여줘요.',
+            style: tt.bodySmall?.copyWith(
+              color: cs.onSurfaceVariant,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: FilterChip(
+              selected: showOpenOnly,
+              label: Text('모집중만 $openCount'),
+              onSelected: onShowOpenOnlyChanged,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.md),
+          if (posts.isEmpty)
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(AppSpacing.md),
+              decoration: BoxDecoration(
+                color: cs.surfaceContainerLowest,
+                borderRadius: BorderRadius.circular(18),
+                border: Border.all(color: cs.outlineVariant),
+              ),
+              child: Text(
+                '선택한 관심 종목에 맞는 팀원모집 글이 없습니다.',
+                style: tt.bodyMedium?.copyWith(color: cs.onSurfaceVariant),
+              ),
+            )
+          else
+            for (final post in posts.take(3))
+              Padding(
+                padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                child: _TeamRecruitingPostCard(
+                  post: post,
+                  canManage: canManage,
+                  onClose: () => onClosePost(post),
+                ),
+              ),
+          Text(
+            '마감된 글은 일정 시간이 지나면 목록에서 내려가는 흐름으로 설계했습니다.',
+            style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _TeamRecruitingPostCard extends StatelessWidget {
+  final _RecruitingPostPreview post;
+  final bool canManage;
+  final VoidCallback onClose;
+
+  const _TeamRecruitingPostCard({
+    required this.post,
+    required this.canManage,
+    required this.onClose,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+    final isFutsal = post.sport == 'futsal';
+    final accent = post.isClosed ? cs.outline : cs.primary;
+    final chipColor = post.isClosed
+        ? cs.surfaceContainerHighest
+        : (isFutsal ? const Color(0xFFE6F7C7) : const Color(0xFFE8EEFF));
+
+    return Container(
+      padding: const EdgeInsets.all(AppSpacing.md),
+      decoration: BoxDecoration(
+        color: cs.surfaceContainerLowest,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: cs.outlineVariant.withValues(alpha: 0.75)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 42,
+                    height: 42,
+                    decoration: BoxDecoration(
+                      color: chipColor,
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: Icon(
+                      isFutsal
+                          ? Icons.sports_soccer_rounded
+                          : Icons.sports_tennis_rounded,
+                      color: accent,
+                    ),
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Wrap(
+                          spacing: 6,
+                          runSpacing: 4,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            _RecruitingStatusPill(isClosed: post.isClosed),
+                            Text(
+                              sportLabelFromString(post.sport),
+                              style: tt.labelMedium?.copyWith(
+                                color: cs.onSurfaceVariant,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          post.title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: tt.titleSmall?.copyWith(
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        Text(
+                          post.clubName,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: tt.bodySmall?.copyWith(
+                            color: cs.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              if (canManage && !post.isClosed) ...[
+                const SizedBox(height: AppSpacing.sm),
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton(
+                    onPressed: onClose,
+                    style: OutlinedButton.styleFrom(
+                      visualDensity: VisualDensity.compact,
+                    ),
+                    child: const Text('마감하기'),
+                  ),
+                ),
+              ],
+            ],
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          Wrap(
+            spacing: 6,
+            runSpacing: 6,
+            children: [
+              _MiniInfoChip(icon: Icons.place_rounded, label: post.region),
+              _MiniInfoChip(icon: Icons.schedule_rounded, label: post.schedule),
+              _MiniInfoChip(icon: Icons.stars_rounded, label: post.grade),
+              _MiniInfoChip(icon: Icons.groups_rounded, label: post.countLabel),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            '${post.place} · ${post.gender} · ${post.age} · ${post.cost}',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RecruitingStatusPill extends StatelessWidget {
+  final bool isClosed;
+
+  const _RecruitingStatusPill({required this.isClosed});
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: isClosed ? cs.surfaceContainerHighest : const Color(0xFFE6F7C7),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Text(
+        isClosed ? '마감' : '모집중',
+        style: TextStyle(
+          color: isClosed ? cs.onSurfaceVariant : const Color(0xFF4F8F00),
+          fontSize: 12,
+          fontWeight: FontWeight.w900,
+        ),
+      ),
+    );
+  }
+}
+
+class _MiniInfoChip extends StatelessWidget {
+  final IconData icon;
+  final String label;
+
+  const _MiniInfoChip({
+    required this.icon,
+    required this.label,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+      decoration: BoxDecoration(
+        color: cs.surfaceContainerLow,
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 14, color: cs.primary),
+          const SizedBox(width: 4),
+          Text(
+            label,
+            style: TextStyle(
+              color: cs.onSurface,
+              fontSize: 12,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _TeamRecruitingDraftSheet extends StatefulWidget {
   final List<Club> managedClubs;
 
@@ -684,13 +1126,25 @@ class _TeamRecruitingDraftSheet extends StatefulWidget {
 class _TeamRecruitingDraftSheetState extends State<_TeamRecruitingDraftSheet> {
   static const _genders = ['무관', '여성', '남성', '혼성'];
   static const _ages = ['무관', '20대', '30대', '40대', '50대 이상'];
+  static const _futsalPositions = ['필드·키퍼', '필드', '키퍼'];
+  static const _futsalGrades = ['무관', '입문', '초급', '중급', '고급', '선출'];
+  static const _tennisGrades = ['무관', '신입', '5부', '4부', '3부', '2부', '1부'];
 
   late String _selectedClubId = widget.managedClubs.first.id;
   String _gender = _genders.first;
   String _age = _ages.first;
+  String _position = _futsalPositions.first;
+  String _grade = _futsalGrades.first;
+  int _fieldCount = 4;
+  int _keeperCount = 1;
+  int _tennisCount = 2;
 
   Club get _selectedClub =>
       widget.managedClubs.firstWhere((club) => club.id == _selectedClubId);
+
+  bool get _isFutsal => _selectedClub.sport == 'futsal';
+
+  List<String> get _gradeOptions => _isFutsal ? _futsalGrades : _tennisGrades;
 
   @override
   Widget build(BuildContext context) {
@@ -762,7 +1216,10 @@ class _TeamRecruitingDraftSheetState extends State<_TeamRecruitingDraftSheet> {
                 ],
                 onChanged: (value) {
                   if (value == null) return;
-                  setState(() => _selectedClubId = value);
+                  setState(() {
+                    _selectedClubId = value;
+                    _grade = _gradeOptions.first;
+                  });
                 },
               ),
               const SizedBox(height: AppSpacing.md),
@@ -818,6 +1275,91 @@ class _TeamRecruitingDraftSheetState extends State<_TeamRecruitingDraftSheet> {
                     ),
                   ],
                 ),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              _RecruitingSection(
+                title: _isFutsal ? '풋살 모집 상세' : '테니스 모집 상세',
+                child: _isFutsal
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '포지션',
+                            style: tt.labelLarge?.copyWith(
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          const SizedBox(height: AppSpacing.xs),
+                          Wrap(
+                            spacing: 8,
+                            runSpacing: 8,
+                            children: [
+                              for (final position in _futsalPositions)
+                                ChoiceChip(
+                                  label: Text(position),
+                                  selected: _position == position,
+                                  onSelected: (_) => setState(() {
+                                    _position = position;
+                                  }),
+                                ),
+                            ],
+                          ),
+                          const SizedBox(height: AppSpacing.md),
+                          _GradeSelector(
+                            title: '등급',
+                            options: _gradeOptions,
+                            selected: _grade,
+                            onSelected: (grade) => setState(() {
+                              _grade = grade;
+                            }),
+                          ),
+                          const SizedBox(height: AppSpacing.md),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: _CountStepper(
+                                  label: '필드',
+                                  value: _fieldCount,
+                                  onChanged: (value) => setState(() {
+                                    _fieldCount = value;
+                                  }),
+                                ),
+                              ),
+                              const SizedBox(width: AppSpacing.sm),
+                              Expanded(
+                                child: _CountStepper(
+                                  label: '키퍼',
+                                  value: _keeperCount,
+                                  onChanged: (value) => setState(() {
+                                    _keeperCount = value;
+                                  }),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _GradeSelector(
+                            title: '등급',
+                            options: _gradeOptions,
+                            selected: _grade,
+                            onSelected: (grade) => setState(() {
+                              _grade = grade;
+                            }),
+                          ),
+                          const SizedBox(height: AppSpacing.md),
+                          _CountStepper(
+                            label: '모집 인원',
+                            value: _tennisCount,
+                            onChanged: (value) => setState(() {
+                              _tennisCount = value;
+                            }),
+                          ),
+                        ],
+                      ),
               ),
               const SizedBox(height: AppSpacing.md),
               const _RecruitingSection(
@@ -955,6 +1497,141 @@ class _RecruitingPreviewClub extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _GradeSelector extends StatelessWidget {
+  final String title;
+  final List<String> options;
+  final String selected;
+  final ValueChanged<String> onSelected;
+
+  const _GradeSelector({
+    required this.title,
+    required this.options,
+    required this.selected,
+    required this.onSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final tt = Theme.of(context).textTheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: tt.labelLarge?.copyWith(fontWeight: FontWeight.w900),
+        ),
+        const SizedBox(height: AppSpacing.xs),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            for (final option in options)
+              ChoiceChip(
+                label: Text(option),
+                selected: selected == option,
+                onSelected: (_) => onSelected(option),
+              ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _CountStepper extends StatelessWidget {
+  final String label;
+  final int value;
+  final ValueChanged<int> onChanged;
+
+  const _CountStepper({
+    required this.label,
+    required this.value,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+
+    return Container(
+      padding: const EdgeInsets.all(AppSpacing.sm),
+      decoration: BoxDecoration(
+        color: cs.surfaceContainerLow,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: cs.outlineVariant),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: tt.labelLarge?.copyWith(
+              color: cs.onSurfaceVariant,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Row(
+            children: [
+              _StepperButton(
+                icon: Icons.remove_rounded,
+                onTap: value > 0 ? () => onChanged(value - 1) : null,
+              ),
+              Expanded(
+                child: Center(
+                  child: Text(
+                    '$value명',
+                    style: tt.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ),
+              ),
+              _StepperButton(
+                icon: Icons.add_rounded,
+                onTap: () => onChanged(value + 1),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _StepperButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback? onTap;
+
+  const _StepperButton({
+    required this.icon,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(999),
+      child: Container(
+        width: 34,
+        height: 34,
+        decoration: BoxDecoration(
+          color: onTap == null ? cs.surfaceContainerHighest : cs.primary,
+          shape: BoxShape.circle,
+        ),
+        child: Icon(
+          icon,
+          size: 20,
+          color: onTap == null ? cs.onSurfaceVariant : cs.onPrimary,
+        ),
       ),
     );
   }
