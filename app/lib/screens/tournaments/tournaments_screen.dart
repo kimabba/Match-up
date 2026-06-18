@@ -26,6 +26,7 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
   bool _usingPreviewData = false;
   String? _error;
   _TournamentViewMode _viewMode = _TournamentViewMode.list;
+  bool _showCalendarFilters = false;
   late DateTime _selectedDate;
   late DateTime _focusedMonth;
 
@@ -136,71 +137,20 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
               children: [
                 _ViewModeSegment(
                   selected: _viewMode,
-                  onChanged: (mode) => setState(() => _viewMode = mode),
+                  onChanged: (mode) => setState(() {
+                    _viewMode = mode;
+                    if (mode == _TournamentViewMode.list) {
+                      _showCalendarFilters = false;
+                    }
+                  }),
                 ),
                 const SizedBox(height: AppSpacing.sm),
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: '대회명·주최·설명 검색',
-                    prefixIcon: const Icon(Icons.search_rounded),
-                    filled: true,
-                    fillColor: cs.surface,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14),
-                      borderSide: BorderSide(color: cs.outlineVariant),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14),
-                      borderSide: BorderSide(color: cs.outlineVariant),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: AppSpacing.sm,
-                    ),
-                  ),
-                  onChanged: (v) => _q = v,
-                  onSubmitted: (_) => _search(),
-                ),
+                _buildSearchField(cs),
                 const SizedBox(height: AppSpacing.sm),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      _FilterPill(
-                        label: '전체',
-                        selected: !_onlyMyGrade,
-                        onTap: () {
-                          if (_onlyMyGrade) {
-                            setState(() => _onlyMyGrade = false);
-                            _search();
-                          }
-                        },
-                      ),
-                      const SizedBox(width: AppSpacing.sm),
-                      _FilterPill(
-                        label: '이번주',
-                        selected: false,
-                        onTap: _search,
-                      ),
-                      const SizedBox(width: AppSpacing.sm),
-                      _FilterPill(
-                        label: '내 등급',
-                        selected: _onlyMyGrade,
-                        onTap: () {
-                          setState(() => _onlyMyGrade = !_onlyMyGrade);
-                          _search();
-                        },
-                      ),
-                      const SizedBox(width: AppSpacing.sm),
-                      _FilterPill(label: '지역', selected: false, onTap: _search),
-                      const SizedBox(width: AppSpacing.sm),
-                      IconButton.filledTonal(
-                        onPressed: _search,
-                        icon: const Icon(Icons.search_rounded),
-                        tooltip: '검색',
-                      ),
-                    ],
-                  ),
-                ),
+                if (_viewMode == _TournamentViewMode.list)
+                  _buildFilterChips(cs)
+                else
+                  _buildCalendarFilterControls(cs),
               ],
             ),
           ),
@@ -273,6 +223,143 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildSearchField(ColorScheme cs) {
+    return TextField(
+      decoration: InputDecoration(
+        hintText: '대회명·주최·설명 검색',
+        prefixIcon: const Icon(Icons.search_rounded),
+        filled: true,
+        fillColor: cs.surface,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(color: cs.outlineVariant),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(color: cs.outlineVariant),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: AppSpacing.sm,
+        ),
+      ),
+      onChanged: (v) => _q = v,
+      onSubmitted: (_) => _search(),
+    );
+  }
+
+  Widget _buildFilterChips(ColorScheme cs) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          _FilterPill(
+            label: '전체',
+            selected: !_onlyMyGrade,
+            onTap: () {
+              if (_onlyMyGrade) {
+                setState(() => _onlyMyGrade = false);
+                _search();
+              }
+            },
+          ),
+          const SizedBox(width: AppSpacing.sm),
+          _FilterPill(
+            label: '이번주',
+            selected: false,
+            onTap: _search,
+          ),
+          const SizedBox(width: AppSpacing.sm),
+          _FilterPill(
+            label: '내 등급',
+            selected: _onlyMyGrade,
+            onTap: () {
+              setState(() => _onlyMyGrade = !_onlyMyGrade);
+              _search();
+            },
+          ),
+          const SizedBox(width: AppSpacing.sm),
+          _FilterPill(label: '지역', selected: false, onTap: _search),
+          const SizedBox(width: AppSpacing.sm),
+          IconButton.filledTonal(
+            onPressed: _search,
+            icon: const Icon(Icons.search_rounded),
+            tooltip: '검색',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCalendarFilterControls(ColorScheme cs) {
+    final tt = Theme.of(context).textTheme;
+    final activeFilters = <String>[
+      if (_onlyMyGrade) '내 등급',
+      if (_q.trim().isNotEmpty) '검색어',
+    ];
+    final filterLabel =
+        activeFilters.isEmpty ? '전체 대회 기준' : '${activeFilters.join(' · ')} 적용됨';
+
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.md,
+            vertical: AppSpacing.xs,
+          ),
+          decoration: BoxDecoration(
+            color: cs.surface,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: cs.outlineVariant.withValues(alpha: 0.7)),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                Icons.tune_rounded,
+                size: 19,
+                color: activeFilters.isEmpty ? cs.onSurfaceVariant : cs.primary,
+              ),
+              const SizedBox(width: AppSpacing.xs),
+              Expanded(
+                child: Text(
+                  filterLabel,
+                  style: tt.labelLarge?.copyWith(
+                    color: activeFilters.isEmpty
+                        ? cs.onSurfaceVariant
+                        : cs.primary,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ),
+              TextButton.icon(
+                onPressed: () => setState(
+                  () => _showCalendarFilters = !_showCalendarFilters,
+                ),
+                icon: Icon(
+                  _showCalendarFilters
+                      ? Icons.keyboard_arrow_up_rounded
+                      : Icons.keyboard_arrow_down_rounded,
+                ),
+                label: const Text('필터'),
+              ),
+            ],
+          ),
+        ),
+        AnimatedCrossFade(
+          firstChild: const SizedBox.shrink(),
+          secondChild: Padding(
+            padding: const EdgeInsets.only(top: AppSpacing.sm),
+            child: _buildFilterChips(cs),
+          ),
+          crossFadeState: _showCalendarFilters
+              ? CrossFadeState.showSecond
+              : CrossFadeState.showFirst,
+          duration: const Duration(milliseconds: 180),
+          sizeCurve: Curves.easeOutCubic,
+        ),
+      ],
     );
   }
 }
