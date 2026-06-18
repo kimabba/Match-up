@@ -142,6 +142,15 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
     );
   }
 
+  Future<void> _openNearbyNewClubsSheet(List<Club> clubs) async {
+    await showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      builder: (_) => _NearbyNewClubsSheet(clubs: clubs),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
@@ -150,7 +159,8 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
         .where((club) => _clubInterests.contains(club.sport))
         .where((club) => _matchesClubFilters(club, _clubFilters))
         .toList();
-    final newClubs = _newPreviewClubs(visibleClubs);
+    final nearbyNewClubs = _nearbyRecentClubs(visibleClubs);
+    final newClubs = nearbyNewClubs.take(4).toList();
     final recommendedClubs = _recommendedPreviewClubs(visibleClubs);
     final joinedClubs = (_myClubs ?? _previewManagedClubs)
         .where((club) => club.isMember)
@@ -184,9 +194,9 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _SimpleSectionHeader(
+                      const _SimpleSectionHeader(
                         title: '내 주변에 새로 생겼어요',
-                        action: '더보기',
+                        subtitle: '반경 5km · 최근 7일',
                       ),
                       const SizedBox(height: AppSpacing.sm),
                       if (_loading || _loadingMy)
@@ -200,6 +210,16 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
                       ],
                       const SizedBox(height: AppSpacing.sm),
                       _SimpleClubGrid(clubs: newClubs),
+                      const SizedBox(height: AppSpacing.md),
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton.icon(
+                          onPressed: () =>
+                              _openNearbyNewClubsSheet(nearbyNewClubs),
+                          icon: const Icon(Icons.near_me_rounded),
+                          label: const Text('내 주변 새 클럽 더보기'),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -248,16 +268,6 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
                             ),
                       ),
                     ),
-                    Text(
-                      '가입한 클럽 공개',
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            color:
-                                Theme.of(context).colorScheme.onSurfaceVariant,
-                            fontWeight: FontWeight.w800,
-                          ),
-                    ),
-                    const SizedBox(width: AppSpacing.sm),
-                    Switch(value: true, onChanged: (_) {}),
                   ],
                 ),
                 const SizedBox(height: AppSpacing.sm),
@@ -314,9 +324,9 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
     return '테니스 · 풋살';
   }
 
-  List<Club> _newPreviewClubs(List<Club> source) {
+  List<Club> _nearbyRecentClubs(List<Club> source) {
     final now = DateTime.now();
-    final recent = source.where((club) {
+    return source.where((club) {
       final createdAt = club.createdAt;
       if (createdAt == null) return false;
       return now.difference(createdAt).inDays <= 7;
@@ -326,7 +336,6 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
         final bDate = b.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
         return bDate.compareTo(aDate);
       });
-    return (recent.isEmpty ? source : recent).take(4).toList();
   }
 
   List<Club> _recommendedPreviewClubs(List<Club> source) {
@@ -599,12 +608,10 @@ final _previewSearchClubs = [
 class _SimpleSectionHeader extends StatelessWidget {
   final String title;
   final String? subtitle;
-  final String? action;
 
   const _SimpleSectionHeader({
     required this.title,
     this.subtitle,
-    this.action,
   });
 
   @override
@@ -630,14 +637,6 @@ class _SimpleSectionHeader extends StatelessWidget {
             ],
           ),
         ),
-        if (action != null)
-          Text(
-            action!,
-            style: tt.titleMedium?.copyWith(
-              color: cs.onSurfaceVariant,
-              fontWeight: FontWeight.w900,
-            ),
-          ),
       ],
     );
   }
@@ -685,6 +684,199 @@ class _SimpleClubGrid extends StatelessWidget {
             child: _SimpleClubMiniTile(club: club),
           ),
       ],
+    );
+  }
+}
+
+class _NearbyNewClubsSheet extends StatelessWidget {
+  final List<Club> clubs;
+
+  const _NearbyNewClubsSheet({required this.clubs});
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+
+    return SafeArea(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(
+          AppSpacing.lg,
+          0,
+          AppSpacing.lg,
+          MediaQuery.of(context).viewInsets.bottom + AppSpacing.lg,
+        ),
+        child: SizedBox(
+          height: MediaQuery.sizeOf(context).height * 0.72,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFEAF7F1),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Icon(Icons.near_me_rounded, color: cs.primary),
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '내 주변 새 클럽',
+                          style: tt.titleLarge?.copyWith(
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        Text(
+                          '반경 5km · 최근 7일 안에 생성된 클럽',
+                          style: tt.bodySmall?.copyWith(
+                            color: cs.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppSpacing.md),
+              if (clubs.isEmpty)
+                Expanded(
+                  child: Center(
+                    child: AppEmptyState(
+                      icon: Icons.groups_2_rounded,
+                      title: '새로 생긴 클럽이 없습니다',
+                      description: '관심 조건을 바꾸거나 조금 뒤에 다시 확인해보세요.',
+                    ),
+                  ),
+                )
+              else
+                Expanded(
+                  child: ListView.separated(
+                    itemCount: clubs.length,
+                    separatorBuilder: (_, __) =>
+                        const SizedBox(height: AppSpacing.sm),
+                    itemBuilder: (context, index) {
+                      final club = clubs[index];
+                      return _NearbyNewClubCard(club: club);
+                    },
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _NearbyNewClubCard extends StatelessWidget {
+  final Club club;
+
+  const _NearbyNewClubCard({required this.club});
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+    final createdAt = club.createdAt;
+    final daysAgo =
+        createdAt == null ? null : DateTime.now().difference(createdAt).inDays;
+    final createdLabel = daysAgo == null
+        ? '최근 생성'
+        : daysAgo == 0
+            ? '오늘 생성'
+            : '$daysAgo일 전 생성';
+
+    return Container(
+      padding: const EdgeInsets.all(AppSpacing.md),
+      decoration: BoxDecoration(
+        color: cs.surfaceContainerLowest,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: cs.outlineVariant.withValues(alpha: 0.65)),
+      ),
+      child: Row(
+        children: [
+          _SimpleClubAvatar(club: club, size: 64),
+          const SizedBox(width: AppSpacing.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFE6F7C7),
+                        borderRadius: BorderRadius.circular(999),
+                      ),
+                      child: Text(
+                        'NEW',
+                        style: tt.labelSmall?.copyWith(
+                          color: const Color(0xFF4F8F00),
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.xs),
+                    Text(
+                      createdLabel,
+                      style: tt.labelSmall?.copyWith(
+                        color: cs.onSurfaceVariant,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  club.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: tt.titleMedium?.copyWith(fontWeight: FontWeight.w900),
+                ),
+                const SizedBox(height: 3),
+                Text(
+                  club.description ?? '새로 등록된 클럽입니다.',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+                ),
+                const SizedBox(height: AppSpacing.xs),
+                Wrap(
+                  spacing: 6,
+                  runSpacing: 6,
+                  children: [
+                    _MiniInfoChip(
+                      icon: club.sport == 'futsal'
+                          ? Icons.sports_soccer_rounded
+                          : Icons.sports_tennis_rounded,
+                      label: sportLabelFromString(club.sport),
+                    ),
+                    _MiniInfoChip(
+                      icon: Icons.place_rounded,
+                      label: club.region ?? '지역 미정',
+                    ),
+                    _MiniInfoChip(
+                      icon: Icons.groups_rounded,
+                      label: '멤버 ${club.memberCount}',
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -2652,15 +2844,6 @@ class _JoinedClubSection extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
-              '가입한 클럽 공개',
-              style: tt.labelLarge?.copyWith(
-                color: cs.onSurfaceVariant,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            const SizedBox(width: AppSpacing.sm),
-            Switch(value: true, onChanged: (_) {}),
           ],
         ),
         const SizedBox(height: AppSpacing.sm),
