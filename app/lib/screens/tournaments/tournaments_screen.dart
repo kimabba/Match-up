@@ -26,7 +26,6 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
   bool _usingPreviewData = false;
   String? _error;
   _TournamentViewMode _viewMode = _TournamentViewMode.list;
-  bool _showCalendarFilters = false;
   late DateTime _selectedDate;
   late DateTime _focusedMonth;
 
@@ -137,18 +136,11 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
               children: [
                 _ViewModeSegment(
                   selected: _viewMode,
-                  onChanged: (mode) => setState(() {
-                    _viewMode = mode;
-                    if (mode == _TournamentViewMode.list) {
-                      _showCalendarFilters = false;
-                    }
-                  }),
+                  onChanged: (mode) => setState(() => _viewMode = mode),
                 ),
                 const SizedBox(height: AppSpacing.sm),
-                _buildSearchField(cs),
-                const SizedBox(height: AppSpacing.sm),
                 if (_viewMode == _TournamentViewMode.list)
-                  _buildFilterChips(cs)
+                  _buildQuickFilters(cs)
                 else
                   _buildCalendarFilterControls(cs),
               ],
@@ -226,71 +218,67 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
     );
   }
 
-  Widget _buildSearchField(ColorScheme cs) {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: '대회명·주최·설명 검색',
-        prefixIcon: const Icon(Icons.search_rounded),
-        filled: true,
-        fillColor: cs.surface,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-          borderSide: BorderSide(color: cs.outlineVariant),
+  Widget _buildQuickFilters(ColorScheme cs) {
+    final hasActiveFilters = _onlyMyGrade || _q.trim().isNotEmpty;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _FilterPill(
+              label: '전체',
+              selected: !hasActiveFilters,
+              onTap: () {
+                if (hasActiveFilters) {
+                  setState(() {
+                    _onlyMyGrade = false;
+                    _q = '';
+                  });
+                  _search();
+                }
+              },
+            ),
+            const SizedBox(width: AppSpacing.sm),
+            _FilterPill(
+              label: '이번주',
+              selected: false,
+              onTap: _search,
+            ),
+          ],
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-          borderSide: BorderSide(color: cs.outlineVariant),
+        ActionChip(
+          avatar: Icon(
+            Icons.tune_rounded,
+            size: 18,
+            color: hasActiveFilters ? cs.primary : cs.onSurfaceVariant,
+          ),
+          label: Text(hasActiveFilters ? '필터 적용됨' : '상세검색'),
+          onPressed: () => _openSearchSheet(cs),
+          backgroundColor:
+              hasActiveFilters ? cs.primaryContainer : cs.surfaceContainerHigh,
         ),
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: AppSpacing.sm,
-        ),
-      ),
-      onChanged: (v) => _q = v,
-      onSubmitted: (_) => _search(),
+      ],
     );
   }
 
-  Widget _buildFilterChips(ColorScheme cs) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          _FilterPill(
-            label: '전체',
-            selected: !_onlyMyGrade,
-            onTap: () {
-              if (_onlyMyGrade) {
-                setState(() => _onlyMyGrade = false);
-                _search();
-              }
-            },
-          ),
-          const SizedBox(width: AppSpacing.sm),
-          _FilterPill(
-            label: '이번주',
-            selected: false,
-            onTap: _search,
-          ),
-          const SizedBox(width: AppSpacing.sm),
-          _FilterPill(
-            label: '내 등급',
-            selected: _onlyMyGrade,
-            onTap: () {
-              setState(() => _onlyMyGrade = !_onlyMyGrade);
-              _search();
-            },
-          ),
-          const SizedBox(width: AppSpacing.sm),
-          _FilterPill(label: '지역', selected: false, onTap: _search),
-          const SizedBox(width: AppSpacing.sm),
-          IconButton.filledTonal(
-            onPressed: _search,
-            icon: const Icon(Icons.search_rounded),
-            tooltip: '검색',
-          ),
-        ],
+  Future<void> _openSearchSheet(ColorScheme cs) async {
+    final result = await showModalBottomSheet<_SearchFilterResult>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      builder: (_) => _SearchFilterSheet(
+        initialQuery: _q,
+        initialOnlyMyGrade: _onlyMyGrade,
       ),
     );
+    if (result != null && mounted) {
+      setState(() {
+        _q = result.query;
+        _onlyMyGrade = result.onlyMyGrade;
+      });
+      _search();
+    }
   }
 
   Widget _buildCalendarFilterControls(ColorScheme cs) {
@@ -334,30 +322,12 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
                 ),
               ),
               TextButton.icon(
-                onPressed: () => setState(
-                  () => _showCalendarFilters = !_showCalendarFilters,
-                ),
-                icon: Icon(
-                  _showCalendarFilters
-                      ? Icons.keyboard_arrow_up_rounded
-                      : Icons.keyboard_arrow_down_rounded,
-                ),
-                label: const Text('필터'),
+                onPressed: () => _openSearchSheet(cs),
+                icon: const Icon(Icons.tune_rounded, size: 18),
+                label: const Text('상세검색'),
               ),
             ],
           ),
-        ),
-        AnimatedCrossFade(
-          firstChild: const SizedBox.shrink(),
-          secondChild: Padding(
-            padding: const EdgeInsets.only(top: AppSpacing.sm),
-            child: _buildFilterChips(cs),
-          ),
-          crossFadeState: _showCalendarFilters
-              ? CrossFadeState.showSecond
-              : CrossFadeState.showFirst,
-          duration: const Duration(milliseconds: 180),
-          sizeCurve: Curves.easeOutCubic,
         ),
       ],
     );
@@ -1302,18 +1272,9 @@ class _MyGradeSection extends ConsumerWidget {
             ),
             child: Row(
               children: [
-                Expanded(
-                  child: Text(
-                    '내 등급 추천 대회',
-                    style: tt.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ),
                 Text(
-                  '맞춤 추천',
-                  style: tt.labelSmall?.copyWith(
-                    color: cs.primary,
+                  '내 등급 추천 대회',
+                  style: tt.titleMedium?.copyWith(
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -1366,6 +1327,141 @@ class _MyGradeSection extends ConsumerWidget {
           ),
           Divider(color: cs.outlineVariant, height: 1),
         ],
+      ),
+    );
+  }
+}
+
+// ─── 상세검색 바텀시트 ─────────────────────────────────────────────────────────
+
+class _SearchFilterResult {
+  final String query;
+  final bool onlyMyGrade;
+  const _SearchFilterResult({required this.query, required this.onlyMyGrade});
+}
+
+class _SearchFilterSheet extends StatefulWidget {
+  final String initialQuery;
+  final bool initialOnlyMyGrade;
+
+  const _SearchFilterSheet({
+    required this.initialQuery,
+    required this.initialOnlyMyGrade,
+  });
+
+  @override
+  State<_SearchFilterSheet> createState() => _SearchFilterSheetState();
+}
+
+class _SearchFilterSheetState extends State<_SearchFilterSheet> {
+  late final TextEditingController _queryCtrl;
+  late bool _onlyMyGrade;
+
+  @override
+  void initState() {
+    super.initState();
+    _queryCtrl = TextEditingController(text: widget.initialQuery);
+    _onlyMyGrade = widget.initialOnlyMyGrade;
+  }
+
+  @override
+  void dispose() {
+    _queryCtrl.dispose();
+    super.dispose();
+  }
+
+  void _apply() {
+    Navigator.of(context).pop(
+      _SearchFilterResult(
+        query: _queryCtrl.text.trim(),
+        onlyMyGrade: _onlyMyGrade,
+      ),
+    );
+  }
+
+  void _reset() {
+    setState(() {
+      _queryCtrl.clear();
+      _onlyMyGrade = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+
+    return SafeArea(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(
+          AppSpacing.lg,
+          0,
+          AppSpacing.lg,
+          MediaQuery.of(context).viewInsets.bottom + AppSpacing.lg,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '상세검색',
+              style: tt.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            TextField(
+              controller: _queryCtrl,
+              autofocus: true,
+              decoration: InputDecoration(
+                hintText: '대회명·주최·설명 검색',
+                prefixIcon: const Icon(Icons.search_rounded),
+                filled: true,
+                fillColor: cs.surface,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14),
+                  borderSide: BorderSide(color: cs.outlineVariant),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14),
+                  borderSide: BorderSide(color: cs.outlineVariant),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: AppSpacing.sm,
+                ),
+              ),
+              onSubmitted: (_) => _apply(),
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            SwitchListTile(
+              title: Text(
+                '내 등급만 보기',
+                style: tt.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
+              ),
+              subtitle: const Text('내 등급 이하 대회만 표시'),
+              value: _onlyMyGrade,
+              onChanged: (v) => setState(() => _onlyMyGrade = v),
+              contentPadding: EdgeInsets.zero,
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: _reset,
+                    child: const Text('초기화'),
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.md),
+                Expanded(
+                  flex: 2,
+                  child: FilledButton(
+                    onPressed: _apply,
+                    child: const Text('검색'),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
