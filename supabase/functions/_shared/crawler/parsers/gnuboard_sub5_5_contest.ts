@@ -175,8 +175,52 @@ async function fetchDetail(
   }
   const bodyText = (dom.querySelector('body')?.textContent ?? '').replace(/\s+/g, ' ').trim();
 
-  // 대회일 추출: 가장 먼저 등장하는 유효 날짜를 start_date 로 사용
-  const startDate = extractDate(bodyText) ?? extractDate(title);
+  // ── 테이블 기반 날짜 추출 (신청기간 / 경기일시 컬럼 구분) ──
+  // 테이블 헤더: 참가부서 | 신청기간 | 경기일시 | ...
+  let tableStartDate: string | null = null;
+  let tableDeadline: string | null = null;
+  const thList = dom.querySelectorAll('th');
+  let matchDateColIdx = -1;
+  let deadlineColIdx = -1;
+  for (let i = 0; i < thList.length; i++) {
+    const th = thList[i] as unknown as { textContent: string };
+    const t = (th.textContent ?? '').replace(/\s+/g, '').trim();
+    if (t.includes('경기일시') || t.includes('대회일')) matchDateColIdx = i;
+    if (t.includes('신청기간') || t.includes('접수기간')) deadlineColIdx = i;
+  }
+
+  if (matchDateColIdx >= 0 || deadlineColIdx >= 0) {
+    // 첫 번째 데이터 행의 td 목록에서 추출
+    const rows = dom.querySelectorAll('tr');
+    for (let r = 1; r < rows.length; r++) {
+      const row = rows[r] as unknown as { querySelectorAll(s: string): ArrayLike<unknown> };
+      const tds = row.querySelectorAll('td');
+      if (tds.length <= Math.max(matchDateColIdx, deadlineColIdx)) continue;
+
+      if (matchDateColIdx >= 0 && !tableStartDate) {
+        const cellText = ((tds[matchDateColIdx] as unknown as { textContent: string }).textContent ?? '').trim();
+        tableStartDate = extractDate(cellText);
+      }
+      if (deadlineColIdx >= 0 && !tableDeadline) {
+        const cellText = ((tds[deadlineColIdx] as unknown as { textContent: string }).textContent ?? '').trim();
+        // 신청기간: "2026년 6월 22일 ~ 2026년 7월 01일 18시 까지" → 마지막 날짜가 마감일
+        const allDates: string[] = [];
+        const dateRegex = /(\d{4})\s*년\s*(\d{1,2})\s*월\s*(\d{1,2})\s*일/g;
+        let dm;
+        while ((dm = dateRegex.exec(cellText)) !== null) {
+          const yi = Number(dm[1]), mi = Number(dm[2]), di = Number(dm[3]);
+          if (yi >= 2024 && yi <= 2030 && mi >= 1 && mi <= 12 && di >= 1 && di <= 31) {
+            allDates.push(`${dm[1]}-${String(mi).padStart(2, '0')}-${String(di).padStart(2, '0')}`);
+          }
+        }
+        if (allDates.length > 0) tableDeadline = allDates[allDates.length - 1];
+      }
+      if (tableStartDate) break; // 첫 행에서 찾으면 충분
+    }
+  }
+
+  // 테이블 파싱 실패 시 기존 fallback
+  const startDate = tableStartDate ?? extractDate(bodyText) ?? extractDate(title);
   if (!startDate) return { rawHtml: html, tournament: null };
 
   const { codes: gradeCodes, label: divisionLabel } = extractGJDivisions(
@@ -184,7 +228,7 @@ async function fetchDetail(
     org,
   );
 
-  const deadline = extractApplicationDeadline(bodyText) ?? undefined;
+  const deadline = tableDeadline ?? extractApplicationDeadline(bodyText) ?? undefined;
 
   // description: 메타데이터 헤더 + 원문 본문 (보일러플레이트 제거)
   const descParts: string[] = [];
