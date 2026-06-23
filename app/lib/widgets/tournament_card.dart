@@ -12,6 +12,7 @@ class TournamentCard extends StatelessWidget {
     super.key,
     required this.tournament,
     this.isFavorite = false,
+    this.isMyGrade = false,
     this.onTap,
     this.onFavoriteToggle,
     this.compact = false,
@@ -19,6 +20,7 @@ class TournamentCard extends StatelessWidget {
 
   final Tournament tournament;
   final bool isFavorite;
+  final bool isMyGrade;
   final VoidCallback? onTap;
   final VoidCallback? onFavoriteToggle;
   final bool compact;
@@ -57,6 +59,14 @@ class TournamentCard extends StatelessWidget {
                   foreground: status.foreground,
                   background: status.background,
                 ),
+                if (isMyGrade) ...[
+                  const SizedBox(width: AppSpacing.xs),
+                  _StatusChip(
+                    label: '내 등급',
+                    foreground: cs.primary,
+                    background: cs.primaryContainer,
+                  ),
+                ],
                 if (_deadlineText().isNotEmpty) ...[
                   const SizedBox(width: AppSpacing.sm),
                   Text(

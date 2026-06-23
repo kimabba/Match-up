@@ -109,6 +109,8 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
     ref.listen(activeSportProvider, (_, __) => _search());
     final cs = Theme.of(context).colorScheme;
     final favorites = ref.watch(favoriteIdsProvider);
+    final myGradeIds = ref.watch(homeTournamentsProvider).valueOrNull
+        ?.map((t) => t.id).toSet() ?? const <String>{};
 
     return Scaffold(
       appBar: AppBar(
@@ -123,7 +125,6 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
       ),
       body: Column(
         children: [
-          const _MyGradeSection(),
           Container(
             color: cs.surfaceContainerLow,
             padding: const EdgeInsets.fromLTRB(
@@ -164,6 +165,7 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
                                 tournaments: _results!,
                                 favoriteIds:
                                     favorites.valueOrNull ?? const <String>{},
+                                myGradeIds: myGradeIds,
                                 onTap: (tournament) => context
                                     .push('/tournaments/${tournament.id}'),
                                 onFavoriteToggle:
@@ -450,12 +452,14 @@ class _ViewModeButton extends StatelessWidget {
 class _TournamentListView extends StatelessWidget {
   final List<Tournament> tournaments;
   final Set<String> favoriteIds;
+  final Set<String> myGradeIds;
   final ValueChanged<Tournament> onTap;
   final void Function(Tournament tournament, bool isFavorite) onFavoriteToggle;
 
   const _TournamentListView({
     required this.tournaments,
     required this.favoriteIds,
+    this.myGradeIds = const {},
     required this.onTap,
     required this.onFavoriteToggle,
   });
@@ -474,6 +478,7 @@ class _TournamentListView extends StatelessWidget {
         return TournamentCard(
           tournament: tournament,
           isFavorite: isFavorite,
+          isMyGrade: myGradeIds.contains(tournament.id),
           onTap: () => onTap(tournament),
           onFavoriteToggle: () => onFavoriteToggle(tournament, isFavorite),
         );
@@ -1243,90 +1248,6 @@ class _FilterPill extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _MyGradeSection extends ConsumerWidget {
-  const _MyGradeSection();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final tournaments = ref.watch(homeTournamentsProvider);
-    final favorites = ref.watch(favoriteIdsProvider);
-    final cs = Theme.of(context).colorScheme;
-    final tt = Theme.of(context).textTheme;
-
-    return ColoredBox(
-      color: cs.surfaceContainerLow,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(
-              AppSpacing.lg,
-              AppSpacing.lg,
-              AppSpacing.lg,
-              AppSpacing.sm,
-            ),
-            child: Row(
-              children: [
-                Text(
-                  '내 등급 추천 대회',
-                  style: tt.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          tournaments.when(
-            loading: () => const Padding(
-              padding: EdgeInsets.all(AppSpacing.lg),
-              child: CircularProgressIndicator(),
-            ),
-            error: (e, _) => const SizedBox.shrink(),
-            data: (list) {
-              if (list.isEmpty) return const SizedBox.shrink();
-              final favs = favorites.valueOrNull ?? const <String>{};
-              return SizedBox(
-                height: 150,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.lg,
-                  ),
-                  itemCount: list.length,
-                  separatorBuilder: (_, __) =>
-                      const SizedBox(width: AppSpacing.sm),
-                  itemBuilder: (context, i) {
-                    final tournament = list[i];
-                    return SizedBox(
-                      width: 260,
-                      child: TournamentCard(
-                        tournament: tournament,
-                        compact: true,
-                        isFavorite: favs.contains(tournament.id),
-                        onTap: () =>
-                            context.push('/tournaments/${tournament.id}'),
-                        onFavoriteToggle: () async {
-                          final api = ref.read(apiProvider);
-                          await api.toggleFavorite(
-                            tournament.id,
-                            !favs.contains(tournament.id),
-                          );
-                          ref.invalidate(favoriteIdsProvider);
-                        },
-                      ),
-                    );
-                  },
-                ),
-              );
-            },
-          ),
-          Divider(color: cs.outlineVariant, height: 1),
-        ],
       ),
     );
   }
