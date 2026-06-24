@@ -468,6 +468,11 @@ function pushNote(raw: string, notes: string[], seen: Set<string>): void {
   const note = raw.replace(/^※\s*/, '').replace(/\s+/g, ' ').trim();
   if (!note) return; // 빈 조각 제외
   if (note.length > 300) return; // 표/상금 run-on 잔해 차단
+  // 섹션 제목이 ※ 로 시작해 노트로 잡히는 경우 제외.
+  // (예: "제한사항", "대회운영에 관한 사항", "랭킹규정에 관한 사항")
+  // — 짧은 명사구이며 헤더 어미(사항/규정)로 끝남. 길이 가드로 본문 포함
+  //   노트("대회운영에 관한 사항 사무장 …", "… 운영 기금 팀당 6,000원")는 보존.
+  if (note.length <= 20 && /(?:사항|규정)$/.test(note)) return;
   if (seen.has(note)) return; // 중복 제거
   seen.add(note);
   notes.push(note);
