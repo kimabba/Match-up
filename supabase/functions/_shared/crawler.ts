@@ -16,6 +16,8 @@ export interface CrawlerTournament {
   entry_fee?: number;
   prize?: string;
   format?: string;
+  regulation_fields?: Array<{ label: string; value: string }>;
+  regulation_notes?: string[];
   source_url: string;
 }
 
@@ -160,6 +162,10 @@ export async function upsertTournament(
         entry_fee: t.entry_fee ?? null,
         prize: t.prize ?? null,
         format: t.format ?? null,
+        // 요강 정형 필드는 신규 컬럼이라 manual_description 보존 대상이 아니다.
+        // 매 크롤마다 원본 표에서 다시 추출하므로 항상 갱신한다.
+        regulation_fields: t.regulation_fields ?? null,
+        regulation_notes: t.regulation_notes ?? null,
       })
       .eq('id', existing.id);
     if (error) throw new Error(`upsertTournament update: ${error.message}`);
@@ -186,6 +192,8 @@ export async function upsertTournament(
       entry_fee: t.entry_fee ?? null,
       prize: t.prize ?? null,
       format: t.format ?? null,
+      regulation_fields: t.regulation_fields ?? null,
+      regulation_notes: t.regulation_notes ?? null,
       source: audit.source,
       source_url: t.source_url,
       status: 'draft',
@@ -341,6 +349,185 @@ export function extractVenue(text: string): string | null {
   if (bare) return bare[1].trim();
 
   return null;
+}
+
+// =============================================================================
+// 대회 요강 정형화 추출
+//
+// 협회 공고 원본은 MS-Word 내보내기 <table> 구조다. 라벨셀 + 값셀 행:
+//   <tr><td><p><span>장 소</span></p></td>
+//       <td colspan="2"><p><span>영암종합스포츠타운테니스장 …</span></p></td></tr>
+// 이를 description 평문이 아니라 표에서 직접 구조화 추출해
+// regulation_fields(순서 보존)/regulation_notes 로 저장한다.
+//
+// 타입 안전: deno-dom 노드를 any 로 받지 않고, 실제 사용하는 멤버만 가진
+// 최소 구조 인터페이스(DomElementLike)로 좁혀서 다룬다.
+// =============================================================================
+
+/** 요강 라벨 화이트리스트 — 공백 정규화 후 기준값. */
+const REGULATION_LABELS: ReadonlySet<string> = new Set([
+  '장소',
+  '주최',
+  '주관',
+  '후원',
+  '협찬',
+  '시상',
+  '사용구',
+  '경기방식',
+  '진행방식',
+  '참가자격',
+  // '경기종목' 제외: 실원본에서 정의형 라벨이 아니라 "경기종목|경기일자|참가비"
+  // 컬럼 헤더 행으로 등장해 잘못된 값("경기일자")을 캡처함. sport 필드로 이미 정형화됨.
+]);
+
+/**
+ * deno-dom 노드에서 실제로 쓰는 멤버만 좁힌 최소 구조.
+ *
+ * deno-dom 의 querySelectorAll 은 NodeList<Element> 를 돌려주는데 인덱스 타입이
+ * Node 로 느슨해 querySelectorAll 멤버를 보장하지 못한다. 그래서 문서/요소 자체는
+ * querySelectorAll 만 요구하고, 거기서 나온 각 노드는 unknown 경계를 거쳐
+ * 함수 내부에서 좁혀 사용한다. (프로젝트 규칙: 외부 DOM 노드는 좁혀서 사용)
+ */
+interface QueryableNode {
+  querySelectorAll(selectors: string): ArrayLike<unknown>;
+}
+
+/** unknown DOM 노드가 textContent 를 가졌는지 좁히는 가드. */
+function asTextNode(node: unknown): { textContent: string | null } | null {
+  if (typeof node === 'object' && node !== null && 'textContent' in node) {
+    return node as { textContent: string | null };
+  }
+  return null;
+}
+
+/** unknown DOM 노드가 querySelectorAll 을 가졌는지 좁히는 가드. */
+function asQueryableNode(node: unknown): QueryableNode | null {
+  if (
+    typeof node === 'object' && node !== null && 'querySelectorAll' in node &&
+    typeof (node as { querySelectorAll: unknown }).querySelectorAll === 'function'
+  ) {
+    return node as QueryableNode;
+  }
+  return null;
+}
+
+/** 라벨 매칭용: 내부 공백을 모두 제거. ("장 소" → "장소") */
+function normalizeLabel(raw: string): string {
+  return raw.replace(/\s+/g, '');
+}
+
+/** 값 셀용: 줄바꿈/연속 공백을 단일 공백으로 접고 트림. (내부 공백은 보존) */
+function normalizeValue(raw: string): string {
+  return raw.replace(/\s+/g, ' ').trim();
+}
+
+/**
+ * DOM <table> 의 각 <tr> 를 순회하며, 첫 셀 텍스트를 공백제거 정규화한 라벨이
+ * 화이트리스트에 있으면 인접한(두 번째) 셀 텍스트를 value 로 push.
+ *
+ * 규칙:
+ *   - 원본 표 순서 보존 (querySelectorAll 의 문서 순서를 그대로 따른다).
+ *   - 라벨 내부 공백 정규화 ("장 소" → "장소").
+ *   - 값이 비어 있으면(빈 셀) skip.
+ *   - 같은 라벨이 두 번 나오면 첫 번째만 채택(중복 무시) — 컬럼 헤더 행 등에서
+ *     같은 라벨이 재등장해 덮어쓰는 것을 방지.
+ *
+ * 주의(구현상 한계):
+ *   협회 표에는 "경기종목 | 경기일자 | 참가비 입금계좌" 처럼 라벨 화이트리스트
+ *   단어가 컬럼 헤더로 쓰이는 행도 있다. 이 경우 두 번째 셀("경기일자")이
+ *   값으로 들어가 의미가 어긋날 수 있다. 화이트리스트는 라벨:값 정의형 행을
+ *   가정하므로, 검수(status='draft')에서 이런 헤더성 값은 걸러진다.
+ */
+export function extractRegulationFields(
+  doc: QueryableNode,
+): Array<{ label: string; value: string }> {
+  const out: Array<{ label: string; value: string }> = [];
+  const seen = new Set<string>();
+  const rows = doc.querySelectorAll('tr');
+  for (let r = 0; r < rows.length; r++) {
+    const row = asQueryableNode(rows[r]);
+    if (!row) continue;
+    const cells = row.querySelectorAll('td');
+    if (cells.length < 2) continue;
+    const labelCell = asTextNode(cells[0]);
+    const valueCell = asTextNode(cells[1]);
+    if (!labelCell || !valueCell) continue;
+    const label = normalizeLabel(labelCell.textContent ?? '');
+    if (!REGULATION_LABELS.has(label)) continue;
+    if (seen.has(label)) continue;
+    const value = normalizeValue(valueCell.textContent ?? '');
+    if (!value) continue; // 빈 값 셀 제외
+    seen.add(label);
+    out.push({ label, value });
+  }
+  return out;
+}
+
+/** 노트 1건 정규화·검증 후 (중복 아니면) 수집기에 push. */
+function pushNote(raw: string, notes: string[], seen: Set<string>): void {
+  const note = raw.replace(/^※\s*/, '').replace(/\s+/g, ' ').trim();
+  if (!note) return; // 빈 조각 제외
+  if (note.length > 300) return; // 표/상금 run-on 잔해 차단
+  if (seen.has(note)) return; // 중복 제거
+  seen.add(note);
+  notes.push(note);
+}
+
+/**
+ * bodyText 평문에서 "※" 안내문을 추출하는 폴백 구현.
+ *
+ * 한계: 표가 평문화되면 한 ※ 조각이 다음 ※ 까지의 표 텍스트를 통째로 삼켜
+ * "우천 시 …장 소영암…주 최…" 같은 run-on 오염이 생긴다. 따라서 이 구현은
+ * <p> 요소 경계를 못 쓰는 비-테이블 crawl source 용 폴백으로만 쓴다.
+ */
+function extractRegulationNotesFromText(bodyText: string): string[] {
+  if (!bodyText.includes('※')) return [];
+  const notes: string[] = [];
+  const seen = new Set<string>();
+  const parts = bodyText.split('※');
+  // 첫 조각(parts[0])은 ※ 이전 서두이므로 건너뛴다.
+  for (let i = 1; i < parts.length; i++) {
+    pushNote(parts[i], notes, seen);
+  }
+  return notes;
+}
+
+/**
+ * DOM 에서 "※" 안내문을 요소 경계 기준으로 추출.
+ *
+ * 원본은 MS-Word export 라 각 ※ 안내문이 독립된 <p> 요소다:
+ *   <p><span>※ </span><span>우천 시 … 추후 안내</span></p>
+ * 따라서 <p> 단위로 textContent 를 보면 요소 경계가 곧 노트 경계라, bodyText
+ * 평문 split 에서 발생하던 표/상금표 run-on 오염이 원천적으로 없다.
+ *
+ * 규칙:
+ *   - 각 <p> 의 textContent 를 트림 → "※" 로 시작하면 노트로 채택.
+ *   - 한 <p> 안에 ※ 가 여러 개면 "※" 로 분할해 각각 push(드묾, 안전장치).
+ *   - 선행 "※"/공백 제거·트림, dedupe, 빈/300자 초과 제외.
+ *   - 폴백: <p> 에서 노트를 하나도 못 찾으면(비-테이블 source 등) doc 전체
+ *     textContent 를 평문 split 하는 기존 로직으로 폴백.
+ */
+export function extractRegulationNotes(doc: QueryableNode): string[] {
+  const notes: string[] = [];
+  const seen = new Set<string>();
+  const paragraphs = doc.querySelectorAll('p');
+  for (let i = 0; i < paragraphs.length; i++) {
+    const p = asTextNode(paragraphs[i]);
+    if (!p) continue;
+    const text = (p.textContent ?? '').replace(/\s+/g, ' ').trim();
+    if (!text.startsWith('※')) continue;
+    // 한 <p> 에 ※ 가 여러 개일 수 있으니 분할(첫 조각은 ※ 이전 = 빈 문자열).
+    const segments = text.split('※');
+    for (let s = 1; s < segments.length; s++) {
+      pushNote(segments[s], notes, seen);
+    }
+  }
+  if (notes.length > 0) return notes;
+
+  // 폴백: <p> 기반으로 못 찾은 경우 doc 전체 평문에서 ※ split.
+  const root = asTextNode(doc);
+  const bodyText = (root?.textContent ?? '').replace(/\s+/g, ' ').trim();
+  return extractRegulationNotesFromText(bodyText);
 }
 
 /**

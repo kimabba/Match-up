@@ -8,7 +8,14 @@
 //   - 본 테스트는 한국어 매칭 우선 + 연도 sanity 검증 동작을 고정한다.
 
 import { assert, assertEquals } from 'std/assert/mod.ts';
-import { extractApplicationDeadline, extractDate, extractVenue } from '../_shared/crawler.ts';
+import { DOMParser } from 'deno-dom';
+import {
+  extractApplicationDeadline,
+  extractDate,
+  extractRegulationFields,
+  extractRegulationNotes,
+  extractVenue,
+} from '../_shared/crawler.ts';
 
 Deno.test('extractDate parses Korean format first', () => {
   const text = '경기일시 : 2026년 4월 5일(일) 09시~ ...';
@@ -80,4 +87,150 @@ Deno.test('extractVenue prefers labeled location', () => {
 
 Deno.test('extractVenue returns null when no facility name', () => {
   assertEquals(extractVenue('참가비 입금 안내 function accounting_price_ser()'), null);
+});
+
+// =============================================================================
+// 대회 요강 정형화 — extractRegulationFields / extractRegulationNotes
+//
+// 협회 공고 원본은 MS-Word 내보내기 <table> 구조다. 라벨셀 + 값셀 행을 직접
+// 구조화해 regulation_fields 로, ※ 안내문을 regulation_notes 로 추출한다.
+// 큰 원본 HTML 은 커밋하지 않고, 라벨표 몇 행 + ※ 안내문을 담은 작은 인라인
+// fixture 로 동작을 고정한다.
+// =============================================================================
+
+// 실제 원본 구조 모사: 라벨 내부 공백("장 소"), colspan 값셀,
+// 화이트리스트 밖 라벨("입금계좌"), 빈 값 셀, ※ 안내문 포함.
+const REGULATION_FIXTURE = `
+<html><body>
+<table>
+  <tr>
+    <td><p><span>장 소</span></p></td>
+    <td colspan="2"><p><span>영암종합스포츠타운테니스장 외 보조경기장</span></p></td>
+  </tr>
+  <tr>
+    <td><p><span>주 최</span></p></td>
+    <td colspan="2"><p><span>영암군 체육회</span></p></td>
+  </tr>
+  <tr>
+    <td><p><span>사 용 구</span></p></td>
+    <td colspan="2"><p><span>헤드 챔피언십 테니스 볼 (생활체육 공식사용구)</span></p></td>
+  </tr>
+  <tr>
+    <td><p><span>입금계좌</span></p></td>
+    <td colspan="2"><p><span>국민은행 784902-01-022035</span></p></td>
+  </tr>
+  <tr>
+    <td><p><span>협 찬</span></p></td>
+    <td colspan="2"><p><span></span></p></td>
+  </tr>
+</table>
+<p>※ 참가비로 스포츠공제보험에 가입합니다.</p>
+<p>※ 우천 시 일정이 변경될 수 있습니다.</p>
+</body></html>
+`;
+
+function parseFixture(html: string) {
+  const dom = new DOMParser().parseFromString(html, 'text/html');
+  if (!dom) throw new Error('fixture parse failed');
+  return dom;
+}
+
+Deno.test('extractRegulationFields returns whitelisted label:value in table order', () => {
+  const dom = parseFixture(REGULATION_FIXTURE);
+  const fields = extractRegulationFields(dom);
+  assertEquals(fields, [
+    { label: '장소', value: '영암종합스포츠타운테니스장 외 보조경기장' },
+    { label: '주최', value: '영암군 체육회' },
+    { label: '사용구', value: '헤드 챔피언십 테니스 볼 (생활체육 공식사용구)' },
+  ]);
+});
+
+Deno.test('extractRegulationFields normalizes label inner whitespace ("장 소" → "장소")', () => {
+  const dom = parseFixture(REGULATION_FIXTURE);
+  const fields = extractRegulationFields(dom);
+  assert(fields.some((f) => f.label === '장소'), 'expected normalized 장소 label');
+  // 공백 섞인 원본 라벨이 그대로 남지 않아야 함
+  assert(!fields.some((f) => f.label.includes(' ')), 'label must not contain spaces');
+});
+
+Deno.test('extractRegulationFields excludes non-whitelisted labels (입금계좌)', () => {
+  const dom = parseFixture(REGULATION_FIXTURE);
+  const fields = extractRegulationFields(dom);
+  assert(!fields.some((f) => f.label === '입금계좌'), '입금계좌 must be excluded');
+});
+
+Deno.test('extractRegulationFields skips empty value cell (협찬)', () => {
+  const dom = parseFixture(REGULATION_FIXTURE);
+  const fields = extractRegulationFields(dom);
+  // 협 찬 은 화이트리스트지만 값이 비어 있어 제외돼야 함
+  assert(!fields.some((f) => f.label === '협찬'), 'empty-value 협찬 must be skipped');
+});
+
+Deno.test('extractRegulationFields dedupes repeated label (first wins)', () => {
+  const dom = parseFixture(`
+    <table>
+      <tr><td><span>주 최</span></td><td><span>첫번째 주최</span></td></tr>
+      <tr><td><span>주 최</span></td><td><span>두번째 주최</span></td></tr>
+    </table>
+  `);
+  const fields = extractRegulationFields(dom);
+  assertEquals(fields, [{ label: '주최', value: '첫번째 주최' }]);
+});
+
+// 실원본 모사: 각 ※ 안내문이 독립 <p> 요소. 표 행과 ※ <p> 가 섞여 있어도
+// <p> 경계 기준 추출이라 표 텍스트("장 소"/"영암장")가 노트에 섞이면 안 된다.
+const NOTES_FIXTURE = `
+<html><body>
+<table>
+  <tr><td><p>※ 우천 시 일정은 추후 안내</p></td></tr>
+  <tr><td><p>장 소</p></td><td><p>영암장</p></td></tr>
+  <tr><td><p>주 최</p></td><td><p>영암군 체육회</p></td></tr>
+</table>
+<p>※ 참가비로 스포츠공제보험에 가입합니다.</p>
+<p>일반 안내 문장 (※ 아님)</p>
+<p>※ 참가비로 스포츠공제보험에 가입합니다.</p>
+</body></html>
+`;
+
+Deno.test('extractRegulationNotes extracts per <p>, no table contamination', () => {
+  const dom = parseFixture(NOTES_FIXTURE);
+  const notes = extractRegulationNotes(dom);
+  // ※ 마커 제거 + dedupe(같은 문장 2회 → 1회).
+  assertEquals(notes, [
+    '우천 시 일정은 추후 안내',
+    '참가비로 스포츠공제보험에 가입합니다.',
+  ]);
+  // 표 값이 어느 노트에도 섞이지 않아야 함 (run-on 오염 방지 핵심).
+  for (const note of notes) {
+    assert(!note.includes('장 소'), `note leaked table label: ${note}`);
+    assert(!note.includes('영암장'), `note leaked table value: ${note}`);
+    assert(!note.includes('주 최'), `note leaked table label: ${note}`);
+  }
+});
+
+Deno.test('extractRegulationNotes returns [] when no ※ paragraph', () => {
+  const dom = parseFixture(
+    '<html><body><p>마커 없는 안내</p><table><tr><td>장 소</td><td>영암장</td></tr></table></body></html>',
+  );
+  assertEquals(extractRegulationNotes(dom), []);
+});
+
+Deno.test('extractRegulationNotes splits multiple ※ within one <p>', () => {
+  const dom = parseFixture('<html><body><p>※ 첫 안내 ※ 둘째 안내</p></body></html>');
+  assertEquals(extractRegulationNotes(dom), ['첫 안내', '둘째 안내']);
+});
+
+Deno.test('extractRegulationNotes filters overly long fragments (>300 chars)', () => {
+  const long = 'x'.repeat(350);
+  const dom = parseFixture(`<html><body><p>※ 짧은 안내</p><p>※ ${long}</p></body></html>`);
+  assertEquals(extractRegulationNotes(dom), ['짧은 안내']);
+});
+
+Deno.test('extractRegulationNotes falls back to text split when no <p> notes', () => {
+  // <p> 가 없고 노트가 div 등 평문 안에 있는 비-테이블 source 폴백.
+  // doc.querySelectorAll('p') 가 비므로 doc 전체 textContent 평문 split 로 폴백.
+  const dom = parseFixture(
+    '<html><body><div>대회 안내 ※ 보험 가입함 ※ 우천 시 변경</div></body></html>',
+  );
+  assertEquals(extractRegulationNotes(dom), ['보험 가입함', '우천 시 변경']);
 });

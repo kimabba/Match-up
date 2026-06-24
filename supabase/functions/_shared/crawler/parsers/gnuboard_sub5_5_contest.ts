@@ -25,6 +25,8 @@ import {
   extractApplicationDeadline,
   extractDate,
   extractGJDivisions,
+  extractRegulationFields,
+  extractRegulationNotes,
   extractVenue,
   saveRawDocument,
   upsertTournament,
@@ -175,6 +177,15 @@ async function fetchDetail(
   }
   const bodyText = (dom.querySelector('body')?.textContent ?? '').replace(/\s+/g, ' ').trim();
 
+  // ── 대회 요강 정형화 추출 (추가 기능 — 기존 추출 로직과 독립) ──
+  // 노이즈(script/style/nav 등) 제거 후이지만 본문 <table> 은 보존된 상태에서
+  // 라벨:값 표를 직접 구조화한다. 두 헬퍼 모두 textContent / querySelectorAll 만
+  // 사용하므로 deno-dom Document 를 그대로 넘길 수 있다.
+  // extractRegulationNotes 는 <p> 요소 경계를 노트 경계로 써서, bodyText 평문
+  // split 에서 발생하던 표/상금표 run-on 오염을 방지한다 (dom 전달이 핵심).
+  const regulationFields = extractRegulationFields(dom);
+  const regulationNotes = extractRegulationNotes(dom);
+
   // ── 테이블 기반 날짜 추출 (신청기간 / 경기일시 컬럼 구분) ──
   // 테이블 헤더: 참가부서 | 신청기간 | 경기일시 | ...
   let tableStartDate: string | null = null;
@@ -315,6 +326,8 @@ async function fetchDetail(
     source_url: detailUrl,
     organizer,
     entry_fee: entryFee,
+    regulation_fields: regulationFields.length > 0 ? regulationFields : undefined,
+    regulation_notes: regulationNotes.length > 0 ? regulationNotes : undefined,
   };
   return { rawHtml: html, tournament };
 }

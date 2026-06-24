@@ -1,3 +1,24 @@
+/// 대회 요강 정형 필드 한 줄 (라벨:값). 마이그레이션 073 의
+/// regulation_fields jsonb 배열 [{"label", "value"}] 한 요소에 대응한다.
+class RegulationField {
+  final String label;
+  final String value;
+
+  const RegulationField({required this.label, required this.value});
+
+  /// JSON 경계에서만 dynamic 을 받아 즉시 String 으로 안전 변환한다.
+  static RegulationField? tryFromJson(Object? raw) {
+    if (raw is! Map) return null;
+    final label = raw['label'];
+    final value = raw['value'];
+    if (label is! String) return null;
+    final labelStr = label.trim();
+    if (labelStr.isEmpty) return null;
+    final valueStr = value is String ? value.trim() : '';
+    return RegulationField(label: labelStr, value: valueStr);
+  }
+}
+
 class Tournament {
   final String id;
   final String sport;
@@ -24,6 +45,9 @@ class Tournament {
   final String? divisionKtaStandard;
   final bool isJointEvent;
   final String? futsalEventCategory;
+  // 마이그레이션 073: 구조화 요강
+  final List<RegulationField> regulationFields;
+  final List<String> regulationNotes;
 
   Tournament({
     required this.id,
@@ -50,6 +74,8 @@ class Tournament {
     this.divisionKtaStandard,
     this.isJointEvent = false,
     this.futsalEventCategory,
+    this.regulationFields = const [],
+    this.regulationNotes = const [],
   });
 
   factory Tournament.fromJson(Map<String, dynamic> j) {
@@ -65,6 +91,26 @@ class Tournament {
     final hostOrgs = (ext?['host_orgs'] as List?)?.cast<String>() ??
         (j['host_orgs'] as List?)?.cast<String>() ??
         const [];
+
+    // regulation_fields: List<dynamic> of Map → List<RegulationField>
+    final rawFields = j['regulation_fields'];
+    final regulationFields = rawFields is List
+        ? rawFields
+            .map(RegulationField.tryFromJson)
+            .whereType<RegulationField>()
+            .toList(growable: false)
+        : const <RegulationField>[];
+
+    // regulation_notes: List<dynamic> → List<String> (빈/비문자열 제거)
+    final rawNotes = j['regulation_notes'];
+    final regulationNotes = rawNotes is List
+        ? rawNotes
+            .whereType<String>()
+            .map((s) => s.trim())
+            .where((s) => s.isNotEmpty)
+            .toList(growable: false)
+        : const <String>[];
+
     return Tournament(
       id: j['id'] as String,
       sport: j['sport'] as String,
@@ -100,6 +146,8 @@ class Tournament {
       futsalEventCategory: ext?['event_category'] as String? ??
           j['futsal_event_category'] as String? ??
           j['event_category'] as String?,
+      regulationFields: regulationFields,
+      regulationNotes: regulationNotes,
     );
   }
 }
