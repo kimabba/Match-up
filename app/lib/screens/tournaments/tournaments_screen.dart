@@ -7,6 +7,9 @@ import '../../config.dart';
 import '../../models/tournament.dart';
 import '../../state/providers.dart';
 import '../../theme/tokens.dart';
+import '../../utils/active_filters.dart';
+import '../../utils/grade_labels.dart';
+import '../../utils/tournament_filters.dart';
 import '../../widgets/app_empty_state.dart';
 import '../../widgets/matchup_logo.dart';
 import '../../widgets/tournament_card.dart';
@@ -21,6 +24,15 @@ class TournamentsScreen extends ConsumerStatefulWidget {
 class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
   bool _onlyMyGrade = false;
   String _q = '';
+  String? _regionCode;
+  DateTime? _dateFrom;
+  DateTime? _dateTo;
+  String? _hostOrg;
+
+  /// 부서 선택의 source of truth = 라벨(테니스: 부서 라벨, 풋살: grade 코드).
+  /// 코드는 API 호출 시점에 현재 _hostOrg 로 해석한다(협회 제거 시 union 재확장).
+  Set<String> _divisionLabels = const {};
+  RecruitingStatus _recruitingStatus = RecruitingStatus.all;
   List<Tournament>? _results;
   bool _loading = false;
   bool _usingPreviewData = false;
@@ -28,13 +40,44 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
   _TournamentViewMode _viewMode = _TournamentViewMode.list;
   late DateTime _selectedDate;
   late DateTime _focusedMonth;
+  String? _lastSearchedSport;
 
   DateTime get _today {
     final now = DateTime.now();
     return DateTime(now.year, now.month, now.day);
   }
 
+  bool get _isTennis => ref.read(activeSportProvider) == 'tennis';
+
+  /// 현재 _divisionLabels 를 현재 _hostOrg 스코프로 백엔드 코드로 해석.
+  /// 테니스: org 있으면 그 협회 코드만, 없으면 전 협회 union.
+  /// 풋살: 라벨 Set 이 곧 grade 코드.
+  List<String> _resolveDivisionCodes() {
+    if (!_isTennis) return _divisionLabels.toList();
+    final org = _hostOrg;
+    final codes = org == null
+        ? tennisCodesForLabels(_divisionLabels)
+        : tennisCodesForLabelsInOrg(org, _divisionLabels);
+    return codes.toList();
+  }
+
+  /// 종목 전환 시 종목 특화 필터(_hostOrg, 부서 라벨)를 초기화한다.
+  /// 종목 무관 필터(지역/기간/모집상태/검색어)는 유지.
+  void _onSportChanged() {
+    final sport = ref.read(activeSportProvider);
+    if (sport == _lastSearchedSport) {
+      _search();
+      return;
+    }
+    setState(() {
+      _hostOrg = null;
+      _divisionLabels = const {};
+    });
+    _search();
+  }
+
   Future<void> _search() async {
+    _lastSearchedSport = ref.read(activeSportProvider);
     setState(() {
       _loading = true;
       _error = null;
@@ -51,10 +94,17 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
 
     List<Tournament> res;
     try {
+      // 모집 상태는 서버 측 필터(recruiting 쿼리키)로 처리한다.
       res = await api.searchTournaments(
         sport: ref.read(activeSportProvider),
         onlyMyGrade: _onlyMyGrade,
         query: _q,
+        regionCode: _regionCode,
+        dateFrom: _dateFrom,
+        dateTo: _dateTo,
+        hostOrg: _hostOrg,
+        divisionCodes: _resolveDivisionCodes(),
+        recruiting: recruitingStatusToParam(_recruitingStatus),
         limit: 100,
       );
     } catch (e) {
@@ -106,9 +156,15 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(activeSportProvider, (_, __) => _search());
+    ref.listen(activeSportProvider, (_, __) => _onSportChanged());
     final cs = Theme.of(context).colorScheme;
     final favorites = ref.watch(favoriteIdsProvider);
+    final myGradeIds = ref
+            .watch(homeTournamentsProvider)
+            .valueOrNull
+            ?.map((t) => t.id)
+            .toSet() ??
+        const <String>{};
 
     return Scaffold(
       appBar: AppBar(
@@ -123,7 +179,6 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
       ),
       body: Column(
         children: [
-          const _MyGradeSection(),
           Container(
             color: cs.surfaceContainerLow,
             padding: const EdgeInsets.fromLTRB(
@@ -146,6 +201,8 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
               ],
             ),
           ),
+          if (_viewMode == _TournamentViewMode.list)
+            _buildActiveFilterChipsRow(cs),
           if (_loading) LinearProgressIndicator(color: cs.primary),
           if (_usingPreviewData) const _PreviewDataBanner(),
           Expanded(
@@ -164,6 +221,7 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
                                 tournaments: _results!,
                                 favoriteIds:
                                     favorites.valueOrNull ?? const <String>{},
+                                myGradeIds: myGradeIds,
                                 onTap: (tournament) => context
                                     .push('/tournaments/${tournament.id}'),
                                 onFavoriteToggle:
@@ -222,47 +280,117 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
     );
   }
 
-  Widget _buildQuickFilters(ColorScheme cs) {
-    final hasActiveFilters = _onlyMyGrade || _q.trim().isNotEmpty;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
+  int get _activeFilterCount {
+    return [
+      _onlyMyGrade,
+      _q.trim().isNotEmpty,
+      _regionCode != null,
+      _dateFrom != null || _dateTo != null,
+      _hostOrg != null,
+      _divisionLabels.isNotEmpty,
+      _recruitingStatus != RecruitingStatus.all,
+    ].where((active) => active).length;
+  }
+
+  List<ActiveFilterChipData> get _activeFilterChips => activeFilterChips(
+        sport: ref.read(activeSportProvider),
+        query: _q,
+        regionCode: _regionCode,
+        dateFrom: _dateFrom,
+        dateTo: _dateTo,
+        hostOrg: _hostOrg,
+        divisionLabels: _divisionLabels,
+        recruiting: _recruitingStatus,
+        onlyMyGrade: _onlyMyGrade,
+        now: DateTime.now(),
+      );
+
+  /// 요약 칩의 X → 그 필터만 해제하고 즉시 재검색.
+  /// 부서 칩 제거는 라벨 단위(테니스 라벨 / 풋살 grade). 협회 칩 제거는
+  /// _hostOrg 만 해제하고 부서 라벨은 보존 → 다음 검색에서 union 재확장.
+  void _removeActiveFilter(ActiveFilterChipData chip) {
+    setState(() {
+      switch (chip.kind) {
+        case ActiveFilterKind.query:
+          _q = '';
+        case ActiveFilterKind.region:
+          _regionCode = null;
+        case ActiveFilterKind.dateRange:
+          _dateFrom = null;
+          _dateTo = null;
+        case ActiveFilterKind.hostOrg:
+          _hostOrg = null;
+        case ActiveFilterKind.division:
+          final value = chip.value;
+          if (value != null) {
+            _divisionLabels = _divisionLabels.where((l) => l != value).toSet();
+          }
+        case ActiveFilterKind.recruiting:
+          _recruitingStatus = RecruitingStatus.all;
+        case ActiveFilterKind.onlyMyGrade:
+          _onlyMyGrade = false;
+      }
+    });
+    _search();
+  }
+
+  Widget _buildActiveFilterChipsRow(ColorScheme cs) {
+    final chips = _activeFilterChips;
+    if (chips.isEmpty) return const SizedBox.shrink();
+    final tt = Theme.of(context).textTheme;
+    return Container(
+      width: double.infinity,
+      color: cs.surfaceContainerLow,
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.lg,
+        0,
+        AppSpacing.lg,
+        AppSpacing.sm,
+      ),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
           children: [
-            _FilterPill(
-              label: '전체',
-              selected: !hasActiveFilters,
-              onTap: () {
-                if (hasActiveFilters) {
-                  setState(() {
-                    _onlyMyGrade = false;
-                    _q = '';
-                  });
-                  _search();
-                }
-              },
-            ),
-            const SizedBox(width: AppSpacing.sm),
-            _FilterPill(
-              label: '이번주',
-              selected: false,
-              onTap: _search,
-            ),
+            for (final chip in chips)
+              Padding(
+                padding: const EdgeInsets.only(right: AppSpacing.sm),
+                child: InputChip(
+                  label: Text(chip.label),
+                  onDeleted: () => _removeActiveFilter(chip),
+                  deleteIcon: const Icon(Icons.close_rounded, size: 16),
+                  backgroundColor: cs.primaryContainer,
+                  side: BorderSide(color: cs.primary.withValues(alpha: 0.4)),
+                  labelStyle: tt.labelMedium?.copyWith(
+                    color: cs.onPrimaryContainer,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  visualDensity: VisualDensity.compact,
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+              ),
           ],
         ),
-        ActionChip(
-          avatar: Icon(
-            Icons.tune_rounded,
-            size: 18,
-            color: hasActiveFilters ? cs.primary : cs.onSurfaceVariant,
-          ),
-          label: Text(hasActiveFilters ? '필터 적용됨' : '상세검색'),
-          onPressed: () => _openSearchSheet(cs),
-          backgroundColor:
-              hasActiveFilters ? cs.primaryContainer : cs.surfaceContainerHigh,
+      ),
+    );
+  }
+
+  Widget _buildQuickFilters(ColorScheme cs) {
+    final activeCount = _activeFilterCount;
+    final hasActiveFilters = activeCount > 0;
+    // 빠른칩(전체/이번주) 제거 — 조건은 상세검색에서 선택. 상세검색만 우측에 둔다.
+    return Align(
+      alignment: Alignment.centerRight,
+      child: ActionChip(
+        avatar: Icon(
+          Icons.tune_rounded,
+          size: 18,
+          color: hasActiveFilters ? cs.primary : cs.onSurfaceVariant,
         ),
-      ],
+        label: Text(hasActiveFilters ? '필터 $activeCount' : '상세검색'),
+        onPressed: () => _openSearchSheet(cs),
+        backgroundColor:
+            hasActiveFilters ? cs.primaryContainer : cs.surfaceContainerHigh,
+      ),
     );
   }
 
@@ -272,14 +400,29 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
       isScrollControlled: true,
       showDragHandle: true,
       builder: (_) => _SearchFilterSheet(
-        initialQuery: _q,
-        initialOnlyMyGrade: _onlyMyGrade,
+        sport: ref.read(activeSportProvider),
+        initial: _SearchFilterResult(
+          query: _q,
+          onlyMyGrade: _onlyMyGrade,
+          regionCode: _regionCode,
+          dateFrom: _dateFrom,
+          dateTo: _dateTo,
+          hostOrg: _hostOrg,
+          divisionLabels: _divisionLabels,
+          recruiting: _recruitingStatus,
+        ),
       ),
     );
     if (result != null && mounted) {
       setState(() {
         _q = result.query;
         _onlyMyGrade = result.onlyMyGrade;
+        _regionCode = result.regionCode;
+        _dateFrom = result.dateFrom;
+        _dateTo = result.dateTo;
+        _hostOrg = result.hostOrg;
+        _divisionLabels = result.divisionLabels;
+        _recruitingStatus = result.recruiting;
       });
       _search();
     }
@@ -290,6 +433,12 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
     final activeFilters = <String>[
       if (_onlyMyGrade) '내 등급',
       if (_q.trim().isNotEmpty) '검색어',
+      if (_regionCode != null) '지역',
+      if (_dateFrom != null || _dateTo != null) '기간',
+      if (_hostOrg != null) '협회',
+      if (_divisionLabels.isNotEmpty) '부서',
+      if (_recruitingStatus != RecruitingStatus.all)
+        recruitingStatusLabel(_recruitingStatus),
     ];
     final filterLabel =
         activeFilters.isEmpty ? '전체 대회 기준' : '${activeFilters.join(' · ')} 적용됨';
@@ -454,12 +603,14 @@ class _ViewModeButton extends StatelessWidget {
 class _TournamentListView extends StatelessWidget {
   final List<Tournament> tournaments;
   final Set<String> favoriteIds;
+  final Set<String> myGradeIds;
   final ValueChanged<Tournament> onTap;
   final void Function(Tournament tournament, bool isFavorite) onFavoriteToggle;
 
   const _TournamentListView({
     required this.tournaments,
     required this.favoriteIds,
+    this.myGradeIds = const {},
     required this.onTap,
     required this.onFavoriteToggle,
   });
@@ -478,6 +629,7 @@ class _TournamentListView extends StatelessWidget {
         return TournamentCard(
           tournament: tournament,
           isFavorite: isFavorite,
+          isMyGrade: myGradeIds.contains(tournament.id),
           onTap: () => onTap(tournament),
           onFavoriteToggle: () => onFavoriteToggle(tournament, isFavorite),
         );
@@ -1206,153 +1358,39 @@ class _TournamentErrorState extends StatelessWidget {
   }
 }
 
-class _FilterPill extends StatelessWidget {
-  const _FilterPill({
-    required this.label,
-    required this.selected,
-    required this.onTap,
-  });
-
-  final String label;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-    final tt = Theme.of(context).textTheme;
-
-    return Material(
-      color: selected ? cs.primary : cs.surface,
-      borderRadius: AppRadius.pill,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: AppRadius.pill,
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.md,
-            vertical: AppSpacing.sm,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: AppRadius.pill,
-            border: Border.all(
-              color: selected ? cs.primary : cs.outlineVariant,
-            ),
-          ),
-          child: Text(
-            label,
-            style: tt.labelMedium?.copyWith(
-              color: selected ? cs.onPrimary : cs.onSurfaceVariant,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _MyGradeSection extends ConsumerWidget {
-  const _MyGradeSection();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final tournaments = ref.watch(homeTournamentsProvider);
-    final favorites = ref.watch(favoriteIdsProvider);
-    final cs = Theme.of(context).colorScheme;
-    final tt = Theme.of(context).textTheme;
-
-    return ColoredBox(
-      color: cs.surfaceContainerLow,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(
-              AppSpacing.lg,
-              AppSpacing.lg,
-              AppSpacing.lg,
-              AppSpacing.sm,
-            ),
-            child: Row(
-              children: [
-                Text(
-                  '내 등급 추천 대회',
-                  style: tt.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          tournaments.when(
-            loading: () => const Padding(
-              padding: EdgeInsets.all(AppSpacing.lg),
-              child: CircularProgressIndicator(),
-            ),
-            error: (e, _) => const SizedBox.shrink(),
-            data: (list) {
-              if (list.isEmpty) return const SizedBox.shrink();
-              final favs = favorites.valueOrNull ?? const <String>{};
-              return SizedBox(
-                height: 150,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.lg,
-                  ),
-                  itemCount: list.length,
-                  separatorBuilder: (_, __) =>
-                      const SizedBox(width: AppSpacing.sm),
-                  itemBuilder: (context, i) {
-                    final tournament = list[i];
-                    return SizedBox(
-                      width: 260,
-                      child: TournamentCard(
-                        tournament: tournament,
-                        compact: true,
-                        isFavorite: favs.contains(tournament.id),
-                        onTap: () =>
-                            context.push('/tournaments/${tournament.id}'),
-                        onFavoriteToggle: () async {
-                          final api = ref.read(apiProvider);
-                          await api.toggleFavorite(
-                            tournament.id,
-                            !favs.contains(tournament.id),
-                          );
-                          ref.invalidate(favoriteIdsProvider);
-                          ref.invalidate(myFavoriteTournamentsProvider);
-                          ref.invalidate(myTournamentRecordsProvider);
-                        },
-                      ),
-                    );
-                  },
-                ),
-              );
-            },
-          ),
-          Divider(color: cs.outlineVariant, height: 1),
-        ],
-      ),
-    );
-  }
-}
-
 // ─── 상세검색 바텀시트 ─────────────────────────────────────────────────────────
 
 class _SearchFilterResult {
   final String query;
   final bool onlyMyGrade;
-  const _SearchFilterResult({required this.query, required this.onlyMyGrade});
+  final String? regionCode;
+  final DateTime? dateFrom;
+  final DateTime? dateTo;
+  final String? hostOrg;
+
+  /// 부서 선택의 source of truth = 라벨(테니스: 부서 라벨, 풋살: grade 코드).
+  final Set<String> divisionLabels;
+  final RecruitingStatus recruiting;
+
+  const _SearchFilterResult({
+    required this.query,
+    required this.onlyMyGrade,
+    this.regionCode,
+    this.dateFrom,
+    this.dateTo,
+    this.hostOrg,
+    this.divisionLabels = const {},
+    this.recruiting = RecruitingStatus.all,
+  });
 }
 
 class _SearchFilterSheet extends StatefulWidget {
-  final String initialQuery;
-  final bool initialOnlyMyGrade;
+  final String? sport;
+  final _SearchFilterResult initial;
 
   const _SearchFilterSheet({
-    required this.initialQuery,
-    required this.initialOnlyMyGrade,
+    required this.sport,
+    required this.initial,
   });
 
   @override
@@ -1362,13 +1400,52 @@ class _SearchFilterSheet extends StatefulWidget {
 class _SearchFilterSheetState extends State<_SearchFilterSheet> {
   late final TextEditingController _queryCtrl;
   late bool _onlyMyGrade;
+  String? _regionCode;
+  DateTime? _dateFrom;
+  DateTime? _dateTo;
+  String? _hostOrg;
+  late Set<String> _selectedDivisionLabels;
+  late Set<String> _selectedFutsalGrades;
+  late RecruitingStatus _recruitingStatus;
+  late DatePreset _datePreset;
+
+  bool get _isTennis => widget.sport == 'tennis';
 
   @override
   void initState() {
     super.initState();
-    _queryCtrl = TextEditingController(text: widget.initialQuery);
-    _onlyMyGrade = widget.initialOnlyMyGrade;
+    final initial = widget.initial;
+    _queryCtrl = TextEditingController(text: initial.query);
+    _onlyMyGrade = initial.onlyMyGrade;
+    _regionCode = initial.regionCode;
+    _dateFrom = initial.dateFrom;
+    _dateTo = initial.dateTo;
+    _hostOrg = initial.hostOrg;
+    _recruitingStatus = initial.recruiting;
+    // 기존 범위 → 프리셋 역추론(표준 프리셋이면 강조, 아니면 custom).
+    _datePreset =
+        presetForRange(initial.dateFrom, initial.dateTo, DateTime.now());
+
+    // 부서 선택은 이미 라벨 source of truth → 그대로 받는다.
+    // 테니스: 현재 협회 스코프에 존재하는 라벨만 유지(스코프 밖 라벨 제거).
+    if (_isTennis) {
+      final allowed = _divisionLabelsForScope(_hostOrg).toSet();
+      _selectedDivisionLabels =
+          initial.divisionLabels.where(allowed.contains).toSet();
+      _selectedFutsalGrades = const {};
+    } else {
+      _selectedFutsalGrades = {
+        for (final g in futsalGrades)
+          if (initial.divisionLabels.contains(g)) g,
+      };
+      _selectedDivisionLabels = const {};
+    }
   }
+
+  /// 현재 협회 스코프의 부서 라벨 목록.
+  /// org == null → 전 협회 union, org != null → 그 협회만.
+  List<String> _divisionLabelsForScope(String? org) =>
+      org == null ? tennisDivisionLabels() : tennisDivisionLabelsForOrg(org);
 
   @override
   void dispose() {
@@ -1376,11 +1453,32 @@ class _SearchFilterSheetState extends State<_SearchFilterSheet> {
     super.dispose();
   }
 
+  /// 현재 부서/등급 선택 라벨 집합(source of truth).
+  /// 테니스: 부서 라벨, 풋살: grade 코드.
+  Set<String> _selectedDivisionResult() =>
+      _isTennis ? _selectedDivisionLabels : _selectedFutsalGrades;
+
+  /// 협회(_hostOrg) 변경 시: 새 스코프에 없는 선택 라벨은 자동 해제.
+  void _setHostOrg(String? org) {
+    setState(() {
+      _hostOrg = org;
+      final allowed = _divisionLabelsForScope(org).toSet();
+      _selectedDivisionLabels =
+          _selectedDivisionLabels.where(allowed.contains).toSet();
+    });
+  }
+
   void _apply() {
     Navigator.of(context).pop(
       _SearchFilterResult(
         query: _queryCtrl.text.trim(),
         onlyMyGrade: _onlyMyGrade,
+        regionCode: _regionCode,
+        dateFrom: _dateFrom,
+        dateTo: _dateTo,
+        hostOrg: _isTennis ? _hostOrg : null,
+        divisionLabels: _selectedDivisionResult(),
+        recruiting: _recruitingStatus,
       ),
     );
   }
@@ -1389,85 +1487,394 @@ class _SearchFilterSheetState extends State<_SearchFilterSheet> {
     setState(() {
       _queryCtrl.clear();
       _onlyMyGrade = false;
+      _regionCode = null;
+      _dateFrom = null;
+      _dateTo = null;
+      _datePreset = DatePreset.all;
+      _hostOrg = null;
+      _selectedDivisionLabels = {};
+      _selectedFutsalGrades = {};
+      _recruitingStatus = RecruitingStatus.all;
     });
   }
+
+  /// 프리셋 칩 선택 → 범위 환원. custom 은 picker 를 띄운다.
+  void _selectDatePreset(DatePreset preset) {
+    if (preset == DatePreset.custom) {
+      _pickDateRange();
+      return;
+    }
+    final (from, to) = dateRangeForPreset(preset, DateTime.now());
+    setState(() {
+      _datePreset = preset;
+      _dateFrom = from;
+      _dateTo = to;
+    });
+  }
+
+  Future<void> _pickDateRange() async {
+    final now = DateTime.now();
+    final firstDate = DateTime(now.year - 1, 1, 1);
+    final lastDate = DateTime(now.year + 2, 12, 31);
+    final initialRange = (_dateFrom != null && _dateTo != null)
+        ? DateTimeRange(start: _dateFrom!, end: _dateTo!)
+        : null;
+    final picked = await showDateRangePicker(
+      context: context,
+      firstDate: firstDate,
+      lastDate: lastDate,
+      initialDateRange: initialRange,
+      helpText: '기간 선택',
+      saveText: '적용',
+    );
+    if (picked != null) {
+      setState(() {
+        _dateFrom =
+            DateTime(picked.start.year, picked.start.month, picked.start.day);
+        _dateTo = DateTime(picked.end.year, picked.end.month, picked.end.day);
+        // 직접 고른 범위가 표준 프리셋과 일치할 수도 있으므로 역추론.
+        _datePreset = presetForRange(_dateFrom, _dateTo, now);
+      });
+    }
+  }
+
+  String _formatDate(DateTime d) =>
+      '${d.year}.${d.month.toString().padLeft(2, '0')}.${d.day.toString().padLeft(2, '0')}';
 
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
+    final maxHeight = MediaQuery.of(context).size.height * 0.85;
 
     return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(
-          AppSpacing.lg,
-          0,
-          AppSpacing.lg,
-          MediaQuery.of(context).viewInsets.bottom + AppSpacing.lg,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: maxHeight),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(
+            AppSpacing.lg,
+            0,
+            AppSpacing.lg,
+            MediaQuery.of(context).viewInsets.bottom + AppSpacing.lg,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '상세검색',
+                style: tt.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              Flexible(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextField(
+                        controller: _queryCtrl,
+                        decoration: InputDecoration(
+                          hintText: '대회명·주최·설명 검색',
+                          prefixIcon: const Icon(Icons.search_rounded),
+                          filled: true,
+                          fillColor: cs.surface,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(14),
+                            borderSide: BorderSide(color: cs.outlineVariant),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(14),
+                            borderSide: BorderSide(color: cs.outlineVariant),
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: AppSpacing.sm,
+                          ),
+                        ),
+                        onSubmitted: (_) => _apply(),
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      _buildRegionSection(cs, tt),
+                      const SizedBox(height: AppSpacing.lg),
+                      _buildDateSection(cs, tt),
+                      if (_isTennis) ...[
+                        const SizedBox(height: AppSpacing.lg),
+                        _buildHostOrgSection(cs, tt),
+                      ],
+                      const SizedBox(height: AppSpacing.lg),
+                      _buildDivisionSection(cs, tt),
+                      const SizedBox(height: AppSpacing.lg),
+                      _buildRecruitingSection(cs, tt),
+                      const SizedBox(height: AppSpacing.sm),
+                      SwitchListTile(
+                        title: Text(
+                          '내 등급만 보기',
+                          style: tt.bodyLarge
+                              ?.copyWith(fontWeight: FontWeight.w600),
+                        ),
+                        subtitle: const Text('내 등급 이하 대회만 표시'),
+                        value: _onlyMyGrade,
+                        onChanged: (v) => setState(() => _onlyMyGrade = v),
+                        contentPadding: EdgeInsets.zero,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: _reset,
+                      child: const Text('초기화'),
+                    ),
+                  ),
+                  const SizedBox(width: AppSpacing.md),
+                  Expanded(
+                    flex: 2,
+                    child: FilledButton(
+                      onPressed: _apply,
+                      child: const Text('검색'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+      ),
+    );
+  }
+
+  Widget _buildSectionLabel(TextTheme tt, String label) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+      child: Text(
+        label,
+        style: tt.labelLarge?.copyWith(fontWeight: FontWeight.w800),
+      ),
+    );
+  }
+
+  Widget _buildRegionSection(ColorScheme cs, TextTheme tt) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionLabel(tt, '지역'),
+        Wrap(
+          spacing: AppSpacing.sm,
+          runSpacing: AppSpacing.sm,
           children: [
-            Text(
-              '상세검색',
-              style: tt.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+            _filterChip(
+              label: '전체',
+              selected: _regionCode == null,
+              onSelected: (_) => setState(() => _regionCode = null),
             ),
-            const SizedBox(height: AppSpacing.lg),
-            TextField(
-              controller: _queryCtrl,
-              autofocus: true,
-              decoration: InputDecoration(
-                hintText: '대회명·주최·설명 검색',
-                prefixIcon: const Icon(Icons.search_rounded),
-                filled: true,
-                fillColor: cs.surface,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
-                  borderSide: BorderSide(color: cs.outlineVariant),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
-                  borderSide: BorderSide(color: cs.outlineVariant),
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  vertical: AppSpacing.sm,
+            for (final code in regionCodes)
+              _filterChip(
+                label: regionLabel(code),
+                selected: _regionCode == code,
+                onSelected: (selected) => setState(
+                  () => _regionCode = selected ? code : null,
                 ),
               ),
-              onSubmitted: (_) => _apply(),
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            SwitchListTile(
-              title: Text(
-                '내 등급만 보기',
-                style: tt.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
-              ),
-              subtitle: const Text('내 등급 이하 대회만 표시'),
-              value: _onlyMyGrade,
-              onChanged: (v) => setState(() => _onlyMyGrade = v),
-              contentPadding: EdgeInsets.zero,
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: _reset,
-                    child: const Text('초기화'),
-                  ),
-                ),
-                const SizedBox(width: AppSpacing.md),
-                Expanded(
-                  flex: 2,
-                  child: FilledButton(
-                    onPressed: _apply,
-                    child: const Text('검색'),
-                  ),
-                ),
-              ],
-            ),
           ],
         ),
+      ],
+    );
+  }
+
+  Widget _buildDateSection(ColorScheme cs, TextTheme tt) {
+    final hasRange = _dateFrom != null && _dateTo != null;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionLabel(tt, '기간'),
+        Wrap(
+          spacing: AppSpacing.sm,
+          runSpacing: AppSpacing.sm,
+          children: [
+            for (final preset in DatePreset.values)
+              _filterChip(
+                label: datePresetLabel(preset),
+                selected: _datePreset == preset,
+                onSelected: (_) => _selectDatePreset(preset),
+              ),
+          ],
+        ),
+        if (hasRange) ...[
+          const SizedBox(height: AppSpacing.sm),
+          Row(
+            children: [
+              Icon(Icons.calendar_today_rounded, size: 16, color: cs.primary),
+              const SizedBox(width: AppSpacing.xs),
+              Expanded(
+                child: Text(
+                  '${_formatDate(_dateFrom!)} ~ ${_formatDate(_dateTo!)}',
+                  style: tt.labelLarge?.copyWith(
+                    color: cs.primary,
+                    fontWeight: FontWeight.w800,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              IconButton(
+                onPressed: () => setState(() {
+                  _dateFrom = null;
+                  _dateTo = null;
+                  _datePreset = DatePreset.all;
+                }),
+                icon: const Icon(Icons.close_rounded, size: 18),
+                tooltip: '기간 해제',
+                visualDensity: VisualDensity.compact,
+                style: IconButton.styleFrom(
+                  backgroundColor: cs.surfaceContainerHighest,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildRecruitingSection(ColorScheme cs, TextTheme tt) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionLabel(tt, '모집 상태'),
+        Wrap(
+          spacing: AppSpacing.sm,
+          runSpacing: AppSpacing.sm,
+          children: [
+            for (final status in RecruitingStatus.values)
+              _filterChip(
+                label: recruitingStatusLabel(status),
+                selected: _recruitingStatus == status,
+                onSelected: (_) => setState(() => _recruitingStatus = status),
+              ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHostOrgSection(ColorScheme cs, TextTheme tt) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionLabel(tt, '주최 협회'),
+        Wrap(
+          spacing: AppSpacing.sm,
+          runSpacing: AppSpacing.sm,
+          children: [
+            _filterChip(
+              label: '전체',
+              selected: _hostOrg == null,
+              onSelected: (_) => _setHostOrg(null),
+            ),
+            for (final org in tennisOrgs)
+              _filterChip(
+                label: tennisOrgShortLabel(org),
+                selected: _hostOrg == org,
+                onSelected: (selected) => _setHostOrg(selected ? org : null),
+              ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDivisionSection(ColorScheme cs, TextTheme tt) {
+    final List<Widget> chips;
+    if (_isTennis) {
+      // 협회 선택 시 그 협회 부서만, 미선택 시 전 협회 union 라벨.
+      chips = [
+        for (final label in _divisionLabelsForScope(_hostOrg))
+          _filterChip(
+            label: label,
+            selected: _selectedDivisionLabels.contains(label),
+            onSelected: (selected) => setState(() {
+              final next = Set<String>.from(_selectedDivisionLabels);
+              if (selected) {
+                next.add(label);
+              } else {
+                next.remove(label);
+              }
+              _selectedDivisionLabels = next;
+            }),
+          ),
+      ];
+    } else {
+      chips = [
+        for (final grade in futsalGrades)
+          _filterChip(
+            label: gradeLabel(grade),
+            selected: _selectedFutsalGrades.contains(grade),
+            onSelected: (selected) => setState(() {
+              final next = Set<String>.from(_selectedFutsalGrades);
+              if (selected) {
+                next.add(grade);
+              } else {
+                next.remove(grade);
+              }
+              _selectedFutsalGrades = next;
+            }),
+          ),
+      ];
+    }
+
+    final scopeHint = _isTennis && _hostOrg != null
+        ? '${tennisOrgShortLabel(_hostOrg!)} 부서'
+        : null;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            _buildSectionLabel(tt, _isTennis ? '부서' : '등급'),
+            if (scopeHint != null) ...[
+              const SizedBox(width: AppSpacing.xs),
+              Padding(
+                padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                child: Text(
+                  scopeHint,
+                  style: tt.labelSmall?.copyWith(color: cs.onSurfaceVariant),
+                ),
+              ),
+            ],
+          ],
+        ),
+        Wrap(
+          spacing: AppSpacing.sm,
+          runSpacing: AppSpacing.sm,
+          children: chips,
+        ),
+      ],
+    );
+  }
+
+  Widget _filterChip({
+    required String label,
+    required bool selected,
+    required ValueChanged<bool> onSelected,
+  }) {
+    final cs = Theme.of(context).colorScheme;
+    return FilterChip(
+      label: Text(label),
+      selected: selected,
+      onSelected: onSelected,
+      showCheckmark: false,
+      selectedColor: cs.primaryContainer,
+      backgroundColor: cs.surface,
+      side: BorderSide(
+        color: selected ? cs.primary : cs.outlineVariant,
+      ),
+      labelStyle: TextStyle(
+        color: selected ? cs.onPrimaryContainer : cs.onSurfaceVariant,
+        fontWeight: FontWeight.w700,
       ),
     );
   }

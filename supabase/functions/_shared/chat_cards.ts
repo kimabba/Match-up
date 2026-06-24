@@ -1,17 +1,25 @@
 // Chat a2ui 카드 빌더 + selected_entity 검증 (순수 함수, 테스트 대상).
 // 권한 판정은 호출자(Edge Function)가 담당. 여기서는 표시-안전 변환과 형식 검증만 한다.
 
+import { normalizeRegulationFields, type RegulationField } from './regulation.ts';
+
+// 카드에 노출할 요강 라벨:값 최대 개수 (카드가 과도하게 길어지지 않도록).
+const MAX_CARD_REGULATION_FIELDS = 3;
+
 export interface TournamentCardRow {
   id: string;
   sport: 'tennis' | 'futsal';
   title: string;
   start_date: string;
   end_date: string | null;
+  application_deadline: string | null;
   region: string | null;
   location: string | null;
   eligible_grades: string[];
   entry_fee: number | null;
   format: string | null;
+  // 요강(migration 077/078): jsonb 라서 unknown 으로 받아 buildTournamentCards 에서 narrow.
+  regulation_fields?: unknown;
 }
 
 export interface TournamentCardItem {
@@ -22,10 +30,13 @@ export interface TournamentCardItem {
   location: string | null;
   start_date: string;
   end_date: string | null;
+  application_deadline: string | null;
   eligible: boolean;
   eligible_grades: string[];
   entry_fee: number | null;
   format: string | null;
+  // 프론트 카드(chat_tournament_card.dart)가 렌더하는 요강 요약 (최대 3개).
+  regulation_fields: RegulationField[];
 }
 
 export interface DateRange {
@@ -52,10 +63,16 @@ export function buildTournamentCards(rows: TournamentCardRow[]): TournamentCardI
     location: r.location,
     start_date: r.start_date,
     end_date: r.end_date,
+    application_deadline: r.application_deadline ?? null,
     eligible: true,
     eligible_grades: r.eligible_grades ?? [],
     entry_fee: r.entry_fee,
     format: r.format,
+    // 요강 jsonb → RegulationField[] narrow 후 상위 3개만 카드에 노출.
+    regulation_fields: normalizeRegulationFields(r.regulation_fields).slice(
+      0,
+      MAX_CARD_REGULATION_FIELDS,
+    ),
   }));
 }
 
@@ -87,8 +104,6 @@ export function renderTournamentSearchText(
     `## ${heading} ${rows.length}건${filterText(ctx)}`,
     '',
     '조건에 맞는 대회를 찾았습니다. 아래 카드에서 일정을 확인하고 필요한 항목을 선택해 주세요.',
-    '',
-    '_DB 등록 정보 기준. 상세는 협회나 공식 홈페이지에서 확인하세요._',
   ].join('\n');
 }
 

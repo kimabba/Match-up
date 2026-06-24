@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../config.dart';
+import '../../models/regulation_body_lines.dart';
 import '../../models/tournament.dart';
 import '../../state/providers.dart';
 import '../../theme/tokens.dart';
@@ -130,7 +131,6 @@ class _DetailBody extends StatelessWidget {
     final tt = Theme.of(context).textTheme;
     final isTennis = t.sport == 'tennis';
     final accentColor = isTennis ? cs.primary : cs.tertiary;
-    final grades = _displayGrades(t);
     final futsalCategory = t.sport == 'futsal'
         ? futsalEventCategoryLabel(t.futsalEventCategory)
         : '';
@@ -155,243 +155,113 @@ class _DetailBody extends StatelessWidget {
                 const _DetailPreviewBanner(),
                 const SizedBox(height: AppSpacing.md),
               ],
-              _TournamentHero(
-                tournament: t,
-                grades: grades,
-                accentColor: accentColor,
-                dateText: _dateText(),
-              ),
+
+              // ── 통합 헤더 ──
+              _StatusPill(status: t.status),
               const SizedBox(height: AppSpacing.md),
-              _QuickInfoGrid(
-                rows: [
-                  _QuickInfo(
-                    icon: Icons.calendar_month_rounded,
-                    label: '대회일',
-                    value: _dateText(),
-                  ),
-                  _QuickInfo(
-                    icon: Icons.event_busy_rounded,
-                    label: '신청 마감',
-                    value: t.applicationDeadline == null
-                        ? '주최 문의'
-                        : df.format(t.applicationDeadline!),
-                    accent: t.applicationDeadline == null ? null : cs.error,
-                  ),
-                  _QuickInfo(
-                    icon: Icons.place_rounded,
-                    label: '장소',
-                    value: t.location ?? t.region ?? '장소 확인 필요',
-                  ),
-                  _QuickInfo(
-                    icon: Icons.payments_rounded,
-                    label: '참가비',
-                    value: t.entryFee == null
-                        ? '주최 문의'
-                        : '${t.entryFeeUnit == 'per_person' ? '인당' : '팀당'} ${_feeFormat.format(t.entryFee!)}원',
-                  ),
-                ],
-              ),
-              const SizedBox(height: AppSpacing.md),
-              AppCard(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '출전 조건',
-                      style:
-                          tt.titleSmall?.copyWith(fontWeight: FontWeight.w800),
-                    ),
-                    const SizedBox(height: AppSpacing.md),
-                    Wrap(
-                      spacing: AppSpacing.sm,
-                      runSpacing: AppSpacing.sm,
-                      children: [
-                        _InfoChip(
-                          icon: Icons.sports_rounded,
-                          label: sportLabelFromString(t.sport),
-                          color: accentColor,
-                        ),
-                        if (futsalCategory.isNotEmpty)
-                          _InfoChip(
-                            icon: Icons.flag_rounded,
-                            label: futsalCategory,
-                            color: cs.secondary,
-                          ),
-                        _InfoChip(
-                          icon: Icons.emoji_events_rounded,
-                          label: grades,
-                          color: accentColor,
-                        ),
-                        if (t.isJointEvent)
-                          _InfoChip(
-                            icon: Icons.groups_rounded,
-                            label: '통합 대회',
-                            color: cs.secondary,
-                          ),
-                        if (t.format != null)
-                          _InfoChip(
-                            icon: Icons.format_list_numbered_rounded,
-                            label: t.format!,
-                            color: cs.primary,
-                          ),
-                      ],
-                    ),
-                  ],
+              Text(
+                t.title,
+                style: tt.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.w900,
+                  height: 1.18,
                 ),
               ),
+              if (t.organizer != null) ...[
+                const SizedBox(height: AppSpacing.xs),
+                Text(
+                  t.organizer!,
+                  style: tt.bodyMedium?.copyWith(
+                    color: cs.onSurfaceVariant,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
               const SizedBox(height: AppSpacing.lg),
 
-              // 1. 기본 정보 (기본 열림)
-              _AccordionSection(
-                icon: Icons.info_outline_rounded,
-                title: '기본 정보',
-                initiallyExpanded: true,
-                children: [
-                  _InfoRow(
-                    icon: Icons.sports_rounded,
-                    label: '종목',
-                    value: sportLabelFromString(t.sport),
-                  ),
-                  if (futsalCategory.isNotEmpty)
-                    _InfoRow(
-                      icon: Icons.flag_rounded,
-                      label: '분류',
-                      value: futsalCategory,
-                    ),
-                  _InfoRow(
-                    icon: Icons.calendar_today_rounded,
-                    label: '대회일',
-                    value: _dateText(),
-                  ),
-                  if (t.region != null)
-                    _InfoRow(
-                      icon: Icons.place_rounded,
-                      label: '지역',
-                      value: t.region!,
-                    ),
-                  if (t.location != null)
-                    _InfoRow(
-                      icon: Icons.location_on_rounded,
-                      label: '장소',
-                      value: t.location!,
-                    ),
-                  if (t.organizer != null)
-                    _InfoRow(
-                      icon: Icons.business_rounded,
-                      label: '주최',
-                      value: t.organizer!,
-                    ),
-                ],
+              // ── 핵심 정보 (행 레이아웃) ──
+              _DetailInfoRow(
+                icon: Icons.calendar_today_rounded,
+                label: '대회일',
+                value: _dateText(),
               ),
+              if (t.applicationDeadline != null)
+                _DetailInfoRow(
+                  icon: Icons.timer_rounded,
+                  label: '신청 마감',
+                  value: df.format(t.applicationDeadline!),
+                  valueColor: cs.error,
+                ),
+              _DetailInfoRow(
+                icon: Icons.location_on_rounded,
+                label: '장소',
+                value: t.location ?? t.region ?? '장소 확인 필요',
+              ),
+              _DetailInfoRow(
+                icon: Icons.payments_rounded,
+                label: '참가비',
+                value: t.entryFee == null
+                    ? '주최 문의'
+                    : '${t.entryFeeUnit == 'per_person' ? '인당' : '팀당'} ${_feeFormat.format(t.entryFee!)}원',
+              ),
+              if (t.format != null)
+                _DetailInfoRow(
+                  icon: Icons.format_list_numbered_rounded,
+                  label: '형식',
+                  value: t.format!,
+                ),
+              if (futsalCategory.isNotEmpty)
+                _DetailInfoRow(
+                  icon: Icons.flag_rounded,
+                  label: '분류',
+                  value: futsalCategory,
+                ),
 
-              // 2. 출전 등급
-              _AccordionSection(
-                icon: Icons.emoji_events_rounded,
-                title: '출전 등급',
-                initiallyExpanded: true,
+              const SizedBox(height: AppSpacing.lg),
+              Divider(color: cs.outlineVariant),
+              const SizedBox(height: AppSpacing.lg),
+
+              // ── 출전 부서 ──
+              Text(
+                '출전 부서',
+                style: tt.titleSmall?.copyWith(fontWeight: FontWeight.w800),
+              ),
+              const SizedBox(height: AppSpacing.sm),
+              Wrap(
+                spacing: AppSpacing.sm,
+                runSpacing: AppSpacing.sm,
                 children: [
-                  _InfoRow(
-                    icon: Icons.emoji_events_rounded,
-                    label: '부서',
-                    value: grades,
-                  ),
+                  for (final g in t.eligibleGrades)
+                    Chip(
+                      label: Text(
+                        divisionLabel(g) != g
+                            ? divisionLabel(g)
+                            : gradeLabel(g),
+                      ),
+                      visualDensity: VisualDensity.compact,
+                      backgroundColor: accentColor.withValues(alpha: 0.1),
+                      side: BorderSide.none,
+                    ),
                   if (t.isJointEvent)
-                    _InfoRow(
-                      icon: Icons.groups_rounded,
-                      label: '통합',
-                      value: '통합 대회',
+                    Chip(
+                      label: const Text('통합 대회'),
+                      visualDensity: VisualDensity.compact,
+                      backgroundColor: cs.secondaryContainer,
+                      side: BorderSide.none,
                     ),
                 ],
               ),
 
-              // 3. 참가 안내
-              _AccordionSection(
-                icon: Icons.how_to_reg_rounded,
-                title: '참가 안내',
-                initiallyExpanded: false,
-                children: [
-                  if (t.applicationDeadline != null)
-                    _InfoRow(
-                      icon: Icons.event_busy_rounded,
-                      label: '신청 마감',
-                      value: df.format(t.applicationDeadline!),
-                      accent: cs.error,
-                      showIcon: false,
-                    ),
-                  if (t.entryFee != null)
-                    _InfoRow(
-                      icon: Icons.payments_rounded,
-                      label: '참가비',
-                      value:
-                          '${t.entryFeeUnit == 'per_person' ? '인당' : '팀당'} ${_feeFormat.format(t.entryFee!)}원',
-                      showIcon: false,
-                    ),
-                  if (t.prize != null)
-                    _InfoRow(
-                      icon: Icons.workspace_premium_rounded,
-                      label: '시상',
-                      value: t.prize!,
-                      showIcon: false,
-                    ),
-                  if (t.format != null)
-                    _InfoRow(
-                      icon: Icons.format_list_numbered_rounded,
-                      label: '진행 방식',
-                      value: t.format!,
-                      showIcon: false,
-                    ),
-                  if (t.applicationDeadline == null &&
-                      t.entryFee == null &&
-                      t.prize == null &&
-                      t.format == null)
-                    _InfoRow(
-                      icon: Icons.info_outline,
-                      label: '안내',
-                      value: '상세 참가 안내는 주최 측에 문의해 주세요.',
-                      showIcon: false,
-                    ),
-                ],
-              ),
+              const SizedBox(height: AppSpacing.lg),
 
-              // 4. 대회 요강 (크롤된 상세 내용 → 정형화)
+              // ── 대회 요강 (구조화 요강 → 폴백: 평문 description) ──
               _AccordionSection(
                 icon: Icons.article_rounded,
                 title: '대회 요강',
                 initiallyExpanded: false,
-                children: [
-                  if (hasDescription && t.description!.length > 100)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        for (final section in _parseDescription(
-                          t.description!,
-                          sportLabel: sportLabelFromString(t.sport),
-                        ))
-                          _DescriptionLine(section: section),
-                        const SizedBox(height: AppSpacing.sm),
-                      ],
-                    )
-                  else
-                    Padding(
-                      padding: const EdgeInsets.all(AppSpacing.lg),
-                      child: Row(
-                        children: [
-                          Icon(Icons.info_outline_rounded,
-                              size: 18, color: cs.onSurfaceVariant),
-                          const SizedBox(width: AppSpacing.sm),
-                          Expanded(
-                            child: Text(
-                              '상세 요강이 아직 공지되지 않았습니다.\n주최 측에서 공지하면 자동으로 업데이트됩니다.',
-                              style: tt.bodySmall?.copyWith(
-                                color: cs.onSurfaceVariant,
-                                height: 1.5,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                ],
+                children: _buildRegulationChildren(
+                  context,
+                  hasDescription: hasDescription,
+                ),
               ),
 
               const SizedBox(height: AppSpacing.xxxl),
@@ -411,106 +281,102 @@ class _DetailBody extends StatelessWidget {
 
   bool _isSameDay(DateTime a, DateTime b) =>
       a.year == b.year && a.month == b.month && a.day == b.day;
-}
 
-class _TournamentHero extends StatelessWidget {
-  const _TournamentHero({
-    required this.tournament,
-    required this.grades,
-    required this.accentColor,
-    required this.dateText,
-  });
+  /// 대회 요강 아코디언 본문.
+  /// fields / body / notes 를 모두 표시(누락 0). 셋 다 비면 description 폴백 →
+  /// 그것도 없으면 "아직 공지되지 않았습니다".
+  List<Widget> _buildRegulationChildren(
+    BuildContext context, {
+    required bool hasDescription,
+  }) {
+    // 1) 구조화 요강 필드. prize/format 가 필드에 없으면 보강한다.
+    //    단, body 가 동일 내용을 포함하면 과한 중복이 되므로 body 가 있을 땐 보강하지 않는다.
+    final fields = <RegulationField>[...t.regulationFields];
+    final hasBody =
+        t.regulationBody != null && t.regulationBody!.trim().isNotEmpty;
+    bool hasLabel(String label) =>
+        fields.any((f) => f.label.replaceAll(' ', '') == label);
 
-  final Tournament tournament;
-  final String grades;
-  final Color accentColor;
-  final String dateText;
+    if (!hasBody) {
+      if (t.prize != null && t.prize!.trim().isNotEmpty && !hasLabel('시상')) {
+        fields.add(RegulationField(label: '시상', value: t.prize!.trim()));
+      }
+      if (t.format != null &&
+          t.format!.trim().isNotEmpty &&
+          !hasLabel('경기방식')) {
+        fields.add(RegulationField(label: '경기방식', value: t.format!.trim()));
+      }
+    }
 
-  @override
-  Widget build(BuildContext context) {
+    final notes = t.regulationNotes;
+
+    if (fields.isNotEmpty || hasBody || notes.isNotEmpty) {
+      final children = <Widget>[];
+
+      // (a) 라벨/값 행
+      if (fields.isNotEmpty) {
+        children.add(
+          Padding(
+            padding: const EdgeInsets.only(top: AppSpacing.xs),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (final f in fields)
+                  _RegulationFieldRow(label: f.label, value: f.value),
+              ],
+            ),
+          ),
+        );
+      }
+
+      // (b) 전체 요강 본문 ("\n" 보존)
+      if (hasBody) {
+        children.add(
+          _RegulationBody(
+            body: t.regulationBody!,
+            withDivider: fields.isNotEmpty,
+          ),
+        );
+      }
+
+      // (c) 안내(※) 불릿
+      if (notes.isNotEmpty) {
+        children.add(_RegulationNotes(notes: notes));
+      }
+
+      children.add(const SizedBox(height: AppSpacing.sm));
+      return children;
+    }
+
+    // 2) 폴백: 평문 description 을 그대로 줄바꿈 렌더 (라벨 분리 금지).
+    if (hasDescription) {
+      return [_RegulationPlainText(description: t.description!)];
+    }
+
+    // 3) 비어 있음.
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
-    final isTennis = tournament.sport == 'tennis';
-
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(AppSpacing.xl),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            accentColor.withValues(alpha: 0.18),
-            cs.surfaceContainerLowest,
+    return [
+      Padding(
+        padding: const EdgeInsets.all(AppSpacing.lg),
+        child: Row(
+          children: [
+            Icon(Icons.info_outline_rounded,
+                size: 18, color: cs.onSurfaceVariant),
+            const SizedBox(width: AppSpacing.sm),
+            Expanded(
+              child: Text(
+                '상세 요강이 아직 공지되지 않았습니다.\n주최 측에서 공지하면 자동으로 업데이트됩니다.',
+                style: tt.bodySmall?.copyWith(
+                  color: cs.onSurfaceVariant,
+                  height: 1.5,
+                ),
+              ),
+            ),
           ],
         ),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: accentColor.withValues(alpha: 0.16)),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 56,
-                height: 56,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.86),
-                  borderRadius: BorderRadius.circular(18),
-                ),
-                child: Icon(
-                  isTennis
-                      ? Icons.sports_tennis_rounded
-                      : Icons.sports_soccer_rounded,
-                  color: accentColor,
-                  size: 30,
-                ),
-              ),
-              const Spacer(),
-              _StatusPill(status: tournament.status),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.xl),
-          Text(
-            tournament.title,
-            style: tt.headlineSmall?.copyWith(
-              fontWeight: FontWeight.w900,
-              height: 1.18,
-            ),
-          ),
-          const SizedBox(height: AppSpacing.md),
-          Text(
-            [
-              if (tournament.organizer != null) tournament.organizer!,
-              dateText,
-            ].join(' · '),
-            style: tt.bodyMedium?.copyWith(
-              color: cs.onSurfaceVariant,
-              height: 1.45,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(height: AppSpacing.lg),
-          Wrap(
-            spacing: AppSpacing.sm,
-            runSpacing: AppSpacing.sm,
-            children: [
-              _InfoChip(
-                icon: Icons.place_rounded,
-                label: tournament.region ?? '지역 확인 필요',
-                color: accentColor,
-              ),
-              _InfoChip(
-                icon: Icons.emoji_events_rounded,
-                label: grades,
-                color: accentColor,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+    ];
   }
 }
 
@@ -546,123 +412,44 @@ class _StatusPill extends StatelessWidget {
   }
 }
 
-class _QuickInfo {
-  const _QuickInfo({
-    required this.icon,
-    required this.label,
-    required this.value,
-    this.accent,
-  });
-
+class _DetailInfoRow extends StatelessWidget {
   final IconData icon;
   final String label;
   final String value;
-  final Color? accent;
-}
+  final Color? valueColor;
 
-class _QuickInfoGrid extends StatelessWidget {
-  const _QuickInfoGrid({required this.rows});
-
-  final List<_QuickInfo> rows;
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: rows.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 1.75,
-        crossAxisSpacing: AppSpacing.sm,
-        mainAxisSpacing: AppSpacing.sm,
-      ),
-      itemBuilder: (context, index) => _QuickInfoTile(info: rows[index]),
-    );
-  }
-}
-
-class _QuickInfoTile extends StatelessWidget {
-  const _QuickInfoTile({required this.info});
-
-  final _QuickInfo info;
+  const _DetailInfoRow({
+    required this.icon,
+    required this.label,
+    required this.value,
+    this.valueColor,
+  });
 
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
-    final color = info.accent ?? cs.primary;
-
-    return AppCard(
-      padding: const EdgeInsets.all(AppSpacing.md),
-      child: Column(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(info.icon, size: 18, color: color),
-              const SizedBox(width: AppSpacing.xs),
-              Text(
-                info.label,
-                style: tt.labelSmall?.copyWith(color: cs.onSurfaceVariant),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.xs),
-          Expanded(
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                info.value,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: tt.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w800,
-                  height: 1.18,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _InfoChip extends StatelessWidget {
-  const _InfoChip({
-    required this.icon,
-    required this.label,
-    required this.color,
-  });
-
-  final IconData icon;
-  final String label;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.md,
-        vertical: AppSpacing.sm,
-      ),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
-        borderRadius: AppRadius.pill,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 15, color: color),
-          const SizedBox(width: AppSpacing.xs),
-          Flexible(
+          Icon(icon, size: 18, color: cs.onSurfaceVariant),
+          const SizedBox(width: AppSpacing.sm),
+          SizedBox(
+            width: 72,
             child: Text(
               label,
-              style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    color: color,
-                    fontWeight: FontWeight.w800,
-                  ),
+              style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: tt.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w700,
+                color: valueColor,
+              ),
             ),
           ),
         ],
@@ -812,206 +599,6 @@ class _TournamentDetailError extends StatelessWidget {
   }
 }
 
-class _DescSection {
-  const _DescSection(this.text, {this.value, this.isHeader = false});
-
-  final String text;
-  final String? value;
-  final bool isHeader;
-}
-
-/// 크롤된 대회 요강 텍스트를 키워드 기반으로 섹션 분리 + 자동 줄바꿈
-List<_DescSection> _parseDescription(String raw, {required String sportLabel}) {
-  // 0단계: 하단 보일러플레이트 제거 (협회 사이트 공통 푸터)
-  var text = raw;
-  for (final marker in ['개인정보 취급방침', 'COPYRIGHT', '홈페이지바로가기']) {
-    final idx = text.indexOf(marker);
-    if (idx > 0) text = text.substring(0, idx);
-  }
-
-  // 0.1단계: 신청 폼 잔해 제거
-  text = text
-      .replaceAll(RegExp(r'이점 참고하여 신중하게 신청 바랍니다'), '')
-      .replaceAll(RegExp(r'입금대기중을 클릭하여 입금계좌로 입금후로 입금일 입금자를 등록해주시기 바랍니다\.?'), '')
-      .replaceAll(
-          RegExp(r'참가부서\s+신청기간\s+경기일시\s+현재신청팀\s+신청목록\s+신청하기\s+입금내역'), '')
-      .replaceAll(RegExp(r'참가비\s+입금\s*×\s*팀?참가비\s+입금\s*×\s*\.?'), '')
-      .replaceAll(RegExp(r'참가비\s+입금\s*×\s*\.?'), '')
-      .replaceAll(RegExp(r'\[신청대기\]|\[신청마감\]|\[신청중\]'), '')
-      .replaceAll(RegExp(r'부서추후공지'), '');
-
-  text = text.trim();
-  if (text.isEmpty) return [];
-
-  // 0.5단계: 파이프 구분 메타데이터 (참가부서: ... | 신청마감: ...) → 줄바꿈
-  text = text.replaceAll(' | ', '\n');
-
-  // 1단계: 핵심 키워드 앞에 줄바꿈 삽입
-  text = text
-      .replaceAllMapped(RegExp(r'(참가부서\s*:?\s*)'), (m) => '\n참가부서: ')
-      .replaceAllMapped(RegExp(r'(신청마감\s*:?\s*)'), (m) => '\n신청마감: ')
-      .replaceAllMapped(RegExp(r'(대회일\s*:?\s*)'), (m) => '\n대회일: ')
-      .replaceAllMapped(RegExp(r'(지역\s*:?\s*)'), (m) => '\n지역: ')
-      .replaceAllMapped(RegExp(r'(장\s*소\s*:?\s*)'), (m) => '\n장소: ')
-      .replaceAllMapped(RegExp(r'(주\s*최\s*:?\s*)'), (m) => '\n주최: ')
-      .replaceAllMapped(RegExp(r'(주\s*관\s*:?\s*)'), (m) => '\n주관: ')
-      .replaceAllMapped(RegExp(r'(후\s*원\s*:?\s*)'), (m) => '\n후원: ')
-      .replaceAllMapped(RegExp(r'(협\s*찬\s*:?\s*)'), (m) => '\n협찬: ')
-      .replaceAllMapped(
-          RegExp(r'(참가비\s*:?\s*|참\s*가\s*비\s*:?\s*)'), (m) => '\n참가비: ')
-      .replaceAllMapped(
-          RegExp(r'(입금계좌\s*:?\s*|입금\s*계좌\s*:?\s*)'), (m) => '\n입금계좌: ')
-      .replaceAllMapped(RegExp(r'(접수\s*마감)'), (m) => '\n접수마감: ')
-      .replaceAllMapped(
-          RegExp(r'(사\s*용\s*구\s*:?\s*|공\s*인\s*구\s*:?\s*)'), (m) => '\n사용구: ')
-      .replaceAllMapped(RegExp(r'(경기\s*종목\s*:?\s*)'), (m) => '\n경기종목: ')
-      .replaceAllMapped(RegExp(r'(경기\s*방식\s*:?\s*)'), (m) => '\n경기방식: ')
-      .replaceAllMapped(RegExp(r'(일\s*시\s*:?\s*)'), (m) => '\n일시: ')
-      .replaceAllMapped(RegExp(r'(안\s*내\s*:?\s*)'), (m) => '\n안내: ')
-      .replaceAllMapped(RegExp(r'(참가\s*접수\s*:?\s*)'), (m) => '\n참가접수: ');
-
-  // 2단계: 특수 마커 줄바꿈
-  text = text
-      .replaceAll(RegExp(r'[◈◇★●▶]\s*'), '\n• ')
-      .replaceAll(RegExp(r'※\s*'), '\n※ ');
-
-  // 3단계: 자동 줄바꿈 — 문장 끝(. 다) 뒤 + 부서별 정보 분리
-  text = text
-      .replaceAllMapped(RegExp(r'(\.\s+)(?=[가-힣])'), (m) => '.\n') // 마침표 뒤
-      .replaceAllMapped(
-          RegExp(r'(다\.\s*)(?=[가-힣A-Z])'), (m) => '다.\n') // "~합니다." 뒤
-      .replaceAllMapped(
-          RegExp(r'(요\.\s*)(?=[가-힣A-Z])'), (m) => '요.\n') // "~세요." 뒤
-      .replaceAllMapped(
-          RegExp(r'(\)\s*)(?=[가-힣]{2,}부\s)'), (m) => ')\n') // ") 골드부" → 줄바꿈
-      .replaceAllMapped(
-          RegExp(r'(08시\d+분\s*)(?=[가-힣])'), (m) => '${m[1]}\n'); // 시간 뒤 부서 분리
-
-  final lines =
-      text.split('\n').map((l) => l.trim()).where((l) => l.isNotEmpty).toList();
-
-  final sections = <_DescSection>[];
-  final headerPattern = RegExp(
-    r'^(참가부서|신청마감|대회일|지역|장소|주최|주관|후원|협찬|참가비|입금계좌|접수마감|사용구|경기종목|경기방식|일시|안내|참가접수):\s*(.*)$',
-  );
-  const duplicateLabels = {
-    '참가부서',
-    '신청마감',
-    '대회일',
-    '지역',
-    '장소',
-    '참가비',
-    '접수마감',
-    '일시',
-  };
-
-  for (final line in lines) {
-    final match = headerPattern.firstMatch(line);
-    if (match != null) {
-      final label = match.group(1) ?? line;
-      if (duplicateLabels.contains(label)) continue;
-      final rawValue = (match.group(2) ?? '').trim();
-      sections.add(
-        _DescSection(
-          label,
-          value: label == '경기종목' ? sportLabel : rawValue,
-          isHeader: true,
-        ),
-      );
-    } else {
-      if (sections.isNotEmpty && sections.last.text == '안내') {
-        final previous = sections.removeLast();
-        final previousValue = previous.value?.trim();
-        sections.add(
-          _DescSection(
-            '안내',
-            value: [
-              if (previousValue != null && previousValue.isNotEmpty)
-                previousValue,
-              line,
-            ].join('\n'),
-            isHeader: true,
-          ),
-        );
-        continue;
-      }
-      sections.add(_DescSection(line));
-    }
-  }
-
-  return sections;
-}
-
-String _displayGrades(Tournament t) {
-  final local = t.divisionLabelLocal?.trim();
-  if (local == null || local.isEmpty) {
-    return formatEligibleGrades(t.eligibleGrades);
-  }
-
-  return local
-      .split(RegExp(r'\s*(?:·|,|/)\s*'))
-      .where((part) => part.trim().isNotEmpty)
-      .map((part) => divisionLabel(part.trim()))
-      .join(' · ');
-}
-
-class _DescriptionLine extends StatelessWidget {
-  const _DescriptionLine({required this.section});
-
-  final _DescSection section;
-
-  @override
-  Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-    final tt = Theme.of(context).textTheme;
-
-    if (!section.isHeader) {
-      return Padding(
-        padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-        child: Text(
-          section.text,
-          style: tt.bodySmall?.copyWith(
-            height: 1.6,
-            color: cs.onSurfaceVariant,
-          ),
-        ),
-      );
-    }
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 56,
-        vertical: AppSpacing.xs,
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 92,
-            child: Text(
-              section.text,
-              style: tt.labelMedium?.copyWith(
-                color: cs.onSurfaceVariant,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          ),
-          const SizedBox(width: AppSpacing.lg),
-          Expanded(
-            child: Text(
-              section.value?.isNotEmpty == true ? section.value! : '-',
-              style: tt.bodyMedium?.copyWith(
-                height: 1.45,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class _AccordionSection extends StatelessWidget {
   final IconData icon;
   final String title;
@@ -1051,19 +638,13 @@ class _AccordionSection extends StatelessWidget {
   }
 }
 
-class _InfoRow extends StatelessWidget {
-  final IconData icon;
+/// 구조화 요강 한 줄 (라벨 + 값). 아코디언 내부 들여쓰기 스타일은
+/// 기존 _InfoRow 와 동일하게 유지한다.
+class _RegulationFieldRow extends StatelessWidget {
+  const _RegulationFieldRow({required this.label, required this.value});
+
   final String label;
   final String value;
-  final Color? accent;
-  final bool showIcon;
-  const _InfoRow({
-    required this.icon,
-    required this.label,
-    required this.value,
-    this.accent,
-    this.showIcon = true,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -1090,13 +671,340 @@ class _InfoRow extends StatelessWidget {
           const SizedBox(width: AppSpacing.lg),
           Expanded(
             child: Text(
-              value,
+              value.isNotEmpty ? value : '-',
               style: tt.bodyMedium?.copyWith(
                 height: 1.45,
                 fontWeight: FontWeight.w700,
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+/// 요강 안내문(※) 블록: 구분선 + "안내" 소제목 + 불릿 리스트.
+class _RegulationNotes extends StatelessWidget {
+  const _RegulationNotes({required this.notes});
+
+  final List<String> notes;
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 56),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: AppSpacing.sm),
+          Divider(color: cs.outlineVariant),
+          const SizedBox(height: AppSpacing.sm),
+          Text(
+            '안내',
+            style: tt.labelMedium?.copyWith(
+              color: cs.onSurfaceVariant,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          for (final note in notes)
+            Padding(
+              padding: const EdgeInsets.only(top: AppSpacing.xs),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '• ',
+                    style: tt.bodyMedium?.copyWith(
+                      height: 1.45,
+                      color: cs.onSurfaceVariant,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      note,
+                      style: tt.bodyMedium?.copyWith(
+                        height: 1.45,
+                        color: cs.onSurfaceVariant,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+/// 전체 요강 본문: 구분선 + "전체 요강" 소제목 + 마커 기반 계층 렌더.
+///
+/// 폰트 패밀리는 전부 tt.bodyMedium 으로 동일하게 두고, weight·color·
+/// 들여쓰기·세로간격으로만 위계를 표현한다(_RegulationFieldRow/_RegulationNotes
+/// 와 동일 톤). 줄 분류 규칙은 parseRegulationBody() 에 분리되어 테스트된다.
+class _RegulationBody extends StatelessWidget {
+  const _RegulationBody({required this.body, this.withDivider = true});
+
+  final String body;
+  final bool withDivider;
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+    final base = tt.bodyMedium ?? const TextStyle();
+    final lines = parseRegulationBody(body);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 56),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: AppSpacing.sm),
+          if (withDivider) ...[
+            Divider(color: cs.outlineVariant),
+            const SizedBox(height: AppSpacing.sm),
+          ],
+          Text(
+            '전체 요강',
+            style: tt.labelMedium?.copyWith(
+              color: cs.onSurfaceVariant,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          for (final line in lines) _line(context, line, base, cs),
+        ],
+      ),
+    );
+  }
+
+  Widget _line(
+    BuildContext context,
+    RegulationLine line,
+    TextStyle base,
+    ColorScheme cs,
+  ) {
+    switch (line.kind) {
+      case RegulationLineKind.header:
+        return Padding(
+          padding: const EdgeInsets.only(
+            top: AppSpacing.lg,
+            bottom: AppSpacing.xs,
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 5, right: AppSpacing.sm),
+                width: 3,
+                height: 14,
+                decoration: BoxDecoration(
+                  color: cs.primary,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  line.text,
+                  style: base.copyWith(
+                    fontWeight: FontWeight.w800,
+                    color: cs.onSurface,
+                    height: 1.4,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+
+      case RegulationLineKind.item:
+        return Padding(
+          padding: const EdgeInsets.only(top: AppSpacing.sm),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('• ', style: base.copyWith(color: cs.primary, height: 1.5)),
+              Expanded(
+                child: Text(
+                  line.text,
+                  style: base.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: cs.onSurface,
+                    height: 1.5,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+
+      case RegulationLineKind.numbered:
+        return Padding(
+          padding:
+              const EdgeInsets.only(top: AppSpacing.xs, left: AppSpacing.sm),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: 22,
+                child: Text(
+                  line.label ?? '',
+                  style: base.copyWith(
+                    color: cs.onSurfaceVariant,
+                    height: 1.5,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  line.text,
+                  style: base.copyWith(color: cs.onSurface, height: 1.5),
+                ),
+              ),
+            ],
+          ),
+        );
+
+      case RegulationLineKind.dash:
+        return Padding(
+          padding: const EdgeInsets.only(top: 2, left: AppSpacing.lg),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('– ',
+                  style:
+                      base.copyWith(color: cs.onSurfaceVariant, height: 1.5)),
+              Expanded(
+                child: Text(
+                  line.text,
+                  style: base.copyWith(color: cs.onSurface, height: 1.5),
+                ),
+              ),
+            ],
+          ),
+        );
+
+      case RegulationLineKind.tableRow:
+        final cells = line.cells;
+        return Container(
+          margin: const EdgeInsets.only(top: AppSpacing.sm),
+          padding: const EdgeInsets.all(AppSpacing.md),
+          decoration: BoxDecoration(
+            color: cs.surfaceContainerHighest,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (cells.isNotEmpty)
+                Text(
+                  cells.first,
+                  style: base.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: cs.onSurface,
+                    height: 1.4,
+                  ),
+                ),
+              for (final cell in cells.skip(1))
+                Padding(
+                  padding: const EdgeInsets.only(top: AppSpacing.xs),
+                  child: Text(
+                    cell,
+                    style: base.copyWith(
+                      color: cs.onSurfaceVariant,
+                      height: 1.4,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        );
+
+      case RegulationLineKind.labelValue:
+        return Padding(
+          padding: const EdgeInsets.only(top: AppSpacing.xs),
+          child: Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: '${line.label}: ',
+                  style: base.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: cs.onSurface,
+                  ),
+                ),
+                TextSpan(
+                  text: line.value ?? '',
+                  style: base.copyWith(color: cs.onSurface),
+                ),
+              ],
+            ),
+            style: base.copyWith(height: 1.5),
+          ),
+        );
+
+      case RegulationLineKind.note:
+        return Padding(
+          padding: const EdgeInsets.only(top: AppSpacing.xs),
+          child: Text(
+            line.text,
+            style: base.copyWith(
+              color: cs.onSurfaceVariant,
+              height: 1.5,
+            ),
+          ),
+        );
+
+      case RegulationLineKind.paragraph:
+        return Padding(
+          padding: const EdgeInsets.only(top: AppSpacing.xs),
+          child: Text(
+            line.text,
+            style: base.copyWith(color: cs.onSurface, height: 1.5),
+          ),
+        );
+    }
+  }
+}
+
+/// 폴백: 구조화 요강이 비어 있을 때 description 평문을 그대로 줄바꿈 렌더.
+/// 라벨 분리/문장 쪼개기 금지 — 원문을 보존한다.
+class _RegulationPlainText extends StatelessWidget {
+  const _RegulationPlainText({required this.description});
+
+  final String description;
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+    final style = tt.bodySmall?.copyWith(
+      height: 1.6,
+      color: cs.onSurfaceVariant,
+    );
+    // 카드와 중복되는 메타라인 제거 + 부서 접수 항목 줄바꿈.
+    final lines = cleanPlainRegulationLines(description);
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.sm,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (lines.isEmpty)
+            Text(description.trim(), style: style)
+          else
+            for (var i = 0; i < lines.length; i++)
+              Padding(
+                padding: EdgeInsets.only(top: i == 0 ? 0 : AppSpacing.xs),
+                child: Text(lines[i], style: style),
+              ),
         ],
       ),
     );

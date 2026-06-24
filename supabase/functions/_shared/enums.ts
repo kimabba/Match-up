@@ -99,6 +99,23 @@ export function isValidEntryFeeUnit(value: string): value is EntryFeeUnit {
 }
 
 // =========================
+// Recruiting status — 모집상태 서버 필터 (RPC p_recruiting)
+// =========================
+
+export const RECRUITING_STATES = ['open', 'closed'] as const;
+export type RecruitingState = typeof RECRUITING_STATES[number];
+
+/**
+ * 모집상태 쿼리 파라미터 정규화.
+ * 'open' | 'closed' 만 허용하고, 그 외(빈값/오타/null/undefined)는 null 로 반환한다.
+ * null = RPC p_recruiting NULL = 필터 미적용.
+ */
+export function parseRecruiting(raw: unknown): RecruitingState | null {
+  if (typeof raw !== 'string') return null;
+  return (RECRUITING_STATES as readonly string[]).includes(raw) ? (raw as RecruitingState) : null;
+}
+
+// =========================
 // Tennis Divisions — 협회별 부서 코드 ({org}_{div} 형식)
 // tournaments.eligible_grades 에 저장되는 값
 // =========================
@@ -188,6 +205,27 @@ export function getDivisionsForOrg(org: string): TennisDivisionDef[] {
 
 export function getDivisionLabel(code: string): string {
   return TENNIS_DIVISION_LABELS[code] ?? code;
+}
+
+/** Division code 형식 검증: 영문소문자/숫자/언더스코어만 (^[a-z0-9_]+$). */
+const DIVISION_CODE_PATTERN = /^[a-z0-9_]+$/;
+
+/**
+ * 쉼표구분 division_codes 문자열을 파싱한다.
+ *   "gj_m_gold, jn_m_gold ,bad code" → ['gj_m_gold', 'jn_m_gold']
+ * 처리: split(',') → trim → 빈값 제거 → 형식(^[a-z0-9_]+$) 불일치 제거.
+ * 결과가 비면 null (RPC 의 p_division_codes NULL = 필터 미적용).
+ *
+ * 형식 sanitize 만 수행한다. 실제 SQL 인젝션 방지는 RPC 파라미터 바인딩이 담당하고,
+ * 코드 화이트리스트는 종류가 많아(69+) 유지보수 부담이 커 형식 체크로 충분하다.
+ */
+export function parseDivisionCodes(raw: string | null | undefined): string[] | null {
+  if (!raw) return null;
+  const codes = raw
+    .split(',')
+    .map((c) => c.trim())
+    .filter((c) => c.length > 0 && DIVISION_CODE_PATTERN.test(c));
+  return codes.length > 0 ? codes : null;
 }
 
 // 광주/전남 사이트 텍스트 키워드 → division suffix 매핑 (크롤러용)

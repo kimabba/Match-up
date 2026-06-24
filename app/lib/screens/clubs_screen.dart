@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../config.dart';
 import '../models/tournament.dart';
@@ -23,6 +24,10 @@ class ClubsScreen extends ConsumerStatefulWidget {
 }
 
 class _ClubsScreenState extends ConsumerState<ClubsScreen> {
+  // 내 주변 새 클럽(GPS 반경): 시현 이슈로 임시 숨김. GPS 기반 재구현 예정 (#97).
+  // false → 섹션 미노출. 코드·헬퍼는 보존하므로 true 로 되돌리면 복구됨.
+  final bool _nearbyNewClubsEnabled = false;
+
   // 내 클럽 탭
   List<Club>? _myClubs;
   bool _loadingMy = false;
@@ -170,14 +175,11 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
     final favoriteClubIds =
         ref.watch(clubFavoriteIdsProvider).valueOrNull ?? const <String>{};
     final effectiveClubs = _clubs ?? _previewSearchClubs;
-    final interestClubs = effectiveClubs
-        .where((club) => _clubInterests.contains(club.sport))
-        .toList();
     final visibleClubs = effectiveClubs
         .where((club) => _clubInterests.contains(club.sport))
         .where((club) => _matchesClubFilters(club, _clubFilters))
         .toList();
-    final nearbyNewClubs = _nearbyRecentClubs(interestClubs);
+    final nearbyNewClubs = _nearbyRecentClubs(visibleClubs);
     final newClubs = nearbyNewClubs.take(4).toList();
     final recommendedClubs = _recommendedPreviewClubs(visibleClubs);
     final joinedClubs = (_myClubs ?? _previewManagedClubs)
@@ -208,147 +210,121 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
             ),
             sliver: SliverList.list(
               children: [
-                _SimplePanel(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const _SimpleSectionHeader(
-                        title: '내 주변에 새로 생겼어요',
-                        subtitle: '반경 5km · 최근 7일',
-                      ),
-                      const SizedBox(height: AppSpacing.sm),
-                      if (_loading || _loadingMy)
-                        const LinearProgressIndicator(),
-                      if (_searchError != null) ...[
+                // 내 주변 새 클럽(GPS 반경): 시현 이슈로 임시 숨김 (#97).
+                if (_nearbyNewClubsEnabled) ...[
+                  _SimplePanel(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const _SimpleSectionHeader(
+                          title: '내 주변에 새로 생겼어요',
+                          subtitle: '반경 5km · 최근 7일',
+                        ),
                         const SizedBox(height: AppSpacing.sm),
-                        Text(
-                          _searchError!,
-                          style: TextStyle(color: cs.error),
-                        ),
-                      ],
-                      const SizedBox(height: AppSpacing.sm),
-                      _SimpleClubGrid(
-                        clubs: newClubs,
-                        favoriteIds: favoriteClubIds,
-                        onFavoriteToggle: _toggleClubFavorite,
-                      ),
-                      const SizedBox(height: AppSpacing.md),
-                      SizedBox(
-                        width: double.infinity,
-                        child: OutlinedButton.icon(
-                          onPressed: () =>
-                              _openNearbyNewClubsSheet(nearbyNewClubs),
-                          icon: const Icon(Icons.near_me_rounded),
-                          label: const Text('내 주변 새 클럽 더보기'),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                _SimplePanel(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _SimpleActionCard(
-                        icon: Icons.location_on_rounded,
-                        title: '맞춤 조건 설정',
-                        subtitle: [
-                          _selectedSportLabel(_clubInterests),
-                          ..._clubFilters.labels,
-                        ].join(' · '),
-                        action: '설정',
-                        color: const Color(0xFFEAF7F1),
-                        onTap: _openClubFilterSheet,
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-                      _SimpleSectionHeader(
-                        title: _clubFilters.hasActive ? '조건과 딱 맞는 클럽' : '맞춤추천',
-                        subtitle: _clubFilters.hasActive
-                            ? [
-                                '${visibleClubs.length}개',
-                                _selectedSportLabel(_clubInterests),
-                                ..._clubFilters.labels,
-                              ].join(' · ')
-                            : '${_selectedSportLabel(_clubInterests)} 기준으로 추천해요',
-                      ),
-                      const SizedBox(height: AppSpacing.sm),
-                      if (recommendedClubs.isEmpty)
-                        const _SimpleClubTile(club: null)
-                      else
-                        for (final club in recommendedClubs.take(3))
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(bottom: AppSpacing.sm),
-                            child: _SimpleClubTile(
-                              club: club,
-                              isFavorite: favoriteClubIds.contains(club.id),
-                              onFavoriteToggle: _toggleClubFavorite,
-                            ),
+                        if (_loading || _loadingMy)
+                          const LinearProgressIndicator(),
+                        if (_searchError != null) ...[
+                          const SizedBox(height: AppSpacing.sm),
+                          Text(
+                            _searchError!,
+                            style: TextStyle(color: cs.error),
                           ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                _SimplePanel(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _SimpleSectionHeader(
-                        title: '가입한 클럽',
-                        subtitle: joinedClubs.isEmpty
-                            ? '아직 가입한 클럽이 없습니다'
-                            : '${joinedClubs.length}개 클럽에서 활동 중',
-                      ),
-                      const SizedBox(height: AppSpacing.sm),
-                      if (joinedClubs.isEmpty)
-                        const _SimpleClubTile(club: null)
-                      else
-                        for (final club in joinedClubs.take(3))
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(bottom: AppSpacing.sm),
-                            child: _SimpleClubTile(
-                              club: club,
-                              isFavorite: favoriteClubIds.contains(club.id),
-                              onFavoriteToggle: _toggleClubFavorite,
-                            ),
-                          ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                _SimplePanel(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (managedClubs.isNotEmpty) ...[
-                        _SimpleActionCard(
-                          icon: Icons.person_add_alt_1_rounded,
-                          title: '팀원모집',
-                          subtitle:
-                              '${managedClubs.length}개 운영 클럽에서 모집글을 관리할 수 있어요.',
-                          color: const Color(0xFFEAF7F1),
-                          onTap: () => _openTeamRecruitingSheet(managedClubs),
+                        ],
+                        const SizedBox(height: AppSpacing.sm),
+                        _SimpleClubGrid(
+                          clubs: newClubs,
+                          favoriteIds: favoriteClubIds,
+                          onFavoriteToggle: _toggleClubFavorite,
                         ),
                         const SizedBox(height: AppSpacing.md),
+                        SizedBox(
+                          width: double.infinity,
+                          child: OutlinedButton.icon(
+                            onPressed: () =>
+                                _openNearbyNewClubsSheet(nearbyNewClubs),
+                            icon: const Icon(Icons.near_me_rounded),
+                            label: const Text('내 주변 새 클럽 더보기'),
+                          ),
+                        ),
                       ],
-                      _TeamRecruitingBoard(
-                        posts: _visibleRecruitingPosts(_clubInterests),
-                        showOpenOnly: _showOpenRecruitingOnly,
-                        canManage: managedClubs.isNotEmpty,
-                        onShowOpenOnlyChanged: (value) {
-                          setState(() => _showOpenRecruitingOnly = value);
-                        },
-                        onClosePost: (post) {
-                          setState(
-                            () => _closedRecruitingPostIds.add(post.id),
-                          );
-                        },
-                      ),
-                    ],
+                    ),
                   ),
+                  const SizedBox(height: AppSpacing.lg),
+                ],
+                _SimpleActionCard(
+                  icon: Icons.location_on_rounded,
+                  title: '맞춤 조건 설정',
+                  subtitle: [
+                    _selectedSportLabel(_clubInterests),
+                    ..._clubFilters.labels,
+                  ].join(' · '),
+                  action: '설정',
+                  color: const Color(0xFFEAF7F1),
+                  onTap: _openClubFilterSheet,
                 ),
+                const SizedBox(height: AppSpacing.xl),
+                if (managedClubs.isNotEmpty) ...[
+                  _SimpleActionCard(
+                    icon: Icons.person_add_alt_1_rounded,
+                    title: '팀원모집',
+                    subtitle: '${managedClubs.length}개 운영 클럽에서 모집글을 관리할 수 있어요.',
+                    color: const Color(0xFFEAF7F1),
+                    onTap: () => _openTeamRecruitingSheet(managedClubs),
+                  ),
+                  const SizedBox(height: AppSpacing.xl),
+                ],
+                _TeamRecruitingBoard(
+                  posts: _visibleRecruitingPosts(_clubInterests),
+                  showOpenOnly: _showOpenRecruitingOnly,
+                  canManage: managedClubs.isNotEmpty,
+                  onShowOpenOnlyChanged: (value) {
+                    setState(() => _showOpenRecruitingOnly = value);
+                  },
+                  onClosePost: (post) {
+                    setState(() => _closedRecruitingPostIds.add(post.id));
+                  },
+                ),
+                const SizedBox(height: AppSpacing.xl),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        '가입한 클럽',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w900,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppSpacing.sm),
+                _SimpleClubTile(
+                  club: joinedClubs.isEmpty ? null : joinedClubs.first,
+                  isFavorite: joinedClubs.isEmpty
+                      ? false
+                      : favoriteClubIds.contains(joinedClubs.first.id),
+                  onFavoriteToggle: _toggleClubFavorite,
+                ),
+                const SizedBox(height: AppSpacing.xl),
+                _SimpleSectionHeader(
+                  title: '맞춤추천',
+                  subtitle: _clubFilters.hasActive
+                      ? [
+                          _selectedSportLabel(_clubInterests),
+                          ..._clubFilters.labels,
+                        ].join(' · ')
+                      : '${_selectedSportLabel(_clubInterests)} 기준',
+                ),
+                const SizedBox(height: AppSpacing.sm),
+                for (final club in recommendedClubs.take(3))
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                    child: _SimpleClubTile(
+                      club: club,
+                      isFavorite: favoriteClubIds.contains(club.id),
+                      onFavoriteToggle: _toggleClubFavorite,
+                    ),
+                  ),
               ],
             ),
           ),
@@ -359,15 +335,14 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
 
   bool _matchesClubFilters(Club club, _ClubSearchFilters filters) {
     if (filters.region != null && club.region != filters.region) return false;
-    if (filters.gender != null && club.genderPreference != filters.gender) {
+    if (filters.gender != null &&
+        club.genderPreference != null &&
+        club.genderPreference != filters.gender) {
       return false;
     }
     if (filters.days.isNotEmpty &&
-        !filters.days.every((day) => club.meetingDays.contains(day))) {
-      return false;
-    }
-    if ((filters.feeRange.start > 0 || filters.feeRange.end < 100000) &&
-        club.monthlyFee == null) {
+        club.meetingDays.isNotEmpty &&
+        club.meetingDays.every((day) => !filters.days.contains(day))) {
       return false;
     }
     if (club.monthlyFee != null &&
@@ -393,9 +368,6 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
       return now.difference(createdAt).inDays <= 7;
     }).toList()
       ..sort((a, b) {
-        final distanceCompare =
-            _previewClubDistanceKm(a).compareTo(_previewClubDistanceKm(b));
-        if (distanceCompare != 0) return distanceCompare;
         final aDate = a.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
         final bDate = b.createdAt ?? DateTime.fromMillisecondsSinceEpoch(0);
         return bDate.compareTo(aDate);
@@ -604,32 +576,6 @@ final _previewSearchClubs = [
     createdAt: DateTime.now().subtract(const Duration(days: 1)),
   ),
   Club(
-    id: 'preview-new-futsal-incheon-1',
-    sport: 'futsal',
-    name: '인천 러쉬 풋살',
-    region: '인천',
-    address: '인천 남동 풋살파크',
-    description: '혼성으로 가볍게 뛰는 평일 저녁 풋살 클럽',
-    memberCount: 36,
-    meetingDays: const ['수', '토'],
-    monthlyFee: 20000,
-    genderPreference: '혼성',
-    createdAt: DateTime.now().subtract(const Duration(days: 2)),
-  ),
-  Club(
-    id: 'preview-new-futsal-incheon-2',
-    sport: 'futsal',
-    name: '송도 올나잇 FS',
-    region: '인천',
-    address: '송도 스포츠돔',
-    description: '초급자도 편하게 참여하는 송도 풋살 모임',
-    memberCount: 22,
-    meetingDays: const ['월', '금'],
-    monthlyFee: 0,
-    genderPreference: '남성',
-    createdAt: DateTime.now().subtract(const Duration(days: 4)),
-  ),
-  Club(
     id: 'preview-new-tennis-1',
     sport: 'tennis',
     name: '올라운드 테니스 크루',
@@ -641,19 +587,6 @@ final _previewSearchClubs = [
     monthlyFee: 20000,
     genderPreference: '혼성',
     createdAt: DateTime.now().subtract(const Duration(days: 2)),
-  ),
-  Club(
-    id: 'preview-new-tennis-seoul-1',
-    sport: 'tennis',
-    name: '한강 랠리 클럽',
-    region: '서울',
-    address: '잠실 한강 테니스장',
-    description: '주말 오전 랠리와 복식 중심 테니스 클럽',
-    memberCount: 48,
-    meetingDays: const ['토', '일'],
-    monthlyFee: 30000,
-    genderPreference: '혼성',
-    createdAt: DateTime.now().subtract(const Duration(days: 3)),
   ),
   Club(
     id: 'preview-new-futsal-2',
@@ -669,32 +602,6 @@ final _previewSearchClubs = [
     createdAt: DateTime.now().subtract(const Duration(days: 5)),
   ),
   Club(
-    id: 'preview-new-futsal-seoul-1',
-    sport: 'futsal',
-    name: '마포 킥오프 크루',
-    region: '서울',
-    address: '마포 풋살아레나',
-    description: '퇴근 후 6vs6 중심으로 운영하는 직장인 풋살 클럽',
-    memberCount: 64,
-    meetingDays: const ['화', '목'],
-    monthlyFee: 50000,
-    genderPreference: '남성',
-    createdAt: DateTime.now().subtract(const Duration(days: 6)),
-  ),
-  Club(
-    id: 'preview-new-futsal-seoul-2',
-    sport: 'futsal',
-    name: '서울 루나 풋살',
-    region: '서울',
-    address: '성수 루프 풋살장',
-    description: '여성 회원 중심으로 수요일 저녁에 모이는 풋살 클럽',
-    memberCount: 26,
-    meetingDays: const ['수'],
-    monthlyFee: 40000,
-    genderPreference: '여성',
-    createdAt: DateTime.now().subtract(const Duration(days: 3)),
-  ),
-  Club(
     id: 'preview-new-tennis-2',
     sport: 'tennis',
     name: '광주 랠리메이트',
@@ -706,19 +613,6 @@ final _previewSearchClubs = [
     monthlyFee: 40000,
     genderPreference: '혼성',
     createdAt: DateTime.now().subtract(const Duration(days: 6)),
-  ),
-  Club(
-    id: 'preview-new-tennis-busan-1',
-    sport: 'tennis',
-    name: '해운대 테니스 라운지',
-    region: '부산',
-    address: '해운대 실내테니스장',
-    description: '여성 회원 중심으로 운영하는 부산 테니스 클럽',
-    memberCount: 31,
-    meetingDays: const ['월', '수'],
-    monthlyFee: 60000,
-    genderPreference: '여성',
-    createdAt: DateTime.now().subtract(const Duration(days: 7)),
   ),
   Club(
     id: 'preview-rec-futsal-1',
@@ -734,58 +628,6 @@ final _previewSearchClubs = [
     createdAt: DateTime.now().subtract(const Duration(days: 14)),
   ),
   Club(
-    id: 'preview-rec-futsal-gyeonggi-1',
-    sport: 'futsal',
-    name: '수원 스타터 풋살',
-    region: '경기',
-    address: '수원 월드풋살파크',
-    description: '입문자 위주로 기본기부터 함께 맞춰가는 클럽',
-    memberCount: 29,
-    meetingDays: const ['토'],
-    monthlyFee: 10000,
-    genderPreference: '혼성',
-    createdAt: DateTime.now().subtract(const Duration(days: 10)),
-  ),
-  Club(
-    id: 'preview-rec-futsal-busan-1',
-    sport: 'futsal',
-    name: '부산 야간 풋살 리그',
-    region: '부산',
-    address: '사직 풋살센터',
-    description: '고급자와 선출도 함께 뛰는 야간 풋살 클럽',
-    memberCount: 82,
-    meetingDays: const ['금', '일'],
-    monthlyFee: 80000,
-    genderPreference: '혼성',
-    createdAt: DateTime.now().subtract(const Duration(days: 12)),
-  ),
-  Club(
-    id: 'preview-rec-futsal-daegu-1',
-    sport: 'futsal',
-    name: '대구 선데이 FS',
-    region: '대구',
-    address: '수성 풋살파크',
-    description: '일요일 정기전 중심의 중급 풋살 모임',
-    memberCount: 44,
-    meetingDays: const ['일'],
-    monthlyFee: 30000,
-    genderPreference: '남성',
-    createdAt: DateTime.now().subtract(const Duration(days: 18)),
-  ),
-  Club(
-    id: 'preview-rec-futsal-daejeon-1',
-    sport: 'futsal',
-    name: '대전 믹스 풋살',
-    region: '대전',
-    address: '유성 풋살돔',
-    description: '혼성 친선전과 게스트 매칭을 함께 운영합니다',
-    memberCount: 27,
-    meetingDays: const ['수', '토'],
-    monthlyFee: 40000,
-    genderPreference: '혼성',
-    createdAt: DateTime.now().subtract(const Duration(days: 16)),
-  ),
-  Club(
     id: 'preview-rec-tennis-1',
     sport: 'tennis',
     name: '주말 테니스 친구들',
@@ -797,136 +639,6 @@ final _previewSearchClubs = [
     monthlyFee: 50000,
     genderPreference: '혼성',
     createdAt: DateTime.now().subtract(const Duration(days: 21)),
-  ),
-  Club(
-    id: 'preview-rec-tennis-gyeonggi-1',
-    sport: 'tennis',
-    name: '분당 테니스 워크온',
-    region: '경기',
-    address: '분당 탄천 테니스장',
-    description: '평일 야간 레슨 후 복식까지 이어지는 클럽',
-    memberCount: 39,
-    meetingDays: const ['화', '목'],
-    monthlyFee: 70000,
-    genderPreference: '혼성',
-    createdAt: DateTime.now().subtract(const Duration(days: 15)),
-  ),
-  Club(
-    id: 'preview-rec-tennis-incheon-1',
-    sport: 'tennis',
-    name: '청라 테니스 크루',
-    region: '인천',
-    address: '청라 스포츠파크 테니스장',
-    description: '초급 복식과 주말 번개를 함께 운영해요',
-    memberCount: 33,
-    meetingDays: const ['토', '일'],
-    monthlyFee: 30000,
-    genderPreference: '혼성',
-    createdAt: DateTime.now().subtract(const Duration(days: 9)),
-  ),
-  Club(
-    id: 'preview-new-tennis-incheon-2',
-    sport: 'tennis',
-    name: '송도 레이디스 테니스',
-    region: '인천',
-    address: '송도 센트럴 테니스코트',
-    description: '여성 회원끼리 평일 오전에 치는 테니스 클럽',
-    memberCount: 19,
-    meetingDays: const ['월', '수'],
-    monthlyFee: 50000,
-    genderPreference: '여성',
-    createdAt: DateTime.now().subtract(const Duration(days: 5)),
-  ),
-  Club(
-    id: 'preview-rec-tennis-seoul-2',
-    sport: 'tennis',
-    name: '강남 선데이 테니스',
-    region: '서울',
-    address: '양재 시민의숲 테니스장',
-    description: '일요일 오전 고정 모임으로 운영되는 남성 테니스 클럽',
-    memberCount: 52,
-    meetingDays: const ['일'],
-    monthlyFee: 80000,
-    genderPreference: '남성',
-    createdAt: DateTime.now().subtract(const Duration(days: 11)),
-  ),
-  Club(
-    id: 'preview-rec-tennis-daegu-1',
-    sport: 'tennis',
-    name: '대구 믹스 랠리',
-    region: '대구',
-    address: '두류 테니스파크',
-    description: '화요일과 금요일 저녁에 복식 위주로 모이는 혼성 클럽',
-    memberCount: 28,
-    meetingDays: const ['화', '금'],
-    monthlyFee: 30000,
-    genderPreference: '혼성',
-    createdAt: DateTime.now().subtract(const Duration(days: 20)),
-  ),
-  Club(
-    id: 'preview-rec-tennis-daejeon-1',
-    sport: 'tennis',
-    name: '대전 모닝 테니스',
-    region: '대전',
-    address: '유성 테니스센터',
-    description: '수요일과 토요일 아침에 여유 있게 치는 여성 테니스 모임',
-    memberCount: 21,
-    meetingDays: const ['수', '토'],
-    monthlyFee: 20000,
-    genderPreference: '여성',
-    createdAt: DateTime.now().subtract(const Duration(days: 13)),
-  ),
-  Club(
-    id: 'preview-rec-futsal-incheon-3',
-    sport: 'futsal',
-    name: '인천 레이디스 FS',
-    region: '인천',
-    address: '부평 풋살돔',
-    description: '여성 입문자와 초급자를 위한 풋살 클럽',
-    memberCount: 25,
-    meetingDays: const ['목', '일'],
-    monthlyFee: 30000,
-    genderPreference: '여성',
-    createdAt: DateTime.now().subtract(const Duration(days: 8)),
-  ),
-  Club(
-    id: 'preview-rec-futsal-seoul-3',
-    sport: 'futsal',
-    name: '강동 믹스 풋살',
-    region: '서울',
-    address: '천호 풋살파크',
-    description: '월요일과 수요일 저녁에 모이는 혼성 풋살팀',
-    memberCount: 47,
-    meetingDays: const ['월', '수'],
-    monthlyFee: 20000,
-    genderPreference: '혼성',
-    createdAt: DateTime.now().subtract(const Duration(days: 14)),
-  ),
-  Club(
-    id: 'preview-rec-futsal-gwangju-2',
-    sport: 'futsal',
-    name: '상무 남성 풋살단',
-    region: '광주',
-    address: '상무 풋살센터',
-    description: '목요일 야간 정기전 중심의 남성 풋살 클럽',
-    memberCount: 39,
-    meetingDays: const ['목'],
-    monthlyFee: 40000,
-    genderPreference: '남성',
-    createdAt: DateTime.now().subtract(const Duration(days: 17)),
-  ),
-  Club(
-    id: 'preview-rec-futsal-busan-2',
-    sport: 'futsal',
-    name: '센텀 레이디스 풋살',
-    region: '부산',
-    address: '센텀 풋살아레나',
-    description: '부산 여성 풋살 입문자를 위한 정기 모임',
-    memberCount: 30,
-    meetingDays: const ['화', '토'],
-    monthlyFee: 50000,
-    genderPreference: '여성',
-    createdAt: DateTime.now().subtract(const Duration(days: 19)),
   ),
 ];
 
@@ -1005,25 +717,6 @@ class _SimpleClubGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-    final tt = Theme.of(context).textTheme;
-
-    if (clubs.isEmpty) {
-      return Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(AppSpacing.md),
-        decoration: BoxDecoration(
-          color: cs.surfaceContainerLowest,
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: cs.outlineVariant),
-        ),
-        child: Text(
-          '조건에 맞는 새 클럽이 아직 없어요.',
-          style: tt.bodyMedium?.copyWith(color: cs.onSurfaceVariant),
-        ),
-      );
-    }
-
     return Wrap(
       spacing: AppSpacing.sm,
       runSpacing: AppSpacing.sm,
@@ -1278,12 +971,6 @@ class _SimpleClubMiniTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
-    final daysLabel =
-        club.meetingDays.isEmpty ? '요일 미정' : club.meetingDays.join('·');
-    final feeLabel = club.monthlyFee == null
-        ? '회비 미정'
-        : _formatFee(club.monthlyFee!.toDouble());
-    final distanceLabel = _previewClubDistanceLabel(club);
 
     return Row(
       children: [
@@ -1300,16 +987,10 @@ class _SimpleClubMiniTile extends StatelessWidget {
                 style: tt.titleSmall?.copyWith(fontWeight: FontWeight.w900),
               ),
               Text(
-                '$distanceLabel · ${sportLabelFromString(club.sport)} · ${club.region ?? '지역 미정'}',
+                '${sportLabelFromString(club.sport)} · ${club.region ?? '지역 미정'}',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
-              ),
-              Text(
-                '$daysLabel · ${club.genderPreference ?? '무관'} · $feeLabel',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: tt.labelSmall?.copyWith(color: cs.onSurfaceVariant),
               ),
             ],
           ),
@@ -2370,114 +2051,95 @@ class _SimpleClubTile extends StatelessWidget {
         ),
       );
     }
-    final daysLabel =
-        item.meetingDays.isEmpty ? '요일 미정' : item.meetingDays.join('·');
-    final feeLabel = item.monthlyFee == null
-        ? '회비 미정'
-        : _formatFee(item.monthlyFee!.toDouble());
 
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.sm),
-      decoration: BoxDecoration(
-        color: cs.surfaceContainerLowest,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: cs.outlineVariant.withValues(alpha: 0.65)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
-            blurRadius: 12,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              _SimpleClubAvatar(club: item, size: 72),
-              if (item.createdAt != null &&
-                  DateTime.now().difference(item.createdAt!).inDays <= 7)
-                Positioned(
-                  left: -6,
-                  top: -6,
-                  child: Container(
-                    padding: const EdgeInsets.all(7),
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFFF3B4F),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Text(
-                      'N',
-                      style: tt.labelMedium?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
+    return InkWell(
+      onTap: () => context.push('/clubs/${item.id}', extra: item),
+      borderRadius: BorderRadius.circular(18),
+      child: Container(
+        padding: const EdgeInsets.all(AppSpacing.sm),
+        decoration: BoxDecoration(
+          color: cs.surfaceContainerLowest,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: cs.outlineVariant.withValues(alpha: 0.65)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.03),
+              blurRadius: 12,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                _SimpleClubAvatar(club: item, size: 72),
+                if (item.createdAt != null &&
+                    DateTime.now().difference(item.createdAt!).inDays <= 7)
+                  Positioned(
+                    left: -6,
+                    top: -6,
+                    child: Container(
+                      padding: const EdgeInsets.all(7),
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFFF3B4F),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Text(
+                        'N',
+                        style: tt.labelMedium?.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                        ),
                       ),
                     ),
                   ),
-                ),
-            ],
-          ),
-          const SizedBox(width: AppSpacing.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  item.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: tt.titleMedium?.copyWith(fontWeight: FontWeight.w900),
-                ),
-                const SizedBox(height: 3),
-                Text(
-                  item.description ?? '새로운 클럽 일정을 확인해보세요.',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  '${sportLabelFromString(item.sport)} · ${item.region ?? '지역 미정'} · 멤버 ${item.memberCount}',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
-                ),
-                const SizedBox(height: 6),
-                Wrap(
-                  spacing: 6,
-                  runSpacing: 6,
-                  children: [
-                    _MiniInfoChip(
-                      icon: Icons.calendar_month_rounded,
-                      label: daysLabel,
-                    ),
-                    _MiniInfoChip(
-                      icon: Icons.groups_rounded,
-                      label: item.genderPreference ?? '무관',
-                    ),
-                    _MiniInfoChip(
-                      icon: Icons.payments_rounded,
-                      label: feeLabel,
-                    ),
-                  ],
-                ),
               ],
             ),
-          ),
-          IconButton(
-            tooltip: isFavorite ? '관심 해제' : '관심 클럽 저장',
-            onPressed: onFavoriteToggle == null
-                ? null
-                : () => onFavoriteToggle!(item, isFavorite),
-            icon: Icon(
-              isFavorite
-                  ? Icons.bookmark_rounded
-                  : Icons.bookmark_outline_rounded,
+            const SizedBox(width: AppSpacing.md),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    item.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style:
+                        tt.titleMedium?.copyWith(fontWeight: FontWeight.w900),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    item.description ?? '새로운 클럽 일정을 확인해보세요.',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    '${sportLabelFromString(item.sport)} · ${item.region ?? '지역 미정'} · 멤버 ${item.memberCount}',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+                  ),
+                ],
+              ),
             ),
-            color: isFavorite ? cs.primary : cs.onSurfaceVariant,
-          ),
-        ],
+            IconButton(
+              tooltip: isFavorite ? '관심 해제' : '관심 클럽 저장',
+              onPressed: onFavoriteToggle == null
+                  ? null
+                  : () => onFavoriteToggle!(item, isFavorite),
+              icon: Icon(
+                isFavorite
+                    ? Icons.bookmark_rounded
+                    : Icons.bookmark_outline_rounded,
+              ),
+              color: isFavorite ? cs.primary : cs.onSurfaceVariant,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -2646,37 +2308,6 @@ String _formatFee(double value) {
   if (amount % 10000 == 0) return '${amount ~/ 10000}만원';
   return '${amount ~/ 1000}천원';
 }
-
-double _previewClubDistanceKm(Club club) {
-  return _previewClubDistances[club.id] ?? 9.9;
-}
-
-String _previewClubDistanceLabel(Club club) {
-  final distance = _previewClubDistanceKm(club);
-  if (distance >= 9.9) return '거리 미정';
-  return '${distance.toStringAsFixed(1)}km';
-}
-
-const _previewClubDistances = {
-  'preview-new-futsal-1': 1.1,
-  'preview-new-tennis-1': 1.5,
-  'preview-new-futsal-2': 2.0,
-  'preview-new-tennis-2': 2.7,
-  'preview-new-futsal-incheon-1': 3.1,
-  'preview-new-futsal-incheon-2': 3.8,
-  'preview-new-tennis-incheon-2': 4.0,
-  'preview-new-futsal-seoul-2': 4.2,
-  'preview-new-tennis-seoul-1': 4.4,
-  'preview-new-futsal-seoul-1': 4.8,
-  'preview-new-tennis-busan-1': 5.0,
-  'preview-rec-futsal-incheon-3': 5.6,
-  'preview-rec-futsal-seoul-3': 6.2,
-  'preview-rec-tennis-seoul-2': 6.8,
-  'preview-rec-futsal-gwangju-2': 7.1,
-  'preview-rec-tennis-daegu-1': 7.7,
-  'preview-rec-tennis-daejeon-1': 8.3,
-  'preview-rec-futsal-busan-2': 8.8,
-};
 
 class _InterestSheet extends StatefulWidget {
   final Set<String> initialInterests;

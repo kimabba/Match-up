@@ -29,6 +29,11 @@ import {
   renderTournamentSearchText,
   type TournamentCardRow,
 } from '../_shared/chat_cards.ts';
+import {
+  buildRegulationContextLines,
+  normalizeRegulationFields,
+  type RegulationField,
+} from '../_shared/regulation.ts';
 
 /**
  * POST /chat
@@ -83,7 +88,43 @@ interface SemanticTournament {
   start_date: string;
   region: string | null;
   eligible_grades: string[];
+  // 요강(migration 077): regulation_fields(jsonb) 는 unknown 으로 받아 narrow,
+  // regulation_body(text) 는 DB 에서 이미 ≤2500자 절단.
+  regulation_fields: RegulationField[];
+  regulation_body: string | null;
   similarity: number;
+}
+
+/**
+ * tournaments_semantic_search RPC 의 원시 행 (jsonb/nullable 미정형).
+ * regulation_fields 는 jsonb 라서 unknown. normalizeSemanticTournaments 로 narrow.
+ */
+interface RawSemanticTournament {
+  id: string;
+  sport: string;
+  title: string;
+  start_date: string;
+  region: string | null;
+  eligible_grades: string[] | null;
+  regulation_fields: unknown;
+  regulation_body: string | null;
+  similarity: number;
+}
+
+/** RPC 원시 결과(unknown jsonb 포함)를 SemanticTournament[] 로 안전하게 narrow. */
+function normalizeSemanticTournaments(rows: unknown): SemanticTournament[] {
+  if (!Array.isArray(rows)) return [];
+  return (rows as RawSemanticTournament[]).map((r) => ({
+    id: r.id,
+    sport: r.sport,
+    title: r.title,
+    start_date: r.start_date,
+    region: r.region ?? null,
+    eligible_grades: Array.isArray(r.eligible_grades) ? r.eligible_grades : [],
+    regulation_fields: normalizeRegulationFields(r.regulation_fields),
+    regulation_body: r.regulation_body ?? null,
+    similarity: r.similarity,
+  }));
 }
 
 interface SemanticRule {
@@ -138,6 +179,12 @@ const INTENT_KNN_THRESHOLD = 0.75;
 // - SQL 결과 0건이면 precise filter 결과로 보고 즉시 종료한다.
 const ROUTING_CONFIDENCE_THRESHOLD = 0.95;
 const ROUTABLE_INTENTS: ReadonlySet<Intent> = new Set<Intent>(['tournament_search']);
+
+// 요강(regulation) RAG 컨텍스트 토큰 관리 (migration 077).
+//  - 본문은 유사도 상위 N개 대회에만 포함 (fields 라벨:값 요약은 전부 포함).
+//  - 대회당 본문은 추가로 1200자 cap (DB 에서 이미 ≤2500자 절단됨).
+const REGULATION_BODY_TOP_N = 2;
+const REGULATION_BODY_CONTEXT_CAP = 1200;
 
 interface IntentClassifyRow {
   intent: string;
@@ -292,6 +339,9 @@ function buildContextPrompt(
       const ob = sportOrder(b);
       return oa !== ob ? oa - ob : a.localeCompare(b);
     });
+    // 요강 본문은 토큰 관리를 위해 유사도 상위 N개 대회에만 포함한다.
+    // (fields 라벨:값 요약은 짧으므로 매칭 대회 전부에 포함.)
+    const bodyTopIds = new Set(top.slice(0, REGULATION_BODY_TOP_N).map((t) => t.id));
     for (const sport of sortedSports) {
       const label = SPORT_LABELS[sport as 'tennis' | 'futsal'] ?? sport;
       parts.push(`[관련 대회 — ${label}]`);
@@ -301,6 +351,16 @@ function buildContextPrompt(
             escapeForData(t.region ?? '지역미상')
           } | 출전등급: ${t.eligible_grades.join(', ')}`,
         );
+        // 요강(요강 fields + 본문) 을 LLM 컨텍스트에 노출 → "경기방식/시상/참가자격"
+        // 질문에 답변 가능하게. data 종결 태그 위조 방지를 위해 escapeForData 적용.
+        const regLines = buildRegulationContextLines(
+          t.regulation_fields,
+          bodyTopIds.has(t.id) ? t.regulation_body : null,
+          { bodyCap: REGULATION_BODY_CONTEXT_CAP },
+        );
+        for (const line of regLines) {
+          parts.push(escapeForData(line));
+        }
       }
       parts.push('');
     }
@@ -575,10 +635,11 @@ Deno.serve(async (req) => {
         //  - 등록된 종목만 답변 (RPC `p_only_my_grade=true` 가 이미 보장하지만
         //    응답 분리/거부 분기를 위해 여기서도 명시적으로 처리).
         //  - 사용자가 메시지에 sport 키워드를 명시했고 그 종목이 미등록이면 LLM 호출 우회하고 거부 응답.
-        //  - 명시 종목이 등록돼 있으면 RAG 결과를 그 종목으로 post-filter (다른 종목 컨텍스트 차단).
-        // requestedSport: 메시지에서 감지된 종목 또는 UI 활성 종목.
-        // explicitSport: 메시지에서 명시적으로 언급한 종목 (미등록 거부 판단용).
-        //   clientActiveSport는 UI 토글일 뿐이므로 미등록 거부 대상이 아님.
+        //  - 종목 검색/RAG 사전필터는 explicitSport(메시지 명시 종목)에만 적용한다.
+        //    UI 활성 탭으로 검색을 좁히면 탭과 다른 종목의 명시 질문이 거짓 0건이 되므로 금지.
+        // requestedSport: 메시지에서 감지된 종목 또는 UI 활성 종목 (로그·venue 검색 기본값 용).
+        // explicitSport: 메시지에서 명시적으로 언급한 종목 (미등록 거부 + 종목 사전필터 기준).
+        //   clientActiveSport는 UI 토글일 뿐이므로 미등록 거부·검색 한정 대상이 아님.
         const { explicitSport, requestedSport } = resolveRequestedSport(
           intentResult.slots.sport,
           clientActiveSport,
@@ -665,12 +726,16 @@ Deno.serve(async (req) => {
             'tournament_search_by_slots',
             {
               p_user_id: user.id,
-              p_sport: requestedSport,
+              // UI 활성 탭(clientActiveSport)이 아닌 "메시지에 명시된 종목"만 필터.
+              // 종목 단어가 없으면 null → 전 종목 검색 (탭이 풋살이어도 테니스 대회 누락 방지).
+              p_sport: explicitSport,
               p_region: regionLabel,
               p_date_from: dateRange?.from ?? null,
               p_date_to: dateRange?.to ?? null,
               p_only_my_grade: true,
               p_match_count: 10,
+              // 채팅은 모집중('open') 대회만 제안 — 마감된 대회 추천 방지 (migration 078).
+              p_recruiting: 'open',
             },
           );
 
@@ -688,7 +753,7 @@ Deno.serve(async (req) => {
           } else if (Array.isArray(rows) && rows.length > 0) {
             const typedRows = rows as TournamentCardRow[];
             const answerText = renderTournamentSearchText(typedRows, {
-              sport: requestedSport ?? undefined,
+              sport: explicitSport ?? undefined,
               region: regionLabel,
               dateRange,
             });
@@ -742,7 +807,7 @@ Deno.serve(async (req) => {
             // semantic RAG fallback 으로 내려가면 날짜와 무관한 유사 대회가 카드로 붙어
             // "없다"와 "있다"가 동시에 보이는 모순이 생긴다.
             const answerText = renderTournamentSearchEmptyText({
-              sport: requestedSport,
+              sport: explicitSport,
               region: regionLabel,
               dateRange,
             });
@@ -929,20 +994,21 @@ Deno.serve(async (req) => {
           ragErrored = true;
         } else {
           try {
-            // 사용자가 sport 를 명시했으면 DB 단에서 사전 필터링.
-            // post-filter (top-k 이후 JS filter) 는 요청 종목 행이 top-k 밖으로 밀려나면
-            // false RAG-miss 가 발생하므로 RPC 파라미터로 전달해 사전 컷.
+            // 종목 사전필터는 "메시지에 명시된 종목"(explicitSport)에만 적용.
+            // UI 활성 탭(clientActiveSport)으로 RAG 를 좁히면, 탭이 풋살일 때
+            // "서구 협회장배"(테니스) 같은 명시 질문이 0건이 되어 거짓 "DB 없음" 응답이 난다.
+            // 종목 단어가 없으면 null → 전 종목에서 관련도순 검색 (false RAG-miss 회피).
             const [tRes, rRes] = await Promise.all([
               supabase.rpc('tournaments_semantic_search', {
                 p_user_id: user.id,
                 p_query_embedding: vectorLiteral,
                 p_only_my_grade: false, // RAG는 관련성 우선; 등급 필터는 목록 화면에서만
                 p_match_count: 5,
-                p_sport: requestedSport ?? null,
+                p_sport: explicitSport ?? null,
               }),
               supabase.rpc('rules_semantic_search', {
                 p_query_embedding: vectorLiteral,
-                p_sport: requestedSport ?? null,
+                p_sport: explicitSport ?? null,
                 p_match_count: 3,
               }),
             ]);
@@ -951,7 +1017,7 @@ Deno.serve(async (req) => {
               ragErrored = true;
               console.error('RAG RPC error:', tRes.error?.message, rRes.error?.message);
             }
-            tournaments = (tRes.data as SemanticTournament[]) ?? [];
+            tournaments = normalizeSemanticTournaments(tRes.data);
             rules = (rRes.data as SemanticRule[]) ?? [];
 
             send('context', { tournaments, rules, venues });
@@ -1065,11 +1131,14 @@ Deno.serve(async (req) => {
             title: t.title,
             start_date: t.start_date,
             end_date: null,
+            application_deadline: null,
             region: t.region ?? null,
             location: null,
             eligible_grades: t.eligible_grades ?? [],
             entry_fee: null,
             format: null,
+            // semantic 경로(077): 이미 narrow 된 regulation_fields 를 카드로 전달.
+            regulation_fields: t.regulation_fields,
           }));
           send('ui', {
             blocks: [
