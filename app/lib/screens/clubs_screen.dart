@@ -405,6 +405,8 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
     ].where((post) {
       if (!interests.contains(post.sport)) return false;
       if (post.isClosed && post.closedAt != null) {
+        // Keep just-closed recruiting posts visible briefly so managers can
+        // confirm the state change, then remove them from the public list.
         return now.difference(post.closedAt!).inHours < 24;
       }
       return true;
@@ -1194,10 +1196,6 @@ class _TeamRecruitingBoard extends StatelessWidget {
                   onClose: () => onClosePost(post),
                 ),
               ),
-          Text(
-            '마감된 글은 일정 시간이 지나면 목록에서 내려가는 흐름으로 설계했습니다.',
-            style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
-          ),
         ],
       ),
     );
