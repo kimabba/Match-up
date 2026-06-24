@@ -15,6 +15,42 @@ import '../models/match_record.dart';
 import '../models/schedule_share.dart';
 import '../models/tournament.dart';
 
+/// `tournaments-search` Edge Function 쿼리 파라미터를 조립한다.
+///
+/// 비어 있는 값은 키 자체를 생략한다(Edge Function 쿼리키:
+/// region_code, org, division_codes, date_from, date_to).
+/// 순수 함수 — 단위 테스트 가능.
+Map<String, String> buildTournamentSearchQuery({
+  String? sport,
+  String? region,
+  String? regionCode,
+  DateTime? dateFrom,
+  DateTime? dateTo,
+  String? hostOrg,
+  List<String> divisionCodes = const [],
+  bool onlyMyGrade = true,
+  String? query,
+  int limit = 50,
+  int offset = 0,
+}) {
+  return {
+    if (sport != null && sport.isNotEmpty) 'sport': sport,
+    if (region != null && region.isNotEmpty) 'region': region,
+    if (regionCode != null && regionCode.isNotEmpty) 'region_code': regionCode,
+    if (dateFrom != null) 'date_from': _ymdStatic(dateFrom),
+    if (dateTo != null) 'date_to': _ymdStatic(dateTo),
+    if (hostOrg != null && hostOrg.isNotEmpty) 'org': hostOrg,
+    if (divisionCodes.isNotEmpty) 'division_codes': divisionCodes.join(','),
+    'only_my_grade': onlyMyGrade.toString(),
+    if (query != null && query.isNotEmpty) 'q': query,
+    'limit': limit.toString(),
+    'offset': offset.toString(),
+  };
+}
+
+String _ymdStatic(DateTime d) =>
+    '${d.year.toString().padLeft(4, '0')}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
+
 /// Edge Functions REST + SSE 클라이언트.
 class ApiService {
   ApiService(this._supabase);
@@ -47,24 +83,33 @@ class ApiService {
   Future<List<Tournament>> searchTournaments({
     String? sport,
     String? region,
+    String? regionCode,
     DateTime? dateFrom,
     DateTime? dateTo,
+    String? hostOrg,
+    List<String> divisionCodes = const [],
     bool onlyMyGrade = true,
     String? query,
     int limit = 50,
     int offset = 0,
   }) async {
     final res = await http.get(
-      _uri('tournaments-search', {
-        if (sport != null) 'sport': sport,
-        if (region != null) 'region': region,
-        if (dateFrom != null) 'date_from': _ymd(dateFrom),
-        if (dateTo != null) 'date_to': _ymd(dateTo),
-        'only_my_grade': onlyMyGrade.toString(),
-        if (query != null && query.isNotEmpty) 'q': query,
-        'limit': limit.toString(),
-        'offset': offset.toString(),
-      }),
+      _uri(
+        'tournaments-search',
+        buildTournamentSearchQuery(
+          sport: sport,
+          region: region,
+          regionCode: regionCode,
+          dateFrom: dateFrom,
+          dateTo: dateTo,
+          hostOrg: hostOrg,
+          divisionCodes: divisionCodes,
+          onlyMyGrade: onlyMyGrade,
+          query: query,
+          limit: limit,
+          offset: offset,
+        ),
+      ),
       headers: await _authHeaders(),
     );
     _check(res);
@@ -967,9 +1012,6 @@ class ApiService {
   }
 
   // ===== helpers =====
-  static String _ymd(DateTime d) =>
-      '${d.year.toString().padLeft(4, '0')}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
-
   void _check(http.Response res) {
     if (res.statusCode >= 400) {
       throw Exception('${res.statusCode}: ${res.body}');
