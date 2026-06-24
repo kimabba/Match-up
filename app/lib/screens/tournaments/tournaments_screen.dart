@@ -284,19 +284,6 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
     ].where((active) => active).length;
   }
 
-  void _resetAllFilters() {
-    setState(() {
-      _onlyMyGrade = false;
-      _q = '';
-      _regionCode = null;
-      _dateFrom = null;
-      _dateTo = null;
-      _hostOrg = null;
-      _divisionLabels = const {};
-      _recruitingStatus = RecruitingStatus.all;
-    });
-  }
-
   List<ActiveFilterChipData> get _activeFilterChips => activeFilterChips(
         sport: ref.read(activeSportProvider),
         query: _q,
@@ -383,42 +370,20 @@ class _TournamentsScreenState extends ConsumerState<TournamentsScreen> {
   Widget _buildQuickFilters(ColorScheme cs) {
     final activeCount = _activeFilterCount;
     final hasActiveFilters = activeCount > 0;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _FilterPill(
-              label: '전체',
-              selected: !hasActiveFilters,
-              onTap: () {
-                if (hasActiveFilters) {
-                  _resetAllFilters();
-                  _search();
-                }
-              },
-            ),
-            const SizedBox(width: AppSpacing.sm),
-            _FilterPill(
-              label: '이번주',
-              selected: false,
-              onTap: _search,
-            ),
-          ],
+    // 빠른칩(전체/이번주) 제거 — 조건은 상세검색에서 선택. 상세검색만 우측에 둔다.
+    return Align(
+      alignment: Alignment.centerRight,
+      child: ActionChip(
+        avatar: Icon(
+          Icons.tune_rounded,
+          size: 18,
+          color: hasActiveFilters ? cs.primary : cs.onSurfaceVariant,
         ),
-        ActionChip(
-          avatar: Icon(
-            Icons.tune_rounded,
-            size: 18,
-            color: hasActiveFilters ? cs.primary : cs.onSurfaceVariant,
-          ),
-          label: Text(hasActiveFilters ? '필터 $activeCount' : '상세검색'),
-          onPressed: () => _openSearchSheet(cs),
-          backgroundColor:
-              hasActiveFilters ? cs.primaryContainer : cs.surfaceContainerHigh,
-        ),
-      ],
+        label: Text(hasActiveFilters ? '필터 $activeCount' : '상세검색'),
+        onPressed: () => _openSearchSheet(cs),
+        backgroundColor:
+            hasActiveFilters ? cs.primaryContainer : cs.surfaceContainerHigh,
+      ),
     );
   }
 
@@ -1386,51 +1351,6 @@ class _TournamentErrorState extends StatelessWidget {
   }
 }
 
-class _FilterPill extends StatelessWidget {
-  const _FilterPill({
-    required this.label,
-    required this.selected,
-    required this.onTap,
-  });
-
-  final String label;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-    final tt = Theme.of(context).textTheme;
-
-    return Material(
-      color: selected ? cs.primary : cs.surface,
-      borderRadius: AppRadius.pill,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: AppRadius.pill,
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.md,
-            vertical: AppSpacing.sm,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: AppRadius.pill,
-            border: Border.all(
-              color: selected ? cs.primary : cs.outlineVariant,
-            ),
-          ),
-          child: Text(
-            label,
-            style: tt.labelMedium?.copyWith(
-              color: selected ? cs.onPrimary : cs.onSurfaceVariant,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 // ─── 상세검색 바텀시트 ─────────────────────────────────────────────────────────
 
