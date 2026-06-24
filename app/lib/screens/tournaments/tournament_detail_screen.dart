@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../config.dart';
+import '../../models/regulation_body_lines.dart';
 import '../../models/tournament.dart';
 import '../../state/providers.dart';
 import '../../theme/tokens.dart';
@@ -736,9 +737,11 @@ class _RegulationNotes extends StatelessWidget {
   }
 }
 
-/// 전체 요강 본문: 구분선 + "전체 요강" 소제목 + 여러 줄 본문.
-/// 크롤러가 "\n" 줄바꿈으로 정리한 본문을 그대로 보존해 렌더한다.
-/// ◈/◎/● 등 마커가 포함된 줄도 변형 없이 그대로 보인다.
+/// 전체 요강 본문: 구분선 + "전체 요강" 소제목 + 마커 기반 계층 렌더.
+///
+/// 폰트 패밀리는 전부 tt.bodyMedium 으로 동일하게 두고, weight·color·
+/// 들여쓰기·세로간격으로만 위계를 표현한다(_RegulationFieldRow/_RegulationNotes
+/// 와 동일 톤). 줄 분류 규칙은 parseRegulationBody() 에 분리되어 테스트된다.
 class _RegulationBody extends StatelessWidget {
   const _RegulationBody({required this.body, this.withDivider = true});
 
@@ -749,8 +752,9 @@ class _RegulationBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
-    // 양끝 빈 줄만 제거하고 내부 "\n" 줄바꿈은 보존한다.
-    final lines = body.replaceAll('\r\n', '\n').trim().split('\n');
+    final base = tt.bodyMedium ?? const TextStyle();
+    final lines = parseRegulationBody(body);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 56),
       child: Column(
@@ -769,17 +773,198 @@ class _RegulationBody extends StatelessWidget {
             ),
           ),
           const SizedBox(height: AppSpacing.xs),
-          for (final line in lines)
-            Text(
-              line.isEmpty ? ' ' : line,
-              style: tt.bodyMedium?.copyWith(
-                height: 1.55,
-                color: cs.onSurface,
-              ),
-            ),
+          for (final line in lines) _line(context, line, base, cs),
         ],
       ),
     );
+  }
+
+  Widget _line(
+    BuildContext context,
+    RegulationLine line,
+    TextStyle base,
+    ColorScheme cs,
+  ) {
+    switch (line.kind) {
+      case RegulationLineKind.header:
+        return Padding(
+          padding: const EdgeInsets.only(
+            top: AppSpacing.lg,
+            bottom: AppSpacing.xs,
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 5, right: AppSpacing.sm),
+                width: 3,
+                height: 14,
+                decoration: BoxDecoration(
+                  color: cs.primary,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  line.text,
+                  style: base.copyWith(
+                    fontWeight: FontWeight.w800,
+                    color: cs.onSurface,
+                    height: 1.4,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+
+      case RegulationLineKind.item:
+        return Padding(
+          padding: const EdgeInsets.only(top: AppSpacing.sm),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('• ',
+                  style: base.copyWith(color: cs.primary, height: 1.5)),
+              Expanded(
+                child: Text(
+                  line.text,
+                  style: base.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: cs.onSurface,
+                    height: 1.5,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+
+      case RegulationLineKind.numbered:
+        return Padding(
+          padding: const EdgeInsets.only(top: AppSpacing.xs, left: AppSpacing.sm),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: 22,
+                child: Text(
+                  line.label ?? '',
+                  style: base.copyWith(
+                    color: cs.onSurfaceVariant,
+                    height: 1.5,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  line.text,
+                  style: base.copyWith(color: cs.onSurface, height: 1.5),
+                ),
+              ),
+            ],
+          ),
+        );
+
+      case RegulationLineKind.dash:
+        return Padding(
+          padding: const EdgeInsets.only(top: 2, left: AppSpacing.lg),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('– ',
+                  style: base.copyWith(
+                      color: cs.onSurfaceVariant, height: 1.5)),
+              Expanded(
+                child: Text(
+                  line.text,
+                  style: base.copyWith(color: cs.onSurface, height: 1.5),
+                ),
+              ),
+            ],
+          ),
+        );
+
+      case RegulationLineKind.tableRow:
+        final cells = line.cells;
+        return Container(
+          margin: const EdgeInsets.only(top: AppSpacing.sm),
+          padding: const EdgeInsets.all(AppSpacing.md),
+          decoration: BoxDecoration(
+            color: cs.surfaceContainerHighest,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (cells.isNotEmpty)
+                Text(
+                  cells.first,
+                  style: base.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: cs.onSurface,
+                    height: 1.4,
+                  ),
+                ),
+              for (final cell in cells.skip(1))
+                Padding(
+                  padding: const EdgeInsets.only(top: AppSpacing.xs),
+                  child: Text(
+                    cell,
+                    style: base.copyWith(
+                      color: cs.onSurfaceVariant,
+                      height: 1.4,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        );
+
+      case RegulationLineKind.labelValue:
+        return Padding(
+          padding: const EdgeInsets.only(top: AppSpacing.xs),
+          child: Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: '${line.label}: ',
+                  style: base.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: cs.onSurface,
+                  ),
+                ),
+                TextSpan(
+                  text: line.value ?? '',
+                  style: base.copyWith(color: cs.onSurface),
+                ),
+              ],
+            ),
+            style: base.copyWith(height: 1.5),
+          ),
+        );
+
+      case RegulationLineKind.note:
+        return Padding(
+          padding: const EdgeInsets.only(top: AppSpacing.xs),
+          child: Text(
+            line.text,
+            style: base.copyWith(
+              color: cs.onSurfaceVariant,
+              height: 1.5,
+            ),
+          ),
+        );
+
+      case RegulationLineKind.paragraph:
+        return Padding(
+          padding: const EdgeInsets.only(top: AppSpacing.xs),
+          child: Text(
+            line.text,
+            style: base.copyWith(color: cs.onSurface, height: 1.5),
+          ),
+        );
+    }
   }
 }
 
