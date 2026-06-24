@@ -226,6 +226,25 @@ Deno.test('extractRegulationNotes filters overly long fragments (>300 chars)', (
   assertEquals(extractRegulationNotes(dom), ['짧은 안내']);
 });
 
+Deno.test('extractRegulationNotes drops short section-title headers (사항/규정), keeps real notes', () => {
+  const dom = parseFixture(
+    '<html><body>' +
+      '<p>※ 제한사항</p>' +
+      '<p>※ 대회운영에 관한 사항</p>' +
+      '<p>※ 랭킹규정에 관한 사항</p>' +
+      '<p>※ 90팀 미만 상금 조정함.</p>' +
+      '<p>※ 우천 시 대회운영 시간 및 게임방식은 변경 될 수 있거나 대회 일정 추후 안내</p>' +
+      '<p>※ 대회운영에 관한 사항 사무장 최임수 010-3620-7479 총무이사 김정은 010-8239-6050</p>' +
+      '</body></html>',
+  );
+  // 짧은 명사구 헤더 3개는 제외, 어미 다른 짧은 노트·긴 노트·본문 포함 헤더는 보존.
+  assertEquals(extractRegulationNotes(dom), [
+    '90팀 미만 상금 조정함.',
+    '우천 시 대회운영 시간 및 게임방식은 변경 될 수 있거나 대회 일정 추후 안내',
+    '대회운영에 관한 사항 사무장 최임수 010-3620-7479 총무이사 김정은 010-8239-6050',
+  ]);
+});
+
 Deno.test('extractRegulationNotes falls back to text split when no <p> notes', () => {
   // <p> 가 없고 노트가 div 등 평문 안에 있는 비-테이블 source 폴백.
   // doc.querySelectorAll('p') 가 비므로 doc 전체 textContent 평문 split 로 폴백.
