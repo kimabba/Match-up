@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart' as http;
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../config.dart';
@@ -360,54 +357,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         onChanged: (value) =>
                             setState(() => _marketingConsent = value ?? false),
                       ),
-
-                      // ── Dev 퀵로그인 (개발용) ───────────────────
-                      if (const bool.fromEnvironment('dart.vm.product') ==
-                          false) ...[
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: AppSpacing.md,
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Divider(
-                                  color: Colors.white.withValues(alpha: 0.42),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: AppSpacing.md,
-                                ),
-                                child: Text(
-                                  'DEV',
-                                  style: tt.labelSmall?.copyWith(
-                                    color: Colors.white.withValues(alpha: 0.72),
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Divider(
-                                  color: Colors.white.withValues(alpha: 0.42),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        FilledButton.tonal(
-                          onPressed:
-                              _busy ? null : () => _devLogin('ssfak@naver.com'),
-                          style: FilledButton.styleFrom(
-                            minimumSize: const Size.fromHeight(48),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: AppRadius.pill,
-                            ),
-                          ),
-                          child: const Text('Dev 어드민 로그인'),
-                        ),
-                        const SizedBox(height: AppSpacing.lg),
-                      ],
                       const SizedBox(height: AppSpacing.xl),
                     ],
                   ),
@@ -418,39 +367,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         ),
       ),
     );
-  }
-
-  Future<void> _devLogin(String email) async {
-    setState(() {
-      _busy = true;
-      _error = null;
-    });
-    try {
-      // 1) dev-auth Edge Function 호출 → magic link 토큰 획득
-      final baseUrl = AppConfig.apiBaseUrl;
-      final res = await http.post(
-        Uri.parse('$baseUrl/dev-auth'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'email': email}),
-      );
-      if (res.statusCode >= 400) {
-        setState(() => _error = 'dev-auth 실패: ${res.body}');
-        return;
-      }
-      final data = jsonDecode(res.body) as Map<String, dynamic>;
-      final token = data['hashed_token'] as String;
-
-      // 2) verifyOTP로 세션 설정
-      final supa = ref.read(supabaseProvider);
-      await supa.auth.verifyOTP(
-        tokenHash: token,
-        type: OtpType.magiclink,
-      );
-    } catch (e) {
-      setState(() => _error = e.toString());
-    } finally {
-      if (mounted) setState(() => _busy = false);
-    }
   }
 }
 
