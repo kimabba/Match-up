@@ -8,6 +8,7 @@ import '../../models/club_post.dart';
 import '../../models/tournament.dart';
 import '../../state/providers.dart';
 import '../../theme/tokens.dart';
+import '../../utils/club_labels.dart';
 import '../../utils/grade_labels.dart';
 import '../../widgets/app_card.dart';
 
@@ -486,12 +487,12 @@ class _IntroTab extends StatelessWidget {
                         club.genderPreference!.isNotEmpty)
                       _InfoChip(
                         icon: Icons.wc_rounded,
-                        label: club.genderPreference!,
+                        label: clubGenderLabel(club.genderPreference),
                       ),
                     if (club.monthlyFee != null)
                       _InfoChip(
                         icon: Icons.payments_outlined,
-                        label: '${club.monthlyFee! ~/ 10000}만원',
+                        label: clubMonthlyFeeLabel(club.monthlyFee!),
                       ),
                   ],
                 ),

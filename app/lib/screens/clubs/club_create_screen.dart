@@ -367,8 +367,7 @@ class _ClubCreateScreenState extends ConsumerState<ClubCreateScreen> {
             const SizedBox(height: AppSpacing.md),
 
             // 정기 모임 요일
-            Text('정기 모임 요일',
-                style: Theme.of(context).textTheme.labelLarge),
+            Text('정기 모임 요일', style: Theme.of(context).textTheme.labelLarge),
             const SizedBox(height: AppSpacing.sm),
             Wrap(
               spacing: AppSpacing.xs,
@@ -400,12 +399,12 @@ class _ClubCreateScreenState extends ConsumerState<ClubCreateScreen> {
             const SizedBox(height: AppSpacing.md),
 
             // 성별 선호
-            Text('성별 선호',
-                style: Theme.of(context).textTheme.labelLarge),
+            Text('성별 선호', style: Theme.of(context).textTheme.labelLarge),
             const SizedBox(height: AppSpacing.sm),
             SegmentedButton<String?>(
               segments: const [
                 ButtonSegment(value: null, label: Text('무관')),
+                ButtonSegment(value: 'mixed', label: Text('혼성')),
                 ButtonSegment(value: 'male', label: Text('남성')),
                 ButtonSegment(value: 'female', label: Text('여성')),
               ],
