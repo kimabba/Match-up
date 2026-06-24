@@ -190,6 +190,34 @@ String divisionLabel(String code) =>
 List<TennisDivision> divisionsForOrg(String org) =>
     tennisDivisions.where((d) => d.org == org).toList();
 
+/// 부서 라벨 그룹: 라벨이 같은 부서 코드를 협회 무관하게 묶는다.
+/// 예) '골드부' → ['gj_m_gold', 'jn_m_gold']
+///
+/// 첫 등장 순서를 보존한 유니크 라벨 리스트를 반환한다(상세검색 칩 순서용).
+List<String> tennisDivisionLabels() {
+  final seen = <String>{};
+  final ordered = <String>[];
+  for (final d in tennisDivisions) {
+    if (seen.add(d.label)) ordered.add(d.label);
+  }
+  return ordered;
+}
+
+/// 라벨 → 해당 라벨을 가진 모든 부서 코드(협회 무관).
+/// 미등록 라벨은 빈 리스트.
+List<String> tennisCodesForLabel(String label) =>
+    tennisDivisions.where((d) => d.label == label).map((d) => d.code).toList();
+
+/// 선택된 부서 라벨 집합 → 합쳐진 부서 코드 집합.
+/// 한 라벨이 여러 협회 코드를 가지면 모두 합친다.
+Set<String> tennisCodesForLabels(Iterable<String> labels) {
+  final codes = <String>{};
+  for (final label in labels) {
+    codes.addAll(tennisCodesForLabel(label));
+  }
+  return codes;
+}
+
 /// eligible_grades 코드 배열 → "골드부 · 일반부 · 신인부" 표시 문자열
 String formatEligibleGrades(List<String> codes) {
   if (codes.isEmpty) return '-';

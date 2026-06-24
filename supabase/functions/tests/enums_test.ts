@@ -7,6 +7,7 @@ import {
   getDivisionsForOrg,
   isValidGrade,
   isValidPlayerOrigin,
+  parseDivisionCodes,
   rankOf,
   REGION_CODES,
   regionCodeFromLabel,
@@ -133,6 +134,48 @@ Deno.test('getDivisionsForOrg returns divisions for gj', () => {
 Deno.test('getDivisionLabel returns label or fallback', () => {
   assertEquals(getDivisionLabel('gj_m_gold'), '골드부');
   assertEquals(getDivisionLabel('unknown_code'), 'unknown_code');
+});
+
+// ─── parseDivisionCodes ──────────────────────────────────────
+
+Deno.test('parseDivisionCodes splits comma-separated codes', () => {
+  assertEquals(
+    parseDivisionCodes('gj_m_gold,jn_m_gold,kta_m_gold'),
+    ['gj_m_gold', 'jn_m_gold', 'kta_m_gold'],
+  );
+});
+
+Deno.test('parseDivisionCodes trims whitespace around codes', () => {
+  assertEquals(
+    parseDivisionCodes(' gj_m_gold , jn_m_gold '),
+    ['gj_m_gold', 'jn_m_gold'],
+  );
+});
+
+Deno.test('parseDivisionCodes drops empty segments', () => {
+  assertEquals(
+    parseDivisionCodes('gj_m_gold,,jn_m_gold,'),
+    ['gj_m_gold', 'jn_m_gold'],
+  );
+});
+
+Deno.test('parseDivisionCodes drops format-invalid codes (^[a-z0-9_]+$)', () => {
+  // 대문자, 하이픈, 공백포함, SQL 메타문자 등은 형식 불일치로 제거.
+  assertEquals(
+    parseDivisionCodes("gj_m_gold,GJ_M_GOLD,bad-code,bad code,kta_3,'); DROP"),
+    ['gj_m_gold', 'kta_3'],
+  );
+});
+
+Deno.test('parseDivisionCodes returns null for empty / null / undefined', () => {
+  assertEquals(parseDivisionCodes(''), null);
+  assertEquals(parseDivisionCodes(null), null);
+  assertEquals(parseDivisionCodes(undefined), null);
+});
+
+Deno.test('parseDivisionCodes returns null when all segments are invalid/empty', () => {
+  assertEquals(parseDivisionCodes(',  , ,'), null);
+  assertEquals(parseDivisionCodes('BAD,also-bad'), null);
 });
 
 // ─── isValidPlayerOrigin ─────────────────────────────────────
