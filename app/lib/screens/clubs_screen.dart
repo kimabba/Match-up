@@ -166,6 +166,51 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
     );
   }
 
+  Future<void> _openRecommendedClubsSheet({
+    required List<Club> clubs,
+    required bool hasClubNameQuery,
+  }) async {
+    final favoriteIds =
+        ref.read(clubFavoriteIdsProvider).valueOrNull ?? const <String>{};
+    await showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      builder: (_) => _RecommendedClubsSheet(
+        clubs: clubs,
+        title: hasClubNameQuery ? '검색결과 전체' : '맞춤추천 전체',
+        subtitle: hasClubNameQuery
+            ? '"${_clubNameQuery.trim()}" 검색 결과'
+            : [
+                _selectedSportLabel(_clubInterests),
+                ..._clubFilters.labels,
+              ].join(' · '),
+        favoriteIds: favoriteIds,
+        onFavoriteToggle: _toggleClubFavorite,
+      ),
+    );
+  }
+
+  Future<void> _openRecruitingPostsSheet(
+    List<_RecruitingPostPreview> posts,
+    List<Club> managedClubs,
+  ) async {
+    await showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      builder: (_) => _RecruitingPostsSheet(
+        posts: posts,
+        showOpenOnly: _showOpenRecruitingOnly,
+        canManage: managedClubs.isNotEmpty,
+        onOpenPost: _openRecruitingDetail,
+        onClosePost: (post) {
+          setState(() => _closedRecruitingPostIds.add(post.id));
+        },
+      ),
+    );
+  }
+
   Future<void> _toggleClubFavorite(Club club, bool isFavorite) async {
     if (AppConfig.userDesignPreview) return;
     await ref.read(apiProvider).toggleClubFavorite(club.id, !isFavorite);
@@ -187,11 +232,17 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
     final nearbyNewClubs = _nearbyRecentClubs(visibleClubs);
     final newClubs = nearbyNewClubs.take(4).toList();
     final recommendedClubs = _recommendedPreviewClubs(visibleClubs);
+    final visibleRecruitingPosts = _visibleRecruitingPosts(_clubInterests);
+    final openRecruitingPosts =
+        visibleRecruitingPosts.where((post) => !post.isClosed).toList();
+    final recruitingTeamCount =
+        openRecruitingPosts.map((post) => post.clubName).toSet().length;
     final hasClubNameQuery = _clubNameQuery.trim().isNotEmpty;
     final joinedClubs = (_myClubs ?? _previewManagedClubs)
         .where((club) => club.isMember)
         .toList();
     final managedClubs = joinedClubs.where((club) => club.isManager).toList();
+    final visibleManagedClubs = managedClubs;
 
     return Scaffold(
       backgroundColor: cs.surface,
@@ -255,7 +306,7 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
                         ? '다른 단어로 다시 검색해 보세요.'
                         : '맞춤 조건을 조정해 보세요.',
                   )
-                else
+                else ...[
                   for (final club in recommendedClubs.take(3))
                     Padding(
                       padding: const EdgeInsets.only(bottom: AppSpacing.sm),
@@ -265,6 +316,19 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
                         onFavoriteToggle: _toggleClubFavorite,
                       ),
                     ),
+                  if (recommendedClubs.length > 3)
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton.icon(
+                        onPressed: () => _openRecommendedClubsSheet(
+                          clubs: recommendedClubs,
+                          hasClubNameQuery: hasClubNameQuery,
+                        ),
+                        icon: const Icon(Icons.grid_view_rounded),
+                        label: const Text('전체 보기'),
+                      ),
+                    ),
+                ],
                 const SizedBox(height: AppSpacing.lg),
                 // 내 주변 새 클럽(GPS 반경): 시현 이슈로 임시 숨김 (#97).
                 if (_nearbyNewClubsEnabled) ...[
@@ -307,21 +371,26 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
                   ),
                   const SizedBox(height: AppSpacing.lg),
                 ],
-                if (managedClubs.isNotEmpty) ...[
+                if (visibleManagedClubs.isNotEmpty) ...[
                   _SimpleActionCard(
                     icon: Icons.person_add_alt_1_rounded,
-                    title: '팀원모집',
-                    subtitle: '${managedClubs.length}개 운영 클럽에서 모집글을 관리할 수 있어요.',
+                    title: '내 팀원모집 관리',
+                    subtitle:
+                        '${visibleManagedClubs.length}개 운영 클럽의 모집글을 작성하고 관리해요.',
+                    action: '관리',
                     color: const Color(0xFFEAF7F1),
-                    onTap: () => _openTeamRecruitingSheet(managedClubs),
+                    onTap: () => _openTeamRecruitingSheet(visibleManagedClubs),
                   ),
                   const SizedBox(height: AppSpacing.xl),
                 ],
                 _TeamRecruitingBoard(
-                  posts: _visibleRecruitingPosts(_clubInterests),
+                  posts: visibleRecruitingPosts,
                   showOpenOnly: _showOpenRecruitingOnly,
-                  canManage: managedClubs.isNotEmpty,
+                  canManage: visibleManagedClubs.isNotEmpty,
+                  recruitingTeamCount: recruitingTeamCount,
                   onOpenPost: _openRecruitingDetail,
+                  onShowAll: () => _openRecruitingPostsSheet(
+                      visibleRecruitingPosts, visibleManagedClubs),
                   onShowOpenOnlyChanged: (value) {
                     setState(() => _showOpenRecruitingOnly = value);
                   },
@@ -483,6 +552,7 @@ class _RecruitingPostPreview {
   final int totalCount;
   final String cost;
   final String? intro;
+  final String? photoUrl;
   final bool isClosed;
   final DateTime? closedAt;
 
@@ -502,6 +572,7 @@ class _RecruitingPostPreview {
     required this.totalCount,
     required this.cost,
     this.intro,
+    this.photoUrl,
     this.isClosed = false,
     this.closedAt,
   });
@@ -526,6 +597,7 @@ class _RecruitingPostPreview {
       totalCount: totalCount,
       cost: cost,
       intro: intro,
+      photoUrl: photoUrl,
       isClosed: isClosed ?? this.isClosed,
       closedAt: closedAt ?? this.closedAt,
     );
@@ -584,6 +656,8 @@ final _previewRecruitingPosts = [
     cost: '10,000원',
     intro:
         '이번 주말 정기전에 함께 뛸 팀원을 찾고 있어요. 승패보다 분위기와 매너를 중요하게 보고, 처음 오시는 분도 팀원들이 포지션을 맞춰드릴게요.',
+    photoUrl:
+        'https://images.unsplash.com/photo-1575361204480-aadea25e6e68?auto=format&fit=crop&w=900&q=80',
   ),
   _RecruitingPostPreview(
     id: 'preview-recruiting-tennis-open-1',
@@ -602,6 +676,8 @@ final _previewRecruitingPosts = [
     cost: '코트비 N분의 1',
     intro:
         '토요일 오전 복식 랠리에 함께하실 분을 찾습니다. 게임 운영보다 안정적인 랠리와 기본 매너를 중요하게 생각하는 모임입니다.',
+    photoUrl:
+        'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?auto=format&fit=crop&w=900&q=80',
   ),
   _RecruitingPostPreview(
     id: 'preview-recruiting-futsal-closed-1',
@@ -620,6 +696,8 @@ final _previewRecruitingPosts = [
     cost: '마감',
     intro:
         '평일 야간에 부담 없이 뛰는 게스트 모집글입니다. 마감된 글이지만 비슷한 시간대 모집을 계속 열 예정이라 클럽 상세를 확인해 주세요.',
+    photoUrl:
+        'https://images.unsplash.com/photo-1556056504-5c7696c4c28d?auto=format&fit=crop&w=900&q=80',
     isClosed: true,
     closedAt: DateTime(2026, 6, 17, 18),
   ),
@@ -968,6 +1046,96 @@ class _NearbyNewClubsSheet extends StatelessWidget {
   }
 }
 
+class _RecommendedClubsSheet extends StatelessWidget {
+  final List<Club> clubs;
+  final String title;
+  final String subtitle;
+  final Set<String> favoriteIds;
+  final _ClubFavoriteToggle? onFavoriteToggle;
+
+  const _RecommendedClubsSheet({
+    required this.clubs,
+    required this.title,
+    required this.subtitle,
+    required this.favoriteIds,
+    this.onFavoriteToggle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+
+    return SafeArea(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(
+          AppSpacing.lg,
+          0,
+          AppSpacing.lg,
+          MediaQuery.of(context).viewInsets.bottom + AppSpacing.lg,
+        ),
+        child: SizedBox(
+          height: MediaQuery.sizeOf(context).height * 0.74,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFEAF7F1),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Icon(Icons.grid_view_rounded, color: cs.primary),
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: tt.titleLarge?.copyWith(
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        Text(
+                          subtitle.isEmpty ? '${clubs.length}개 클럽' : subtitle,
+                          style: tt.bodySmall?.copyWith(
+                            color: cs.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppSpacing.md),
+              Expanded(
+                child: ListView.separated(
+                  itemCount: clubs.length,
+                  separatorBuilder: (_, __) =>
+                      const SizedBox(height: AppSpacing.sm),
+                  itemBuilder: (context, index) {
+                    final club = clubs[index];
+                    return _SimpleClubTile(
+                      club: club,
+                      isFavorite: favoriteIds.contains(club.id),
+                      onFavoriteToggle: onFavoriteToggle,
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _NearbyNewClubCard extends StatelessWidget {
   final Club club;
   final bool isFavorite;
@@ -1253,7 +1421,9 @@ class _TeamRecruitingBoard extends StatelessWidget {
   final List<_RecruitingPostPreview> posts;
   final bool showOpenOnly;
   final bool canManage;
+  final int recruitingTeamCount;
   final ValueChanged<_RecruitingPostPreview> onOpenPost;
+  final VoidCallback onShowAll;
   final ValueChanged<bool> onShowOpenOnlyChanged;
   final ValueChanged<_RecruitingPostPreview> onClosePost;
 
@@ -1261,7 +1431,9 @@ class _TeamRecruitingBoard extends StatelessWidget {
     required this.posts,
     required this.showOpenOnly,
     required this.canManage,
+    required this.recruitingTeamCount,
     required this.onOpenPost,
+    required this.onShowAll,
     required this.onShowOpenOnlyChanged,
     required this.onClosePost,
   });
@@ -1271,6 +1443,9 @@ class _TeamRecruitingBoard extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
     final openCount = posts.where((post) => !post.isClosed).length;
+    final activeTeamLabel = recruitingTeamCount <= 0
+        ? '모집 중인 팀을 찾는 중이에요.'
+        : '$recruitingTeamCount개 팀이 팀원을 찾고 있어요.';
 
     return Container(
       width: double.infinity,
@@ -1284,14 +1459,16 @@ class _TeamRecruitingBoard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '팀원모집 글',
+            '팀원모집',
             style: tt.titleLarge?.copyWith(
               fontWeight: FontWeight.w900,
             ),
           ),
           const SizedBox(height: 2),
           Text(
-            showOpenOnly ? '모집중인 글만 보고 있어요.' : '모집중 글과 마감글을 함께 보여줘요.',
+            showOpenOnly
+                ? activeTeamLabel
+                : '$activeTeamLabel 마감된 글도 함께 볼 수 있어요.',
             style: tt.bodySmall?.copyWith(
               color: cs.onSurfaceVariant,
               fontWeight: FontWeight.w700,
@@ -1332,7 +1509,123 @@ class _TeamRecruitingBoard extends StatelessWidget {
                   onClose: () => onClosePost(post),
                 ),
               ),
+          if (posts.isNotEmpty) ...[
+            const SizedBox(height: AppSpacing.xs),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: onShowAll,
+                icon: const Icon(Icons.format_list_bulleted_rounded),
+                label: const Text('전체 보기'),
+              ),
+            ),
+          ],
         ],
+      ),
+    );
+  }
+}
+
+class _RecruitingPostsSheet extends StatelessWidget {
+  final List<_RecruitingPostPreview> posts;
+  final bool showOpenOnly;
+  final bool canManage;
+  final ValueChanged<_RecruitingPostPreview> onOpenPost;
+  final ValueChanged<_RecruitingPostPreview> onClosePost;
+
+  const _RecruitingPostsSheet({
+    required this.posts,
+    required this.showOpenOnly,
+    required this.canManage,
+    required this.onOpenPost,
+    required this.onClosePost,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final tt = Theme.of(context).textTheme;
+    final openCount = posts.where((post) => !post.isClosed).length;
+    final teamCount = posts
+        .where((post) => !post.isClosed)
+        .map((post) => post.clubName)
+        .toSet()
+        .length;
+
+    return SafeArea(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(
+          AppSpacing.lg,
+          0,
+          AppSpacing.lg,
+          MediaQuery.of(context).viewInsets.bottom + AppSpacing.lg,
+        ),
+        child: SizedBox(
+          height: MediaQuery.sizeOf(context).height * 0.76,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFEAF7F1),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Icon(
+                      Icons.person_add_alt_1_rounded,
+                      color: cs.primary,
+                    ),
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '팀원모집 전체',
+                          style: tt.titleLarge?.copyWith(
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        Text(
+                          showOpenOnly
+                              ? '$teamCount개 팀 · 모집글 $openCount개'
+                              : '전체 ${posts.length}개 · 모집중 $openCount개 · $teamCount개 팀',
+                          style: tt.bodySmall?.copyWith(
+                            color: cs.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppSpacing.md),
+              Expanded(
+                child: ListView.separated(
+                  itemCount: posts.length,
+                  separatorBuilder: (_, __) =>
+                      const SizedBox(height: AppSpacing.sm),
+                  itemBuilder: (context, index) {
+                    final post = posts[index];
+                    return _TeamRecruitingPostCard(
+                      post: post,
+                      canManage: canManage,
+                      onTap: () {
+                        Navigator.pop(context);
+                        onOpenPost(post);
+                      },
+                      onClose: () => onClosePost(post),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -1464,6 +1757,14 @@ class _TeamRecruitingPostCard extends StatelessWidget {
                     icon: Icons.groups_rounded, label: post.countLabel),
               ],
             ),
+            if (post.photoUrl != null) ...[
+              const SizedBox(height: AppSpacing.sm),
+              _RecruitingPhotoPreview(
+                photoUrl: post.photoUrl!,
+                height: 132,
+                compact: true,
+              ),
+            ],
             const SizedBox(height: AppSpacing.xs),
             Text(
               '${post.place} · ${post.gender} · ${post.age} · ${post.cost}',
@@ -1498,6 +1799,79 @@ class _RecruitingStatusPill extends StatelessWidget {
           color: isClosed ? cs.onSurfaceVariant : const Color(0xFF4F8F00),
           fontSize: 12,
           fontWeight: FontWeight.w900,
+        ),
+      ),
+    );
+  }
+}
+
+class _RecruitingPhotoPreview extends StatelessWidget {
+  final String photoUrl;
+  final double height;
+  final bool compact;
+
+  const _RecruitingPhotoPreview({
+    required this.photoUrl,
+    required this.height,
+    this.compact = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(compact ? 14 : 22),
+      child: SizedBox(
+        width: double.infinity,
+        height: height,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.network(
+              photoUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) => Container(
+                color: cs.surfaceContainerHighest,
+                child: Icon(
+                  Icons.image_not_supported_outlined,
+                  color: cs.onSurfaceVariant,
+                ),
+              ),
+            ),
+            Positioned(
+              right: AppSpacing.sm,
+              bottom: AppSpacing.sm,
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.sm,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.58),
+                  borderRadius: BorderRadius.circular(999),
+                ),
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.photo_camera_outlined,
+                      size: 14,
+                      color: Colors.white,
+                    ),
+                    SizedBox(width: 4),
+                    Text(
+                      '사진',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -1659,6 +2033,10 @@ class _TeamRecruitingDetailScreen extends StatelessWidget {
               ],
             ),
           ),
+          if (post.photoUrl != null) ...[
+            const SizedBox(height: AppSpacing.md),
+            _RecruitingPhotoPreview(photoUrl: post.photoUrl!, height: 220),
+          ],
           const SizedBox(height: AppSpacing.md),
           _RecruitingDetailSection(
             title: '모집 조건',
