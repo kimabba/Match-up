@@ -9,7 +9,7 @@ import '../theme/tokens.dart';
 import '../utils/club_labels.dart';
 import '../utils/grade_labels.dart';
 import '../widgets/app_empty_state.dart';
-import '../widgets/matchup_logo.dart';
+import '../widgets/allround_logo.dart';
 import 'clubs/club_create_screen.dart';
 
 typedef _ClubFavoriteToggle = Future<void> Function(
