@@ -228,7 +228,8 @@ Deno.serve(async (req) => {
     const { error } = await supa
       .from('clubs')
       .update({ monthly_fee: fee })
-      .eq('id', clubId);
+      .eq('id', clubId)
+      .eq('active', true);
     if (error) return errorResponse(error.message, 500);
     return jsonResponse({ ok: true, action: 'monthly_fee_updated' });
   }
@@ -244,7 +245,8 @@ Deno.serve(async (req) => {
         status: 'rejected',
         status_reason: 'deleted_by_owner',
       })
-      .eq('id', clubId);
+      .eq('id', clubId)
+      .eq('active', true);
     if (error) return errorResponse(error.message, 500);
     return jsonResponse({ ok: true, action: 'club_deleted' });
   }

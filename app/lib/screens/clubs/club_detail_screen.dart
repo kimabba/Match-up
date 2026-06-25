@@ -121,6 +121,8 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen>
     final favoriteIds =
         ref.watch(clubFavoriteIdsProvider).valueOrNull ?? const <String>{};
     final isFavorite = favoriteIds.contains(club.id);
+    final membersFuture = _membersF ?? Future<List<ClubMember>>.value(const []);
+    final eventsFuture = _eventsF ?? Future<List<ClubEvent>>.value(const []);
 
     return Scaffold(
       backgroundColor: cs.surfaceContainerLowest,
@@ -170,7 +172,7 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen>
                 ),
                 isMember
                     ? _MembersTab(
-                        future: _membersF!,
+                        future: membersFuture,
                         club: club,
                         onChanged: _reload,
                       )
@@ -178,7 +180,7 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen>
                 isMember
                     ? _EventsTab(
                         club: club,
-                        future: _eventsF!,
+                        future: eventsFuture,
                         canCreateEvent: _canManageClub,
                         onChanged: _reload,
                       )
@@ -187,7 +189,7 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen>
                 if (_canManageClub)
                   _ClubManagementTab(
                     club: club,
-                    membersFuture: _membersF!,
+                    membersFuture: membersFuture,
                     monthlyFee: _monthlyFee,
                     onMonthlyFeeChanged: (value) {
                       setState(() => _monthlyFee = value);
@@ -1194,6 +1196,10 @@ class _MemberManageRowState extends ConsumerState<_MemberManageRow> {
     final tt = Theme.of(context).textTheme;
     final member = widget.member;
     final initial = (member.displayName ?? '?').characters.first;
+    final permissionLabels = [
+      if (member.canCreateEvent) '일정 등록',
+      if (member.canPostNotice) '공지 등록',
+    ];
     return Padding(
       padding: const EdgeInsets.only(top: AppSpacing.sm),
       child: Row(
@@ -1221,7 +1227,9 @@ class _MemberManageRowState extends ConsumerState<_MemberManageRow> {
                   style: tt.bodyMedium?.copyWith(fontWeight: FontWeight.w800),
                 ),
                 Text(
-                  member.roleLabel,
+                  permissionLabels.isEmpty
+                      ? member.roleLabel
+                      : '${member.roleLabel} · ${permissionLabels.join(' · ')}',
                   style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
                 ),
               ],
