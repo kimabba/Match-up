@@ -1,0 +1,31 @@
+{
+  "projectRoot": "/Users/ssfak/Documents/01-github/ar",
+  "batchFiles": [
+    {"path": "app/lib/screens/auth/login_screen.dart", "language": "dart", "sizeLines": 640, "fileCategory": "code"},
+    {"path": "app/lib/screens/auth/onboarding_screen.dart", "language": "dart", "sizeLines": 1004, "fileCategory": "code"},
+    {"path": "app/lib/screens/chat_screen.dart", "language": "dart", "sizeLines": 584, "fileCategory": "code"},
+    {"path": "app/lib/screens/clubs_screen.dart", "language": "dart", "sizeLines": 2569, "fileCategory": "code"},
+    {"path": "app/lib/screens/clubs/club_create_screen.dart", "language": "dart", "sizeLines": 750, "fileCategory": "code"},
+    {"path": "app/lib/screens/clubs/club_detail_screen.dart", "language": "dart", "sizeLines": 937, "fileCategory": "code"},
+    {"path": "app/lib/screens/favorites_screen.dart", "language": "dart", "sizeLines": 335, "fileCategory": "code"},
+    {"path": "app/lib/screens/friend_schedule_screen.dart", "language": "dart", "sizeLines": 1030, "fileCategory": "code"},
+    {"path": "app/lib/screens/more_screen.dart", "language": "dart", "sizeLines": 322, "fileCategory": "code"},
+    {"path": "app/lib/screens/profile_screen.dart", "language": "dart", "sizeLines": 1748, "fileCategory": "code"},
+    {"path": "app/lib/screens/rules_screen.dart", "language": "dart", "sizeLines": 1255, "fileCategory": "code"},
+    {"path": "app/lib/screens/speed_gun/court_calibration_screen.dart", "language": "dart", "sizeLines": 219, "fileCategory": "code"},
+    {"path": "app/lib/screens/speed_gun/speed_gun_screen_web.dart", "language": "dart", "sizeLines": 30, "fileCategory": "code"},
+    {"path": "app/lib/screens/speed_gun/speed_gun_screen.dart", "language": "dart", "sizeLines": 395, "fileCategory": "code"},
+    {"path": "app/lib/screens/speed_gun/speed_result_screen.dart", "language": "dart", "sizeLines": 257, "fileCategory": "code"},
+    {"path": "app/lib/screens/tournaments/tournament_detail_screen.dart", "language": "dart", "sizeLines": 1155, "fileCategory": "code"},
+    {"path": "app/lib/screens/tournaments/tournament_submit_screen.dart", "language": "dart", "sizeLines": 343, "fileCategory": "code"},
+    {"path": "app/lib/screens/tournaments/tournaments_screen.dart", "language": "dart", "sizeLines": 1878, "fileCategory": "code"},
+    {"path": "app/lib/services/api.dart", "language": "dart", "sizeLines": 1137, "fileCategory": "code"},
+    {"path": "app/lib/services/ball_detector_service.dart", "language": "dart", "sizeLines": 162, "fileCategory": "code"},
+    {"path": "app/lib/services/notifications_web.dart", "language": "dart", "sizeLines": 6, "fileCategory": "code"},
+    {"path": "app/lib/services/notifications.dart", "language": "dart", "sizeLines": 33, "fileCategory": "code"},
+    {"path": "app/lib/services/speed_calculator.dart", "language": "dart", "sizeLines": 206, "fileCategory": "code"},
+    {"path": "app/lib/services/video_processing_service.dart", "language": "dart", "sizeLines": 148, "fileCategory": "code"},
+    {"path": "app/lib/state/providers.dart", "language": "dart", "sizeLines": 141, "fileCategory": "code"}
+  ],
+  "batchImportData": {}
+}

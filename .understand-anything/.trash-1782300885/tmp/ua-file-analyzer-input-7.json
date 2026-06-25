@@ -1,0 +1,10 @@
+{
+  "projectRoot": "/Users/ssfak/Documents/01-github/ar",
+  "batchFiles": [
+    {"path": ".github/ISSUE_TEMPLATE/bug_report.yml", "language": "yaml", "sizeLines": 48, "fileCategory": "config"},
+    {"path": ".github/ISSUE_TEMPLATE/config.yml", "language": "yaml", "sizeLines": 5, "fileCategory": "config"},
+    {"path": ".github/ISSUE_TEMPLATE/feature_task.yml", "language": "yaml", "sizeLines": 51, "fileCategory": "config"},
+    {"path": ".github/ISSUE_TEMPLATE/harness_task.yml", "language": "yaml", "sizeLines": 43, "fileCategory": "config"}
+  ],
+  "batchImportData": {".github/ISSUE_TEMPLATE/bug_report.yml": [], ".github/ISSUE_TEMPLATE/config.yml": [], ".github/ISSUE_TEMPLATE/feature_task.yml": [], ".github/ISSUE_TEMPLATE/harness_task.yml": []}
+}

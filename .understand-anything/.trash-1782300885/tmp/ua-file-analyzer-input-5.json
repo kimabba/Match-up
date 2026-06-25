@@ -1,0 +1,8 @@
+{
+  "projectRoot": "/Users/ssfak/Documents/01-github/ar",
+  "batchFiles": [
+    {"path": ".github/workflows/ci.yml", "language": "yaml", "sizeLines": 61, "fileCategory": "infra"},
+    {"path": ".github/workflows/harness.yml", "language": "yaml", "sizeLines": 51, "fileCategory": "infra"}
+  ],
+  "batchImportData": {".github/workflows/ci.yml": [], ".github/workflows/harness.yml": []}
+}

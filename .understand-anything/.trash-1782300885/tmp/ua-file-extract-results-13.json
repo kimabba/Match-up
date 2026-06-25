@@ -1,0 +1,336 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "docs/plans/MVP-roadmap.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 38,
+      "nonEmptyLines": 27,
+      "sections": [
+        {
+          "heading": "Match-up MVP 로드맵",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "운영 규칙",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "스프린트 타임라인",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "스코프 아웃 (MVP 이후)",
+          "level": 2,
+          "line": 26
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "docs/plans/PLAN_crawl-admin.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 90,
+      "nonEmptyLines": 73,
+      "sections": [
+        {
+          "heading": "크롤링 sources 어드민 관리 v1",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "목표",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "영향 받는 파일 (Phase 단위)",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "Phase 1 (완료)",
+          "level": 3,
+          "line": 10
+        },
+        {
+          "heading": "Phase 2 (대기)",
+          "level": 3,
+          "line": 16
+        },
+        {
+          "heading": "Phase 3 (대기)",
+          "level": 3,
+          "line": 22
+        },
+        {
+          "heading": "Phase 4 (대기)",
+          "level": 3,
+          "line": 26
+        },
+        {
+          "heading": "Phase 별 작업",
+          "level": 2,
+          "line": 30
+        },
+        {
+          "heading": "Phase 1 — 인프라 (완료)",
+          "level": 3,
+          "line": 32
+        },
+        {
+          "heading": "Phase 2 — Dispatcher (대기)",
+          "level": 3,
+          "line": 39
+        },
+        {
+          "heading": "Phase 3 — 검수 워크플로우 강화 (대기)",
+          "level": 3,
+          "line": 49
+        },
+        {
+          "heading": "Phase 4 — 변경 감지 + 새 사이트 (대기)",
+          "level": 3,
+          "line": 55
+        },
+        {
+          "heading": "피해야 할 함정",
+          "level": 2,
+          "line": 60
+        },
+        {
+          "heading": "측정 기준",
+          "level": 2,
+          "line": 67
+        },
+        {
+          "heading": "Dependencies",
+          "level": 2,
+          "line": 72
+        },
+        {
+          "heading": "Limitations",
+          "level": 2,
+          "line": 77
+        },
+        {
+          "heading": "Future Work",
+          "level": 2,
+          "line": 81
+        },
+        {
+          "heading": "관련 문서",
+          "level": 2,
+          "line": 87
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 18
+      }
+    },
+    {
+      "path": "docs/plans/PLAN_llm-cost-reduction.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 243,
+      "nonEmptyLines": 184,
+      "sections": [
+        {
+          "heading": "LLM 비용 절감 실행 계획 v1",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "목표",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "비목표 (out of scope)",
+          "level": 2,
+          "line": 16
+        },
+        {
+          "heading": "아키텍처 (4단 라우팅)",
+          "level": 2,
+          "line": 25
+        },
+        {
+          "heading": "영향 받는 파일",
+          "level": 2,
+          "line": 43
+        },
+        {
+          "heading": "Day 별 작업",
+          "level": 2,
+          "line": 60
+        },
+        {
+          "heading": "Day 1 — 즉시 절감 (예상 효과 80%+)",
+          "level": 3,
+          "line": 62
+        },
+        {
+          "heading": "Day 2 — Semantic Cache (예상 효과 추가 30-50%)",
+          "level": 3,
+          "line": 82
+        },
+        {
+          "heading": "Day 3-4 — Intent Classifier",
+          "level": 3,
+          "line": 110
+        },
+        {
+          "heading": "Day 5-6 — Text-to-SQL + 템플릿",
+          "level": 3,
+          "line": 126
+        },
+        {
+          "heading": "현재 활성화 범위 (점진적)",
+          "level": 4,
+          "line": 142
+        },
+        {
+          "heading": "Day 7 — 모니터링 + 튜닝",
+          "level": 3,
+          "line": 163
+        },
+        {
+          "heading": "피해야 할 함정",
+          "level": 2,
+          "line": 182
+        },
+        {
+          "heading": "측정 기준",
+          "level": 2,
+          "line": 197
+        },
+        {
+          "heading": "Dependencies",
+          "level": 2,
+          "line": 216
+        },
+        {
+          "heading": "Limitations / Known Issues",
+          "level": 2,
+          "line": 223
+        },
+        {
+          "heading": "Future Work (Day 7 이후)",
+          "level": 2,
+          "line": 231
+        },
+        {
+          "heading": "관련 문서",
+          "level": 2,
+          "line": 239
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 18
+      }
+    },
+    {
+      "path": "docs/plans/PLAN_speed-gun-v1.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 151,
+      "nonEmptyLines": 110,
+      "sections": [
+        {
+          "heading": "Speed Gun v1.1 — Video Analysis Mode MVP",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Architecture",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "File Structure",
+          "level": 2,
+          "line": 29
+        },
+        {
+          "heading": "Dependencies to Add",
+          "level": 2,
+          "line": 48
+        },
+        {
+          "heading": "Phase Details",
+          "level": 2,
+          "line": 57
+        },
+        {
+          "heading": "Phase 1: Foundation — Models + Math Engine",
+          "level": 3,
+          "line": 59
+        },
+        {
+          "heading": "Phase 2: Video Processing Pipeline",
+          "level": 3,
+          "line": 75
+        },
+        {
+          "heading": "Phase 3: Ball Detection",
+          "level": 3,
+          "line": 87
+        },
+        {
+          "heading": "Phase 4: Court Calibration UI",
+          "level": 3,
+          "line": 100
+        },
+        {
+          "heading": "Phase 5: Main Screen + Results",
+          "level": 3,
+          "line": 113
+        },
+        {
+          "heading": "Phase 6: Integration",
+          "level": 3,
+          "line": 125
+        },
+        {
+          "heading": "Limitations (MVP)",
+          "level": 2,
+          "line": 136
+        },
+        {
+          "heading": "Future (v2.0 — SSF-162)",
+          "level": 2,
+          "line": 145
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 13
+      }
+    }
+  ]
+}

@@ -1,0 +1,3728 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "louvain",
+  "totalFiles": 295,
+  "totalBatches": 24,
+  "exportsByPath": {
+    ".github/CODEOWNERS": [],
+    "app/assets/models/.gitkeep": [],
+    "app/lib/config.dart": [
+      "apiBaseUrl",
+      "assertConfigured",
+      "AppConfig"
+    ],
+    "app/lib/main.dart": [
+      "main",
+      "build",
+      "MatchUpApp"
+    ],
+    "app/lib/models/admin.dart": [
+      "CrawlAuditLog",
+      "CrawlAuditLog.fromJson",
+      "CrawlAuditLog"
+    ],
+    "app/lib/models/app_notification.dart": [
+      "AppNotification.fromJson",
+      "typeLabel",
+      "AppNotification"
+    ],
+    "app/lib/models/chat_ui.dart": [
+      "tryFromJson",
+      "listFromJson",
+      "RegulationField",
+      "tryFromJson",
+      "TournamentChatCardItem",
+      "listFromEvent",
+      "ChatUiBlock"
+    ],
+    "app/lib/models/club_event.dart": [
+      "ClubMember",
+      "roleLabel",
+      "ClubMember.fromJson",
+      "ClubMember",
+      "ClubEvent",
+      "iAmGoing",
+      "ClubEvent.fromJson",
+      "ClubEvent"
+    ],
+    "app/lib/models/club_post.dart": [
+      "ClubPost.fromJson",
+      "tagLabel",
+      "ClubPost",
+      "ClubPostComment.fromJson",
+      "ClubPostComment"
+    ],
+    "app/lib/models/crawl_source.dart": [
+      "CrawlSource.fromJson",
+      "toInsert",
+      "toUpdatePatch",
+      "CrawlSource"
+    ],
+    "app/lib/models/match_record.dart": [
+      "MatchEntry.fromJson",
+      "finalRoundLabel",
+      "MatchEntry",
+      "MatchRound.fromJson",
+      "isWin",
+      "opponentDisplay",
+      "MatchRound"
+    ],
+    "app/lib/models/regulation_body_lines.dart": [
+      "RegulationLineKind",
+      "RegulationLine",
+      "parseRegulationBody",
+      "cleanPlainRegulationLines"
+    ],
+    "app/lib/models/schedule_share.dart": [
+      "ScheduleShare.fromJson",
+      "isPending",
+      "isAccepted",
+      "ScheduleShare"
+    ],
+    "app/lib/models/speed_measurement.dart": [
+      "BallPosition",
+      "CourtCalibration",
+      "TrajectoryPoint",
+      "detectedFrames",
+      "SpeedResult"
+    ],
+    "app/lib/models/tournament_card_info.dart": [
+      "DeadlineStatus",
+      "compute",
+      "ddayBadge",
+      "DeadlineInfo",
+      "isSameCalendarDay",
+      "tournamentDateText",
+      "applicationDeadlineText",
+      "locationText"
+    ],
+    "app/lib/models/tournament.dart": [
+      "tryFromJson",
+      "RegulationField",
+      "Tournament",
+      "Tournament.fromJson",
+      "Tournament",
+      "Region",
+      "Region.fromJson",
+      "Region",
+      "UserTennisOrg",
+      "UserTennisOrg.fromJson",
+      "toUpsert",
+      "UserTennisOrg",
+      "Club",
+      "isPending",
+      "isApproved",
+      "isRejected",
+      "isMember",
+      "isOwner",
+      "isManager",
+      "Club.fromJson",
+      "Club",
+      "RuleArticle",
+      "embeddingPending",
+      "RuleArticle.fromJson",
+      "RuleArticle",
+      "UserSport",
+      "UserSport.fromJson",
+      "toInsert",
+      "UserSport",
+      "ChatMessage",
+      "ChatMessage.fromJson",
+      "ChatMessage"
+    ],
+    "app/lib/router.dart": [
+      "GoRouterRefreshStream",
+      "build",
+      "build"
+    ],
+    "app/lib/screens/admin/admin_screen.dart": [
+      "createState",
+      "AdminScreen",
+      "initState",
+      "dispose",
+      "build",
+      "build",
+      "build",
+      "build",
+      "createState",
+      "initState",
+      "dispose",
+      "build",
+      "build"
+    ],
+    "app/lib/screens/admin/admin_shell.dart": [
+      "build",
+      "AdminShell",
+      "build"
+    ],
+    "app/lib/screens/admin/knowledge_base_tab.dart": [
+      "createState",
+      "KnowledgeBaseTab",
+      "build",
+      "build"
+    ],
+    "app/lib/screens/admin/no_access_screen.dart": [
+      "build",
+      "NoAccessScreen"
+    ],
+    "app/lib/screens/admin/rule_edit_screen.dart": [
+      "createState",
+      "RuleEditScreen",
+      "dispose",
+      "build"
+    ],
+    "app/lib/screens/admin/tournament_edit_screen.dart": [
+      "createState",
+      "TournamentEditScreen",
+      "initState",
+      "dispose",
+      "build"
+    ],
+    "app/lib/screens/auth/login_screen.dart": [
+      "createState",
+      "LoginScreen",
+      "dispose",
+      "build",
+      "build",
+      "paint",
+      "shouldRepaint",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build"
+    ],
+    "app/lib/screens/auth/onboarding_screen.dart": [
+      "createState",
+      "OnboardingScreen",
+      "dispose",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build"
+    ],
+    "app/lib/screens/chat_screen.dart": [
+      "createState",
+      "ChatScreen",
+      "dispose",
+      "sendText",
+      "build"
+    ],
+    "app/lib/screens/clubs_screen.dart": [
+      "createState",
+      "ClubsScreen",
+      "initState",
+      "build",
+      "copyWith",
+      "countLabel",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "createState",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "hasActive",
+      "labels",
+      "copyWith",
+      "cleared",
+      "createState",
+      "build",
+      "build",
+      "createState",
+      "build",
+      "build",
+      "build"
+    ],
+    "app/lib/screens/clubs/club_create_screen.dart": [
+      "createState",
+      "ClubCreateScreen",
+      "dispose",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build"
+    ],
+    "app/lib/screens/clubs/club_detail_screen.dart": [
+      "createState",
+      "ClubDetailScreen",
+      "club",
+      "initState",
+      "dispose",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "createState",
+      "build",
+      "createState",
+      "dispose",
+      "build",
+      "createState",
+      "initState",
+      "build",
+      "build",
+      "build"
+    ],
+    "app/lib/screens/favorites_screen.dart": [
+      "createState",
+      "FavoritesScreen",
+      "initState",
+      "dispose",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build"
+    ],
+    "app/lib/screens/friend_schedule_screen.dart": [
+      "createState",
+      "FriendScheduleScreen",
+      "initState",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build"
+    ],
+    "app/lib/screens/more_screen.dart": [
+      "build",
+      "MoreScreen",
+      "build",
+      "build",
+      "build"
+    ],
+    "app/lib/screens/profile_screen.dart": [
+      "createState",
+      "ProfileScreen",
+      "initState",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build"
+    ],
+    "app/lib/screens/rules_screen.dart": [
+      "createState",
+      "RulesScreen",
+      "initState",
+      "dispose",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build"
+    ],
+    "app/lib/screens/speed_gun/court_calibration_screen.dart": [
+      "createState",
+      "CourtCalibrationScreen",
+      "build",
+      "paint",
+      "shouldRepaint"
+    ],
+    "app/lib/screens/speed_gun/speed_gun_screen_web.dart": [
+      "build",
+      "SpeedGunScreen"
+    ],
+    "app/lib/screens/speed_gun/speed_gun_screen.dart": [
+      "createState",
+      "SpeedGunScreen",
+      "initState",
+      "dispose",
+      "build",
+      "build",
+      "build"
+    ],
+    "app/lib/screens/speed_gun/speed_result_screen.dart": [
+      "build",
+      "SpeedResultScreen",
+      "build",
+      "paint",
+      "shouldRepaint"
+    ],
+    "app/lib/screens/tournaments/tournament_detail_screen.dart": [
+      "createState",
+      "TournamentDetailScreen",
+      "initState",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build"
+    ],
+    "app/lib/screens/tournaments/tournament_submit_screen.dart": [
+      "createState",
+      "TournamentSubmitScreen",
+      "dispose",
+      "build",
+      "build"
+    ],
+    "app/lib/screens/tournaments/tournaments_screen.dart": [
+      "createState",
+      "TournamentsScreen",
+      "initState",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "build",
+      "createState",
+      "initState",
+      "dispose",
+      "build"
+    ],
+    "app/lib/services/api.dart": [
+      "buildTournamentSearchQuery",
+      "ApiService",
+      "searchTournaments",
+      "submitTournament",
+      "approveTournament",
+      "tournamentReviewQueue",
+      "bulkApproveTournaments",
+      "bulkRejectTournaments",
+      "toggleFavorite",
+      "myFavoriteIds",
+      "myFavoriteTournaments",
+      "toggleClubFavorite",
+      "myClubFavoriteIds",
+      "myFavoriteClubs",
+      "searchClubs",
+      "myClubs",
+      "createClub",
+      "uploadClubLogo",
+      "joinClub",
+      "cancelJoinClub",
+      "leaveClub",
+      "kickMember",
+      "pendingJoinRequests",
+      "reviewJoinRequest",
+      "clubMembers",
+      "clubEvents",
+      "createClubEvent",
+      "respondEvent",
+      "pendingClubs",
+      "approveClub",
+      "listRules",
+      "adminListRules",
+      "createRule",
+      "updateRule",
+      "deleteRule",
+      "nextRuleOrderIdx",
+      "recomputeRuleEmbedding",
+      "chat",
+      "registerDeviceToken",
+      "saveDisplayName",
+      "myUserSports",
+      "saveUserSports",
+      "listRegions",
+      "myTennisOrgs",
+      "saveTennisOrgs",
+      "upsertTennisOrg",
+      "deleteTennisOrg",
+      "crawlAuditLogs",
+      "crawlSources",
+      "createCrawlSource",
+      "updateCrawlSource",
+      "deleteCrawlSource",
+      "toggleCrawlSourceEnabled",
+      "runCrawlSource",
+      "clubPosts",
+      "createPost",
+      "deletePost",
+      "postComments",
+      "addComment",
+      "deleteComment",
+      "uploadPostImage",
+      "myNotifications",
+      "unreadNotificationCount",
+      "markNotificationRead",
+      "markAllNotificationsRead",
+      "myMatchEntries",
+      "addMatchEntry",
+      "deleteMatchEntry",
+      "addMatchRound",
+      "deleteMatchRound",
+      "shareSchedule",
+      "mySharedSchedules",
+      "respondToShare",
+      "deleteShare",
+      "ApiService",
+      "ChatStreamEvent",
+      "ChatStreamEvent"
+    ],
+    "app/lib/services/ball_detector_service.dart": [
+      "initialize",
+      "dispose",
+      "detectBall",
+      "detectFrames",
+      "BallDetectorService"
+    ],
+    "app/lib/services/notifications_web.dart": [
+      "initNotifications"
+    ],
+    "app/lib/services/notifications.dart": [
+      "initNotifications"
+    ],
+    "app/lib/services/speed_calculator.dart": [
+      "computeHomography",
+      "pixelToReal",
+      "kalmanSmooth",
+      "calculate",
+      "SpeedCalculator"
+    ],
+    "app/lib/services/video_processing_service.dart": [
+      "estimatedFrameCount",
+      "VideoMeta",
+      "pickVideo",
+      "probeVideo",
+      "extractFrames",
+      "extractFirstFrame",
+      "cleanup",
+      "VideoProcessingService"
+    ],
+    "app/lib/state/providers.dart": [
+      "primarySportFrom"
+    ],
+    "app/lib/state/theme_provider.dart": [
+      "set",
+      "ThemeModeController"
+    ],
+    "app/lib/theme/app_theme.dart": [
+      "AppTheme._",
+      "light",
+      "dark",
+      "AppTheme"
+    ],
+    "app/lib/theme/color_schemes.dart": [
+      "AppPalette._",
+      "AppPalette"
+    ],
+    "app/lib/theme/motion.dart": [
+      "AppDuration._",
+      "AppDuration",
+      "AppCurves._",
+      "AppCurves"
+    ],
+    "app/lib/theme/tokens.dart": [
+      "AppRadius._",
+      "AppRadius",
+      "AppSpacing._",
+      "AppSpacing",
+      "AppShadows._",
+      "cardFor",
+      "elevatedFor",
+      "AppShadows",
+      "AppSportColors._",
+      "forSport",
+      "AppSportColors"
+    ],
+    "app/lib/theme/typography.dart": [
+      "AppTypography._",
+      "AppTypography"
+    ],
+    "app/lib/utils/active_filters.dart": [
+      "ActiveFilterKind",
+      "hashCode",
+      "toString",
+      "ActiveFilterChipData",
+      "dateRangeChipLabel",
+      "activeFilterChips"
+    ],
+    "app/lib/utils/grade_labels.dart": [
+      "Sport",
+      "TennisDivision",
+      "divisionLabel",
+      "divisionsForOrg",
+      "tennisDivisionLabels",
+      "tennisCodesForLabel",
+      "tennisCodesForLabels",
+      "tennisDivisionLabelsForOrg",
+      "tennisCodesForLabelInOrg",
+      "tennisCodesForLabelsInOrg",
+      "formatEligibleGrades",
+      "sportFromString",
+      "sportToString",
+      "gradesFor",
+      "gradeLabel",
+      "sportLabel",
+      "sportLabelFromString",
+      "futsalEventCategoryLabel",
+      "isValidTennisOrg",
+      "tennisOrgLabel",
+      "tennisOrgShortLabel",
+      "isValidRegionCode",
+      "regionLabel"
+    ],
+    "app/lib/utils/tournament_filters.dart": [
+      "DatePreset"
+    ],
+    "app/lib/widgets/allround_logo.dart": [
+      "build",
+      "AllRoundLogo",
+      "build",
+      "BrandedAppBarTitle",
+      "build",
+      "paint",
+      "shouldRepaint"
+    ],
+    "app/lib/widgets/app_bottom_nav.dart": [
+      "build",
+      "AppBottomNav"
+    ],
+    "app/lib/widgets/app_buttons.dart": [
+      "build",
+      "AppPrimaryButton",
+      "build",
+      "AppSecondaryButton",
+      "build",
+      "AppGhostButton"
+    ],
+    "app/lib/widgets/app_card.dart": [
+      "AppCardVariant",
+      "build",
+      "AppCard"
+    ],
+    "app/lib/widgets/app_chip.dart": [
+      "build",
+      "AppChip"
+    ],
+    "app/lib/widgets/app_empty_state.dart": [
+      "build",
+      "AppEmptyState"
+    ],
+    "app/lib/widgets/app_hero_section.dart": [
+      "build",
+      "AppHeroSection"
+    ],
+    "app/lib/widgets/app_info_tile.dart": [
+      "build",
+      "AppInfoTile"
+    ],
+    "app/lib/widgets/app_list_section.dart": [
+      "build",
+      "AppListSection"
+    ],
+    "app/lib/widgets/app_skeleton_card.dart": [
+      "build",
+      "AppSkeletonCard"
+    ],
+    "app/lib/widgets/app_toast.dart": [
+      "AppToastKind",
+      "AppToast._",
+      "show",
+      "AppToast"
+    ],
+    "app/lib/widgets/chat_tournament_card.dart": [
+      "build",
+      "ChatTournamentCard",
+      "build",
+      "build"
+    ],
+    "app/lib/widgets/tournament_card.dart": [
+      "build",
+      "TournamentCard",
+      "build",
+      "build",
+      "build"
+    ],
+    "app/test/active_filters_test.dart": [
+      "main"
+    ],
+    "app/test/active_sport_provider_test.dart": [
+      "main"
+    ],
+    "app/test/chat_ui_test.dart": [
+      "main"
+    ],
+    "app/test/grade_labels_test.dart": [
+      "main"
+    ],
+    "app/test/regulation_body_lines_test.dart": [
+      "main"
+    ],
+    "app/test/rule_article_test.dart": [
+      "main"
+    ],
+    "app/test/speed_calculator_test.dart": [
+      "main"
+    ],
+    "app/test/tournament_card_info_test.dart": [
+      "main"
+    ],
+    "app/test/tournament_card_test.dart": [
+      "main"
+    ],
+    "app/test/tournament_filters_test.dart": [
+      "main"
+    ],
+    "app/test/tournament_regulation_test.dart": [
+      "main"
+    ],
+    "app/test/tournament_search_query_test.dart": [
+      "main"
+    ],
+    "docs/data/futsal/전국_풋살구장_현황.xlsx": [],
+    "docs/data/futsal/풋살 정보 정리.docx": [],
+    "docs/data/futsal/풋살_2024-25_경기규칙서_및_협회안내.docx": [],
+    "scripts/analyze_chat_cost.py": [
+      "Stats",
+      "extract_event",
+      "consume",
+      "analyze",
+      "_pct",
+      "to_report",
+      "_fmt_pct",
+      "render_text",
+      "read_inputs",
+      "main"
+    ],
+    "scripts/harness/check_enums.py": [
+      "read",
+      "quoted_values",
+      "dart_const_list",
+      "dart_enum",
+      "ts_const_array",
+      "ts_union",
+      "sql_enum",
+      "sql_grade_check",
+      "sql_entry_fee_units",
+      "user_sports_grade_constraint_history",
+      "seed_region_codes",
+      "assert_same",
+      "main"
+    ],
+    "scripts/harness/check_static_rules.py": [
+      "fail",
+      "read",
+      "check_root_file_lengths",
+      "check_required_rule_docs",
+      "check_agents_rule_links",
+      "check_github_templates",
+      "check_no_shell_background_wrappers_in_harness",
+      "main"
+    ],
+    "supabase/functions/_shared/auth.ts": [
+      "requireUser",
+      "requireAdmin",
+      "requireServiceRole",
+      "requireCronSecret",
+      "requireServiceRoleOrAdmin"
+    ],
+    "supabase/functions/_shared/chat_cards.ts": [
+      "buildTournamentCards",
+      "renderTournamentSearchText",
+      "renderTournamentSearchEmptyText",
+      "parseSelectedEntity"
+    ],
+    "supabase/functions/_shared/cors.ts": [
+      "corsHeaders",
+      "preflight",
+      "jsonResponse",
+      "errorResponse"
+    ],
+    "supabase/functions/_shared/crawler.ts": [
+      "startAudit",
+      "finishAudit",
+      "saveRawDocument",
+      "upsertTournament",
+      "extractDate",
+      "extractApplicationDeadline",
+      "extractVenue",
+      "extractRegulationFields",
+      "extractRegulationBody",
+      "extractRegulationNotes",
+      "extractGJDivisions",
+      "extractTennisGradesFromText"
+    ],
+    "supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts": [
+      "gnuboardSub5_5ContestParser"
+    ],
+    "supabase/functions/_shared/crawler/registry.ts": [
+      "PARSER_REGISTRY",
+      "getParser",
+      "listParserKeys"
+    ],
+    "supabase/functions/_shared/crawler/types.ts": [],
+    "supabase/functions/_shared/embedding.ts": [
+      "EMBEDDING_DIM",
+      "embedText",
+      "embedBatch",
+      "toVectorLiteral"
+    ],
+    "supabase/functions/_shared/enums.ts": [
+      "TENNIS_GRADES",
+      "FUTSAL_GRADES",
+      "TENNIS_ORGS",
+      "TENNIS_ORG_LABELS",
+      "isValidTennisOrg",
+      "REGION_CODES",
+      "REGION_LABELS",
+      "isValidRegionCode",
+      "regionCodeFromLabel",
+      "ENTRY_FEE_UNITS",
+      "isValidEntryFeeUnit",
+      "RECRUITING_STATES",
+      "parseRecruiting",
+      "TENNIS_DIVISIONS",
+      "TENNIS_DIVISION_LABELS",
+      "getDivisionsForOrg",
+      "getDivisionLabel",
+      "parseDivisionCodes",
+      "GJ_KEYWORD_TO_SUFFIX",
+      "isValidGrade",
+      "canEnter",
+      "GRADE_LABELS",
+      "SPORT_LABELS",
+      "PLAYER_ORIGINS",
+      "PLAYER_ORIGIN_LABELS",
+      "isValidPlayerOrigin",
+      "rankOf"
+    ],
+    "supabase/functions/_shared/gemini.ts": [],
+    "supabase/functions/_shared/intent.ts": [
+      "INTENT_VALUES",
+      "extractDateRange",
+      "extractSlots",
+      "classifyByRule",
+      "buildEmbeddingResult",
+      "buildRuleResult",
+      "buildFallbackResult",
+      "resolveRequestedSport"
+    ],
+    "supabase/functions/_shared/rate_limit.ts": [
+      "checkRateLimit"
+    ],
+    "supabase/functions/_shared/regulation.ts": [
+      "normalizeRegulationFields",
+      "formatRegulationFields",
+      "capRegulationBody",
+      "regulationEmbeddingText",
+      "buildRegulationContextLines"
+    ],
+    "supabase/functions/_shared/supabase.ts": [
+      "userClient",
+      "serviceClient"
+    ],
+    "supabase/functions/chat-history/index.ts": [],
+    "supabase/functions/chat/index.ts": [],
+    "supabase/functions/clubs-approve/index.ts": [],
+    "supabase/functions/clubs-create/index.ts": [],
+    "supabase/functions/clubs-join/index.ts": [],
+    "supabase/functions/clubs-review-join/index.ts": [],
+    "supabase/functions/clubs-search/index.ts": [],
+    "supabase/functions/crawl-dispatch/index.ts": [],
+    "supabase/functions/embed-pending/index.ts": [],
+    "supabase/functions/health/index.ts": [],
+    "supabase/functions/notify-cron/index.ts": [],
+    "supabase/functions/seed-intent-examples/index.ts": [],
+    "supabase/functions/semantic-search/index.ts": [],
+    "supabase/functions/tests/chat_cards_test.ts": [],
+    "supabase/functions/tests/crawler_extract_test.ts": [],
+    "supabase/functions/tests/crawler_upsert_preserve_test.ts": [],
+    "supabase/functions/tests/enums_test.ts": [],
+    "supabase/functions/tests/intent_test.ts": [],
+    "supabase/functions/tests/regulation_test.ts": [],
+    "supabase/functions/tournaments-approve/index.ts": [],
+    "supabase/functions/tournaments-search/index.ts": [],
+    "supabase/functions/tournaments-submit/index.ts": []
+  },
+  "batches": [
+    {
+      "batchIndex": 1,
+      "files": [
+        {
+          "path": "supabase/functions/_shared/auth.ts",
+          "language": "typescript",
+          "sizeLines": 94,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/_shared/cors.ts",
+          "language": "typescript",
+          "sizeLines": 29,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/_shared/rate_limit.ts",
+          "language": "typescript",
+          "sizeLines": 62,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/_shared/supabase.ts",
+          "language": "typescript",
+          "sizeLines": 31,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/chat-history/index.ts",
+          "language": "typescript",
+          "sizeLines": 70,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/clubs-approve/index.ts",
+          "language": "typescript",
+          "sizeLines": 45,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/clubs-create/index.ts",
+          "language": "typescript",
+          "sizeLines": 66,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/clubs-join/index.ts",
+          "language": "typescript",
+          "sizeLines": 128,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/clubs-review-join/index.ts",
+          "language": "typescript",
+          "sizeLines": 90,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/clubs-search/index.ts",
+          "language": "typescript",
+          "sizeLines": 80,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/health/index.ts",
+          "language": "typescript",
+          "sizeLines": 7,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/notify-cron/index.ts",
+          "language": "typescript",
+          "sizeLines": 168,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/tournaments-approve/index.ts",
+          "language": "typescript",
+          "sizeLines": 74,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "supabase/functions/_shared/auth.ts": [
+          "supabase/functions/_shared/cors.ts",
+          "supabase/functions/_shared/supabase.ts"
+        ],
+        "supabase/functions/_shared/cors.ts": [],
+        "supabase/functions/_shared/rate_limit.ts": [
+          "supabase/functions/_shared/cors.ts"
+        ],
+        "supabase/functions/_shared/supabase.ts": [],
+        "supabase/functions/chat-history/index.ts": [
+          "supabase/functions/_shared/auth.ts",
+          "supabase/functions/_shared/cors.ts"
+        ],
+        "supabase/functions/clubs-approve/index.ts": [
+          "supabase/functions/_shared/auth.ts",
+          "supabase/functions/_shared/cors.ts",
+          "supabase/functions/_shared/supabase.ts"
+        ],
+        "supabase/functions/clubs-create/index.ts": [
+          "supabase/functions/_shared/auth.ts",
+          "supabase/functions/_shared/cors.ts",
+          "supabase/functions/_shared/supabase.ts"
+        ],
+        "supabase/functions/clubs-join/index.ts": [
+          "supabase/functions/_shared/auth.ts",
+          "supabase/functions/_shared/cors.ts",
+          "supabase/functions/_shared/supabase.ts"
+        ],
+        "supabase/functions/clubs-review-join/index.ts": [
+          "supabase/functions/_shared/auth.ts",
+          "supabase/functions/_shared/cors.ts",
+          "supabase/functions/_shared/supabase.ts"
+        ],
+        "supabase/functions/clubs-search/index.ts": [
+          "supabase/functions/_shared/auth.ts",
+          "supabase/functions/_shared/cors.ts",
+          "supabase/functions/_shared/supabase.ts"
+        ],
+        "supabase/functions/health/index.ts": [
+          "supabase/functions/_shared/cors.ts"
+        ],
+        "supabase/functions/notify-cron/index.ts": [
+          "supabase/functions/_shared/auth.ts",
+          "supabase/functions/_shared/cors.ts",
+          "supabase/functions/_shared/supabase.ts"
+        ],
+        "supabase/functions/tournaments-approve/index.ts": [
+          "supabase/functions/_shared/auth.ts",
+          "supabase/functions/_shared/cors.ts"
+        ]
+      },
+      "neighborMap": {
+        "supabase/functions/_shared/auth.ts": [
+          {
+            "path": "supabase/functions/chat/index.ts",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "supabase/functions/crawl-dispatch/index.ts",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "supabase/functions/embed-pending/index.ts",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "supabase/functions/seed-intent-examples/index.ts",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "supabase/functions/semantic-search/index.ts",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "supabase/functions/tournaments-search/index.ts",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "supabase/functions/tournaments-submit/index.ts",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "supabase/functions/_shared/cors.ts": [
+          {
+            "path": "supabase/functions/chat/index.ts",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "supabase/functions/crawl-dispatch/index.ts",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "supabase/functions/embed-pending/index.ts",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "supabase/functions/seed-intent-examples/index.ts",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "supabase/functions/semantic-search/index.ts",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "supabase/functions/tournaments-search/index.ts",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "supabase/functions/tournaments-submit/index.ts",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "supabase/functions/_shared/supabase.ts": [
+          {
+            "path": "supabase/functions/_shared/crawler.ts",
+            "batchIndex": 4,
+            "symbols": [
+              "startAudit",
+              "finishAudit",
+              "saveRawDocument",
+              "upsertTournament",
+              "extractDate",
+              "extractApplicationDeadline",
+              "extractVenue",
+              "extractRegulationFields",
+              "extractRegulationBody",
+              "extractRegulationNotes",
+              "extractGJDivisions",
+              "extractTennisGradesFromText"
+            ]
+          },
+          {
+            "path": "supabase/functions/chat/index.ts",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "supabase/functions/crawl-dispatch/index.ts",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "supabase/functions/embed-pending/index.ts",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "supabase/functions/seed-intent-examples/index.ts",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 2,
+      "files": [
+        {
+          "path": "supabase/functions/_shared/embedding.ts",
+          "language": "typescript",
+          "sizeLines": 82,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/_shared/enums.ts",
+          "language": "typescript",
+          "sizeLines": 352,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/_shared/intent.ts",
+          "language": "typescript",
+          "sizeLines": 407,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/seed-intent-examples/index.ts",
+          "language": "typescript",
+          "sizeLines": 196,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/semantic-search/index.ts",
+          "language": "typescript",
+          "sizeLines": 111,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/tests/enums_test.ts",
+          "language": "typescript",
+          "sizeLines": 219,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/tests/intent_test.ts",
+          "language": "typescript",
+          "sizeLines": 212,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/tournaments-search/index.ts",
+          "language": "typescript",
+          "sizeLines": 82,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/tournaments-submit/index.ts",
+          "language": "typescript",
+          "sizeLines": 169,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "supabase/functions/_shared/embedding.ts": [],
+        "supabase/functions/_shared/enums.ts": [],
+        "supabase/functions/_shared/intent.ts": [
+          "supabase/functions/_shared/enums.ts"
+        ],
+        "supabase/functions/seed-intent-examples/index.ts": [
+          "supabase/functions/_shared/auth.ts",
+          "supabase/functions/_shared/cors.ts",
+          "supabase/functions/_shared/embedding.ts",
+          "supabase/functions/_shared/intent.ts",
+          "supabase/functions/_shared/supabase.ts"
+        ],
+        "supabase/functions/semantic-search/index.ts": [
+          "supabase/functions/_shared/auth.ts",
+          "supabase/functions/_shared/cors.ts",
+          "supabase/functions/_shared/embedding.ts",
+          "supabase/functions/_shared/enums.ts"
+        ],
+        "supabase/functions/tests/enums_test.ts": [
+          "supabase/functions/_shared/enums.ts"
+        ],
+        "supabase/functions/tests/intent_test.ts": [
+          "supabase/functions/_shared/intent.ts"
+        ],
+        "supabase/functions/tournaments-search/index.ts": [
+          "supabase/functions/_shared/auth.ts",
+          "supabase/functions/_shared/cors.ts",
+          "supabase/functions/_shared/enums.ts"
+        ],
+        "supabase/functions/tournaments-submit/index.ts": [
+          "supabase/functions/_shared/auth.ts",
+          "supabase/functions/_shared/cors.ts",
+          "supabase/functions/_shared/enums.ts"
+        ]
+      },
+      "neighborMap": {
+        "supabase/functions/_shared/embedding.ts": [
+          {
+            "path": "supabase/functions/chat/index.ts",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "supabase/functions/embed-pending/index.ts",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "supabase/functions/_shared/enums.ts": [
+          {
+            "path": "supabase/functions/_shared/crawler.ts",
+            "batchIndex": 4,
+            "symbols": [
+              "startAudit",
+              "finishAudit",
+              "saveRawDocument",
+              "upsertTournament",
+              "extractDate",
+              "extractApplicationDeadline",
+              "extractVenue",
+              "extractRegulationFields",
+              "extractRegulationBody",
+              "extractRegulationNotes",
+              "extractGJDivisions",
+              "extractTennisGradesFromText"
+            ]
+          },
+          {
+            "path": "supabase/functions/chat/index.ts",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "supabase/functions/_shared/intent.ts": [
+          {
+            "path": "supabase/functions/chat/index.ts",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "supabase/functions/seed-intent-examples/index.ts": [
+          {
+            "path": "supabase/functions/_shared/auth.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "requireUser",
+              "requireAdmin",
+              "requireServiceRole",
+              "requireCronSecret",
+              "requireServiceRoleOrAdmin"
+            ]
+          },
+          {
+            "path": "supabase/functions/_shared/cors.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "corsHeaders",
+              "preflight",
+              "jsonResponse",
+              "errorResponse"
+            ]
+          },
+          {
+            "path": "supabase/functions/_shared/supabase.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "userClient",
+              "serviceClient"
+            ]
+          }
+        ],
+        "supabase/functions/semantic-search/index.ts": [
+          {
+            "path": "supabase/functions/_shared/auth.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "requireUser",
+              "requireAdmin",
+              "requireServiceRole",
+              "requireCronSecret",
+              "requireServiceRoleOrAdmin"
+            ]
+          },
+          {
+            "path": "supabase/functions/_shared/cors.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "corsHeaders",
+              "preflight",
+              "jsonResponse",
+              "errorResponse"
+            ]
+          }
+        ],
+        "supabase/functions/tournaments-search/index.ts": [
+          {
+            "path": "supabase/functions/_shared/auth.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "requireUser",
+              "requireAdmin",
+              "requireServiceRole",
+              "requireCronSecret",
+              "requireServiceRoleOrAdmin"
+            ]
+          },
+          {
+            "path": "supabase/functions/_shared/cors.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "corsHeaders",
+              "preflight",
+              "jsonResponse",
+              "errorResponse"
+            ]
+          }
+        ],
+        "supabase/functions/tournaments-submit/index.ts": [
+          {
+            "path": "supabase/functions/_shared/auth.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "requireUser",
+              "requireAdmin",
+              "requireServiceRole",
+              "requireCronSecret",
+              "requireServiceRoleOrAdmin"
+            ]
+          },
+          {
+            "path": "supabase/functions/_shared/cors.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "corsHeaders",
+              "preflight",
+              "jsonResponse",
+              "errorResponse"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 3,
+      "files": [
+        {
+          "path": "supabase/functions/_shared/chat_cards.ts",
+          "language": "typescript",
+          "sizeLines": 141,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/_shared/gemini.ts",
+          "language": "typescript",
+          "sizeLines": 122,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/_shared/regulation.ts",
+          "language": "typescript",
+          "sizeLines": 109,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/chat/index.ts",
+          "language": "typescript",
+          "sizeLines": 1232,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/embed-pending/index.ts",
+          "language": "typescript",
+          "sizeLines": 131,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/tests/chat_cards_test.ts",
+          "language": "typescript",
+          "sizeLines": 162,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/tests/regulation_test.ts",
+          "language": "typescript",
+          "sizeLines": 103,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "supabase/functions/_shared/chat_cards.ts": [
+          "supabase/functions/_shared/regulation.ts"
+        ],
+        "supabase/functions/_shared/gemini.ts": [],
+        "supabase/functions/_shared/regulation.ts": [],
+        "supabase/functions/chat/index.ts": [
+          "supabase/functions/_shared/auth.ts",
+          "supabase/functions/_shared/chat_cards.ts",
+          "supabase/functions/_shared/cors.ts",
+          "supabase/functions/_shared/embedding.ts",
+          "supabase/functions/_shared/enums.ts",
+          "supabase/functions/_shared/gemini.ts",
+          "supabase/functions/_shared/intent.ts",
+          "supabase/functions/_shared/regulation.ts",
+          "supabase/functions/_shared/supabase.ts"
+        ],
+        "supabase/functions/embed-pending/index.ts": [
+          "supabase/functions/_shared/auth.ts",
+          "supabase/functions/_shared/cors.ts",
+          "supabase/functions/_shared/embedding.ts",
+          "supabase/functions/_shared/regulation.ts",
+          "supabase/functions/_shared/supabase.ts"
+        ],
+        "supabase/functions/tests/chat_cards_test.ts": [
+          "supabase/functions/_shared/chat_cards.ts"
+        ],
+        "supabase/functions/tests/regulation_test.ts": [
+          "supabase/functions/_shared/regulation.ts"
+        ]
+      },
+      "neighborMap": {
+        "supabase/functions/chat/index.ts": [
+          {
+            "path": "supabase/functions/_shared/auth.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "requireUser",
+              "requireAdmin",
+              "requireServiceRole",
+              "requireCronSecret",
+              "requireServiceRoleOrAdmin"
+            ]
+          },
+          {
+            "path": "supabase/functions/_shared/cors.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "corsHeaders",
+              "preflight",
+              "jsonResponse",
+              "errorResponse"
+            ]
+          },
+          {
+            "path": "supabase/functions/_shared/embedding.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "EMBEDDING_DIM",
+              "embedText",
+              "embedBatch",
+              "toVectorLiteral"
+            ]
+          },
+          {
+            "path": "supabase/functions/_shared/enums.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "TENNIS_GRADES",
+              "FUTSAL_GRADES",
+              "TENNIS_ORGS",
+              "TENNIS_ORG_LABELS",
+              "isValidTennisOrg",
+              "REGION_CODES",
+              "REGION_LABELS",
+              "isValidRegionCode",
+              "regionCodeFromLabel",
+              "ENTRY_FEE_UNITS",
+              "isValidEntryFeeUnit",
+              "RECRUITING_STATES",
+              "parseRecruiting",
+              "TENNIS_DIVISIONS",
+              "TENNIS_DIVISION_LABELS",
+              "getDivisionsForOrg",
+              "getDivisionLabel",
+              "parseDivisionCodes",
+              "GJ_KEYWORD_TO_SUFFIX",
+              "isValidGrade",
+              "canEnter",
+              "GRADE_LABELS",
+              "SPORT_LABELS",
+              "PLAYER_ORIGINS",
+              "PLAYER_ORIGIN_LABELS",
+              "isValidPlayerOrigin",
+              "rankOf"
+            ]
+          },
+          {
+            "path": "supabase/functions/_shared/intent.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "INTENT_VALUES",
+              "extractDateRange",
+              "extractSlots",
+              "classifyByRule",
+              "buildEmbeddingResult",
+              "buildRuleResult",
+              "buildFallbackResult",
+              "resolveRequestedSport"
+            ]
+          },
+          {
+            "path": "supabase/functions/_shared/supabase.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "userClient",
+              "serviceClient"
+            ]
+          }
+        ],
+        "supabase/functions/embed-pending/index.ts": [
+          {
+            "path": "supabase/functions/_shared/auth.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "requireUser",
+              "requireAdmin",
+              "requireServiceRole",
+              "requireCronSecret",
+              "requireServiceRoleOrAdmin"
+            ]
+          },
+          {
+            "path": "supabase/functions/_shared/cors.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "corsHeaders",
+              "preflight",
+              "jsonResponse",
+              "errorResponse"
+            ]
+          },
+          {
+            "path": "supabase/functions/_shared/embedding.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "EMBEDDING_DIM",
+              "embedText",
+              "embedBatch",
+              "toVectorLiteral"
+            ]
+          },
+          {
+            "path": "supabase/functions/_shared/supabase.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "userClient",
+              "serviceClient"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 4,
+      "files": [
+        {
+          "path": "supabase/functions/_shared/crawler.ts",
+          "language": "typescript",
+          "sizeLines": 760,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts",
+          "language": "typescript",
+          "sizeLines": 473,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/_shared/crawler/registry.ts",
+          "language": "typescript",
+          "sizeLines": 31,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/_shared/crawler/types.ts",
+          "language": "typescript",
+          "sizeLines": 53,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/crawl-dispatch/index.ts",
+          "language": "typescript",
+          "sizeLines": 294,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/tests/crawler_extract_test.ts",
+          "language": "typescript",
+          "sizeLines": 365,
+          "fileCategory": "code"
+        },
+        {
+          "path": "supabase/functions/tests/crawler_upsert_preserve_test.ts",
+          "language": "typescript",
+          "sizeLines": 127,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "supabase/functions/_shared/crawler.ts": [
+          "supabase/functions/_shared/enums.ts",
+          "supabase/functions/_shared/supabase.ts"
+        ],
+        "supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts": [
+          "supabase/functions/_shared/crawler.ts",
+          "supabase/functions/_shared/crawler/types.ts"
+        ],
+        "supabase/functions/_shared/crawler/registry.ts": [
+          "supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts",
+          "supabase/functions/_shared/crawler/types.ts"
+        ],
+        "supabase/functions/_shared/crawler/types.ts": [
+          "supabase/functions/_shared/crawler.ts"
+        ],
+        "supabase/functions/crawl-dispatch/index.ts": [
+          "supabase/functions/_shared/auth.ts",
+          "supabase/functions/_shared/cors.ts",
+          "supabase/functions/_shared/crawler.ts",
+          "supabase/functions/_shared/crawler/registry.ts",
+          "supabase/functions/_shared/crawler/types.ts",
+          "supabase/functions/_shared/supabase.ts"
+        ],
+        "supabase/functions/tests/crawler_extract_test.ts": [
+          "supabase/functions/_shared/crawler.ts"
+        ],
+        "supabase/functions/tests/crawler_upsert_preserve_test.ts": [
+          "supabase/functions/_shared/crawler.ts"
+        ]
+      },
+      "neighborMap": {
+        "supabase/functions/_shared/crawler.ts": [
+          {
+            "path": "supabase/functions/_shared/enums.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "TENNIS_GRADES",
+              "FUTSAL_GRADES",
+              "TENNIS_ORGS",
+              "TENNIS_ORG_LABELS",
+              "isValidTennisOrg",
+              "REGION_CODES",
+              "REGION_LABELS",
+              "isValidRegionCode",
+              "regionCodeFromLabel",
+              "ENTRY_FEE_UNITS",
+              "isValidEntryFeeUnit",
+              "RECRUITING_STATES",
+              "parseRecruiting",
+              "TENNIS_DIVISIONS",
+              "TENNIS_DIVISION_LABELS",
+              "getDivisionsForOrg",
+              "getDivisionLabel",
+              "parseDivisionCodes",
+              "GJ_KEYWORD_TO_SUFFIX",
+              "isValidGrade",
+              "canEnter",
+              "GRADE_LABELS",
+              "SPORT_LABELS",
+              "PLAYER_ORIGINS",
+              "PLAYER_ORIGIN_LABELS",
+              "isValidPlayerOrigin",
+              "rankOf"
+            ]
+          },
+          {
+            "path": "supabase/functions/_shared/supabase.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "userClient",
+              "serviceClient"
+            ]
+          }
+        ],
+        "supabase/functions/crawl-dispatch/index.ts": [
+          {
+            "path": "supabase/functions/_shared/auth.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "requireUser",
+              "requireAdmin",
+              "requireServiceRole",
+              "requireCronSecret",
+              "requireServiceRoleOrAdmin"
+            ]
+          },
+          {
+            "path": "supabase/functions/_shared/cors.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "corsHeaders",
+              "preflight",
+              "jsonResponse",
+              "errorResponse"
+            ]
+          },
+          {
+            "path": "supabase/functions/_shared/supabase.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "userClient",
+              "serviceClient"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 5,
+      "files": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "language": "yaml",
+          "sizeLines": 61,
+          "fileCategory": "infra"
+        },
+        {
+          "path": ".github/workflows/harness.yml",
+          "language": "yaml",
+          "sizeLines": 51,
+          "fileCategory": "infra"
+        }
+      ],
+      "batchImportData": {
+        ".github/workflows/ci.yml": [],
+        ".github/workflows/harness.yml": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 6,
+      "files": [
+        {
+          "path": "supabase/migrations/001_extensions.sql",
+          "language": "sql",
+          "sizeLines": 7,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/002_init_users_sports.sql",
+          "language": "sql",
+          "sizeLines": 141,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/003_tournaments.sql",
+          "language": "sql",
+          "sizeLines": 245,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/004_clubs.sql",
+          "language": "sql",
+          "sizeLines": 37,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/005_chat_rules.sql",
+          "language": "sql",
+          "sizeLines": 126,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/006_notifications.sql",
+          "language": "sql",
+          "sizeLines": 62,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/007_crawl_audit.sql",
+          "language": "sql",
+          "sizeLines": 23,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/008_cron.sql",
+          "language": "sql",
+          "sizeLines": 73,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/009_regions_and_multi_org.sql",
+          "language": "sql",
+          "sizeLines": 97,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/010_tennis_grade_revamp.sql",
+          "language": "sql",
+          "sizeLines": 50,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/011_ensure_profile_rpc.sql",
+          "language": "sql",
+          "sizeLines": 21,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/012_rate_limit.sql",
+          "language": "sql",
+          "sizeLines": 11,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/013_qa_cache.sql",
+          "language": "sql",
+          "sizeLines": 152,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/014_intent_examples.sql",
+          "language": "sql",
+          "sizeLines": 125,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/015_uuid_v7.sql",
+          "language": "sql",
+          "sizeLines": 79,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/016_tournaments_search_sport_filter.sql",
+          "language": "sql",
+          "sizeLines": 64,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/017_uuid_v7_pgcrypto_schema_fix.sql",
+          "language": "sql",
+          "sizeLines": 60,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/018_tournament_search_by_slots.sql",
+          "language": "sql",
+          "sizeLines": 72,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/019_crawl_sources.sql",
+          "language": "sql",
+          "sizeLines": 140,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/020_dispatcher_cron_switch.sql",
+          "language": "sql",
+          "sizeLines": 52,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/021_crawl_sources_running_flag.sql",
+          "language": "sql",
+          "sizeLines": 54,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/022_tournament_status_rejected.sql",
+          "language": "sql",
+          "sizeLines": 23,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/023_review_helpers.sql",
+          "language": "sql",
+          "sizeLines": 127,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/024_crawl_sources_url_refresh.sql",
+          "language": "sql",
+          "sizeLines": 68,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/025_futsal_tournament_fields.sql",
+          "language": "sql",
+          "sizeLines": 126,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/026_futsal_crawl_sources.sql",
+          "language": "sql",
+          "sizeLines": 74,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/027_db_crawler_review_fixes.sql",
+          "language": "sql",
+          "sizeLines": 72,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/028_adjust_crawler_schedule.sql",
+          "language": "sql",
+          "sizeLines": 32,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/029_division_codes_reset_eligible_grades.sql",
+          "language": "sql",
+          "sizeLines": 15,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/030_invoke_edge_function_internal_cron_jwt.sql",
+          "language": "sql",
+          "sizeLines": 40,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/031_club_management.sql",
+          "language": "sql",
+          "sizeLines": 84,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/032_drop_legacy_clubs_active_policy.sql",
+          "language": "sql",
+          "sizeLines": 12,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/033_fix_club_members_rls_recursion.sql",
+          "language": "sql",
+          "sizeLines": 67,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/034_invoke_edge_function_use_vault.sql",
+          "language": "sql",
+          "sizeLines": 39,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/035_club_events.sql",
+          "language": "sql",
+          "sizeLines": 139,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/036_club_logos.sql",
+          "language": "sql",
+          "sizeLines": 53,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/037_rate_limits.sql",
+          "language": "sql",
+          "sizeLines": 92,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/038_search_like_escape.sql",
+          "language": "sql",
+          "sizeLines": 57,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/039_rls_hardening.sql",
+          "language": "sql",
+          "sizeLines": 38,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/040_device_token_cap.sql",
+          "language": "sql",
+          "sizeLines": 39,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/041_fix_grade_matching.sql",
+          "language": "sql",
+          "sizeLines": 76,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/042_manual_description.sql",
+          "language": "sql",
+          "sizeLines": 7,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/043_rpc_v2_region_org_filters.sql",
+          "language": "sql",
+          "sizeLines": 154,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/044_rpc_returns_table.sql",
+          "language": "sql",
+          "sizeLines": 130,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/045_seed_regions.sql",
+          "language": "sql",
+          "sizeLines": 18,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/046_venues.sql",
+          "language": "sql",
+          "sizeLines": 47,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/046b_seed_futsal_venues.sql",
+          "language": "sql",
+          "sizeLines": 272,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/047_seed_futsal_rules.sql",
+          "language": "sql",
+          "sizeLines": 402,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/048_venues_search_rpc.sql",
+          "language": "sql",
+          "sizeLines": 42,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/049_normalize_body_newlines.sql",
+          "language": "sql",
+          "sizeLines": 27,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/050_drop_clubs_active_column.sql",
+          "language": "sql",
+          "sizeLines": 11,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/051_backfill_tournaments_region_code.sql",
+          "language": "sql",
+          "sizeLines": 16,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/052_recategorize_futsal_rule_articles.sql",
+          "language": "sql",
+          "sizeLines": 74,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/053_seed_seoul_citizen_futsal_league_2026.sql",
+          "language": "sql",
+          "sizeLines": 118,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/054_club_favorites.sql",
+          "language": "sql",
+          "sizeLines": 23,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/055_users_profile_columns.sql",
+          "language": "sql",
+          "sizeLines": 55,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/056_user_tennis_orgs_pk_change.sql",
+          "language": "sql",
+          "sizeLines": 69,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/057_clubs_members_events_update.sql",
+          "language": "sql",
+          "sizeLines": 68,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/058_club_posts.sql",
+          "language": "sql",
+          "sizeLines": 168,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/059_tournament_extension_tables.sql",
+          "language": "sql",
+          "sizeLines": 215,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/060_notifications_unified.sql",
+          "language": "sql",
+          "sizeLines": 92,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/061_match_records.sql",
+          "language": "sql",
+          "sizeLines": 101,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/062_schedule_shares.sql",
+          "language": "sql",
+          "sizeLines": 36,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/063_crawl_documents.sql",
+          "language": "sql",
+          "sizeLines": 59,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/064_fix_tournaments_for_user_details_join.sql",
+          "language": "sql",
+          "sizeLines": 140,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/065_rate_limit_security.sql",
+          "language": "sql",
+          "sizeLines": 34,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/066_schedule_shares_rls_fix.sql",
+          "language": "sql",
+          "sizeLines": 60,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/067_fk_on_delete_policy.sql",
+          "language": "sql",
+          "sizeLines": 56,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/068_drop_notifications_log_and_fk_indexes.sql",
+          "language": "sql",
+          "sizeLines": 27,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/069_club_posts_storage_owner_folder.sql",
+          "language": "sql",
+          "sizeLines": 23,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/070_trim_crawl_descriptions.sql",
+          "language": "sql",
+          "sizeLines": 21,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/071_futsal_grades_and_2026_official_events.sql",
+          "language": "sql",
+          "sizeLines": 561,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/072_fix_tennis_grade_matching.sql",
+          "language": "sql",
+          "sizeLines": 244,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/073_tournament_regulation_fields.sql",
+          "language": "sql",
+          "sizeLines": 35,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/074_tournament_regulation_body.sql",
+          "language": "sql",
+          "sizeLines": 26,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/075_tournaments_for_user_division_filter.sql",
+          "language": "sql",
+          "sizeLines": 155,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/076_tournaments_for_user_recruiting_and_date_overlap.sql",
+          "language": "sql",
+          "sizeLines": 164,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/077_chat_tournament_regulation_rag.sql",
+          "language": "sql",
+          "sizeLines": 102,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/078_chat_slot_search_consistency.sql",
+          "language": "sql",
+          "sizeLines": 84,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/20260617123902_fix_ensure_profile_name.sql",
+          "language": "sql",
+          "sizeLines": 30,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/20260618014529_harden_security_definer_execution.sql",
+          "language": "sql",
+          "sizeLines": 74,
+          "fileCategory": "data"
+        },
+        {
+          "path": "supabase/migrations/20260618042700_set_function_search_path.sql",
+          "language": "sql",
+          "sizeLines": 19,
+          "fileCategory": "data"
+        }
+      ],
+      "batchImportData": {
+        "supabase/migrations/001_extensions.sql": [],
+        "supabase/migrations/002_init_users_sports.sql": [],
+        "supabase/migrations/003_tournaments.sql": [],
+        "supabase/migrations/004_clubs.sql": [],
+        "supabase/migrations/005_chat_rules.sql": [],
+        "supabase/migrations/006_notifications.sql": [],
+        "supabase/migrations/007_crawl_audit.sql": [],
+        "supabase/migrations/008_cron.sql": [],
+        "supabase/migrations/009_regions_and_multi_org.sql": [],
+        "supabase/migrations/010_tennis_grade_revamp.sql": [],
+        "supabase/migrations/011_ensure_profile_rpc.sql": [],
+        "supabase/migrations/012_rate_limit.sql": [],
+        "supabase/migrations/013_qa_cache.sql": [],
+        "supabase/migrations/014_intent_examples.sql": [],
+        "supabase/migrations/015_uuid_v7.sql": [],
+        "supabase/migrations/016_tournaments_search_sport_filter.sql": [],
+        "supabase/migrations/017_uuid_v7_pgcrypto_schema_fix.sql": [],
+        "supabase/migrations/018_tournament_search_by_slots.sql": [],
+        "supabase/migrations/019_crawl_sources.sql": [],
+        "supabase/migrations/020_dispatcher_cron_switch.sql": [],
+        "supabase/migrations/021_crawl_sources_running_flag.sql": [],
+        "supabase/migrations/022_tournament_status_rejected.sql": [],
+        "supabase/migrations/023_review_helpers.sql": [],
+        "supabase/migrations/024_crawl_sources_url_refresh.sql": [],
+        "supabase/migrations/025_futsal_tournament_fields.sql": [],
+        "supabase/migrations/026_futsal_crawl_sources.sql": [],
+        "supabase/migrations/027_db_crawler_review_fixes.sql": [],
+        "supabase/migrations/028_adjust_crawler_schedule.sql": [],
+        "supabase/migrations/029_division_codes_reset_eligible_grades.sql": [],
+        "supabase/migrations/030_invoke_edge_function_internal_cron_jwt.sql": [],
+        "supabase/migrations/031_club_management.sql": [],
+        "supabase/migrations/032_drop_legacy_clubs_active_policy.sql": [],
+        "supabase/migrations/033_fix_club_members_rls_recursion.sql": [],
+        "supabase/migrations/034_invoke_edge_function_use_vault.sql": [],
+        "supabase/migrations/035_club_events.sql": [],
+        "supabase/migrations/036_club_logos.sql": [],
+        "supabase/migrations/037_rate_limits.sql": [],
+        "supabase/migrations/038_search_like_escape.sql": [],
+        "supabase/migrations/039_rls_hardening.sql": [],
+        "supabase/migrations/040_device_token_cap.sql": [],
+        "supabase/migrations/041_fix_grade_matching.sql": [],
+        "supabase/migrations/042_manual_description.sql": [],
+        "supabase/migrations/043_rpc_v2_region_org_filters.sql": [],
+        "supabase/migrations/044_rpc_returns_table.sql": [],
+        "supabase/migrations/045_seed_regions.sql": [],
+        "supabase/migrations/046_venues.sql": [],
+        "supabase/migrations/046b_seed_futsal_venues.sql": [],
+        "supabase/migrations/047_seed_futsal_rules.sql": [],
+        "supabase/migrations/048_venues_search_rpc.sql": [],
+        "supabase/migrations/049_normalize_body_newlines.sql": [],
+        "supabase/migrations/050_drop_clubs_active_column.sql": [],
+        "supabase/migrations/051_backfill_tournaments_region_code.sql": [],
+        "supabase/migrations/052_recategorize_futsal_rule_articles.sql": [],
+        "supabase/migrations/053_seed_seoul_citizen_futsal_league_2026.sql": [],
+        "supabase/migrations/054_club_favorites.sql": [],
+        "supabase/migrations/055_users_profile_columns.sql": [],
+        "supabase/migrations/056_user_tennis_orgs_pk_change.sql": [],
+        "supabase/migrations/057_clubs_members_events_update.sql": [],
+        "supabase/migrations/058_club_posts.sql": [],
+        "supabase/migrations/059_tournament_extension_tables.sql": [],
+        "supabase/migrations/060_notifications_unified.sql": [],
+        "supabase/migrations/061_match_records.sql": [],
+        "supabase/migrations/062_schedule_shares.sql": [],
+        "supabase/migrations/063_crawl_documents.sql": [],
+        "supabase/migrations/064_fix_tournaments_for_user_details_join.sql": [],
+        "supabase/migrations/065_rate_limit_security.sql": [],
+        "supabase/migrations/066_schedule_shares_rls_fix.sql": [],
+        "supabase/migrations/067_fk_on_delete_policy.sql": [],
+        "supabase/migrations/068_drop_notifications_log_and_fk_indexes.sql": [],
+        "supabase/migrations/069_club_posts_storage_owner_folder.sql": [],
+        "supabase/migrations/070_trim_crawl_descriptions.sql": [],
+        "supabase/migrations/071_futsal_grades_and_2026_official_events.sql": [],
+        "supabase/migrations/072_fix_tennis_grade_matching.sql": [],
+        "supabase/migrations/073_tournament_regulation_fields.sql": [],
+        "supabase/migrations/074_tournament_regulation_body.sql": [],
+        "supabase/migrations/075_tournaments_for_user_division_filter.sql": [],
+        "supabase/migrations/076_tournaments_for_user_recruiting_and_date_overlap.sql": [],
+        "supabase/migrations/077_chat_tournament_regulation_rag.sql": [],
+        "supabase/migrations/078_chat_slot_search_consistency.sql": [],
+        "supabase/migrations/20260617123902_fix_ensure_profile_name.sql": [],
+        "supabase/migrations/20260618014529_harden_security_definer_execution.sql": [],
+        "supabase/migrations/20260618042700_set_function_search_path.sql": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 7,
+      "files": [
+        {
+          "path": ".github/ISSUE_TEMPLATE/bug_report.yml",
+          "language": "yaml",
+          "sizeLines": 48,
+          "fileCategory": "config"
+        },
+        {
+          "path": ".github/ISSUE_TEMPLATE/config.yml",
+          "language": "yaml",
+          "sizeLines": 5,
+          "fileCategory": "config"
+        },
+        {
+          "path": ".github/ISSUE_TEMPLATE/feature_task.yml",
+          "language": "yaml",
+          "sizeLines": 51,
+          "fileCategory": "config"
+        },
+        {
+          "path": ".github/ISSUE_TEMPLATE/harness_task.yml",
+          "language": "yaml",
+          "sizeLines": 43,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        ".github/ISSUE_TEMPLATE/bug_report.yml": [],
+        ".github/ISSUE_TEMPLATE/config.yml": [],
+        ".github/ISSUE_TEMPLATE/feature_task.yml": [],
+        ".github/ISSUE_TEMPLATE/harness_task.yml": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 8,
+      "files": [
+        {
+          "path": "AGENTS.md",
+          "language": "markdown",
+          "sizeLines": 65,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "CLAUDE.md",
+          "language": "markdown",
+          "sizeLines": 26,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "Makefile",
+          "language": "makefile",
+          "sizeLines": 65,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "README.md",
+          "language": "markdown",
+          "sizeLines": 185,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "AGENTS.md": [],
+        "CLAUDE.md": [],
+        "Makefile": [],
+        "README.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 9,
+      "files": [
+        {
+          "path": "app/.env.local.example",
+          "language": "config",
+          "sizeLines": 7,
+          "fileCategory": "config"
+        },
+        {
+          "path": "app/analysis_options.yaml",
+          "language": "yaml",
+          "sizeLines": 28,
+          "fileCategory": "config"
+        },
+        {
+          "path": "app/pubspec.yaml",
+          "language": "yaml",
+          "sizeLines": 62,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "app/.env.local.example": [],
+        "app/analysis_options.yaml": [],
+        "app/pubspec.yaml": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 10,
+      "files": [
+        {
+          "path": "docs/db-design.html",
+          "language": "html",
+          "sizeLines": 1121,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "docs/deploy.md",
+          "language": "markdown",
+          "sizeLines": 166,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/futsal_rulebook_db_apply_guide.md",
+          "language": "markdown",
+          "sizeLines": 180,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/harness-system-analysis.html",
+          "language": "html",
+          "sizeLines": 1279,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "docs/mvp-roadmap.html",
+          "language": "html",
+          "sizeLines": 574,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "docs/privacy-policy.html",
+          "language": "html",
+          "sizeLines": 396,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "docs/project-current-map.html",
+          "language": "html",
+          "sizeLines": 718,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "docs/store-listing.md",
+          "language": "markdown",
+          "sizeLines": 128,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/team-collaboration.md",
+          "language": "markdown",
+          "sizeLines": 137,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/team-onboarding.html",
+          "language": "html",
+          "sizeLines": 844,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "docs/test-account-setup.md",
+          "language": "markdown",
+          "sizeLines": 73,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "docs/db-design.html": [],
+        "docs/deploy.md": [],
+        "docs/futsal_rulebook_db_apply_guide.md": [],
+        "docs/harness-system-analysis.html": [],
+        "docs/mvp-roadmap.html": [],
+        "docs/privacy-policy.html": [],
+        "docs/project-current-map.html": [],
+        "docs/store-listing.md": [],
+        "docs/team-collaboration.md": [],
+        "docs/team-onboarding.html": [],
+        "docs/test-account-setup.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 11,
+      "files": [
+        {
+          "path": "docs/design/2026-redesign-spec.md",
+          "language": "markdown",
+          "sizeLines": 219,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/design/app-map.html",
+          "language": "html",
+          "sizeLines": 219,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "docs/design/app-map.md",
+          "language": "markdown",
+          "sizeLines": 98,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/design/db-redesign-progress.md",
+          "language": "markdown",
+          "sizeLines": 120,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/design/erd.html",
+          "language": "html",
+          "sizeLines": 233,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "docs/design/erd.md",
+          "language": "markdown",
+          "sizeLines": 296,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/design/figma-make-ui-handoff.md",
+          "language": "markdown",
+          "sizeLines": 161,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "docs/design/2026-redesign-spec.md": [],
+        "docs/design/app-map.html": [],
+        "docs/design/app-map.md": [],
+        "docs/design/db-redesign-progress.md": [],
+        "docs/design/erd.html": [],
+        "docs/design/erd.md": [],
+        "docs/design/figma-make-ui-handoff.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 12,
+      "files": [
+        {
+          "path": "docs/kb/README.md",
+          "language": "markdown",
+          "sizeLines": 24,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/kb/ai-chat.md",
+          "language": "markdown",
+          "sizeLines": 140,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/kb/architecture.md",
+          "language": "markdown",
+          "sizeLines": 89,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/kb/clubs.md",
+          "language": "markdown",
+          "sizeLines": 60,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/kb/crawler.md",
+          "language": "markdown",
+          "sizeLines": 54,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/kb/database.md",
+          "language": "markdown",
+          "sizeLines": 119,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/kb/domain-futsal.md",
+          "language": "markdown",
+          "sizeLines": 35,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/kb/domain-tennis.md",
+          "language": "markdown",
+          "sizeLines": 64,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/kb/flutter-app.md",
+          "language": "markdown",
+          "sizeLines": 74,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "docs/kb/README.md": [],
+        "docs/kb/ai-chat.md": [],
+        "docs/kb/architecture.md": [],
+        "docs/kb/clubs.md": [],
+        "docs/kb/crawler.md": [],
+        "docs/kb/database.md": [],
+        "docs/kb/domain-futsal.md": [],
+        "docs/kb/domain-tennis.md": [],
+        "docs/kb/flutter-app.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 13,
+      "files": [
+        {
+          "path": "docs/plans/MVP-roadmap.md",
+          "language": "markdown",
+          "sizeLines": 38,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/plans/PLAN_crawl-admin.md",
+          "language": "markdown",
+          "sizeLines": 90,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/plans/PLAN_llm-cost-reduction.md",
+          "language": "markdown",
+          "sizeLines": 243,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/plans/PLAN_speed-gun-v1.md",
+          "language": "markdown",
+          "sizeLines": 151,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "docs/plans/MVP-roadmap.md": [],
+        "docs/plans/PLAN_crawl-admin.md": [],
+        "docs/plans/PLAN_llm-cost-reduction.md": [],
+        "docs/plans/PLAN_speed-gun-v1.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 14,
+      "files": [
+        {
+          "path": "docs/research/ball-speed-measurement-feasibility.md",
+          "language": "markdown",
+          "sizeLines": 471,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/research/llm-cost-optimization-2026.md",
+          "language": "markdown",
+          "sizeLines": 260,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/research/tennis-ecosystem.md",
+          "language": "markdown",
+          "sizeLines": 563,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/research/tennis-grade-systems.md",
+          "language": "markdown",
+          "sizeLines": 478,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "docs/research/ball-speed-measurement-feasibility.md": [],
+        "docs/research/llm-cost-optimization-2026.md": [],
+        "docs/research/tennis-ecosystem.md": [],
+        "docs/research/tennis-grade-systems.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 15,
+      "files": [
+        {
+          "path": "docs/reviews/code-review.md",
+          "language": "markdown",
+          "sizeLines": 283,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/reviews/security-review.md",
+          "language": "markdown",
+          "sizeLines": 247,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/reviews/simplify-review.md",
+          "language": "markdown",
+          "sizeLines": 456,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "docs/reviews/code-review.md": [],
+        "docs/reviews/security-review.md": [],
+        "docs/reviews/simplify-review.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 16,
+      "files": [
+        {
+          "path": "docs/rules/BACKEND_RULES.md",
+          "language": "markdown",
+          "sizeLines": 41,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/rules/CODING_RULES.md",
+          "language": "markdown",
+          "sizeLines": 41,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/rules/DATABASE_RULES.md",
+          "language": "markdown",
+          "sizeLines": 64,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/rules/DOMAIN_RULES.md",
+          "language": "markdown",
+          "sizeLines": 45,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/rules/FRONTEND_RULES.md",
+          "language": "markdown",
+          "sizeLines": 42,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/rules/HARNESS.md",
+          "language": "markdown",
+          "sizeLines": 75,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/rules/PROJECT_CONTEXT.md",
+          "language": "markdown",
+          "sizeLines": 120,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/rules/README.md",
+          "language": "markdown",
+          "sizeLines": 33,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/rules/SECURITY_RULES.md",
+          "language": "markdown",
+          "sizeLines": 40,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/rules/SPEED_GUN_RULES.md",
+          "language": "markdown",
+          "sizeLines": 42,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "docs/rules/BACKEND_RULES.md": [],
+        "docs/rules/CODING_RULES.md": [],
+        "docs/rules/DATABASE_RULES.md": [],
+        "docs/rules/DOMAIN_RULES.md": [],
+        "docs/rules/FRONTEND_RULES.md": [],
+        "docs/rules/HARNESS.md": [],
+        "docs/rules/PROJECT_CONTEXT.md": [],
+        "docs/rules/README.md": [],
+        "docs/rules/SECURITY_RULES.md": [],
+        "docs/rules/SPEED_GUN_RULES.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 17,
+      "files": [
+        {
+          "path": "docs/superpowers/plans/2026-05-19-active-sport-filter.md",
+          "language": "markdown",
+          "sizeLines": 555,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/superpowers/plans/2026-05-19-chat-main-admin-panel.md",
+          "language": "markdown",
+          "sizeLines": 1073,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/superpowers/plans/2026-05-27-knowledge-base-rules.md",
+          "language": "markdown",
+          "sizeLines": 801,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/superpowers/plans/2026-05-30-web-admin-separation.md",
+          "language": "markdown",
+          "sizeLines": 976,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/superpowers/plans/2026-06-11-chat-a2ui-tournament-cards.md",
+          "language": "markdown",
+          "sizeLines": 997,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "docs/superpowers/plans/2026-05-19-active-sport-filter.md": [],
+        "docs/superpowers/plans/2026-05-19-chat-main-admin-panel.md": [],
+        "docs/superpowers/plans/2026-05-27-knowledge-base-rules.md": [],
+        "docs/superpowers/plans/2026-05-30-web-admin-separation.md": [],
+        "docs/superpowers/plans/2026-06-11-chat-a2ui-tournament-cards.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 18,
+      "files": [
+        {
+          "path": "docs/superpowers/specs/2026-05-19-active-sport-filter-design.md",
+          "language": "markdown",
+          "sizeLines": 168,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-05-19-chat-main-admin-panel-design.md",
+          "language": "markdown",
+          "sizeLines": 183,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-05-27-knowledge-base-rules-design.md",
+          "language": "markdown",
+          "sizeLines": 102,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-05-28-club-activity-mvp-design.md",
+          "language": "markdown",
+          "sizeLines": 110,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-05-29-strategy-and-roadmap-design.md",
+          "language": "markdown",
+          "sizeLines": 307,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-05-30-web-admin-separation-design.md",
+          "language": "markdown",
+          "sizeLines": 243,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/superpowers/specs/2026-06-11-chat-a2ui-cards-design.md",
+          "language": "markdown",
+          "sizeLines": 269,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "docs/superpowers/specs/2026-05-19-active-sport-filter-design.md": [],
+        "docs/superpowers/specs/2026-05-19-chat-main-admin-panel-design.md": [],
+        "docs/superpowers/specs/2026-05-27-knowledge-base-rules-design.md": [],
+        "docs/superpowers/specs/2026-05-28-club-activity-mvp-design.md": [],
+        "docs/superpowers/specs/2026-05-29-strategy-and-roadmap-design.md": [],
+        "docs/superpowers/specs/2026-05-30-web-admin-separation-design.md": [],
+        "docs/superpowers/specs/2026-06-11-chat-a2ui-cards-design.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 19,
+      "files": [
+        {
+          "path": "supabase/functions/.env.example",
+          "language": "config",
+          "sizeLines": 2,
+          "fileCategory": "config"
+        },
+        {
+          "path": "supabase/functions/deno.json",
+          "language": "json",
+          "sizeLines": 21,
+          "fileCategory": "config"
+        },
+        {
+          "path": "supabase/functions/import_map.json",
+          "language": "json",
+          "sizeLines": 7,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "supabase/functions/.env.example": [],
+        "supabase/functions/deno.json": [],
+        "supabase/functions/import_map.json": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 20,
+      "files": [
+        {
+          "path": ".github/CODEOWNERS",
+          "language": "unknown",
+          "sizeLines": 1,
+          "fileCategory": "code"
+        },
+        {
+          "path": ".github/pull_request_template.md",
+          "language": "markdown",
+          "sizeLines": 49,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "app/assets/models/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/assets/models/README.md",
+          "language": "markdown",
+          "sizeLines": 5,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "app/lib/config.dart",
+          "language": "dart",
+          "sizeLines": 72,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/main.dart",
+          "language": "dart",
+          "sizeLines": 62,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/models/admin.dart",
+          "language": "dart",
+          "sizeLines": 37,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/models/app_notification.dart",
+          "language": "dart",
+          "sizeLines": 47,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/models/chat_ui.dart",
+          "language": "dart",
+          "sizeLines": 139,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/models/club_event.dart",
+          "language": "dart",
+          "sizeLines": 86,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/models/club_post.dart",
+          "language": "dart",
+          "sizeLines": 83,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/models/crawl_source.dart",
+          "language": "dart",
+          "sizeLines": 121,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/models/match_record.dart",
+          "language": "dart",
+          "sizeLines": 116,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/models/regulation_body_lines.dart",
+          "language": "dart",
+          "sizeLines": 237,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/models/schedule_share.dart",
+          "language": "dart",
+          "sizeLines": 42,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/models/speed_measurement.dart",
+          "language": "dart",
+          "sizeLines": 70,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/models/tournament_card_info.dart",
+          "language": "dart",
+          "sizeLines": 113,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/models/tournament.dart",
+          "language": "dart",
+          "sizeLines": 409,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/router.dart",
+          "language": "dart",
+          "sizeLines": 322,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/admin/admin_screen.dart",
+          "language": "dart",
+          "sizeLines": 1489,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/admin/admin_shell.dart",
+          "language": "dart",
+          "sizeLines": 162,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/admin/knowledge_base_tab.dart",
+          "language": "dart",
+          "sizeLines": 119,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/admin/no_access_screen.dart",
+          "language": "dart",
+          "sizeLines": 41,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/admin/rule_edit_screen.dart",
+          "language": "dart",
+          "sizeLines": 238,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/admin/tournament_edit_screen.dart",
+          "language": "dart",
+          "sizeLines": 233,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        ".github/CODEOWNERS": [],
+        ".github/pull_request_template.md": [],
+        "app/assets/models/.gitkeep": [],
+        "app/assets/models/README.md": [],
+        "app/lib/config.dart": [],
+        "app/lib/main.dart": [],
+        "app/lib/models/admin.dart": [],
+        "app/lib/models/app_notification.dart": [],
+        "app/lib/models/chat_ui.dart": [],
+        "app/lib/models/club_event.dart": [],
+        "app/lib/models/club_post.dart": [],
+        "app/lib/models/crawl_source.dart": [],
+        "app/lib/models/match_record.dart": [],
+        "app/lib/models/regulation_body_lines.dart": [],
+        "app/lib/models/schedule_share.dart": [],
+        "app/lib/models/speed_measurement.dart": [],
+        "app/lib/models/tournament_card_info.dart": [],
+        "app/lib/models/tournament.dart": [],
+        "app/lib/router.dart": [],
+        "app/lib/screens/admin/admin_screen.dart": [],
+        "app/lib/screens/admin/admin_shell.dart": [],
+        "app/lib/screens/admin/knowledge_base_tab.dart": [],
+        "app/lib/screens/admin/no_access_screen.dart": [],
+        "app/lib/screens/admin/rule_edit_screen.dart": [],
+        "app/lib/screens/admin/tournament_edit_screen.dart": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 21,
+      "files": [
+        {
+          "path": "app/lib/screens/auth/login_screen.dart",
+          "language": "dart",
+          "sizeLines": 640,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/auth/onboarding_screen.dart",
+          "language": "dart",
+          "sizeLines": 1004,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/chat_screen.dart",
+          "language": "dart",
+          "sizeLines": 584,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/clubs_screen.dart",
+          "language": "dart",
+          "sizeLines": 2569,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/clubs/club_create_screen.dart",
+          "language": "dart",
+          "sizeLines": 750,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/clubs/club_detail_screen.dart",
+          "language": "dart",
+          "sizeLines": 937,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/favorites_screen.dart",
+          "language": "dart",
+          "sizeLines": 335,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/friend_schedule_screen.dart",
+          "language": "dart",
+          "sizeLines": 1030,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/more_screen.dart",
+          "language": "dart",
+          "sizeLines": 322,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/profile_screen.dart",
+          "language": "dart",
+          "sizeLines": 1748,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/rules_screen.dart",
+          "language": "dart",
+          "sizeLines": 1255,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/speed_gun/court_calibration_screen.dart",
+          "language": "dart",
+          "sizeLines": 219,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/speed_gun/speed_gun_screen_web.dart",
+          "language": "dart",
+          "sizeLines": 30,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/speed_gun/speed_gun_screen.dart",
+          "language": "dart",
+          "sizeLines": 395,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/speed_gun/speed_result_screen.dart",
+          "language": "dart",
+          "sizeLines": 257,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/tournaments/tournament_detail_screen.dart",
+          "language": "dart",
+          "sizeLines": 1155,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/tournaments/tournament_submit_screen.dart",
+          "language": "dart",
+          "sizeLines": 343,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/screens/tournaments/tournaments_screen.dart",
+          "language": "dart",
+          "sizeLines": 1878,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/services/api.dart",
+          "language": "dart",
+          "sizeLines": 1137,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/services/ball_detector_service.dart",
+          "language": "dart",
+          "sizeLines": 162,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/services/notifications_web.dart",
+          "language": "dart",
+          "sizeLines": 6,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/services/notifications.dart",
+          "language": "dart",
+          "sizeLines": 33,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/services/speed_calculator.dart",
+          "language": "dart",
+          "sizeLines": 206,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/services/video_processing_service.dart",
+          "language": "dart",
+          "sizeLines": 148,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/state/providers.dart",
+          "language": "dart",
+          "sizeLines": 141,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "app/lib/screens/auth/login_screen.dart": [],
+        "app/lib/screens/auth/onboarding_screen.dart": [],
+        "app/lib/screens/chat_screen.dart": [],
+        "app/lib/screens/clubs_screen.dart": [],
+        "app/lib/screens/clubs/club_create_screen.dart": [],
+        "app/lib/screens/clubs/club_detail_screen.dart": [],
+        "app/lib/screens/favorites_screen.dart": [],
+        "app/lib/screens/friend_schedule_screen.dart": [],
+        "app/lib/screens/more_screen.dart": [],
+        "app/lib/screens/profile_screen.dart": [],
+        "app/lib/screens/rules_screen.dart": [],
+        "app/lib/screens/speed_gun/court_calibration_screen.dart": [],
+        "app/lib/screens/speed_gun/speed_gun_screen_web.dart": [],
+        "app/lib/screens/speed_gun/speed_gun_screen.dart": [],
+        "app/lib/screens/speed_gun/speed_result_screen.dart": [],
+        "app/lib/screens/tournaments/tournament_detail_screen.dart": [],
+        "app/lib/screens/tournaments/tournament_submit_screen.dart": [],
+        "app/lib/screens/tournaments/tournaments_screen.dart": [],
+        "app/lib/services/api.dart": [],
+        "app/lib/services/ball_detector_service.dart": [],
+        "app/lib/services/notifications_web.dart": [],
+        "app/lib/services/notifications.dart": [],
+        "app/lib/services/speed_calculator.dart": [],
+        "app/lib/services/video_processing_service.dart": [],
+        "app/lib/state/providers.dart": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 22,
+      "files": [
+        {
+          "path": "app/lib/state/theme_provider.dart",
+          "language": "dart",
+          "sizeLines": 34,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/theme/app_theme.dart",
+          "language": "dart",
+          "sizeLines": 144,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/theme/color_schemes.dart",
+          "language": "dart",
+          "sizeLines": 91,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/theme/motion.dart",
+          "language": "dart",
+          "sizeLines": 37,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/theme/tokens.dart",
+          "language": "dart",
+          "sizeLines": 76,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/theme/typography.dart",
+          "language": "dart",
+          "sizeLines": 121,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/utils/active_filters.dart",
+          "language": "dart",
+          "sizeLines": 141,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/utils/grade_labels.dart",
+          "language": "dart",
+          "sizeLines": 345,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/utils/tournament_filters.dart",
+          "language": "dart",
+          "sizeLines": 111,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/widgets/allround_logo.dart",
+          "language": "dart",
+          "sizeLines": 209,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/widgets/app_bottom_nav.dart",
+          "language": "dart",
+          "sizeLines": 53,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/widgets/app_buttons.dart",
+          "language": "dart",
+          "sizeLines": 109,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/widgets/app_card.dart",
+          "language": "dart",
+          "sizeLines": 62,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/widgets/app_chip.dart",
+          "language": "dart",
+          "sizeLines": 63,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/widgets/app_empty_state.dart",
+          "language": "dart",
+          "sizeLines": 63,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/widgets/app_hero_section.dart",
+          "language": "dart",
+          "sizeLines": 80,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/widgets/app_info_tile.dart",
+          "language": "dart",
+          "sizeLines": 80,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/widgets/app_list_section.dart",
+          "language": "dart",
+          "sizeLines": 51,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/widgets/app_skeleton_card.dart",
+          "language": "dart",
+          "sizeLines": 28,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/widgets/app_toast.dart",
+          "language": "dart",
+          "sizeLines": 59,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/widgets/chat_tournament_card.dart",
+          "language": "dart",
+          "sizeLines": 199,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/lib/widgets/tournament_card.dart",
+          "language": "dart",
+          "sizeLines": 400,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/test/active_filters_test.dart",
+          "language": "dart",
+          "sizeLines": 154,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/test/active_sport_provider_test.dart",
+          "language": "dart",
+          "sizeLines": 24,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/test/chat_ui_test.dart",
+          "language": "dart",
+          "sizeLines": 297,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "app/lib/state/theme_provider.dart": [],
+        "app/lib/theme/app_theme.dart": [],
+        "app/lib/theme/color_schemes.dart": [],
+        "app/lib/theme/motion.dart": [],
+        "app/lib/theme/tokens.dart": [],
+        "app/lib/theme/typography.dart": [],
+        "app/lib/utils/active_filters.dart": [],
+        "app/lib/utils/grade_labels.dart": [],
+        "app/lib/utils/tournament_filters.dart": [],
+        "app/lib/widgets/allround_logo.dart": [],
+        "app/lib/widgets/app_bottom_nav.dart": [],
+        "app/lib/widgets/app_buttons.dart": [],
+        "app/lib/widgets/app_card.dart": [],
+        "app/lib/widgets/app_chip.dart": [],
+        "app/lib/widgets/app_empty_state.dart": [],
+        "app/lib/widgets/app_hero_section.dart": [],
+        "app/lib/widgets/app_info_tile.dart": [],
+        "app/lib/widgets/app_list_section.dart": [],
+        "app/lib/widgets/app_skeleton_card.dart": [],
+        "app/lib/widgets/app_toast.dart": [],
+        "app/lib/widgets/chat_tournament_card.dart": [],
+        "app/lib/widgets/tournament_card.dart": [],
+        "app/test/active_filters_test.dart": [],
+        "app/test/active_sport_provider_test.dart": [],
+        "app/test/chat_ui_test.dart": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 23,
+      "files": [
+        {
+          "path": "app/test/grade_labels_test.dart",
+          "language": "dart",
+          "sizeLines": 142,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/test/regulation_body_lines_test.dart",
+          "language": "dart",
+          "sizeLines": 149,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/test/rule_article_test.dart",
+          "language": "dart",
+          "sizeLines": 31,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/test/speed_calculator_test.dart",
+          "language": "dart",
+          "sizeLines": 67,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/test/tournament_card_info_test.dart",
+          "language": "dart",
+          "sizeLines": 98,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/test/tournament_card_test.dart",
+          "language": "dart",
+          "sizeLines": 74,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/test/tournament_filters_test.dart",
+          "language": "dart",
+          "sizeLines": 124,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/test/tournament_regulation_test.dart",
+          "language": "dart",
+          "sizeLines": 151,
+          "fileCategory": "code"
+        },
+        {
+          "path": "app/test/tournament_search_query_test.dart",
+          "language": "dart",
+          "sizeLines": 79,
+          "fileCategory": "code"
+        },
+        {
+          "path": "claudedocs/db-schema.html",
+          "language": "html",
+          "sizeLines": 208,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "claudedocs/schema-audit-remaining.md",
+          "language": "markdown",
+          "sizeLines": 42,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/changelog/2026-W23.md",
+          "language": "markdown",
+          "sizeLines": 68,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/data/futsal/전국_풋살구장_현황.xlsx",
+          "language": "xlsx",
+          "sizeLines": 188,
+          "fileCategory": "code"
+        },
+        {
+          "path": "docs/data/futsal/풋살 정보 정리.docx",
+          "language": "docx",
+          "sizeLines": 108,
+          "fileCategory": "code"
+        },
+        {
+          "path": "docs/data/futsal/풋살_2024-25_경기규칙서_및_협회안내.docx",
+          "language": "docx",
+          "sizeLines": 105,
+          "fileCategory": "code"
+        },
+        {
+          "path": "docs/legal/privacy-policy.html",
+          "language": "html",
+          "sizeLines": 79,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "docs/legal/terms-of-service.html",
+          "language": "html",
+          "sizeLines": 91,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "docs/qa/mvp-qa-checklist.md",
+          "language": "markdown",
+          "sizeLines": 80,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/security/cron-jwt-rotation.md",
+          "language": "markdown",
+          "sizeLines": 132,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "scripts/analyze_chat_cost.py",
+          "language": "python",
+          "sizeLines": 325,
+          "fileCategory": "code"
+        },
+        {
+          "path": "scripts/harness/check_enums.py",
+          "language": "python",
+          "sizeLines": 176,
+          "fileCategory": "code"
+        },
+        {
+          "path": "scripts/harness/check_secrets.sh",
+          "language": "shell",
+          "sizeLines": 61,
+          "fileCategory": "script"
+        },
+        {
+          "path": "scripts/harness/check_static_rules.py",
+          "language": "python",
+          "sizeLines": 107,
+          "fileCategory": "code"
+        },
+        {
+          "path": "scripts/harness/run_all.sh",
+          "language": "shell",
+          "sizeLines": 43,
+          "fileCategory": "script"
+        },
+        {
+          "path": "supabase/config.toml",
+          "language": "toml",
+          "sizeLines": 407,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "app/test/grade_labels_test.dart": [],
+        "app/test/regulation_body_lines_test.dart": [],
+        "app/test/rule_article_test.dart": [],
+        "app/test/speed_calculator_test.dart": [],
+        "app/test/tournament_card_info_test.dart": [],
+        "app/test/tournament_card_test.dart": [],
+        "app/test/tournament_filters_test.dart": [],
+        "app/test/tournament_regulation_test.dart": [],
+        "app/test/tournament_search_query_test.dart": [],
+        "claudedocs/db-schema.html": [],
+        "claudedocs/schema-audit-remaining.md": [],
+        "docs/changelog/2026-W23.md": [],
+        "docs/data/futsal/전국_풋살구장_현황.xlsx": [],
+        "docs/data/futsal/풋살 정보 정리.docx": [],
+        "docs/data/futsal/풋살_2024-25_경기규칙서_및_협회안내.docx": [],
+        "docs/legal/privacy-policy.html": [],
+        "docs/legal/terms-of-service.html": [],
+        "docs/qa/mvp-qa-checklist.md": [],
+        "docs/security/cron-jwt-rotation.md": [],
+        "scripts/analyze_chat_cost.py": [],
+        "scripts/harness/check_enums.py": [],
+        "scripts/harness/check_secrets.sh": [],
+        "scripts/harness/check_static_rules.py": [],
+        "scripts/harness/run_all.sh": [],
+        "supabase/config.toml": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 24,
+      "files": [
+        {
+          "path": "supabase/seed.sql",
+          "language": "sql",
+          "sizeLines": 200,
+          "fileCategory": "data"
+        }
+      ],
+      "batchImportData": {
+        "supabase/seed.sql": []
+      },
+      "neighborMap": {}
+    }
+  ]
+}

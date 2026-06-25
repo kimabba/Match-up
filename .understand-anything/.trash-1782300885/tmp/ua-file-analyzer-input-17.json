@@ -1,0 +1,17 @@
+{
+  "projectRoot": "/Users/ssfak/Documents/01-github/ar",
+  "batchFiles": [
+    {"path": "docs/superpowers/plans/2026-05-19-active-sport-filter.md", "language": "markdown", "sizeLines": 555, "fileCategory": "docs"},
+    {"path": "docs/superpowers/plans/2026-05-19-chat-main-admin-panel.md", "language": "markdown", "sizeLines": 1073, "fileCategory": "docs"},
+    {"path": "docs/superpowers/plans/2026-05-27-knowledge-base-rules.md", "language": "markdown", "sizeLines": 801, "fileCategory": "docs"},
+    {"path": "docs/superpowers/plans/2026-05-30-web-admin-separation.md", "language": "markdown", "sizeLines": 976, "fileCategory": "docs"},
+    {"path": "docs/superpowers/plans/2026-06-11-chat-a2ui-tournament-cards.md", "language": "markdown", "sizeLines": 997, "fileCategory": "docs"}
+  ],
+  "batchImportData": {
+    "docs/superpowers/plans/2026-05-19-active-sport-filter.md": [],
+    "docs/superpowers/plans/2026-05-19-chat-main-admin-panel.md": [],
+    "docs/superpowers/plans/2026-05-27-knowledge-base-rules.md": [],
+    "docs/superpowers/plans/2026-05-30-web-admin-separation.md": [],
+    "docs/superpowers/plans/2026-06-11-chat-a2ui-tournament-cards.md": []
+  }
+}

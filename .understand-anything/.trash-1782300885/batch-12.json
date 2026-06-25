@@ -1,0 +1,194 @@
+{
+  "nodes": [
+    {
+      "id": "document:docs/kb/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "docs/kb/README.md",
+      "summary": "Match-up 지식 베이스(KB)의 인덱스 문서로, 도메인·아키텍처·DB·크롤러·AI 챗봇 등 8개 KB 파일 목록과 문서 관리 원칙을 정리한다.",
+      "tags": ["documentation", "entry-point", "knowledge-base", "overview"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/kb/ai-chat.md",
+      "type": "document",
+      "name": "ai-chat.md",
+      "filePath": "docs/kb/ai-chat.md",
+      "summary": "AI 챗봇 시스템의 4단 라우팅(의도 분류, slot routing, QA cache, RAG)·Search Grounding 정책·비용 제어·Flutter 구현·보안을 설명하는 KB 문서.",
+      "tags": ["documentation", "ai-chat", "rag", "edge-function", "cost-control"],
+      "complexity": "moderate",
+      "languageNotes": "RAG 파이프라인과 pgvector 기반 임베딩, LLM 호출 0회 slot routing 등 비용 최적화 전략을 기술."
+    },
+    {
+      "id": "document:docs/kb/architecture.md",
+      "type": "document",
+      "name": "architecture.md",
+      "filePath": "docs/kb/architecture.md",
+      "summary": "전체 시스템 스택(Flutter + Supabase Edge Functions + Postgres/pgvector), 아키텍처 다이어그램, Edge Function 목록, 인증 레이어, 환경변수, 공유 모듈(_shared)을 정리한 KB 문서.",
+      "tags": ["documentation", "architecture", "edge-function", "overview"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/kb/clubs.md",
+      "type": "document",
+      "name": "clubs.md",
+      "filePath": "docs/kb/clubs.md",
+      "summary": "클럽 관리 시스템의 워크플로우·역할 체계와 clubs-create/join/review-join/approve/search Edge Function, Flutter UI, 멤버 수 자동 갱신 트리거를 설명하는 KB 문서.",
+      "tags": ["documentation", "clubs", "edge-function", "workflow"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/kb/crawler.md",
+      "type": "document",
+      "name": "crawler.md",
+      "filePath": "docs/kb/crawler.md",
+      "summary": "크롤러 시스템의 아키텍처, crawl-dispatch Edge Function, crawl_sources 테이블, 파서 모듈, 부서코드 추출 흐름, upsertTournament, 인증, 어드민 UI를 설명하는 KB 문서.",
+      "tags": ["documentation", "crawler", "edge-function", "parser"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/kb/database.md",
+      "type": "document",
+      "name": "database.md",
+      "filePath": "docs/kb/database.md",
+      "summary": "users, tournaments, clubs, club_members, crawl_sources 등 핵심 테이블 스키마와 주요 트리거, RLS 정책 요약, 최근 migration 이력을 정리한 데이터베이스 KB 문서.",
+      "tags": ["documentation", "database", "schema", "rls", "migration"],
+      "complexity": "moderate",
+      "languageNotes": "각 테이블의 RLS 정책과 트리거(멤버 수 자동 갱신 등)를 포함한 Postgres 스키마 레퍼런스."
+    },
+    {
+      "id": "document:docs/kb/domain-futsal.md",
+      "type": "document",
+      "name": "domain-futsal.md",
+      "filePath": "docs/kb/domain-futsal.md",
+      "summary": "풋살 도메인 지식(futsal_org 협회 체계, 등급, tournaments 풋살 전용 컬럼, 클럽, 크롤러 연계)을 정리한 KB 문서.",
+      "tags": ["documentation", "domain-knowledge", "futsal"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/kb/domain-tennis.md",
+      "type": "document",
+      "name": "domain-tennis.md",
+      "filePath": "docs/kb/domain-tennis.md",
+      "summary": "테니스 도메인 지식(tennis_org 협회 체계, 부서코드 division code 체계와 광주·전남·KTA·KATA 예시, 코드 정의 위치, 크롤러 부서 추출, 사용자 등급 등록)을 정리한 KB 문서.",
+      "tags": ["documentation", "domain-knowledge", "tennis", "division-code"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/kb/flutter-app.md",
+      "type": "document",
+      "name": "flutter-app.md",
+      "filePath": "docs/kb/flutter-app.md",
+      "summary": "Flutter 앱 구조(핵심 파일, 바텀탭 내비게이션, 종목 스왑, Riverpod 상태, ApiService 주요 메서드, 로그인 흐름)를 정리한 KB 문서.",
+      "tags": ["documentation", "flutter", "riverpod", "navigation", "api-service"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:docs/kb/README.md",
+      "target": "document:docs/kb/ai-chat.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/kb/README.md",
+      "target": "document:docs/kb/architecture.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/kb/README.md",
+      "target": "document:docs/kb/clubs.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/kb/README.md",
+      "target": "document:docs/kb/crawler.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/kb/README.md",
+      "target": "document:docs/kb/database.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/kb/README.md",
+      "target": "document:docs/kb/domain-futsal.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/kb/README.md",
+      "target": "document:docs/kb/domain-tennis.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/kb/README.md",
+      "target": "document:docs/kb/flutter-app.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/kb/domain-tennis.md",
+      "target": "document:docs/kb/crawler.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/kb/domain-tennis.md",
+      "target": "document:docs/kb/database.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/kb/domain-futsal.md",
+      "target": "document:docs/kb/database.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/kb/clubs.md",
+      "target": "document:docs/kb/database.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/kb/crawler.md",
+      "target": "document:docs/kb/database.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/kb/ai-chat.md",
+      "target": "document:docs/kb/architecture.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/kb/flutter-app.md",
+      "target": "document:docs/kb/architecture.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

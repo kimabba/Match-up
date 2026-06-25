@@ -1,0 +1,981 @@
+{
+ "nodes": [
+  {
+   "id": "schema:supabase/migrations/042_manual_description.sql",
+   "type": "schema",
+   "name": "042_manual_description.sql",
+   "filePath": "supabase/migrations/042_manual_description.sql",
+   "summary": "042_manual_description.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/043_rpc_v2_region_org_filters.sql",
+   "type": "schema",
+   "name": "043_rpc_v2_region_org_filters.sql",
+   "filePath": "supabase/migrations/043_rpc_v2_region_org_filters.sql",
+   "summary": "043_rpc_v2_region_org_filters.sql migration: RPC/함수 tournaments_for_user, tournaments_semantic_search.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/044_rpc_returns_table.sql",
+   "type": "schema",
+   "name": "044_rpc_returns_table.sql",
+   "filePath": "supabase/migrations/044_rpc_returns_table.sql",
+   "summary": "044_rpc_returns_table.sql migration: RPC/함수 tournaments_for_user.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/045_seed_regions.sql",
+   "type": "schema",
+   "name": "045_seed_regions.sql",
+   "filePath": "supabase/migrations/045_seed_regions.sql",
+   "summary": "045_seed_regions.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration",
+    "seed"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/046_venues.sql",
+   "type": "table",
+   "name": "046_venues.sql",
+   "filePath": "supabase/migrations/046_venues.sql",
+   "summary": "046_venues.sql migration: 테이블 venues 정의; RLS 정책 설정.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "schema-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/046_venues.sql:venues",
+   "type": "table",
+   "name": "venues",
+   "filePath": "supabase/migrations/046_venues.sql",
+   "summary": "venues 테이블 — 046_venues.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/046b_seed_futsal_venues.sql",
+   "type": "schema",
+   "name": "046b_seed_futsal_venues.sql",
+   "filePath": "supabase/migrations/046b_seed_futsal_venues.sql",
+   "summary": "046b_seed_futsal_venues.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration",
+    "seed"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "schema:supabase/migrations/047_seed_futsal_rules.sql",
+   "type": "schema",
+   "name": "047_seed_futsal_rules.sql",
+   "filePath": "supabase/migrations/047_seed_futsal_rules.sql",
+   "summary": "047_seed_futsal_rules.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration",
+    "seed"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "schema:supabase/migrations/048_venues_search_rpc.sql",
+   "type": "schema",
+   "name": "048_venues_search_rpc.sql",
+   "filePath": "supabase/migrations/048_venues_search_rpc.sql",
+   "summary": "048_venues_search_rpc.sql migration: RPC/함수 venues_search.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/049_normalize_body_newlines.sql",
+   "type": "schema",
+   "name": "049_normalize_body_newlines.sql",
+   "filePath": "supabase/migrations/049_normalize_body_newlines.sql",
+   "summary": "049_normalize_body_newlines.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/050_drop_clubs_active_column.sql",
+   "type": "schema",
+   "name": "050_drop_clubs_active_column.sql",
+   "filePath": "supabase/migrations/050_drop_clubs_active_column.sql",
+   "summary": "050_drop_clubs_active_column.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/051_backfill_tournaments_region_code.sql",
+   "type": "schema",
+   "name": "051_backfill_tournaments_region_code.sql",
+   "filePath": "supabase/migrations/051_backfill_tournaments_region_code.sql",
+   "summary": "051_backfill_tournaments_region_code.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/052_recategorize_futsal_rule_articles.sql",
+   "type": "schema",
+   "name": "052_recategorize_futsal_rule_articles.sql",
+   "filePath": "supabase/migrations/052_recategorize_futsal_rule_articles.sql",
+   "summary": "052_recategorize_futsal_rule_articles.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/053_seed_seoul_citizen_futsal_league_2026.sql",
+   "type": "schema",
+   "name": "053_seed_seoul_citizen_futsal_league_2026.sql",
+   "filePath": "supabase/migrations/053_seed_seoul_citizen_futsal_league_2026.sql",
+   "summary": "053_seed_seoul_citizen_futsal_league_2026.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration",
+    "seed"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "table:supabase/migrations/054_club_favorites.sql",
+   "type": "table",
+   "name": "054_club_favorites.sql",
+   "filePath": "supabase/migrations/054_club_favorites.sql",
+   "summary": "054_club_favorites.sql migration: 테이블 club_favorites 정의; RLS 정책 설정.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "schema-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/054_club_favorites.sql:club_favorites",
+   "type": "table",
+   "name": "club_favorites",
+   "filePath": "supabase/migrations/054_club_favorites.sql",
+   "summary": "club_favorites 테이블 — 054_club_favorites.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/055_users_profile_columns.sql",
+   "type": "schema",
+   "name": "055_users_profile_columns.sql",
+   "filePath": "supabase/migrations/055_users_profile_columns.sql",
+   "summary": "055_users_profile_columns.sql migration: RPC/함수 handle_new_user.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/056_user_tennis_orgs_pk_change.sql",
+   "type": "schema",
+   "name": "056_user_tennis_orgs_pk_change.sql",
+   "filePath": "supabase/migrations/056_user_tennis_orgs_pk_change.sql",
+   "summary": "056_user_tennis_orgs_pk_change.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/057_clubs_members_events_update.sql",
+   "type": "schema",
+   "name": "057_clubs_members_events_update.sql",
+   "filePath": "supabase/migrations/057_clubs_members_events_update.sql",
+   "summary": "057_clubs_members_events_update.sql migration: RLS 정책 설정.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "data-migration"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "table:supabase/migrations/058_club_posts.sql",
+   "type": "table",
+   "name": "058_club_posts.sql",
+   "filePath": "supabase/migrations/058_club_posts.sql",
+   "summary": "058_club_posts.sql migration: 테이블 club_posts, club_post_comments, club_post_mentions 정의; RPC/함수 is_post_club_member; RLS 정책 설정; trigger club_posts_touch_updated_at.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "table:supabase/migrations/058_club_posts.sql:club_posts",
+   "type": "table",
+   "name": "club_posts",
+   "filePath": "supabase/migrations/058_club_posts.sql",
+   "summary": "club_posts 테이블 — 058_club_posts.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/058_club_posts.sql:club_post_comments",
+   "type": "table",
+   "name": "club_post_comments",
+   "filePath": "supabase/migrations/058_club_posts.sql",
+   "summary": "club_post_comments 테이블 — 058_club_posts.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/058_club_posts.sql:club_post_mentions",
+   "type": "table",
+   "name": "club_post_mentions",
+   "filePath": "supabase/migrations/058_club_posts.sql",
+   "summary": "club_post_mentions 테이블 — 058_club_posts.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/059_tournament_extension_tables.sql",
+   "type": "table",
+   "name": "059_tournament_extension_tables.sql",
+   "filePath": "supabase/migrations/059_tournament_extension_tables.sql",
+   "summary": "059_tournament_extension_tables.sql migration: 테이블 tennis_tournament_details, futsal_tournament_details 정의; RPC/함수 tournaments_for_user, tournaments_semantic_search; RLS 정책 설정.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "table:supabase/migrations/059_tournament_extension_tables.sql:tennis_tournament_details",
+   "type": "table",
+   "name": "tennis_tournament_details",
+   "filePath": "supabase/migrations/059_tournament_extension_tables.sql",
+   "summary": "tennis_tournament_details 테이블 — 059_tournament_extension_tables.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/059_tournament_extension_tables.sql:futsal_tournament_details",
+   "type": "table",
+   "name": "futsal_tournament_details",
+   "filePath": "supabase/migrations/059_tournament_extension_tables.sql",
+   "summary": "futsal_tournament_details 테이블 — 059_tournament_extension_tables.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/060_notifications_unified.sql",
+   "type": "table",
+   "name": "060_notifications_unified.sql",
+   "filePath": "supabase/migrations/060_notifications_unified.sql",
+   "summary": "060_notifications_unified.sql migration: 테이블 notifications 정의; RLS 정책 설정.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "schema-definition"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "table:supabase/migrations/060_notifications_unified.sql:notifications",
+   "type": "table",
+   "name": "notifications",
+   "filePath": "supabase/migrations/060_notifications_unified.sql",
+   "summary": "notifications 테이블 — 060_notifications_unified.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/061_match_records.sql",
+   "type": "table",
+   "name": "061_match_records.sql",
+   "filePath": "supabase/migrations/061_match_records.sql",
+   "summary": "061_match_records.sql migration: 테이블 match_entries, match_rounds 정의; RLS 정책 설정.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "schema-definition"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "table:supabase/migrations/061_match_records.sql:match_entries",
+   "type": "table",
+   "name": "match_entries",
+   "filePath": "supabase/migrations/061_match_records.sql",
+   "summary": "match_entries 테이블 — 061_match_records.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/061_match_records.sql:match_rounds",
+   "type": "table",
+   "name": "match_rounds",
+   "filePath": "supabase/migrations/061_match_records.sql",
+   "summary": "match_rounds 테이블 — 061_match_records.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/062_schedule_shares.sql",
+   "type": "table",
+   "name": "062_schedule_shares.sql",
+   "filePath": "supabase/migrations/062_schedule_shares.sql",
+   "summary": "062_schedule_shares.sql migration: 테이블 schedule_shares 정의; RLS 정책 설정.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "schema-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/062_schedule_shares.sql:schedule_shares",
+   "type": "table",
+   "name": "schedule_shares",
+   "filePath": "supabase/migrations/062_schedule_shares.sql",
+   "summary": "schedule_shares 테이블 — 062_schedule_shares.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/063_crawl_documents.sql",
+   "type": "table",
+   "name": "063_crawl_documents.sql",
+   "filePath": "supabase/migrations/063_crawl_documents.sql",
+   "summary": "063_crawl_documents.sql migration: 테이블 crawl_documents 정의; RLS 정책 설정; trigger crawl_documents_touch_updated_at.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "schema-definition"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "table:supabase/migrations/063_crawl_documents.sql:crawl_documents",
+   "type": "table",
+   "name": "crawl_documents",
+   "filePath": "supabase/migrations/063_crawl_documents.sql",
+   "summary": "crawl_documents 테이블 — 063_crawl_documents.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/064_fix_tournaments_for_user_details_join.sql",
+   "type": "schema",
+   "name": "064_fix_tournaments_for_user_details_join.sql",
+   "filePath": "supabase/migrations/064_fix_tournaments_for_user_details_join.sql",
+   "summary": "064_fix_tournaments_for_user_details_join.sql migration: RPC/함수 tournaments_for_user.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/065_rate_limit_security.sql",
+   "type": "schema",
+   "name": "065_rate_limit_security.sql",
+   "filePath": "supabase/migrations/065_rate_limit_security.sql",
+   "summary": "065_rate_limit_security.sql migration: RLS 정책 설정.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "data-migration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/066_schedule_shares_rls_fix.sql",
+   "type": "schema",
+   "name": "066_schedule_shares_rls_fix.sql",
+   "filePath": "supabase/migrations/066_schedule_shares_rls_fix.sql",
+   "summary": "066_schedule_shares_rls_fix.sql migration: RPC/함수 schedule_shares_guard_recipient_update; RLS 정책 설정; trigger schedule_shares_recipient_guard.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/067_fk_on_delete_policy.sql",
+   "type": "schema",
+   "name": "067_fk_on_delete_policy.sql",
+   "filePath": "supabase/migrations/067_fk_on_delete_policy.sql",
+   "summary": "067_fk_on_delete_policy.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/068_drop_notifications_log_and_fk_indexes.sql",
+   "type": "schema",
+   "name": "068_drop_notifications_log_and_fk_indexes.sql",
+   "filePath": "supabase/migrations/068_drop_notifications_log_and_fk_indexes.sql",
+   "summary": "068_drop_notifications_log_and_fk_indexes.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/069_club_posts_storage_owner_folder.sql",
+   "type": "schema",
+   "name": "069_club_posts_storage_owner_folder.sql",
+   "filePath": "supabase/migrations/069_club_posts_storage_owner_folder.sql",
+   "summary": "069_club_posts_storage_owner_folder.sql migration: RLS 정책 설정.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "data-migration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/070_trim_crawl_descriptions.sql",
+   "type": "schema",
+   "name": "070_trim_crawl_descriptions.sql",
+   "filePath": "supabase/migrations/070_trim_crawl_descriptions.sql",
+   "summary": "070_trim_crawl_descriptions.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/071_futsal_grades_and_2026_official_events.sql",
+   "type": "schema",
+   "name": "071_futsal_grades_and_2026_official_events.sql",
+   "filePath": "supabase/migrations/071_futsal_grades_and_2026_official_events.sql",
+   "summary": "071_futsal_grades_and_2026_official_events.sql migration: RPC/함수 tournaments_for_user.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "schema:supabase/migrations/072_fix_tennis_grade_matching.sql",
+   "type": "schema",
+   "name": "072_fix_tennis_grade_matching.sql",
+   "filePath": "supabase/migrations/072_fix_tennis_grade_matching.sql",
+   "summary": "072_fix_tennis_grade_matching.sql migration: RPC/함수 expand_gj_jn_codes, tournaments_for_user, tournament_search_by_slots.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "schema:supabase/migrations/073_tournament_regulation_fields.sql",
+   "type": "schema",
+   "name": "073_tournament_regulation_fields.sql",
+   "filePath": "supabase/migrations/073_tournament_regulation_fields.sql",
+   "summary": "073_tournament_regulation_fields.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/074_tournament_regulation_body.sql",
+   "type": "schema",
+   "name": "074_tournament_regulation_body.sql",
+   "filePath": "supabase/migrations/074_tournament_regulation_body.sql",
+   "summary": "074_tournament_regulation_body.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/075_tournaments_for_user_division_filter.sql",
+   "type": "schema",
+   "name": "075_tournaments_for_user_division_filter.sql",
+   "filePath": "supabase/migrations/075_tournaments_for_user_division_filter.sql",
+   "summary": "075_tournaments_for_user_division_filter.sql migration: RPC/함수 tournaments_for_user.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/076_tournaments_for_user_recruiting_and_date_overlap.sql",
+   "type": "schema",
+   "name": "076_tournaments_for_user_recruiting_and_date_overlap.sql",
+   "filePath": "supabase/migrations/076_tournaments_for_user_recruiting_and_date_overlap.sql",
+   "summary": "076_tournaments_for_user_recruiting_and_date_overlap.sql migration: RPC/함수 tournaments_for_user.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/077_chat_tournament_regulation_rag.sql",
+   "type": "schema",
+   "name": "077_chat_tournament_regulation_rag.sql",
+   "filePath": "supabase/migrations/077_chat_tournament_regulation_rag.sql",
+   "summary": "077_chat_tournament_regulation_rag.sql migration: RPC/함수 invalidate_tournament_embedding, tournaments_semantic_search.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/078_chat_slot_search_consistency.sql",
+   "type": "schema",
+   "name": "078_chat_slot_search_consistency.sql",
+   "filePath": "supabase/migrations/078_chat_slot_search_consistency.sql",
+   "summary": "078_chat_slot_search_consistency.sql migration: RPC/함수 tournament_search_by_slots.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/20260617123902_fix_ensure_profile_name.sql",
+   "type": "schema",
+   "name": "20260617123902_fix_ensure_profile_name.sql",
+   "filePath": "supabase/migrations/20260617123902_fix_ensure_profile_name.sql",
+   "summary": "20260617123902_fix_ensure_profile_name.sql migration: RPC/함수 ensure_profile.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/20260618014529_harden_security_definer_execution.sql",
+   "type": "schema",
+   "name": "20260618014529_harden_security_definer_execution.sql",
+   "filePath": "supabase/migrations/20260618014529_harden_security_definer_execution.sql",
+   "summary": "20260618014529_harden_security_definer_execution.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/20260618042700_set_function_search_path.sql",
+   "type": "schema",
+   "name": "20260618042700_set_function_search_path.sql",
+   "filePath": "supabase/migrations/20260618042700_set_function_search_path.sql",
+   "summary": "20260618042700_set_function_search_path.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "table:supabase/migrations/046_venues.sql",
+   "target": "table:supabase/migrations/046_venues.sql:venues",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/054_club_favorites.sql",
+   "target": "table:supabase/migrations/054_club_favorites.sql:club_favorites",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/058_club_posts.sql",
+   "target": "table:supabase/migrations/058_club_posts.sql:club_posts",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/058_club_posts.sql",
+   "target": "table:supabase/migrations/058_club_posts.sql:club_post_comments",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/058_club_posts.sql",
+   "target": "table:supabase/migrations/058_club_posts.sql:club_post_mentions",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/059_tournament_extension_tables.sql",
+   "target": "table:supabase/migrations/059_tournament_extension_tables.sql:tennis_tournament_details",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/059_tournament_extension_tables.sql",
+   "target": "table:supabase/migrations/059_tournament_extension_tables.sql:futsal_tournament_details",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/060_notifications_unified.sql",
+   "target": "table:supabase/migrations/060_notifications_unified.sql:notifications",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/061_match_records.sql",
+   "target": "table:supabase/migrations/061_match_records.sql:match_entries",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/061_match_records.sql",
+   "target": "table:supabase/migrations/061_match_records.sql:match_rounds",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/062_schedule_shares.sql",
+   "target": "table:supabase/migrations/062_schedule_shares.sql:schedule_shares",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/063_crawl_documents.sql",
+   "target": "table:supabase/migrations/063_crawl_documents.sql:crawl_documents",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/042_manual_description.sql",
+   "target": "table:supabase/migrations/003_tournaments.sql:tournaments",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/048_venues_search_rpc.sql",
+   "target": "table:supabase/migrations/014_intent_examples.sql:intent_examples",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/050_drop_clubs_active_column.sql",
+   "target": "table:supabase/migrations/004_clubs.sql:clubs",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/055_users_profile_columns.sql",
+   "target": "table:supabase/migrations/002_init_users_sports.sql:users",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/056_user_tennis_orgs_pk_change.sql",
+   "target": "table:supabase/migrations/009_regions_and_multi_org.sql:user_tennis_orgs",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/057_clubs_members_events_update.sql",
+   "target": "table:supabase/migrations/004_clubs.sql:clubs",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/057_clubs_members_events_update.sql",
+   "target": "table:supabase/migrations/031_club_management.sql:club_members",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/057_clubs_members_events_update.sql",
+   "target": "table:supabase/migrations/035_club_events.sql:club_events",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/059_tournament_extension_tables.sql",
+   "target": "table:supabase/migrations/003_tournaments.sql:tournaments",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/067_fk_on_delete_policy.sql",
+   "target": "table:supabase/migrations/035_club_events.sql:club_event_attendees",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/067_fk_on_delete_policy.sql",
+   "target": "table:supabase/migrations/035_club_events.sql:club_events",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/067_fk_on_delete_policy.sql",
+   "target": "table:supabase/migrations/031_club_management.sql:club_join_requests",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/067_fk_on_delete_policy.sql",
+   "target": "table:supabase/migrations/004_clubs.sql:clubs",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/067_fk_on_delete_policy.sql",
+   "target": "table:supabase/migrations/061_match_records.sql:match_entries",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/067_fk_on_delete_policy.sql",
+   "target": "table:supabase/migrations/061_match_records.sql:match_rounds",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/071_futsal_grades_and_2026_official_events.sql",
+   "target": "table:supabase/migrations/002_init_users_sports.sql:user_sports",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/071_futsal_grades_and_2026_official_events.sql",
+   "target": "table:supabase/migrations/059_tournament_extension_tables.sql:futsal_tournament_details",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/073_tournament_regulation_fields.sql",
+   "target": "table:supabase/migrations/003_tournaments.sql:tournaments",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/074_tournament_regulation_body.sql",
+   "target": "table:supabase/migrations/003_tournaments.sql:tournaments",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  }
+ ]
+}

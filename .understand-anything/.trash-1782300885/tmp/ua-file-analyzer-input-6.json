@@ -1,0 +1,581 @@
+{
+  "projectRoot": "/Users/ssfak/Documents/01-github/ar",
+  "batchFiles": [
+    {
+      "path": "supabase/migrations/001_extensions.sql",
+      "language": "sql",
+      "sizeLines": 7,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/002_init_users_sports.sql",
+      "language": "sql",
+      "sizeLines": 141,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/003_tournaments.sql",
+      "language": "sql",
+      "sizeLines": 245,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/004_clubs.sql",
+      "language": "sql",
+      "sizeLines": 37,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/005_chat_rules.sql",
+      "language": "sql",
+      "sizeLines": 126,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/006_notifications.sql",
+      "language": "sql",
+      "sizeLines": 62,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/007_crawl_audit.sql",
+      "language": "sql",
+      "sizeLines": 23,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/008_cron.sql",
+      "language": "sql",
+      "sizeLines": 73,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/009_regions_and_multi_org.sql",
+      "language": "sql",
+      "sizeLines": 97,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/010_tennis_grade_revamp.sql",
+      "language": "sql",
+      "sizeLines": 50,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/011_ensure_profile_rpc.sql",
+      "language": "sql",
+      "sizeLines": 21,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/012_rate_limit.sql",
+      "language": "sql",
+      "sizeLines": 11,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/013_qa_cache.sql",
+      "language": "sql",
+      "sizeLines": 152,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/014_intent_examples.sql",
+      "language": "sql",
+      "sizeLines": 125,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/015_uuid_v7.sql",
+      "language": "sql",
+      "sizeLines": 79,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/016_tournaments_search_sport_filter.sql",
+      "language": "sql",
+      "sizeLines": 64,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/017_uuid_v7_pgcrypto_schema_fix.sql",
+      "language": "sql",
+      "sizeLines": 60,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/018_tournament_search_by_slots.sql",
+      "language": "sql",
+      "sizeLines": 72,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/019_crawl_sources.sql",
+      "language": "sql",
+      "sizeLines": 140,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/020_dispatcher_cron_switch.sql",
+      "language": "sql",
+      "sizeLines": 52,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/021_crawl_sources_running_flag.sql",
+      "language": "sql",
+      "sizeLines": 54,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/022_tournament_status_rejected.sql",
+      "language": "sql",
+      "sizeLines": 23,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/023_review_helpers.sql",
+      "language": "sql",
+      "sizeLines": 127,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/024_crawl_sources_url_refresh.sql",
+      "language": "sql",
+      "sizeLines": 68,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/025_futsal_tournament_fields.sql",
+      "language": "sql",
+      "sizeLines": 126,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/026_futsal_crawl_sources.sql",
+      "language": "sql",
+      "sizeLines": 74,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/027_db_crawler_review_fixes.sql",
+      "language": "sql",
+      "sizeLines": 72,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/028_adjust_crawler_schedule.sql",
+      "language": "sql",
+      "sizeLines": 32,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/029_division_codes_reset_eligible_grades.sql",
+      "language": "sql",
+      "sizeLines": 15,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/030_invoke_edge_function_internal_cron_jwt.sql",
+      "language": "sql",
+      "sizeLines": 40,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/031_club_management.sql",
+      "language": "sql",
+      "sizeLines": 84,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/032_drop_legacy_clubs_active_policy.sql",
+      "language": "sql",
+      "sizeLines": 12,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/033_fix_club_members_rls_recursion.sql",
+      "language": "sql",
+      "sizeLines": 67,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/034_invoke_edge_function_use_vault.sql",
+      "language": "sql",
+      "sizeLines": 39,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/035_club_events.sql",
+      "language": "sql",
+      "sizeLines": 139,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/036_club_logos.sql",
+      "language": "sql",
+      "sizeLines": 53,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/037_rate_limits.sql",
+      "language": "sql",
+      "sizeLines": 92,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/038_search_like_escape.sql",
+      "language": "sql",
+      "sizeLines": 57,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/039_rls_hardening.sql",
+      "language": "sql",
+      "sizeLines": 38,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/040_device_token_cap.sql",
+      "language": "sql",
+      "sizeLines": 39,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/041_fix_grade_matching.sql",
+      "language": "sql",
+      "sizeLines": 76,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/042_manual_description.sql",
+      "language": "sql",
+      "sizeLines": 7,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/043_rpc_v2_region_org_filters.sql",
+      "language": "sql",
+      "sizeLines": 154,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/044_rpc_returns_table.sql",
+      "language": "sql",
+      "sizeLines": 130,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/045_seed_regions.sql",
+      "language": "sql",
+      "sizeLines": 18,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/046_venues.sql",
+      "language": "sql",
+      "sizeLines": 47,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/046b_seed_futsal_venues.sql",
+      "language": "sql",
+      "sizeLines": 272,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/047_seed_futsal_rules.sql",
+      "language": "sql",
+      "sizeLines": 402,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/048_venues_search_rpc.sql",
+      "language": "sql",
+      "sizeLines": 42,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/049_normalize_body_newlines.sql",
+      "language": "sql",
+      "sizeLines": 27,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/050_drop_clubs_active_column.sql",
+      "language": "sql",
+      "sizeLines": 11,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/051_backfill_tournaments_region_code.sql",
+      "language": "sql",
+      "sizeLines": 16,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/052_recategorize_futsal_rule_articles.sql",
+      "language": "sql",
+      "sizeLines": 74,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/053_seed_seoul_citizen_futsal_league_2026.sql",
+      "language": "sql",
+      "sizeLines": 118,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/054_club_favorites.sql",
+      "language": "sql",
+      "sizeLines": 23,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/055_users_profile_columns.sql",
+      "language": "sql",
+      "sizeLines": 55,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/056_user_tennis_orgs_pk_change.sql",
+      "language": "sql",
+      "sizeLines": 69,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/057_clubs_members_events_update.sql",
+      "language": "sql",
+      "sizeLines": 68,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/058_club_posts.sql",
+      "language": "sql",
+      "sizeLines": 168,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/059_tournament_extension_tables.sql",
+      "language": "sql",
+      "sizeLines": 215,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/060_notifications_unified.sql",
+      "language": "sql",
+      "sizeLines": 92,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/061_match_records.sql",
+      "language": "sql",
+      "sizeLines": 101,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/062_schedule_shares.sql",
+      "language": "sql",
+      "sizeLines": 36,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/063_crawl_documents.sql",
+      "language": "sql",
+      "sizeLines": 59,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/064_fix_tournaments_for_user_details_join.sql",
+      "language": "sql",
+      "sizeLines": 140,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/065_rate_limit_security.sql",
+      "language": "sql",
+      "sizeLines": 34,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/066_schedule_shares_rls_fix.sql",
+      "language": "sql",
+      "sizeLines": 60,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/067_fk_on_delete_policy.sql",
+      "language": "sql",
+      "sizeLines": 56,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/068_drop_notifications_log_and_fk_indexes.sql",
+      "language": "sql",
+      "sizeLines": 27,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/069_club_posts_storage_owner_folder.sql",
+      "language": "sql",
+      "sizeLines": 23,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/070_trim_crawl_descriptions.sql",
+      "language": "sql",
+      "sizeLines": 21,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/071_futsal_grades_and_2026_official_events.sql",
+      "language": "sql",
+      "sizeLines": 561,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/072_fix_tennis_grade_matching.sql",
+      "language": "sql",
+      "sizeLines": 244,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/073_tournament_regulation_fields.sql",
+      "language": "sql",
+      "sizeLines": 35,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/074_tournament_regulation_body.sql",
+      "language": "sql",
+      "sizeLines": 26,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/075_tournaments_for_user_division_filter.sql",
+      "language": "sql",
+      "sizeLines": 155,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/076_tournaments_for_user_recruiting_and_date_overlap.sql",
+      "language": "sql",
+      "sizeLines": 164,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/077_chat_tournament_regulation_rag.sql",
+      "language": "sql",
+      "sizeLines": 102,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/078_chat_slot_search_consistency.sql",
+      "language": "sql",
+      "sizeLines": 84,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20260617123902_fix_ensure_profile_name.sql",
+      "language": "sql",
+      "sizeLines": 30,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20260618014529_harden_security_definer_execution.sql",
+      "language": "sql",
+      "sizeLines": 74,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20260618042700_set_function_search_path.sql",
+      "language": "sql",
+      "sizeLines": 19,
+      "fileCategory": "data"
+    }
+  ],
+  "batchImportData": {
+    "supabase/migrations/001_extensions.sql": [],
+    "supabase/migrations/002_init_users_sports.sql": [],
+    "supabase/migrations/003_tournaments.sql": [],
+    "supabase/migrations/004_clubs.sql": [],
+    "supabase/migrations/005_chat_rules.sql": [],
+    "supabase/migrations/006_notifications.sql": [],
+    "supabase/migrations/007_crawl_audit.sql": [],
+    "supabase/migrations/008_cron.sql": [],
+    "supabase/migrations/009_regions_and_multi_org.sql": [],
+    "supabase/migrations/010_tennis_grade_revamp.sql": [],
+    "supabase/migrations/011_ensure_profile_rpc.sql": [],
+    "supabase/migrations/012_rate_limit.sql": [],
+    "supabase/migrations/013_qa_cache.sql": [],
+    "supabase/migrations/014_intent_examples.sql": [],
+    "supabase/migrations/015_uuid_v7.sql": [],
+    "supabase/migrations/016_tournaments_search_sport_filter.sql": [],
+    "supabase/migrations/017_uuid_v7_pgcrypto_schema_fix.sql": [],
+    "supabase/migrations/018_tournament_search_by_slots.sql": [],
+    "supabase/migrations/019_crawl_sources.sql": [],
+    "supabase/migrations/020_dispatcher_cron_switch.sql": [],
+    "supabase/migrations/021_crawl_sources_running_flag.sql": [],
+    "supabase/migrations/022_tournament_status_rejected.sql": [],
+    "supabase/migrations/023_review_helpers.sql": [],
+    "supabase/migrations/024_crawl_sources_url_refresh.sql": [],
+    "supabase/migrations/025_futsal_tournament_fields.sql": [],
+    "supabase/migrations/026_futsal_crawl_sources.sql": [],
+    "supabase/migrations/027_db_crawler_review_fixes.sql": [],
+    "supabase/migrations/028_adjust_crawler_schedule.sql": [],
+    "supabase/migrations/029_division_codes_reset_eligible_grades.sql": [],
+    "supabase/migrations/030_invoke_edge_function_internal_cron_jwt.sql": [],
+    "supabase/migrations/031_club_management.sql": [],
+    "supabase/migrations/032_drop_legacy_clubs_active_policy.sql": [],
+    "supabase/migrations/033_fix_club_members_rls_recursion.sql": [],
+    "supabase/migrations/034_invoke_edge_function_use_vault.sql": [],
+    "supabase/migrations/035_club_events.sql": [],
+    "supabase/migrations/036_club_logos.sql": [],
+    "supabase/migrations/037_rate_limits.sql": [],
+    "supabase/migrations/038_search_like_escape.sql": [],
+    "supabase/migrations/039_rls_hardening.sql": [],
+    "supabase/migrations/040_device_token_cap.sql": [],
+    "supabase/migrations/041_fix_grade_matching.sql": [],
+    "supabase/migrations/042_manual_description.sql": [],
+    "supabase/migrations/043_rpc_v2_region_org_filters.sql": [],
+    "supabase/migrations/044_rpc_returns_table.sql": [],
+    "supabase/migrations/045_seed_regions.sql": [],
+    "supabase/migrations/046_venues.sql": [],
+    "supabase/migrations/046b_seed_futsal_venues.sql": [],
+    "supabase/migrations/047_seed_futsal_rules.sql": [],
+    "supabase/migrations/048_venues_search_rpc.sql": [],
+    "supabase/migrations/049_normalize_body_newlines.sql": [],
+    "supabase/migrations/050_drop_clubs_active_column.sql": [],
+    "supabase/migrations/051_backfill_tournaments_region_code.sql": [],
+    "supabase/migrations/052_recategorize_futsal_rule_articles.sql": [],
+    "supabase/migrations/053_seed_seoul_citizen_futsal_league_2026.sql": [],
+    "supabase/migrations/054_club_favorites.sql": [],
+    "supabase/migrations/055_users_profile_columns.sql": [],
+    "supabase/migrations/056_user_tennis_orgs_pk_change.sql": [],
+    "supabase/migrations/057_clubs_members_events_update.sql": [],
+    "supabase/migrations/058_club_posts.sql": [],
+    "supabase/migrations/059_tournament_extension_tables.sql": [],
+    "supabase/migrations/060_notifications_unified.sql": [],
+    "supabase/migrations/061_match_records.sql": [],
+    "supabase/migrations/062_schedule_shares.sql": [],
+    "supabase/migrations/063_crawl_documents.sql": [],
+    "supabase/migrations/064_fix_tournaments_for_user_details_join.sql": [],
+    "supabase/migrations/065_rate_limit_security.sql": [],
+    "supabase/migrations/066_schedule_shares_rls_fix.sql": [],
+    "supabase/migrations/067_fk_on_delete_policy.sql": [],
+    "supabase/migrations/068_drop_notifications_log_and_fk_indexes.sql": [],
+    "supabase/migrations/069_club_posts_storage_owner_folder.sql": [],
+    "supabase/migrations/070_trim_crawl_descriptions.sql": [],
+    "supabase/migrations/071_futsal_grades_and_2026_official_events.sql": [],
+    "supabase/migrations/072_fix_tennis_grade_matching.sql": [],
+    "supabase/migrations/073_tournament_regulation_fields.sql": [],
+    "supabase/migrations/074_tournament_regulation_body.sql": [],
+    "supabase/migrations/075_tournaments_for_user_division_filter.sql": [],
+    "supabase/migrations/076_tournaments_for_user_recruiting_and_date_overlap.sql": [],
+    "supabase/migrations/077_chat_tournament_regulation_rag.sql": [],
+    "supabase/migrations/078_chat_slot_search_consistency.sql": [],
+    "supabase/migrations/20260617123902_fix_ensure_profile_name.sql": [],
+    "supabase/migrations/20260618014529_harden_security_definer_execution.sql": [],
+    "supabase/migrations/20260618042700_set_function_search_path.sql": []
+  }
+}

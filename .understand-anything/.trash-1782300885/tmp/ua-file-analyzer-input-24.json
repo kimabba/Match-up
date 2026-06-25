@@ -1,0 +1,9 @@
+{
+  "projectRoot": "/Users/ssfak/Documents/01-github/ar",
+  "batchFiles": [
+    {"path": "supabase/seed.sql", "language": "sql", "sizeLines": 200, "fileCategory": "data"}
+  ],
+  "batchImportData": {
+    "supabase/seed.sql": []
+  }
+}

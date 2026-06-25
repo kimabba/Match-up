@@ -1,0 +1,1920 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 7,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "supabase/functions/_shared/crawler.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 760,
+      "nonEmptyLines": 704,
+      "functions": [
+        {
+          "name": "startAudit",
+          "startLine": 34,
+          "endLine": 43,
+          "params": [
+            "source"
+          ]
+        },
+        {
+          "name": "finishAudit",
+          "startLine": 45,
+          "endLine": 61,
+          "params": [
+            "audit",
+            "status",
+            "error"
+          ]
+        },
+        {
+          "name": "sha256Hex",
+          "startLine": 68,
+          "endLine": 74,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "saveRawDocument",
+          "startLine": 76,
+          "endLine": 115,
+          "params": [
+            "audit",
+            "sourceUrl",
+            "rawHtml",
+            "tournamentId",
+            "parseStatus",
+            "parseError"
+          ]
+        },
+        {
+          "name": "upsertTournament",
+          "startLine": 124,
+          "endLine": 222,
+          "params": [
+            "audit",
+            "sport",
+            "t",
+            "rawHtml"
+          ]
+        },
+        {
+          "name": "extractDate",
+          "startLine": 239,
+          "endLine": 268,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "extractApplicationDeadline",
+          "startLine": 277,
+          "endLine": 326,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "extractVenue",
+          "startLine": 339,
+          "endLine": 365,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "asTextNode",
+          "startLine": 409,
+          "endLine": 414,
+          "params": [
+            "node"
+          ]
+        },
+        {
+          "name": "asQueryableNode",
+          "startLine": 417,
+          "endLine": 425,
+          "params": [
+            "node"
+          ]
+        },
+        {
+          "name": "normalizeLabel",
+          "startLine": 428,
+          "endLine": 430,
+          "params": [
+            "raw"
+          ]
+        },
+        {
+          "name": "normalizeValue",
+          "startLine": 433,
+          "endLine": 435,
+          "params": [
+            "raw"
+          ]
+        },
+        {
+          "name": "rowCellTexts",
+          "startLine": 438,
+          "endLine": 446,
+          "params": [
+            "row"
+          ]
+        },
+        {
+          "name": "findRegulationTable",
+          "startLine": 474,
+          "endLine": 507,
+          "params": [
+            "doc"
+          ]
+        },
+        {
+          "name": "extractRegulationFields",
+          "startLine": 518,
+          "endLine": 540,
+          "params": [
+            "doc"
+          ]
+        },
+        {
+          "name": "extractRegulationBody",
+          "startLine": 562,
+          "endLine": 628,
+          "params": [
+            "doc",
+            "title"
+          ]
+        },
+        {
+          "name": "pushNote",
+          "startLine": 631,
+          "endLine": 643,
+          "params": [
+            "raw",
+            "notes",
+            "seen"
+          ]
+        },
+        {
+          "name": "extractRegulationNotesFromText",
+          "startLine": 652,
+          "endLine": 662,
+          "params": [
+            "bodyText"
+          ]
+        },
+        {
+          "name": "extractRegulationNotes",
+          "startLine": 679,
+          "endLine": 700,
+          "params": [
+            "doc"
+          ]
+        },
+        {
+          "name": "extractGJDivisions",
+          "startLine": 710,
+          "endLine": 752,
+          "params": [
+            "text",
+            "org"
+          ]
+        },
+        {
+          "name": "extractTennisGradesFromText",
+          "startLine": 758,
+          "endLine": 760,
+          "params": [
+            "_text"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "startAudit",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "finishAudit",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "saveRawDocument",
+          "line": 76,
+          "isDefault": false
+        },
+        {
+          "name": "upsertTournament",
+          "line": 124,
+          "isDefault": false
+        },
+        {
+          "name": "extractDate",
+          "line": 239,
+          "isDefault": false
+        },
+        {
+          "name": "extractApplicationDeadline",
+          "line": 277,
+          "isDefault": false
+        },
+        {
+          "name": "extractVenue",
+          "line": 339,
+          "isDefault": false
+        },
+        {
+          "name": "extractRegulationFields",
+          "line": 518,
+          "isDefault": false
+        },
+        {
+          "name": "extractRegulationBody",
+          "line": 562,
+          "isDefault": false
+        },
+        {
+          "name": "extractRegulationNotes",
+          "line": 679,
+          "isDefault": false
+        },
+        {
+          "name": "extractGJDivisions",
+          "line": 710,
+          "isDefault": false
+        },
+        {
+          "name": "extractTennisGradesFromText",
+          "line": 758,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "startAudit",
+          "callee": "serviceClient",
+          "lineNumber": 35
+        },
+        {
+          "caller": "startAudit",
+          "callee": "supabase\n    .from('crawl_audit')\n    .insert({ source, status: 'running' })\n    .select('id')\n    .single",
+          "lineNumber": 36
+        },
+        {
+          "caller": "startAudit",
+          "callee": "supabase\n    .from('crawl_audit')\n    .insert({ source, status: 'running' })\n    .select",
+          "lineNumber": 36
+        },
+        {
+          "caller": "startAudit",
+          "callee": "supabase\n    .from('crawl_audit')\n    .insert",
+          "lineNumber": 36
+        },
+        {
+          "caller": "startAudit",
+          "callee": "supabase\n    .from",
+          "lineNumber": 36
+        },
+        {
+          "caller": "finishAudit",
+          "callee": "audit.supabase\n    .from('crawl_audit')\n    .update({\n      status,\n      fetched_count: audit.fetched,\n      inserted_count: audit.inserted,\n      updated_count: audit.updated,\n      error: error ?? null,\n      finished_at: new Date().toISOString(),\n    })\n    .eq",
+          "lineNumber": 50
+        },
+        {
+          "caller": "finishAudit",
+          "callee": "audit.supabase\n    .from('crawl_audit')\n    .update",
+          "lineNumber": 50
+        },
+        {
+          "caller": "finishAudit",
+          "callee": "audit.supabase\n    .from",
+          "lineNumber": 50
+        },
+        {
+          "caller": "finishAudit",
+          "callee": "new Date().toISOString",
+          "lineNumber": 58
+        },
+        {
+          "caller": "sha256Hex",
+          "callee": "new TextEncoder().encode",
+          "lineNumber": 69
+        },
+        {
+          "caller": "sha256Hex",
+          "callee": "crypto.subtle.digest",
+          "lineNumber": 70
+        },
+        {
+          "caller": "sha256Hex",
+          "callee": "Array.from(new Uint8Array(digest))\n    .map((b) => b.toString(16).padStart(2, '0'))\n    .join",
+          "lineNumber": 71
+        },
+        {
+          "caller": "sha256Hex",
+          "callee": "Array.from(new Uint8Array(digest))\n    .map",
+          "lineNumber": 71
+        },
+        {
+          "caller": "sha256Hex",
+          "callee": "Array.from",
+          "lineNumber": 71
+        },
+        {
+          "caller": "sha256Hex",
+          "callee": "b.toString(16).padStart",
+          "lineNumber": 72
+        },
+        {
+          "caller": "sha256Hex",
+          "callee": "b.toString",
+          "lineNumber": 72
+        },
+        {
+          "caller": "saveRawDocument",
+          "callee": "sha256Hex",
+          "lineNumber": 84
+        },
+        {
+          "caller": "saveRawDocument",
+          "callee": "audit.supabase\n      .from('crawl_documents')\n      .select('tournament_id')\n      .eq('source', audit.source)\n      .eq('source_url', sourceUrl)\n      .maybeSingle",
+          "lineNumber": 90
+        },
+        {
+          "caller": "saveRawDocument",
+          "callee": "audit.supabase\n      .from('crawl_documents')\n      .select('tournament_id')\n      .eq('source', audit.source)\n      .eq",
+          "lineNumber": 90
+        },
+        {
+          "caller": "saveRawDocument",
+          "callee": "audit.supabase\n      .from('crawl_documents')\n      .select('tournament_id')\n      .eq",
+          "lineNumber": 90
+        },
+        {
+          "caller": "saveRawDocument",
+          "callee": "audit.supabase\n      .from('crawl_documents')\n      .select",
+          "lineNumber": 90
+        },
+        {
+          "caller": "saveRawDocument",
+          "callee": "audit.supabase\n      .from",
+          "lineNumber": 90
+        },
+        {
+          "caller": "saveRawDocument",
+          "callee": "audit.supabase\n    .from('crawl_documents')\n    .upsert",
+          "lineNumber": 98
+        },
+        {
+          "caller": "saveRawDocument",
+          "callee": "audit.supabase\n    .from",
+          "lineNumber": 98
+        },
+        {
+          "caller": "saveRawDocument",
+          "callee": "new Date().toISOString",
+          "lineNumber": 107
+        },
+        {
+          "caller": "saveRawDocument",
+          "callee": "console.error",
+          "lineNumber": 114
+        },
+        {
+          "caller": "upsertTournament",
+          "callee": "regionCodeFromLabel",
+          "lineNumber": 132
+        },
+        {
+          "caller": "upsertTournament",
+          "callee": "audit.supabase\n    .from('tournaments')\n    .select(\n      'id, title, start_date, application_deadline, eligible_grades, region, manual_description',\n    )\n    .eq('source', audit.source)\n    .eq('source_url', t.source_url)\n    .maybeSingle",
+          "lineNumber": 133
+        },
+        {
+          "caller": "upsertTournament",
+          "callee": "audit.supabase\n    .from('tournaments')\n    .select(\n      'id, title, start_date, application_deadline, eligible_grades, region, manual_description',\n    )\n    .eq('source', audit.source)\n    .eq",
+          "lineNumber": 133
+        },
+        {
+          "caller": "upsertTournament",
+          "callee": "audit.supabase\n    .from('tournaments')\n    .select(\n      'id, title, start_date, application_deadline, eligible_grades, region, manual_description',\n    )\n    .eq",
+          "lineNumber": 133
+        },
+        {
+          "caller": "upsertTournament",
+          "callee": "audit.supabase\n    .from('tournaments')\n    .select",
+          "lineNumber": 133
+        },
+        {
+          "caller": "upsertTournament",
+          "callee": "audit.supabase\n    .from",
+          "lineNumber": 133
+        },
+        {
+          "caller": "upsertTournament",
+          "callee": "audit.supabase\n      .from('tournaments')\n      .update({\n        ...updatePayload,\n        start_date: t.start_date,\n        end_date: t.end_date ?? null,\n        application_deadline: t.application_deadline ?? null,\n        region: t.region ?? null,\n        region_code: regionCode,\n        location: t.location ?? null,\n        eligible_grades: t.eligible_grades,\n        division_label_local: t.division_label_local ?? null,\n        entry_fee: t.entry_fee ?? null,\n        prize: t.prize ?? null,\n        format: t.format ?? null,\n      })\n      .eq",
+          "lineNumber": 166
+        },
+        {
+          "caller": "upsertTournament",
+          "callee": "audit.supabase\n      .from('tournaments')\n      .update",
+          "lineNumber": 166
+        },
+        {
+          "caller": "upsertTournament",
+          "callee": "audit.supabase\n      .from",
+          "lineNumber": 166
+        },
+        {
+          "caller": "upsertTournament",
+          "callee": "saveRawDocument",
+          "lineNumber": 184
+        },
+        {
+          "caller": "upsertTournament",
+          "callee": "audit.supabase\n    .from('tournaments')\n    .insert({\n      sport,\n      title: t.title,\n      organizer: t.organizer ?? null,\n      description: t.description ?? null,\n      start_date: t.start_date,\n      end_date: t.end_date ?? null,\n      application_deadline: t.application_deadline ?? null,\n      region: t.region ?? null,\n      region_code: regionCode,\n      location: t.location ?? null,\n      eligible_grades: t.eligible_grades,\n      division_label_local: t.division_label_local ?? null,\n      entry_fee: t.entry_fee ?? null,\n      prize: t.prize ?? null,\n      format: t.format ?? null,\n      regulation_fields: t.regulation_fields ?? null,\n      regulation_notes: t.regulation_notes ?? null,\n      regulation_body: t.regulation_body ?? null,\n      source: audit.source,\n      source_url: t.source_url,\n      status: 'draft',\n    })\n    .select('id')\n    .single",
+          "lineNumber": 189
+        },
+        {
+          "caller": "upsertTournament",
+          "callee": "audit.supabase\n    .from('tournaments')\n    .insert({\n      sport,\n      title: t.title,\n      organizer: t.organizer ?? null,\n      description: t.description ?? null,\n      start_date: t.start_date,\n      end_date: t.end_date ?? null,\n      application_deadline: t.application_deadline ?? null,\n      region: t.region ?? null,\n      region_code: regionCode,\n      location: t.location ?? null,\n      eligible_grades: t.eligible_grades,\n      division_label_local: t.division_label_local ?? null,\n      entry_fee: t.entry_fee ?? null,\n      prize: t.prize ?? null,\n      format: t.format ?? null,\n      regulation_fields: t.regulation_fields ?? null,\n      regulation_notes: t.regulation_notes ?? null,\n      regulation_body: t.regulation_body ?? null,\n      source: audit.source,\n      source_url: t.source_url,\n      status: 'draft',\n    })\n    .select",
+          "lineNumber": 189
+        },
+        {
+          "caller": "upsertTournament",
+          "callee": "audit.supabase\n    .from('tournaments')\n    .insert",
+          "lineNumber": 189
+        },
+        {
+          "caller": "upsertTournament",
+          "callee": "audit.supabase\n    .from",
+          "lineNumber": 189
+        },
+        {
+          "caller": "upsertTournament",
+          "callee": "saveRawDocument",
+          "lineNumber": 218
+        },
+        {
+          "caller": "extractDate",
+          "callee": "new Date().getUTCFullYear",
+          "lineNumber": 240
+        },
+        {
+          "caller": "extractDate",
+          "callee": "text.matchAll",
+          "lineNumber": 248
+        },
+        {
+          "caller": "extractDate",
+          "callee": "candidates.push",
+          "lineNumber": 249
+        },
+        {
+          "caller": "extractDate",
+          "callee": "text.matchAll",
+          "lineNumber": 254
+        },
+        {
+          "caller": "extractDate",
+          "callee": "candidates.push",
+          "lineNumber": 255
+        },
+        {
+          "caller": "extractDate",
+          "callee": "Number",
+          "lineNumber": 259
+        },
+        {
+          "caller": "extractDate",
+          "callee": "Number",
+          "lineNumber": 260
+        },
+        {
+          "caller": "extractDate",
+          "callee": "Number",
+          "lineNumber": 261
+        },
+        {
+          "caller": "extractDate",
+          "callee": "c.m.padStart",
+          "lineNumber": 265
+        },
+        {
+          "caller": "extractDate",
+          "callee": "c.d.padStart",
+          "lineNumber": 265
+        },
+        {
+          "caller": "extractApplicationDeadline",
+          "callee": "text.replace",
+          "lineNumber": 278
+        },
+        {
+          "caller": "extractApplicationDeadline",
+          "callee": "new Date().getUTCFullYear",
+          "lineNumber": 279
+        },
+        {
+          "caller": "sanitize",
+          "callee": "Number",
+          "lineNumber": 284
+        },
+        {
+          "caller": "sanitize",
+          "callee": "Number",
+          "lineNumber": 284
+        },
+        {
+          "caller": "sanitize",
+          "callee": "Number",
+          "lineNumber": 284
+        },
+        {
+          "caller": "sanitize",
+          "callee": "m.padStart",
+          "lineNumber": 288
+        },
+        {
+          "caller": "sanitize",
+          "callee": "d.padStart",
+          "lineNumber": 288
+        },
+        {
+          "caller": "extractApplicationDeadline",
+          "callee": "cleaned.match",
+          "lineNumber": 294
+        },
+        {
+          "caller": "extractApplicationDeadline",
+          "callee": "sanitize",
+          "lineNumber": 296
+        },
+        {
+          "caller": "extractApplicationDeadline",
+          "callee": "cleaned.match",
+          "lineNumber": 303
+        },
+        {
+          "caller": "extractApplicationDeadline",
+          "callee": "sanitize",
+          "lineNumber": 305
+        },
+        {
+          "caller": "extractApplicationDeadline",
+          "callee": "cleaned.match",
+          "lineNumber": 311
+        },
+        {
+          "caller": "extractApplicationDeadline",
+          "callee": "sanitize",
+          "lineNumber": 313
+        },
+        {
+          "caller": "extractApplicationDeadline",
+          "callee": "cleaned.match",
+          "lineNumber": 319
+        },
+        {
+          "caller": "extractApplicationDeadline",
+          "callee": "sanitize",
+          "lineNumber": 321
+        },
+        {
+          "caller": "extractVenue",
+          "callee": "text.replace",
+          "lineNumber": 340
+        },
+        {
+          "caller": "extractVenue",
+          "callee": "cleaned.match",
+          "lineNumber": 344
+        },
+        {
+          "caller": "extractVenue",
+          "callee": "labeledSpaced[1].replace(/\\s+/g, '').trim",
+          "lineNumber": 350
+        },
+        {
+          "caller": "extractVenue",
+          "callee": "labeledSpaced[1].replace",
+          "lineNumber": 350
+        },
+        {
+          "caller": "extractVenue",
+          "callee": "cleaned.match",
+          "lineNumber": 355
+        },
+        {
+          "caller": "extractVenue",
+          "callee": "labeled[1].trim",
+          "lineNumber": 358
+        },
+        {
+          "caller": "extractVenue",
+          "callee": "labeled[1].trim",
+          "lineNumber": 358
+        },
+        {
+          "caller": "extractVenue",
+          "callee": "cleaned.match",
+          "lineNumber": 361
+        },
+        {
+          "caller": "extractVenue",
+          "callee": "bare[1].trim",
+          "lineNumber": 362
+        },
+        {
+          "caller": "normalizeLabel",
+          "callee": "raw.replace",
+          "lineNumber": 429
+        },
+        {
+          "caller": "normalizeValue",
+          "callee": "raw.replace(/\\s+/g, ' ').trim",
+          "lineNumber": 434
+        },
+        {
+          "caller": "normalizeValue",
+          "callee": "raw.replace",
+          "lineNumber": 434
+        },
+        {
+          "caller": "rowCellTexts",
+          "callee": "row.querySelectorAll",
+          "lineNumber": 439
+        },
+        {
+          "caller": "rowCellTexts",
+          "callee": "asTextNode",
+          "lineNumber": 442
+        },
+        {
+          "caller": "rowCellTexts",
+          "callee": "out.push",
+          "lineNumber": 443
+        },
+        {
+          "caller": "rowCellTexts",
+          "callee": "normalizeValue",
+          "lineNumber": 443
+        },
+        {
+          "caller": "findRegulationTable",
+          "callee": "doc.querySelectorAll",
+          "lineNumber": 475
+        },
+        {
+          "caller": "findRegulationTable",
+          "callee": "asQueryableNode",
+          "lineNumber": 479
+        },
+        {
+          "caller": "findRegulationTable",
+          "callee": "table.querySelectorAll",
+          "lineNumber": 481
+        },
+        {
+          "caller": "findRegulationTable",
+          "callee": "asQueryableNode",
+          "lineNumber": 485
+        },
+        {
+          "caller": "findRegulationTable",
+          "callee": "rowCellTexts",
+          "lineNumber": 487
+        },
+        {
+          "caller": "findRegulationTable",
+          "callee": "normalizeLabel",
+          "lineNumber": 489
+        },
+        {
+          "caller": "findRegulationTable",
+          "callee": "REGULATION_LABELS.has",
+          "lineNumber": 490
+        },
+        {
+          "caller": "findRegulationTable",
+          "callee": "normalizeLabel",
+          "lineNumber": 492
+        },
+        {
+          "caller": "findRegulationTable",
+          "callee": "APPLICATION_TABLE_TOKENS.some",
+          "lineNumber": 493
+        },
+        {
+          "caller": "findRegulationTable",
+          "callee": "norm.includes",
+          "lineNumber": 493
+        },
+        {
+          "caller": "extractRegulationFields",
+          "callee": "findRegulationTable",
+          "lineNumber": 521
+        },
+        {
+          "caller": "extractRegulationFields",
+          "callee": "table.querySelectorAll",
+          "lineNumber": 525
+        },
+        {
+          "caller": "extractRegulationFields",
+          "callee": "asQueryableNode",
+          "lineNumber": 527
+        },
+        {
+          "caller": "extractRegulationFields",
+          "callee": "rowCellTexts",
+          "lineNumber": 529
+        },
+        {
+          "caller": "extractRegulationFields",
+          "callee": "normalizeLabel",
+          "lineNumber": 531
+        },
+        {
+          "caller": "extractRegulationFields",
+          "callee": "REGULATION_LABELS.has",
+          "lineNumber": 532
+        },
+        {
+          "caller": "extractRegulationFields",
+          "callee": "seen.has",
+          "lineNumber": 533
+        },
+        {
+          "caller": "extractRegulationFields",
+          "callee": "seen.add",
+          "lineNumber": 536
+        },
+        {
+          "caller": "extractRegulationFields",
+          "callee": "out.push",
+          "lineNumber": 537
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "findRegulationTable",
+          "lineNumber": 566
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "normalizeLabel",
+          "lineNumber": 568
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "table.querySelectorAll",
+          "lineNumber": 570
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "asQueryableNode",
+          "lineNumber": 572
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "rowCellTexts",
+          "lineNumber": 574
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "cells.filter",
+          "lineNumber": 575
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "nonEmpty.join",
+          "lineNumber": 578
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "normalizeLabel",
+          "lineNumber": 579
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "joinedForCheck.startsWith",
+          "lineNumber": 582
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "joinedForCheck.includes",
+          "lineNumber": 586
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "joinedForCheck.includes",
+          "lineNumber": 586
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "joinedForCheck.includes",
+          "lineNumber": 587
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "joinedForCheck.includes",
+          "lineNumber": 587
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "normalizeLabel",
+          "lineNumber": 589
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "normalizeLabel(joinedForCheck).includes",
+          "lineNumber": 590
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "normalizeLabel",
+          "lineNumber": 590
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "REGULATION_LABELS.has",
+          "lineNumber": 596
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "CONTENT_HEADER_FIRST_LABELS.has",
+          "lineNumber": 603
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "nonEmpty.join",
+          "lineNumber": 613
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "nonEmpty.join",
+          "lineNumber": 615
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "line.trim",
+          "lineNumber": 617
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "lines.push",
+          "lineNumber": 618
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "lines.join('\\n').trim",
+          "lineNumber": 621
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "lines.join",
+          "lineNumber": 621
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "body.slice(0, MAX).replace(/\\s+\\S*$/, '').trimEnd",
+          "lineNumber": 627
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "body.slice(0, MAX).replace",
+          "lineNumber": 627
+        },
+        {
+          "caller": "extractRegulationBody",
+          "callee": "body.slice",
+          "lineNumber": 627
+        },
+        {
+          "caller": "pushNote",
+          "callee": "raw.replace(/^※\\s*/, '').replace(/\\s+/g, ' ').trim",
+          "lineNumber": 632
+        },
+        {
+          "caller": "pushNote",
+          "callee": "raw.replace(/^※\\s*/, '').replace",
+          "lineNumber": 632
+        },
+        {
+          "caller": "pushNote",
+          "callee": "raw.replace",
+          "lineNumber": 632
+        },
+        {
+          "caller": "pushNote",
+          "callee": "/(?:사항|규정)$/.test",
+          "lineNumber": 639
+        },
+        {
+          "caller": "pushNote",
+          "callee": "seen.has",
+          "lineNumber": 640
+        },
+        {
+          "caller": "pushNote",
+          "callee": "seen.add",
+          "lineNumber": 641
+        },
+        {
+          "caller": "pushNote",
+          "callee": "notes.push",
+          "lineNumber": 642
+        },
+        {
+          "caller": "extractRegulationNotesFromText",
+          "callee": "bodyText.includes",
+          "lineNumber": 653
+        },
+        {
+          "caller": "extractRegulationNotesFromText",
+          "callee": "bodyText.split",
+          "lineNumber": 656
+        },
+        {
+          "caller": "extractRegulationNotesFromText",
+          "callee": "pushNote",
+          "lineNumber": 659
+        },
+        {
+          "caller": "extractRegulationNotes",
+          "callee": "doc.querySelectorAll",
+          "lineNumber": 682
+        },
+        {
+          "caller": "extractRegulationNotes",
+          "callee": "asTextNode",
+          "lineNumber": 684
+        },
+        {
+          "caller": "extractRegulationNotes",
+          "callee": "(p.textContent ?? '').replace(/\\s+/g, ' ').trim",
+          "lineNumber": 686
+        },
+        {
+          "caller": "extractRegulationNotes",
+          "callee": "(p.textContent ?? '').replace",
+          "lineNumber": 686
+        },
+        {
+          "caller": "extractRegulationNotes",
+          "callee": "text.startsWith",
+          "lineNumber": 687
+        },
+        {
+          "caller": "extractRegulationNotes",
+          "callee": "text.split",
+          "lineNumber": 689
+        },
+        {
+          "caller": "extractRegulationNotes",
+          "callee": "pushNote",
+          "lineNumber": 691
+        },
+        {
+          "caller": "extractRegulationNotes",
+          "callee": "asTextNode",
+          "lineNumber": 697
+        },
+        {
+          "caller": "extractRegulationNotes",
+          "callee": "(root?.textContent ?? '').replace(/\\s+/g, ' ').trim",
+          "lineNumber": 698
+        },
+        {
+          "caller": "extractRegulationNotes",
+          "callee": "(root?.textContent ?? '').replace",
+          "lineNumber": 698
+        },
+        {
+          "caller": "extractRegulationNotes",
+          "callee": "extractRegulationNotesFromText",
+          "lineNumber": 699
+        },
+        {
+          "caller": "extractGJDivisions",
+          "callee": "entry.keywords.some",
+          "lineNumber": 738
+        },
+        {
+          "caller": "extractGJDivisions",
+          "callee": "text.includes",
+          "lineNumber": 738
+        },
+        {
+          "caller": "extractGJDivisions",
+          "callee": "foundCodes.push",
+          "lineNumber": 740
+        },
+        {
+          "caller": "extractGJDivisions",
+          "callee": "foundLabels.push",
+          "lineNumber": 741
+        },
+        {
+          "caller": "extractGJDivisions",
+          "callee": "foundCodes.push",
+          "lineNumber": 747
+        },
+        {
+          "caller": "extractGJDivisions",
+          "callee": "foundLabels.push",
+          "lineNumber": 748
+        },
+        {
+          "caller": "extractGJDivisions",
+          "callee": "foundLabels.join",
+          "lineNumber": 751
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 12,
+        "functionCount": 21,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 473,
+      "nonEmptyLines": 429,
+      "functions": [
+        {
+          "name": "fetchListing",
+          "startLine": 61,
+          "endLine": 80,
+          "params": [
+            "listUrl",
+            "ctx"
+          ]
+        },
+        {
+          "name": "parseListing",
+          "startLine": 87,
+          "endLine": 123,
+          "params": [
+            "html",
+            "baseUrl"
+          ]
+        },
+        {
+          "name": "listingContentHash",
+          "startLine": 128,
+          "endLine": 139,
+          "params": [
+            "items"
+          ]
+        },
+        {
+          "name": "fetchDetail",
+          "startLine": 150,
+          "endLine": 343,
+          "params": [
+            "detailUrl",
+            "region",
+            "titleHint",
+            "org"
+          ]
+        },
+        {
+          "name": "gnuboardSub5_5ContestParser",
+          "startLine": 348,
+          "endLine": 473,
+          "params": [
+            "source",
+            "ctx"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "gnuboardSub5_5ContestParser",
+          "line": 348,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fetchListing",
+          "callee": "fetch",
+          "lineNumber": 69
+        },
+        {
+          "caller": "fetchListing",
+          "callee": "res.headers.get",
+          "lineNumber": 70
+        },
+        {
+          "caller": "fetchListing",
+          "callee": "res.headers.get",
+          "lineNumber": 71
+        },
+        {
+          "caller": "fetchListing",
+          "callee": "res.text",
+          "lineNumber": 79
+        },
+        {
+          "caller": "parseListing",
+          "callee": "new DOMParser().parseFromString",
+          "lineNumber": 88
+        },
+        {
+          "caller": "parseListing",
+          "callee": "dom.querySelectorAll",
+          "lineNumber": 95
+        },
+        {
+          "caller": "parseListing",
+          "callee": "el.getAttribute",
+          "lineNumber": 101
+        },
+        {
+          "caller": "parseListing",
+          "callee": "href.includes",
+          "lineNumber": 102
+        },
+        {
+          "caller": "parseListing",
+          "callee": "href.includes",
+          "lineNumber": 102
+        },
+        {
+          "caller": "parseListing",
+          "callee": "(el.textContent ?? '').replace(/\\s+/g, ' ').trim",
+          "lineNumber": 104
+        },
+        {
+          "caller": "parseListing",
+          "callee": "(el.textContent ?? '').replace",
+          "lineNumber": 104
+        },
+        {
+          "caller": "parseListing",
+          "callee": "new URL(href, baseUrl).toString",
+          "lineNumber": 109
+        },
+        {
+          "caller": "parseListing",
+          "callee": "absolute.match",
+          "lineNumber": 114
+        },
+        {
+          "caller": "parseListing",
+          "callee": "seen.has",
+          "lineNumber": 117
+        },
+        {
+          "caller": "parseListing",
+          "callee": "seen.add",
+          "lineNumber": 118
+        },
+        {
+          "caller": "parseListing",
+          "callee": "items.push",
+          "lineNumber": 120
+        },
+        {
+          "caller": "listingContentHash",
+          "callee": "items\n    .map((it) => `${it.sid}|${it.title}`)\n    .sort()\n    .join",
+          "lineNumber": 129
+        },
+        {
+          "caller": "listingContentHash",
+          "callee": "items\n    .map((it) => `${it.sid}|${it.title}`)\n    .sort",
+          "lineNumber": 129
+        },
+        {
+          "caller": "listingContentHash",
+          "callee": "items\n    .map",
+          "lineNumber": 129
+        },
+        {
+          "caller": "listingContentHash",
+          "callee": "new TextEncoder().encode",
+          "lineNumber": 133
+        },
+        {
+          "caller": "listingContentHash",
+          "callee": "crypto.subtle.digest",
+          "lineNumber": 134
+        },
+        {
+          "caller": "listingContentHash",
+          "callee": "Array.from(new Uint8Array(digest))\n    .map((b) => b.toString(16).padStart(2, '0'))\n    .join",
+          "lineNumber": 135
+        },
+        {
+          "caller": "listingContentHash",
+          "callee": "Array.from(new Uint8Array(digest))\n    .map",
+          "lineNumber": 135
+        },
+        {
+          "caller": "listingContentHash",
+          "callee": "Array.from",
+          "lineNumber": 135
+        },
+        {
+          "caller": "listingContentHash",
+          "callee": "b.toString(16).padStart",
+          "lineNumber": 136
+        },
+        {
+          "caller": "listingContentHash",
+          "callee": "b.toString",
+          "lineNumber": 136
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "fetch",
+          "lineNumber": 156
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "res.text",
+          "lineNumber": 158
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "new DOMParser().parseFromString",
+          "lineNumber": 161
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "dom.querySelector",
+          "lineNumber": 165
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "(h3El?.textContent ?? '').replace(/\\s+/g, ' ').trim",
+          "lineNumber": 166
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "(h3El?.textContent ?? '').replace",
+          "lineNumber": 166
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "dom.querySelector",
+          "lineNumber": 170
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "bodyEl.querySelectorAll",
+          "lineNumber": 172
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "node.parentNode?.removeChild",
+          "lineNumber": 176
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "(dom.querySelector('body')?.textContent ?? '').replace(/\\s+/g, ' ').trim",
+          "lineNumber": 179
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "(dom.querySelector('body')?.textContent ?? '').replace",
+          "lineNumber": 179
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "dom.querySelector",
+          "lineNumber": 179
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "extractRegulationFields",
+          "lineNumber": 187
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "extractRegulationNotes",
+          "lineNumber": 188
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "extractRegulationBody",
+          "lineNumber": 192
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "dom.querySelectorAll",
+          "lineNumber": 198
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "(th.textContent ?? '').replace(/\\s+/g, '').trim",
+          "lineNumber": 203
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "(th.textContent ?? '').replace",
+          "lineNumber": 203
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "t.includes",
+          "lineNumber": 204
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "t.includes",
+          "lineNumber": 204
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "t.includes",
+          "lineNumber": 205
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "t.includes",
+          "lineNumber": 205
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "dom.querySelectorAll",
+          "lineNumber": 210
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "row.querySelectorAll",
+          "lineNumber": 213
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "Math.max",
+          "lineNumber": 214
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "((tds[matchDateColIdx] as unknown as { textContent: string }).textContent ?? '').trim",
+          "lineNumber": 218
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "extractDate",
+          "lineNumber": 219
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "((tds[deadlineColIdx] as unknown as { textContent: string }).textContent ?? '').trim",
+          "lineNumber": 223
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "dateRegex.exec",
+          "lineNumber": 228
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "Number",
+          "lineNumber": 229
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "Number",
+          "lineNumber": 229
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "Number",
+          "lineNumber": 229
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "allDates.push",
+          "lineNumber": 231
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "String(mi).padStart",
+          "lineNumber": 231
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "String",
+          "lineNumber": 231
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "String(di).padStart",
+          "lineNumber": 231
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "String",
+          "lineNumber": 231
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "extractDate",
+          "lineNumber": 241
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "extractDate",
+          "lineNumber": 241
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "extractGJDivisions",
+          "lineNumber": 244
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "extractApplicationDeadline",
+          "lineNumber": 249
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "bodyText.match",
+          "lineNumber": 255
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "Number",
+          "lineNumber": 257
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "feeMatch[2].replace",
+          "lineNumber": 257
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "bodyText.match",
+          "lineNumber": 267
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "orgMatch[1].replace(/\\s+/g, ' ').trim",
+          "lineNumber": 271
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "orgMatch[1].replace",
+          "lineNumber": 271
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody.indexOf",
+          "lineNumber": 282
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody.substring",
+          "lineNumber": 283
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody\n    .replace(/참가부서\\s+신청기간\\s+경기일시\\s+현재신청팀\\s+신청목록\\s+신청하기\\s+입금내역/g, '')\n    .replace(/참가비\\s+입금\\s*×[^『」]*?(?=『|제\\d+회|$)/g, '')\n    .replace(/입금대기중을\\s+클릭하여[^.]*바랍니다\\.?/g, '')\n    .replace(/\\[신청대기\\]/g, '').replace(/\\[신청마감\\]/g, '').replace(/\\[신청중\\]/g, '')\n    .replace(/\\[참가불가\\]/g, '').replace(/\\[참가신청\\]/g, '')\n    .replace(/목록보기/g, '').replace(/참가신청/g, '')\n    // 사이트 네비/메뉴 잔해\n    .replace(/선수회원신청\\s*×?\\s*대회일정[^『」]*?(?:테니스협회)/g, '')\n    .replace(/일상속\\s*힐링운동[^『」]*?(?:테니스협회)/g, '')\n    .replace(/전문체육과\\s*동호인이\\s*함께하는/g, '')\n    .replace(/대회일정\\s+대회그룹\\s+대회일정\\s+대진표관리\\s+대회결과\\s+대회공지사항/g, '')\n    .replace(/대회일정\\s+HOME\\s*>[^>]*>\\s*대회일정[^『」]*?대회공지사항/g, '')\n    .replace(/부서추후공지/g, '')\n    .replace(/\\s{3,}/g, '\\n')\n    .trim",
+          "lineNumber": 287
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody\n    .replace(/참가부서\\s+신청기간\\s+경기일시\\s+현재신청팀\\s+신청목록\\s+신청하기\\s+입금내역/g, '')\n    .replace(/참가비\\s+입금\\s*×[^『」]*?(?=『|제\\d+회|$)/g, '')\n    .replace(/입금대기중을\\s+클릭하여[^.]*바랍니다\\.?/g, '')\n    .replace(/\\[신청대기\\]/g, '').replace(/\\[신청마감\\]/g, '').replace(/\\[신청중\\]/g, '')\n    .replace(/\\[참가불가\\]/g, '').replace(/\\[참가신청\\]/g, '')\n    .replace(/목록보기/g, '').replace(/참가신청/g, '')\n    // 사이트 네비/메뉴 잔해\n    .replace(/선수회원신청\\s*×?\\s*대회일정[^『」]*?(?:테니스협회)/g, '')\n    .replace(/일상속\\s*힐링운동[^『」]*?(?:테니스협회)/g, '')\n    .replace(/전문체육과\\s*동호인이\\s*함께하는/g, '')\n    .replace(/대회일정\\s+대회그룹\\s+대회일정\\s+대진표관리\\s+대회결과\\s+대회공지사항/g, '')\n    .replace(/대회일정\\s+HOME\\s*>[^>]*>\\s*대회일정[^『」]*?대회공지사항/g, '')\n    .replace(/부서추후공지/g, '')\n    .replace",
+          "lineNumber": 287
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody\n    .replace(/참가부서\\s+신청기간\\s+경기일시\\s+현재신청팀\\s+신청목록\\s+신청하기\\s+입금내역/g, '')\n    .replace(/참가비\\s+입금\\s*×[^『」]*?(?=『|제\\d+회|$)/g, '')\n    .replace(/입금대기중을\\s+클릭하여[^.]*바랍니다\\.?/g, '')\n    .replace(/\\[신청대기\\]/g, '').replace(/\\[신청마감\\]/g, '').replace(/\\[신청중\\]/g, '')\n    .replace(/\\[참가불가\\]/g, '').replace(/\\[참가신청\\]/g, '')\n    .replace(/목록보기/g, '').replace(/참가신청/g, '')\n    // 사이트 네비/메뉴 잔해\n    .replace(/선수회원신청\\s*×?\\s*대회일정[^『」]*?(?:테니스협회)/g, '')\n    .replace(/일상속\\s*힐링운동[^『」]*?(?:테니스협회)/g, '')\n    .replace(/전문체육과\\s*동호인이\\s*함께하는/g, '')\n    .replace(/대회일정\\s+대회그룹\\s+대회일정\\s+대진표관리\\s+대회결과\\s+대회공지사항/g, '')\n    .replace(/대회일정\\s+HOME\\s*>[^>]*>\\s*대회일정[^『」]*?대회공지사항/g, '')\n    .replace",
+          "lineNumber": 287
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody\n    .replace(/참가부서\\s+신청기간\\s+경기일시\\s+현재신청팀\\s+신청목록\\s+신청하기\\s+입금내역/g, '')\n    .replace(/참가비\\s+입금\\s*×[^『」]*?(?=『|제\\d+회|$)/g, '')\n    .replace(/입금대기중을\\s+클릭하여[^.]*바랍니다\\.?/g, '')\n    .replace(/\\[신청대기\\]/g, '').replace(/\\[신청마감\\]/g, '').replace(/\\[신청중\\]/g, '')\n    .replace(/\\[참가불가\\]/g, '').replace(/\\[참가신청\\]/g, '')\n    .replace(/목록보기/g, '').replace(/참가신청/g, '')\n    // 사이트 네비/메뉴 잔해\n    .replace(/선수회원신청\\s*×?\\s*대회일정[^『」]*?(?:테니스협회)/g, '')\n    .replace(/일상속\\s*힐링운동[^『」]*?(?:테니스협회)/g, '')\n    .replace(/전문체육과\\s*동호인이\\s*함께하는/g, '')\n    .replace(/대회일정\\s+대회그룹\\s+대회일정\\s+대진표관리\\s+대회결과\\s+대회공지사항/g, '')\n    .replace",
+          "lineNumber": 287
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody\n    .replace(/참가부서\\s+신청기간\\s+경기일시\\s+현재신청팀\\s+신청목록\\s+신청하기\\s+입금내역/g, '')\n    .replace(/참가비\\s+입금\\s*×[^『」]*?(?=『|제\\d+회|$)/g, '')\n    .replace(/입금대기중을\\s+클릭하여[^.]*바랍니다\\.?/g, '')\n    .replace(/\\[신청대기\\]/g, '').replace(/\\[신청마감\\]/g, '').replace(/\\[신청중\\]/g, '')\n    .replace(/\\[참가불가\\]/g, '').replace(/\\[참가신청\\]/g, '')\n    .replace(/목록보기/g, '').replace(/참가신청/g, '')\n    // 사이트 네비/메뉴 잔해\n    .replace(/선수회원신청\\s*×?\\s*대회일정[^『」]*?(?:테니스협회)/g, '')\n    .replace(/일상속\\s*힐링운동[^『」]*?(?:테니스협회)/g, '')\n    .replace(/전문체육과\\s*동호인이\\s*함께하는/g, '')\n    .replace",
+          "lineNumber": 287
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody\n    .replace(/참가부서\\s+신청기간\\s+경기일시\\s+현재신청팀\\s+신청목록\\s+신청하기\\s+입금내역/g, '')\n    .replace(/참가비\\s+입금\\s*×[^『」]*?(?=『|제\\d+회|$)/g, '')\n    .replace(/입금대기중을\\s+클릭하여[^.]*바랍니다\\.?/g, '')\n    .replace(/\\[신청대기\\]/g, '').replace(/\\[신청마감\\]/g, '').replace(/\\[신청중\\]/g, '')\n    .replace(/\\[참가불가\\]/g, '').replace(/\\[참가신청\\]/g, '')\n    .replace(/목록보기/g, '').replace(/참가신청/g, '')\n    // 사이트 네비/메뉴 잔해\n    .replace(/선수회원신청\\s*×?\\s*대회일정[^『」]*?(?:테니스협회)/g, '')\n    .replace(/일상속\\s*힐링운동[^『」]*?(?:테니스협회)/g, '')\n    .replace",
+          "lineNumber": 287
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody\n    .replace(/참가부서\\s+신청기간\\s+경기일시\\s+현재신청팀\\s+신청목록\\s+신청하기\\s+입금내역/g, '')\n    .replace(/참가비\\s+입금\\s*×[^『」]*?(?=『|제\\d+회|$)/g, '')\n    .replace(/입금대기중을\\s+클릭하여[^.]*바랍니다\\.?/g, '')\n    .replace(/\\[신청대기\\]/g, '').replace(/\\[신청마감\\]/g, '').replace(/\\[신청중\\]/g, '')\n    .replace(/\\[참가불가\\]/g, '').replace(/\\[참가신청\\]/g, '')\n    .replace(/목록보기/g, '').replace(/참가신청/g, '')\n    // 사이트 네비/메뉴 잔해\n    .replace(/선수회원신청\\s*×?\\s*대회일정[^『」]*?(?:테니스협회)/g, '')\n    .replace",
+          "lineNumber": 287
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody\n    .replace(/참가부서\\s+신청기간\\s+경기일시\\s+현재신청팀\\s+신청목록\\s+신청하기\\s+입금내역/g, '')\n    .replace(/참가비\\s+입금\\s*×[^『」]*?(?=『|제\\d+회|$)/g, '')\n    .replace(/입금대기중을\\s+클릭하여[^.]*바랍니다\\.?/g, '')\n    .replace(/\\[신청대기\\]/g, '').replace(/\\[신청마감\\]/g, '').replace(/\\[신청중\\]/g, '')\n    .replace(/\\[참가불가\\]/g, '').replace(/\\[참가신청\\]/g, '')\n    .replace(/목록보기/g, '').replace(/참가신청/g, '')\n    // 사이트 네비/메뉴 잔해\n    .replace",
+          "lineNumber": 287
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody\n    .replace(/참가부서\\s+신청기간\\s+경기일시\\s+현재신청팀\\s+신청목록\\s+신청하기\\s+입금내역/g, '')\n    .replace(/참가비\\s+입금\\s*×[^『」]*?(?=『|제\\d+회|$)/g, '')\n    .replace(/입금대기중을\\s+클릭하여[^.]*바랍니다\\.?/g, '')\n    .replace(/\\[신청대기\\]/g, '').replace(/\\[신청마감\\]/g, '').replace(/\\[신청중\\]/g, '')\n    .replace(/\\[참가불가\\]/g, '').replace(/\\[참가신청\\]/g, '')\n    .replace(/목록보기/g, '').replace",
+          "lineNumber": 287
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody\n    .replace(/참가부서\\s+신청기간\\s+경기일시\\s+현재신청팀\\s+신청목록\\s+신청하기\\s+입금내역/g, '')\n    .replace(/참가비\\s+입금\\s*×[^『」]*?(?=『|제\\d+회|$)/g, '')\n    .replace(/입금대기중을\\s+클릭하여[^.]*바랍니다\\.?/g, '')\n    .replace(/\\[신청대기\\]/g, '').replace(/\\[신청마감\\]/g, '').replace(/\\[신청중\\]/g, '')\n    .replace(/\\[참가불가\\]/g, '').replace(/\\[참가신청\\]/g, '')\n    .replace",
+          "lineNumber": 287
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody\n    .replace(/참가부서\\s+신청기간\\s+경기일시\\s+현재신청팀\\s+신청목록\\s+신청하기\\s+입금내역/g, '')\n    .replace(/참가비\\s+입금\\s*×[^『」]*?(?=『|제\\d+회|$)/g, '')\n    .replace(/입금대기중을\\s+클릭하여[^.]*바랍니다\\.?/g, '')\n    .replace(/\\[신청대기\\]/g, '').replace(/\\[신청마감\\]/g, '').replace(/\\[신청중\\]/g, '')\n    .replace(/\\[참가불가\\]/g, '').replace",
+          "lineNumber": 287
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody\n    .replace(/참가부서\\s+신청기간\\s+경기일시\\s+현재신청팀\\s+신청목록\\s+신청하기\\s+입금내역/g, '')\n    .replace(/참가비\\s+입금\\s*×[^『」]*?(?=『|제\\d+회|$)/g, '')\n    .replace(/입금대기중을\\s+클릭하여[^.]*바랍니다\\.?/g, '')\n    .replace(/\\[신청대기\\]/g, '').replace(/\\[신청마감\\]/g, '').replace(/\\[신청중\\]/g, '')\n    .replace",
+          "lineNumber": 287
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody\n    .replace(/참가부서\\s+신청기간\\s+경기일시\\s+현재신청팀\\s+신청목록\\s+신청하기\\s+입금내역/g, '')\n    .replace(/참가비\\s+입금\\s*×[^『」]*?(?=『|제\\d+회|$)/g, '')\n    .replace(/입금대기중을\\s+클릭하여[^.]*바랍니다\\.?/g, '')\n    .replace(/\\[신청대기\\]/g, '').replace(/\\[신청마감\\]/g, '').replace",
+          "lineNumber": 287
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody\n    .replace(/참가부서\\s+신청기간\\s+경기일시\\s+현재신청팀\\s+신청목록\\s+신청하기\\s+입금내역/g, '')\n    .replace(/참가비\\s+입금\\s*×[^『」]*?(?=『|제\\d+회|$)/g, '')\n    .replace(/입금대기중을\\s+클릭하여[^.]*바랍니다\\.?/g, '')\n    .replace(/\\[신청대기\\]/g, '').replace",
+          "lineNumber": 287
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody\n    .replace(/참가부서\\s+신청기간\\s+경기일시\\s+현재신청팀\\s+신청목록\\s+신청하기\\s+입금내역/g, '')\n    .replace(/참가비\\s+입금\\s*×[^『」]*?(?=『|제\\d+회|$)/g, '')\n    .replace(/입금대기중을\\s+클릭하여[^.]*바랍니다\\.?/g, '')\n    .replace",
+          "lineNumber": 287
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody\n    .replace(/참가부서\\s+신청기간\\s+경기일시\\s+현재신청팀\\s+신청목록\\s+신청하기\\s+입금내역/g, '')\n    .replace(/참가비\\s+입금\\s*×[^『」]*?(?=『|제\\d+회|$)/g, '')\n    .replace",
+          "lineNumber": 287
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody\n    .replace(/참가부서\\s+신청기간\\s+경기일시\\s+현재신청팀\\s+신청목록\\s+신청하기\\s+입금내역/g, '')\n    .replace",
+          "lineNumber": 287
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody\n    .replace",
+          "lineNumber": 287
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody.search",
+          "lineNumber": 305
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody.substring",
+          "lineNumber": 307
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "descParts.push",
+          "lineNumber": 312
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "descParts.push",
+          "lineNumber": 313
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "descParts.push",
+          "lineNumber": 314
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "descParts.push",
+          "lineNumber": 315
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "descParts.join",
+          "lineNumber": 316
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody.slice(0, MAX_DESC_BODY).replace(/\\s+\\S*$/, '').trimEnd",
+          "lineNumber": 320
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody.slice(0, MAX_DESC_BODY).replace",
+          "lineNumber": 320
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "rawBody.slice",
+          "lineNumber": 320
+        },
+        {
+          "caller": "fetchDetail",
+          "callee": "extractVenue",
+          "lineNumber": 325
+        },
+        {
+          "caller": "gnuboardSub5_5ContestParser",
+          "callee": "fetchListing",
+          "lineNumber": 357
+        },
+        {
+          "caller": "gnuboardSub5_5ContestParser",
+          "callee": "parseListing",
+          "lineNumber": 382
+        },
+        {
+          "caller": "gnuboardSub5_5ContestParser",
+          "callee": "listingContentHash",
+          "lineNumber": 394
+        },
+        {
+          "caller": "gnuboardSub5_5ContestParser",
+          "callee": "listingContentHash",
+          "lineNumber": 406
+        },
+        {
+          "caller": "gnuboardSub5_5ContestParser",
+          "callee": "source.slug.includes",
+          "lineNumber": 420
+        },
+        {
+          "caller": "gnuboardSub5_5ContestParser",
+          "callee": "items.slice",
+          "lineNumber": 423
+        },
+        {
+          "caller": "gnuboardSub5_5ContestParser",
+          "callee": "fetchDetail",
+          "lineNumber": 425
+        },
+        {
+          "caller": "gnuboardSub5_5ContestParser",
+          "callee": "upsertTournament",
+          "lineNumber": 429
+        },
+        {
+          "caller": "gnuboardSub5_5ContestParser",
+          "callee": "saveRawDocument",
+          "lineNumber": 433
+        },
+        {
+          "caller": "gnuboardSub5_5ContestParser",
+          "callee": "errors.push",
+          "lineNumber": 445
+        },
+        {
+          "caller": "gnuboardSub5_5ContestParser",
+          "callee": "errors.push",
+          "lineNumber": 455
+        },
+        {
+          "caller": "gnuboardSub5_5ContestParser",
+          "callee": "errors.slice(0, 5).join",
+          "lineNumber": 469
+        },
+        {
+          "caller": "gnuboardSub5_5ContestParser",
+          "callee": "errors.slice",
+          "lineNumber": 469
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/_shared/crawler/registry.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 27,
+      "functions": [
+        {
+          "name": "getParser",
+          "startLine": 25,
+          "endLine": 27,
+          "params": [
+            "key"
+          ]
+        },
+        {
+          "name": "listParserKeys",
+          "startLine": 29,
+          "endLine": 31,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PARSER_REGISTRY",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "getParser",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "listParserKeys",
+          "line": 29,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "listParserKeys",
+          "callee": "Object.keys",
+          "lineNumber": 30
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 3,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/_shared/crawler/types.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 53,
+      "nonEmptyLines": 48,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/crawl-dispatch/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 294,
+      "nonEmptyLines": 268,
+      "functions": [
+        {
+          "name": "isDue",
+          "startLine": 72,
+          "endLine": 78,
+          "params": [
+            "lastCrawledAt"
+          ]
+        },
+        {
+          "name": "parseRequestBody",
+          "startLine": 80,
+          "endLine": 96,
+          "params": [
+            "req"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "isDue",
+          "callee": "Date.parse",
+          "lineNumber": 74
+        },
+        {
+          "caller": "isDue",
+          "callee": "Number.isNaN",
+          "lineNumber": 75
+        },
+        {
+          "caller": "isDue",
+          "callee": "Date.now",
+          "lineNumber": 76
+        },
+        {
+          "caller": "parseRequestBody",
+          "callee": "req.text",
+          "lineNumber": 83
+        },
+        {
+          "caller": "parseRequestBody",
+          "callee": "JSON.parse",
+          "lineNumber": 85
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/tests/crawler_extract_test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 365,
+      "nonEmptyLines": 330,
+      "functions": [
+        {
+          "name": "parseFixture",
+          "startLine": 133,
+          "endLine": 137,
+          "params": [
+            "html"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parseFixture",
+          "callee": "new DOMParser().parseFromString",
+          "lineNumber": 134
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/tests/crawler_upsert_preserve_test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 127,
+      "nonEmptyLines": 117,
+      "functions": [
+        {
+          "name": "makeFakeClient",
+          "startLine": 38,
+          "endLine": 61,
+          "params": [
+            "captured"
+          ]
+        },
+        {
+          "name": "makeAudit",
+          "startLine": 63,
+          "endLine": 72,
+          "params": [
+            "captured"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "updateBuilder",
+          "callee": "captured.push",
+          "lineNumber": 41
+        },
+        {
+          "caller": "updateBuilder",
+          "callee": "Promise.resolve",
+          "lineNumber": 42
+        },
+        {
+          "caller": "selectBuilder",
+          "callee": "Promise.resolve",
+          "lineNumber": 48
+        },
+        {
+          "caller": "makeFakeClient",
+          "callee": "selectBuilder",
+          "lineNumber": 54
+        },
+        {
+          "caller": "makeFakeClient",
+          "callee": "updateBuilder",
+          "lineNumber": 55
+        },
+        {
+          "caller": "makeAudit",
+          "callee": "makeFakeClient",
+          "lineNumber": 67
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    }
+  ]
+}

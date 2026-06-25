@@ -1,0 +1,15 @@
+{
+  "projectRoot": "/Users/ssfak/Documents/01-github/ar",
+  "batchFiles": [
+    {"path": "AGENTS.md", "language": "markdown", "sizeLines": 65, "fileCategory": "docs"},
+    {"path": "CLAUDE.md", "language": "markdown", "sizeLines": 26, "fileCategory": "docs"},
+    {"path": "Makefile", "language": "makefile", "sizeLines": 65, "fileCategory": "infra"},
+    {"path": "README.md", "language": "markdown", "sizeLines": 185, "fileCategory": "docs"}
+  ],
+  "batchImportData": {
+    "AGENTS.md": [],
+    "CLAUDE.md": [],
+    "Makefile": [],
+    "README.md": []
+  }
+}

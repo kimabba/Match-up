@@ -1,0 +1,15 @@
+{
+  "nodes": [
+    {
+      "id": "table:supabase/seed.sql",
+      "type": "table",
+      "name": "seed.sql",
+      "filePath": "supabase/seed.sql",
+      "summary": "supabase db reset 시 자동 적용되는 개발용 시드 데이터. 테스트 admin 계정(auth.users 트리거로 public.users 생성), rule_articles 룰북, regions 권역 매핑, clubs 디렉토리, 샘플 published tournaments 를 삽입한다.",
+      "tags": ["database", "seed-data", "fixtures", "supabase", "development"],
+      "complexity": "moderate",
+      "languageNotes": "auth.users 직접 INSERT 후 트리거가 public.users 를 자동 생성하며, admin 권한 부여를 위해 users_prevent_role_self_update 트리거를 임시 disable/enable 한다. regions·rule 시드는 ON CONFLICT DO NOTHING 으로 멱등성을 유지하고, tournaments 마감일은 current_date 기준 interval 로 상대 계산한다."
+    }
+  ],
+  "edges": []
+}

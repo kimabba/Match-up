@@ -1,0 +1,145 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/lib/screens/rules_screen.dart",
+      "type": "file",
+      "name": "rules_screen.dart",
+      "filePath": "app/lib/screens/rules_screen.dart",
+      "summary": "경기 규정 룰북 화면. 규정 검색, 카테고리 그리드, 인기 규정, 일일 규정 퀴즈, AI 코치 챗봇 진입(FAB)을 제공한다.",
+      "tags": ["component", "api-handler", "state-management", "service"],
+      "complexity": "complex",
+      "languageNotes": "규정을 카테고리별 그룹화(_groupByCategory)하고 종목별 미리보기·노출 제어 로직 포함."
+    },
+    {
+      "id": "class:app/lib/screens/rules_screen.dart:_RulesScreenState",
+      "type": "class",
+      "name": "_RulesScreenState",
+      "filePath": "app/lib/screens/rules_screen.dart",
+      "lineRange": [22, 209],
+      "summary": "규정 목록 로드, 카테고리 그룹화, 종목별 제목/노출 제어를 관리하는 룰북 화면 State 클래스.",
+      "tags": ["state-management", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/lib/screens/rules_screen.dart:_RuleBookBody",
+      "type": "class",
+      "name": "_RuleBookBody",
+      "filePath": "app/lib/screens/rules_screen.dart",
+      "lineRange": [211, 308],
+      "summary": "규정 필터링·인기 규정 추출·룰북 본문 렌더링을 담당하는 위젯.",
+      "tags": ["component", "validation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/screens/rules_screen.dart:_DailyRuleQuizCard",
+      "type": "class",
+      "name": "_DailyRuleQuizCard",
+      "filePath": "app/lib/screens/rules_screen.dart",
+      "lineRange": [470, 565],
+      "summary": "오늘의 규정 퀴즈를 선택해 카드로 표시하는 위젯.",
+      "tags": ["component"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/lib/screens/speed_gun/court_calibration_screen.dart",
+      "type": "file",
+      "name": "court_calibration_screen.dart",
+      "filePath": "app/lib/screens/speed_gun/court_calibration_screen.dart",
+      "summary": "스피드건 측정을 위한 코트 보정 화면. 이미지 위 기준점을 탭으로 지정하고 보정 정보를 확정한다.",
+      "tags": ["component", "event-handler", "validation"],
+      "complexity": "moderate",
+      "languageNotes": "_CalibrationPainter CustomPainter와 이미지 표시 크기 계산 로직 포함."
+    },
+    {
+      "id": "class:app/lib/screens/speed_gun/court_calibration_screen.dart:_CourtCalibrationScreenState",
+      "type": "class",
+      "name": "_CourtCalibrationScreenState",
+      "filePath": "app/lib/screens/speed_gun/court_calibration_screen.dart",
+      "lineRange": [17, 156],
+      "summary": "기준점 탭(_onTap), 이미지 표시 크기 계산, 보정 확정(_confirm)을 관리하는 State 클래스.",
+      "tags": ["state-management", "event-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/lib/screens/speed_gun/speed_gun_screen_web.dart",
+      "type": "file",
+      "name": "speed_gun_screen_web.dart",
+      "filePath": "app/lib/screens/speed_gun/speed_gun_screen_web.dart",
+      "summary": "웹 플랫폼에서 스피드건 기능이 미지원임을 안내하는 대체 화면(conditional import용 스텁).",
+      "tags": ["component", "stub"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/screens/speed_gun/speed_gun_screen.dart",
+      "type": "file",
+      "name": "speed_gun_screen.dart",
+      "filePath": "app/lib/screens/speed_gun/speed_gun_screen.dart",
+      "summary": "스피드건 측정 메인 화면. 영상 선택, 코트 보정, 공 검출·속도 분석 단계를 순차 진행한다.",
+      "tags": ["component", "service", "state-management", "event-handler"],
+      "complexity": "complex",
+      "languageNotes": "ball_detector·speed_calculator·video_processing 서비스를 조합해 측정 파이프라인을 구동."
+    },
+    {
+      "id": "class:app/lib/screens/speed_gun/speed_gun_screen.dart:_SpeedGunScreenState",
+      "type": "class",
+      "name": "_SpeedGunScreenState",
+      "filePath": "app/lib/screens/speed_gun/speed_gun_screen.dart",
+      "lineRange": [22, 290],
+      "summary": "영상 선택(_pickVideo)·보정(_calibrate)·분석(_analyze) 단계를 순차 제어하는 스피드건 State 클래스.",
+      "tags": ["state-management", "service", "event-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/lib/screens/speed_gun/speed_result_screen.dart",
+      "type": "file",
+      "name": "speed_result_screen.dart",
+      "filePath": "app/lib/screens/speed_gun/speed_result_screen.dart",
+      "summary": "스피드건 측정 결과 화면. 속도 통계와 공 궤적을 CustomPainter로 시각화한다.",
+      "tags": ["component", "data-model"],
+      "complexity": "moderate",
+      "languageNotes": "_TrajectoryPainter로 공의 궤적을 그리는 결과 표시 화면."
+    },
+    {
+      "id": "class:app/lib/screens/speed_gun/speed_result_screen.dart:SpeedResultScreen",
+      "type": "class",
+      "name": "SpeedResultScreen",
+      "filePath": "app/lib/screens/speed_gun/speed_result_screen.dart",
+      "lineRange": [7, 147],
+      "summary": "측정 결과 통계와 궤적 시각화를 빌드하는 화면 위젯.",
+      "tags": ["component"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/lib/screens/speed_gun/speed_result_screen.dart:_TrajectoryPainter",
+      "type": "class",
+      "name": "_TrajectoryPainter",
+      "filePath": "app/lib/screens/speed_gun/speed_result_screen.dart",
+      "lineRange": [178, 257],
+      "summary": "공 궤적을 캔버스에 그리는 CustomPainter.",
+      "tags": ["component", "rendering"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {"source": "file:app/lib/screens/rules_screen.dart", "target": "class:app/lib/screens/rules_screen.dart:_RulesScreenState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/rules_screen.dart", "target": "class:app/lib/screens/rules_screen.dart:_RuleBookBody", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/rules_screen.dart", "target": "class:app/lib/screens/rules_screen.dart:_DailyRuleQuizCard", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/rules_screen.dart", "target": "file:app/lib/state/providers.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:app/lib/screens/speed_gun/court_calibration_screen.dart", "target": "class:app/lib/screens/speed_gun/court_calibration_screen.dart:_CourtCalibrationScreenState", "type": "contains", "direction": "forward", "weight": 1.0},
+
+    {"source": "file:app/lib/screens/speed_gun/speed_gun_screen.dart", "target": "class:app/lib/screens/speed_gun/speed_gun_screen.dart:_SpeedGunScreenState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/speed_gun/speed_gun_screen.dart", "target": "file:app/lib/services/ball_detector_service.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:app/lib/screens/speed_gun/speed_gun_screen.dart", "target": "file:app/lib/services/speed_calculator.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:app/lib/screens/speed_gun/speed_gun_screen.dart", "target": "file:app/lib/services/video_processing_service.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:app/lib/screens/speed_gun/speed_gun_screen.dart", "target": "file:app/lib/screens/speed_gun/court_calibration_screen.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:app/lib/screens/speed_gun/speed_gun_screen.dart", "target": "file:app/lib/screens/speed_gun/speed_result_screen.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:app/lib/screens/speed_gun/speed_gun_screen.dart", "target": "file:app/lib/services/ball_detector_service.dart", "type": "depends_on", "direction": "forward", "weight": 0.6},
+    {"source": "file:app/lib/screens/speed_gun/speed_gun_screen.dart", "target": "file:app/lib/services/speed_calculator.dart", "type": "depends_on", "direction": "forward", "weight": 0.6},
+    {"source": "file:app/lib/screens/speed_gun/speed_gun_screen.dart", "target": "file:app/lib/services/video_processing_service.dart", "type": "depends_on", "direction": "forward", "weight": 0.6},
+
+    {"source": "file:app/lib/screens/speed_gun/speed_result_screen.dart", "target": "class:app/lib/screens/speed_gun/speed_result_screen.dart:SpeedResultScreen", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/speed_gun/speed_result_screen.dart", "target": "class:app/lib/screens/speed_gun/speed_result_screen.dart:_TrajectoryPainter", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/speed_gun/speed_result_screen.dart", "target": "class:app/lib/screens/speed_gun/speed_result_screen.dart:SpeedResultScreen", "type": "exports", "direction": "forward", "weight": 0.8}
+  ]
+}

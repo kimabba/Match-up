@@ -1,0 +1,1807 @@
+{
+  "scriptCompleted": true,
+  "files": [
+    {
+      "path": ".github/CODEOWNERS",
+      "language": "unknown",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug_report.yml",
+      "language": "yaml",
+      "sizeLines": 48,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/config.yml",
+      "language": "yaml",
+      "sizeLines": 5,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/feature_task.yml",
+      "language": "yaml",
+      "sizeLines": 51,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/harness_task.yml",
+      "language": "yaml",
+      "sizeLines": 43,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "language": "markdown",
+      "sizeLines": 49,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "language": "yaml",
+      "sizeLines": 61,
+      "fileCategory": "infra"
+    },
+    {
+      "path": ".github/workflows/harness.yml",
+      "language": "yaml",
+      "sizeLines": 51,
+      "fileCategory": "infra"
+    },
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "sizeLines": 65,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "app/.env.local.example",
+      "language": "config",
+      "sizeLines": 7,
+      "fileCategory": "config"
+    },
+    {
+      "path": "app/analysis_options.yaml",
+      "language": "yaml",
+      "sizeLines": 28,
+      "fileCategory": "config"
+    },
+    {
+      "path": "app/assets/models/.gitkeep",
+      "language": "unknown",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/assets/models/README.md",
+      "language": "markdown",
+      "sizeLines": 5,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "app/lib/config.dart",
+      "language": "dart",
+      "sizeLines": 72,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/main.dart",
+      "language": "dart",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/admin.dart",
+      "language": "dart",
+      "sizeLines": 37,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/app_notification.dart",
+      "language": "dart",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/chat_ui.dart",
+      "language": "dart",
+      "sizeLines": 139,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/club_event.dart",
+      "language": "dart",
+      "sizeLines": 86,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/club_post.dart",
+      "language": "dart",
+      "sizeLines": 83,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/crawl_source.dart",
+      "language": "dart",
+      "sizeLines": 121,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/match_record.dart",
+      "language": "dart",
+      "sizeLines": 116,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/regulation_body_lines.dart",
+      "language": "dart",
+      "sizeLines": 237,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/schedule_share.dart",
+      "language": "dart",
+      "sizeLines": 42,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/speed_measurement.dart",
+      "language": "dart",
+      "sizeLines": 70,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/tournament_card_info.dart",
+      "language": "dart",
+      "sizeLines": 113,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/tournament.dart",
+      "language": "dart",
+      "sizeLines": 409,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/router.dart",
+      "language": "dart",
+      "sizeLines": 322,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/admin/admin_screen.dart",
+      "language": "dart",
+      "sizeLines": 1489,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/admin/admin_shell.dart",
+      "language": "dart",
+      "sizeLines": 162,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/admin/knowledge_base_tab.dart",
+      "language": "dart",
+      "sizeLines": 119,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/admin/no_access_screen.dart",
+      "language": "dart",
+      "sizeLines": 41,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/admin/rule_edit_screen.dart",
+      "language": "dart",
+      "sizeLines": 238,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/admin/tournament_edit_screen.dart",
+      "language": "dart",
+      "sizeLines": 233,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/auth/login_screen.dart",
+      "language": "dart",
+      "sizeLines": 640,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/auth/onboarding_screen.dart",
+      "language": "dart",
+      "sizeLines": 1004,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/chat_screen.dart",
+      "language": "dart",
+      "sizeLines": 584,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/clubs_screen.dart",
+      "language": "dart",
+      "sizeLines": 2569,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/clubs/club_create_screen.dart",
+      "language": "dart",
+      "sizeLines": 750,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/clubs/club_detail_screen.dart",
+      "language": "dart",
+      "sizeLines": 937,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/favorites_screen.dart",
+      "language": "dart",
+      "sizeLines": 335,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/friend_schedule_screen.dart",
+      "language": "dart",
+      "sizeLines": 1030,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/more_screen.dart",
+      "language": "dart",
+      "sizeLines": 322,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/profile_screen.dart",
+      "language": "dart",
+      "sizeLines": 1748,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/rules_screen.dart",
+      "language": "dart",
+      "sizeLines": 1255,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/speed_gun/court_calibration_screen.dart",
+      "language": "dart",
+      "sizeLines": 219,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/speed_gun/speed_gun_screen_web.dart",
+      "language": "dart",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/speed_gun/speed_gun_screen.dart",
+      "language": "dart",
+      "sizeLines": 395,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/speed_gun/speed_result_screen.dart",
+      "language": "dart",
+      "sizeLines": 257,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/tournaments/tournament_detail_screen.dart",
+      "language": "dart",
+      "sizeLines": 1155,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/tournaments/tournament_submit_screen.dart",
+      "language": "dart",
+      "sizeLines": 343,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/tournaments/tournaments_screen.dart",
+      "language": "dart",
+      "sizeLines": 1878,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/services/api.dart",
+      "language": "dart",
+      "sizeLines": 1137,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/services/ball_detector_service.dart",
+      "language": "dart",
+      "sizeLines": 162,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/services/notifications_web.dart",
+      "language": "dart",
+      "sizeLines": 6,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/services/notifications.dart",
+      "language": "dart",
+      "sizeLines": 33,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/services/speed_calculator.dart",
+      "language": "dart",
+      "sizeLines": 206,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/services/video_processing_service.dart",
+      "language": "dart",
+      "sizeLines": 148,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/state/providers.dart",
+      "language": "dart",
+      "sizeLines": 141,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/state/theme_provider.dart",
+      "language": "dart",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/theme/app_theme.dart",
+      "language": "dart",
+      "sizeLines": 144,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/theme/color_schemes.dart",
+      "language": "dart",
+      "sizeLines": 91,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/theme/motion.dart",
+      "language": "dart",
+      "sizeLines": 37,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/theme/tokens.dart",
+      "language": "dart",
+      "sizeLines": 76,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/theme/typography.dart",
+      "language": "dart",
+      "sizeLines": 121,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/utils/active_filters.dart",
+      "language": "dart",
+      "sizeLines": 141,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/utils/grade_labels.dart",
+      "language": "dart",
+      "sizeLines": 345,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/utils/tournament_filters.dart",
+      "language": "dart",
+      "sizeLines": 111,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/widgets/allround_logo.dart",
+      "language": "dart",
+      "sizeLines": 209,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/widgets/app_bottom_nav.dart",
+      "language": "dart",
+      "sizeLines": 53,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/widgets/app_buttons.dart",
+      "language": "dart",
+      "sizeLines": 109,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/widgets/app_card.dart",
+      "language": "dart",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/widgets/app_chip.dart",
+      "language": "dart",
+      "sizeLines": 63,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/widgets/app_empty_state.dart",
+      "language": "dart",
+      "sizeLines": 63,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/widgets/app_hero_section.dart",
+      "language": "dart",
+      "sizeLines": 80,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/widgets/app_info_tile.dart",
+      "language": "dart",
+      "sizeLines": 80,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/widgets/app_list_section.dart",
+      "language": "dart",
+      "sizeLines": 51,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/widgets/app_skeleton_card.dart",
+      "language": "dart",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/widgets/app_toast.dart",
+      "language": "dart",
+      "sizeLines": 59,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/widgets/chat_tournament_card.dart",
+      "language": "dart",
+      "sizeLines": 199,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/widgets/tournament_card.dart",
+      "language": "dart",
+      "sizeLines": 400,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/pubspec.yaml",
+      "language": "yaml",
+      "sizeLines": 62,
+      "fileCategory": "config"
+    },
+    {
+      "path": "app/test/active_filters_test.dart",
+      "language": "dart",
+      "sizeLines": 154,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/test/active_sport_provider_test.dart",
+      "language": "dart",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/test/chat_ui_test.dart",
+      "language": "dart",
+      "sizeLines": 297,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/test/grade_labels_test.dart",
+      "language": "dart",
+      "sizeLines": 142,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/test/regulation_body_lines_test.dart",
+      "language": "dart",
+      "sizeLines": 149,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/test/rule_article_test.dart",
+      "language": "dart",
+      "sizeLines": 31,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/test/speed_calculator_test.dart",
+      "language": "dart",
+      "sizeLines": 67,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/test/tournament_card_info_test.dart",
+      "language": "dart",
+      "sizeLines": 98,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/test/tournament_card_test.dart",
+      "language": "dart",
+      "sizeLines": 74,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/test/tournament_filters_test.dart",
+      "language": "dart",
+      "sizeLines": 124,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/test/tournament_regulation_test.dart",
+      "language": "dart",
+      "sizeLines": 151,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/test/tournament_search_query_test.dart",
+      "language": "dart",
+      "sizeLines": 79,
+      "fileCategory": "code"
+    },
+    {
+      "path": "CLAUDE.md",
+      "language": "markdown",
+      "sizeLines": 26,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "claudedocs/db-schema.html",
+      "language": "html",
+      "sizeLines": 208,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "claudedocs/schema-audit-remaining.md",
+      "language": "markdown",
+      "sizeLines": 42,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/changelog/2026-W23.md",
+      "language": "markdown",
+      "sizeLines": 68,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/data/futsal/전국_풋살구장_현황.xlsx",
+      "language": "xlsx",
+      "sizeLines": 188,
+      "fileCategory": "code"
+    },
+    {
+      "path": "docs/data/futsal/풋살 정보 정리.docx",
+      "language": "docx",
+      "sizeLines": 108,
+      "fileCategory": "code"
+    },
+    {
+      "path": "docs/data/futsal/풋살_2024-25_경기규칙서_및_협회안내.docx",
+      "language": "docx",
+      "sizeLines": 105,
+      "fileCategory": "code"
+    },
+    {
+      "path": "docs/db-design.html",
+      "language": "html",
+      "sizeLines": 1121,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "docs/deploy.md",
+      "language": "markdown",
+      "sizeLines": 166,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/design/2026-redesign-spec.md",
+      "language": "markdown",
+      "sizeLines": 219,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/design/app-map.html",
+      "language": "html",
+      "sizeLines": 219,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "docs/design/app-map.md",
+      "language": "markdown",
+      "sizeLines": 98,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/design/db-redesign-progress.md",
+      "language": "markdown",
+      "sizeLines": 120,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/design/erd.html",
+      "language": "html",
+      "sizeLines": 233,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "docs/design/erd.md",
+      "language": "markdown",
+      "sizeLines": 296,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/design/figma-make-ui-handoff.md",
+      "language": "markdown",
+      "sizeLines": 161,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/futsal_rulebook_db_apply_guide.md",
+      "language": "markdown",
+      "sizeLines": 180,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/harness-system-analysis.html",
+      "language": "html",
+      "sizeLines": 1279,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "docs/kb/ai-chat.md",
+      "language": "markdown",
+      "sizeLines": 140,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/kb/architecture.md",
+      "language": "markdown",
+      "sizeLines": 89,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/kb/clubs.md",
+      "language": "markdown",
+      "sizeLines": 60,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/kb/crawler.md",
+      "language": "markdown",
+      "sizeLines": 54,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/kb/database.md",
+      "language": "markdown",
+      "sizeLines": 119,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/kb/domain-futsal.md",
+      "language": "markdown",
+      "sizeLines": 35,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/kb/domain-tennis.md",
+      "language": "markdown",
+      "sizeLines": 64,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/kb/flutter-app.md",
+      "language": "markdown",
+      "sizeLines": 74,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/kb/README.md",
+      "language": "markdown",
+      "sizeLines": 24,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/legal/privacy-policy.html",
+      "language": "html",
+      "sizeLines": 79,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "docs/legal/terms-of-service.html",
+      "language": "html",
+      "sizeLines": 91,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "docs/mvp-roadmap.html",
+      "language": "html",
+      "sizeLines": 574,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "docs/plans/MVP-roadmap.md",
+      "language": "markdown",
+      "sizeLines": 38,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/plans/PLAN_crawl-admin.md",
+      "language": "markdown",
+      "sizeLines": 90,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/plans/PLAN_llm-cost-reduction.md",
+      "language": "markdown",
+      "sizeLines": 243,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/plans/PLAN_speed-gun-v1.md",
+      "language": "markdown",
+      "sizeLines": 151,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/privacy-policy.html",
+      "language": "html",
+      "sizeLines": 396,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "docs/project-current-map.html",
+      "language": "html",
+      "sizeLines": 718,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "docs/qa/mvp-qa-checklist.md",
+      "language": "markdown",
+      "sizeLines": 80,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/research/ball-speed-measurement-feasibility.md",
+      "language": "markdown",
+      "sizeLines": 471,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/research/llm-cost-optimization-2026.md",
+      "language": "markdown",
+      "sizeLines": 260,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/research/tennis-ecosystem.md",
+      "language": "markdown",
+      "sizeLines": 563,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/research/tennis-grade-systems.md",
+      "language": "markdown",
+      "sizeLines": 478,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/reviews/code-review.md",
+      "language": "markdown",
+      "sizeLines": 283,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/reviews/security-review.md",
+      "language": "markdown",
+      "sizeLines": 247,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/reviews/simplify-review.md",
+      "language": "markdown",
+      "sizeLines": 456,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/rules/BACKEND_RULES.md",
+      "language": "markdown",
+      "sizeLines": 41,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/rules/CODING_RULES.md",
+      "language": "markdown",
+      "sizeLines": 41,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/rules/DATABASE_RULES.md",
+      "language": "markdown",
+      "sizeLines": 64,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/rules/DOMAIN_RULES.md",
+      "language": "markdown",
+      "sizeLines": 45,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/rules/FRONTEND_RULES.md",
+      "language": "markdown",
+      "sizeLines": 42,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/rules/HARNESS.md",
+      "language": "markdown",
+      "sizeLines": 75,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/rules/PROJECT_CONTEXT.md",
+      "language": "markdown",
+      "sizeLines": 120,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/rules/README.md",
+      "language": "markdown",
+      "sizeLines": 33,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/rules/SECURITY_RULES.md",
+      "language": "markdown",
+      "sizeLines": 40,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/rules/SPEED_GUN_RULES.md",
+      "language": "markdown",
+      "sizeLines": 42,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/security/cron-jwt-rotation.md",
+      "language": "markdown",
+      "sizeLines": 132,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/store-listing.md",
+      "language": "markdown",
+      "sizeLines": 128,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-05-19-active-sport-filter.md",
+      "language": "markdown",
+      "sizeLines": 555,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-05-19-chat-main-admin-panel.md",
+      "language": "markdown",
+      "sizeLines": 1073,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-05-27-knowledge-base-rules.md",
+      "language": "markdown",
+      "sizeLines": 801,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-05-30-web-admin-separation.md",
+      "language": "markdown",
+      "sizeLines": 976,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-06-11-chat-a2ui-tournament-cards.md",
+      "language": "markdown",
+      "sizeLines": 997,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-05-19-active-sport-filter-design.md",
+      "language": "markdown",
+      "sizeLines": 168,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-05-19-chat-main-admin-panel-design.md",
+      "language": "markdown",
+      "sizeLines": 183,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-05-27-knowledge-base-rules-design.md",
+      "language": "markdown",
+      "sizeLines": 102,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-05-28-club-activity-mvp-design.md",
+      "language": "markdown",
+      "sizeLines": 110,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-05-29-strategy-and-roadmap-design.md",
+      "language": "markdown",
+      "sizeLines": 307,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-05-30-web-admin-separation-design.md",
+      "language": "markdown",
+      "sizeLines": 243,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-06-11-chat-a2ui-cards-design.md",
+      "language": "markdown",
+      "sizeLines": 269,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/team-collaboration.md",
+      "language": "markdown",
+      "sizeLines": 137,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/team-onboarding.html",
+      "language": "html",
+      "sizeLines": 844,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "docs/test-account-setup.md",
+      "language": "markdown",
+      "sizeLines": 73,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "Makefile",
+      "language": "makefile",
+      "sizeLines": 65,
+      "fileCategory": "infra"
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "sizeLines": 185,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "scripts/analyze_chat_cost.py",
+      "language": "python",
+      "sizeLines": 325,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/harness/check_enums.py",
+      "language": "python",
+      "sizeLines": 176,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/harness/check_secrets.sh",
+      "language": "shell",
+      "sizeLines": 61,
+      "fileCategory": "script"
+    },
+    {
+      "path": "scripts/harness/check_static_rules.py",
+      "language": "python",
+      "sizeLines": 107,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/harness/run_all.sh",
+      "language": "shell",
+      "sizeLines": 43,
+      "fileCategory": "script"
+    },
+    {
+      "path": "supabase/config.toml",
+      "language": "toml",
+      "sizeLines": 407,
+      "fileCategory": "config"
+    },
+    {
+      "path": "supabase/functions/_shared/auth.ts",
+      "language": "typescript",
+      "sizeLines": 94,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/_shared/chat_cards.ts",
+      "language": "typescript",
+      "sizeLines": 141,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/_shared/cors.ts",
+      "language": "typescript",
+      "sizeLines": 29,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/_shared/crawler.ts",
+      "language": "typescript",
+      "sizeLines": 760,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts",
+      "language": "typescript",
+      "sizeLines": 473,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/_shared/crawler/registry.ts",
+      "language": "typescript",
+      "sizeLines": 31,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/_shared/crawler/types.ts",
+      "language": "typescript",
+      "sizeLines": 53,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/_shared/embedding.ts",
+      "language": "typescript",
+      "sizeLines": 82,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/_shared/enums.ts",
+      "language": "typescript",
+      "sizeLines": 352,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/_shared/gemini.ts",
+      "language": "typescript",
+      "sizeLines": 122,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/_shared/intent.ts",
+      "language": "typescript",
+      "sizeLines": 407,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/_shared/rate_limit.ts",
+      "language": "typescript",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/_shared/regulation.ts",
+      "language": "typescript",
+      "sizeLines": 109,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/_shared/supabase.ts",
+      "language": "typescript",
+      "sizeLines": 31,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/.env.example",
+      "language": "config",
+      "sizeLines": 2,
+      "fileCategory": "config"
+    },
+    {
+      "path": "supabase/functions/chat-history/index.ts",
+      "language": "typescript",
+      "sizeLines": 70,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/chat/index.ts",
+      "language": "typescript",
+      "sizeLines": 1232,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/clubs-approve/index.ts",
+      "language": "typescript",
+      "sizeLines": 45,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/clubs-create/index.ts",
+      "language": "typescript",
+      "sizeLines": 66,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/clubs-join/index.ts",
+      "language": "typescript",
+      "sizeLines": 128,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/clubs-review-join/index.ts",
+      "language": "typescript",
+      "sizeLines": 90,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/clubs-search/index.ts",
+      "language": "typescript",
+      "sizeLines": 80,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/crawl-dispatch/index.ts",
+      "language": "typescript",
+      "sizeLines": 294,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/deno.json",
+      "language": "json",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "supabase/functions/embed-pending/index.ts",
+      "language": "typescript",
+      "sizeLines": 131,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/health/index.ts",
+      "language": "typescript",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/import_map.json",
+      "language": "json",
+      "sizeLines": 7,
+      "fileCategory": "config"
+    },
+    {
+      "path": "supabase/functions/notify-cron/index.ts",
+      "language": "typescript",
+      "sizeLines": 168,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/seed-intent-examples/index.ts",
+      "language": "typescript",
+      "sizeLines": 196,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/semantic-search/index.ts",
+      "language": "typescript",
+      "sizeLines": 111,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/tests/chat_cards_test.ts",
+      "language": "typescript",
+      "sizeLines": 162,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/tests/crawler_extract_test.ts",
+      "language": "typescript",
+      "sizeLines": 365,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/tests/crawler_upsert_preserve_test.ts",
+      "language": "typescript",
+      "sizeLines": 127,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/tests/enums_test.ts",
+      "language": "typescript",
+      "sizeLines": 219,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/tests/intent_test.ts",
+      "language": "typescript",
+      "sizeLines": 212,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/tests/regulation_test.ts",
+      "language": "typescript",
+      "sizeLines": 103,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/tournaments-approve/index.ts",
+      "language": "typescript",
+      "sizeLines": 74,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/tournaments-search/index.ts",
+      "language": "typescript",
+      "sizeLines": 82,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/tournaments-submit/index.ts",
+      "language": "typescript",
+      "sizeLines": 169,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/migrations/001_extensions.sql",
+      "language": "sql",
+      "sizeLines": 7,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/002_init_users_sports.sql",
+      "language": "sql",
+      "sizeLines": 141,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/003_tournaments.sql",
+      "language": "sql",
+      "sizeLines": 245,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/004_clubs.sql",
+      "language": "sql",
+      "sizeLines": 37,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/005_chat_rules.sql",
+      "language": "sql",
+      "sizeLines": 126,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/006_notifications.sql",
+      "language": "sql",
+      "sizeLines": 62,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/007_crawl_audit.sql",
+      "language": "sql",
+      "sizeLines": 23,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/008_cron.sql",
+      "language": "sql",
+      "sizeLines": 73,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/009_regions_and_multi_org.sql",
+      "language": "sql",
+      "sizeLines": 97,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/010_tennis_grade_revamp.sql",
+      "language": "sql",
+      "sizeLines": 50,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/011_ensure_profile_rpc.sql",
+      "language": "sql",
+      "sizeLines": 21,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/012_rate_limit.sql",
+      "language": "sql",
+      "sizeLines": 11,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/013_qa_cache.sql",
+      "language": "sql",
+      "sizeLines": 152,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/014_intent_examples.sql",
+      "language": "sql",
+      "sizeLines": 125,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/015_uuid_v7.sql",
+      "language": "sql",
+      "sizeLines": 79,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/016_tournaments_search_sport_filter.sql",
+      "language": "sql",
+      "sizeLines": 64,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/017_uuid_v7_pgcrypto_schema_fix.sql",
+      "language": "sql",
+      "sizeLines": 60,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/018_tournament_search_by_slots.sql",
+      "language": "sql",
+      "sizeLines": 72,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/019_crawl_sources.sql",
+      "language": "sql",
+      "sizeLines": 140,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/020_dispatcher_cron_switch.sql",
+      "language": "sql",
+      "sizeLines": 52,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/021_crawl_sources_running_flag.sql",
+      "language": "sql",
+      "sizeLines": 54,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/022_tournament_status_rejected.sql",
+      "language": "sql",
+      "sizeLines": 23,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/023_review_helpers.sql",
+      "language": "sql",
+      "sizeLines": 127,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/024_crawl_sources_url_refresh.sql",
+      "language": "sql",
+      "sizeLines": 68,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/025_futsal_tournament_fields.sql",
+      "language": "sql",
+      "sizeLines": 126,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/026_futsal_crawl_sources.sql",
+      "language": "sql",
+      "sizeLines": 74,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/027_db_crawler_review_fixes.sql",
+      "language": "sql",
+      "sizeLines": 72,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/028_adjust_crawler_schedule.sql",
+      "language": "sql",
+      "sizeLines": 32,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/029_division_codes_reset_eligible_grades.sql",
+      "language": "sql",
+      "sizeLines": 15,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/030_invoke_edge_function_internal_cron_jwt.sql",
+      "language": "sql",
+      "sizeLines": 40,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/031_club_management.sql",
+      "language": "sql",
+      "sizeLines": 84,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/032_drop_legacy_clubs_active_policy.sql",
+      "language": "sql",
+      "sizeLines": 12,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/033_fix_club_members_rls_recursion.sql",
+      "language": "sql",
+      "sizeLines": 67,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/034_invoke_edge_function_use_vault.sql",
+      "language": "sql",
+      "sizeLines": 39,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/035_club_events.sql",
+      "language": "sql",
+      "sizeLines": 139,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/036_club_logos.sql",
+      "language": "sql",
+      "sizeLines": 53,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/037_rate_limits.sql",
+      "language": "sql",
+      "sizeLines": 92,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/038_search_like_escape.sql",
+      "language": "sql",
+      "sizeLines": 57,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/039_rls_hardening.sql",
+      "language": "sql",
+      "sizeLines": 38,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/040_device_token_cap.sql",
+      "language": "sql",
+      "sizeLines": 39,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/041_fix_grade_matching.sql",
+      "language": "sql",
+      "sizeLines": 76,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/042_manual_description.sql",
+      "language": "sql",
+      "sizeLines": 7,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/043_rpc_v2_region_org_filters.sql",
+      "language": "sql",
+      "sizeLines": 154,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/044_rpc_returns_table.sql",
+      "language": "sql",
+      "sizeLines": 130,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/045_seed_regions.sql",
+      "language": "sql",
+      "sizeLines": 18,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/046_venues.sql",
+      "language": "sql",
+      "sizeLines": 47,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/046b_seed_futsal_venues.sql",
+      "language": "sql",
+      "sizeLines": 272,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/047_seed_futsal_rules.sql",
+      "language": "sql",
+      "sizeLines": 402,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/048_venues_search_rpc.sql",
+      "language": "sql",
+      "sizeLines": 42,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/049_normalize_body_newlines.sql",
+      "language": "sql",
+      "sizeLines": 27,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/050_drop_clubs_active_column.sql",
+      "language": "sql",
+      "sizeLines": 11,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/051_backfill_tournaments_region_code.sql",
+      "language": "sql",
+      "sizeLines": 16,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/052_recategorize_futsal_rule_articles.sql",
+      "language": "sql",
+      "sizeLines": 74,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/053_seed_seoul_citizen_futsal_league_2026.sql",
+      "language": "sql",
+      "sizeLines": 118,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/054_club_favorites.sql",
+      "language": "sql",
+      "sizeLines": 23,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/055_users_profile_columns.sql",
+      "language": "sql",
+      "sizeLines": 55,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/056_user_tennis_orgs_pk_change.sql",
+      "language": "sql",
+      "sizeLines": 69,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/057_clubs_members_events_update.sql",
+      "language": "sql",
+      "sizeLines": 68,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/058_club_posts.sql",
+      "language": "sql",
+      "sizeLines": 168,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/059_tournament_extension_tables.sql",
+      "language": "sql",
+      "sizeLines": 215,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/060_notifications_unified.sql",
+      "language": "sql",
+      "sizeLines": 92,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/061_match_records.sql",
+      "language": "sql",
+      "sizeLines": 101,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/062_schedule_shares.sql",
+      "language": "sql",
+      "sizeLines": 36,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/063_crawl_documents.sql",
+      "language": "sql",
+      "sizeLines": 59,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/064_fix_tournaments_for_user_details_join.sql",
+      "language": "sql",
+      "sizeLines": 140,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/065_rate_limit_security.sql",
+      "language": "sql",
+      "sizeLines": 34,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/066_schedule_shares_rls_fix.sql",
+      "language": "sql",
+      "sizeLines": 60,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/067_fk_on_delete_policy.sql",
+      "language": "sql",
+      "sizeLines": 56,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/068_drop_notifications_log_and_fk_indexes.sql",
+      "language": "sql",
+      "sizeLines": 27,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/069_club_posts_storage_owner_folder.sql",
+      "language": "sql",
+      "sizeLines": 23,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/070_trim_crawl_descriptions.sql",
+      "language": "sql",
+      "sizeLines": 21,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/071_futsal_grades_and_2026_official_events.sql",
+      "language": "sql",
+      "sizeLines": 561,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/072_fix_tennis_grade_matching.sql",
+      "language": "sql",
+      "sizeLines": 244,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/073_tournament_regulation_fields.sql",
+      "language": "sql",
+      "sizeLines": 35,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/074_tournament_regulation_body.sql",
+      "language": "sql",
+      "sizeLines": 26,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/075_tournaments_for_user_division_filter.sql",
+      "language": "sql",
+      "sizeLines": 155,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/076_tournaments_for_user_recruiting_and_date_overlap.sql",
+      "language": "sql",
+      "sizeLines": 164,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/077_chat_tournament_regulation_rag.sql",
+      "language": "sql",
+      "sizeLines": 102,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/078_chat_slot_search_consistency.sql",
+      "language": "sql",
+      "sizeLines": 84,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20260617123902_fix_ensure_profile_name.sql",
+      "language": "sql",
+      "sizeLines": 30,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20260618014529_harden_security_definer_execution.sql",
+      "language": "sql",
+      "sizeLines": 74,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/migrations/20260618042700_set_function_search_path.sql",
+      "language": "sql",
+      "sizeLines": 19,
+      "fileCategory": "data"
+    },
+    {
+      "path": "supabase/seed.sql",
+      "language": "sql",
+      "sizeLines": 200,
+      "fileCategory": "data"
+    }
+  ],
+  "totalFiles": 295,
+  "filteredByIgnore": 63,
+  "estimatedComplexity": "large",
+  "stats": {
+    "filesScanned": 295,
+    "byCategory": {
+      "code": 124,
+      "config": 11,
+      "docs": 61,
+      "infra": 3,
+      "markup": 11,
+      "script": 2,
+      "data": 83
+    },
+    "byLanguage": {
+      "unknown": 2,
+      "yaml": 8,
+      "markdown": 61,
+      "config": 2,
+      "dart": 80,
+      "html": 11,
+      "xlsx": 1,
+      "docx": 2,
+      "makefile": 1,
+      "python": 3,
+      "shell": 2,
+      "toml": 1,
+      "typescript": 36,
+      "json": 2,
+      "sql": 83
+    }
+  }
+}

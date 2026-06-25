@@ -1,0 +1,27 @@
+{
+  "projectRoot": "/Users/ssfak/Documents/01-github/ar",
+  "batchFiles": [
+    {"path": "docs/rules/BACKEND_RULES.md", "language": "markdown", "sizeLines": 41, "fileCategory": "docs"},
+    {"path": "docs/rules/CODING_RULES.md", "language": "markdown", "sizeLines": 41, "fileCategory": "docs"},
+    {"path": "docs/rules/DATABASE_RULES.md", "language": "markdown", "sizeLines": 64, "fileCategory": "docs"},
+    {"path": "docs/rules/DOMAIN_RULES.md", "language": "markdown", "sizeLines": 45, "fileCategory": "docs"},
+    {"path": "docs/rules/FRONTEND_RULES.md", "language": "markdown", "sizeLines": 42, "fileCategory": "docs"},
+    {"path": "docs/rules/HARNESS.md", "language": "markdown", "sizeLines": 75, "fileCategory": "docs"},
+    {"path": "docs/rules/PROJECT_CONTEXT.md", "language": "markdown", "sizeLines": 120, "fileCategory": "docs"},
+    {"path": "docs/rules/README.md", "language": "markdown", "sizeLines": 33, "fileCategory": "docs"},
+    {"path": "docs/rules/SECURITY_RULES.md", "language": "markdown", "sizeLines": 40, "fileCategory": "docs"},
+    {"path": "docs/rules/SPEED_GUN_RULES.md", "language": "markdown", "sizeLines": 42, "fileCategory": "docs"}
+  ],
+  "batchImportData": {
+    "docs/rules/BACKEND_RULES.md": [],
+    "docs/rules/CODING_RULES.md": [],
+    "docs/rules/DATABASE_RULES.md": [],
+    "docs/rules/DOMAIN_RULES.md": [],
+    "docs/rules/FRONTEND_RULES.md": [],
+    "docs/rules/HARNESS.md": [],
+    "docs/rules/PROJECT_CONTEXT.md": [],
+    "docs/rules/README.md": [],
+    "docs/rules/SECURITY_RULES.md": [],
+    "docs/rules/SPEED_GUN_RULES.md": []
+  }
+}

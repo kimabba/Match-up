@@ -1,0 +1,341 @@
+{
+  "nodes": [
+    {
+      "id": "file:supabase/functions/_shared/crawler.ts",
+      "type": "file",
+      "name": "crawler.ts",
+      "filePath": "supabase/functions/_shared/crawler.ts",
+      "summary": "크롤러 공용 코어 모듈. crawl_audit 감사 기록, 원본 HTML 저장, tournaments upsert(기존 사용자/관리자 변경 보존), 날짜·신청마감·장소·요강(regulation) 필드·본문·유의사항·종별(division) 추출 헬퍼를 제공한다.",
+      "tags": ["crawler", "data-pipeline", "serialization", "validation", "utility"],
+      "complexity": "complex",
+      "languageNotes": "Deno Edge Function 환경. deno-dom 노드를 textContent/querySelectorAll로 다루기 위해 asTextNode/asQueryableNode 타입 헬퍼를 사용하고, crypto.subtle.digest로 SHA-256 콘텐츠 해시를 계산한다."
+    },
+    {
+      "id": "function:supabase/functions/_shared/crawler.ts:startAudit",
+      "type": "function",
+      "name": "startAudit",
+      "filePath": "supabase/functions/_shared/crawler.ts",
+      "lineRange": [34, 43],
+      "summary": "크롤링 소스에 대해 crawl_audit 레코드를 status='running'으로 생성하고 누적 카운터를 가진 audit 컨텍스트 객체를 반환한다.",
+      "tags": ["crawler", "audit", "factory"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:supabase/functions/_shared/crawler.ts:finishAudit",
+      "type": "function",
+      "name": "finishAudit",
+      "filePath": "supabase/functions/_shared/crawler.ts",
+      "lineRange": [45, 61],
+      "summary": "감사 종료 시 fetched/inserted/updated 카운트와 상태·에러·종료 시각을 crawl_audit 행에 업데이트한다.",
+      "tags": ["crawler", "audit", "serialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:supabase/functions/_shared/crawler.ts:saveRawDocument",
+      "type": "function",
+      "name": "saveRawDocument",
+      "filePath": "supabase/functions/_shared/crawler.ts",
+      "lineRange": [76, 115],
+      "summary": "원본 HTML을 SHA-256 해시와 함께 crawl_documents 테이블에 upsert하고 파싱 상태/에러와 tournament_id 연결을 보존한다.",
+      "tags": ["crawler", "serialization", "persistence"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:supabase/functions/_shared/crawler.ts:upsertTournament",
+      "type": "function",
+      "name": "upsertTournament",
+      "filePath": "supabase/functions/_shared/crawler.ts",
+      "lineRange": [124, 222],
+      "summary": "파싱된 대회 데이터를 tournaments 테이블에 insert/update한다. 기존 행이 있으면 사용자·관리자가 수정한 필드(manual_description 등)를 보존하며 selective update를 수행하고 region_code를 매핑한다.",
+      "tags": ["crawler", "data-model", "persistence", "validation"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:supabase/functions/_shared/crawler.ts:extractDate",
+      "type": "function",
+      "name": "extractDate",
+      "filePath": "supabase/functions/_shared/crawler.ts",
+      "lineRange": [239, 268],
+      "summary": "텍스트에서 다양한 형식(YYYY.MM.DD, MM/DD 등)의 날짜 후보를 정규식으로 수집해 가장 적합한 ISO 날짜 문자열로 정규화한다.",
+      "tags": ["crawler", "parsing", "date", "validation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:supabase/functions/_shared/crawler.ts:extractApplicationDeadline",
+      "type": "function",
+      "name": "extractApplicationDeadline",
+      "filePath": "supabase/functions/_shared/crawler.ts",
+      "lineRange": [277, 326],
+      "summary": "신청 마감 관련 라벨 텍스트에서 여러 날짜 패턴을 매칭해 신청 마감일을 ISO 형식으로 추출하는 내부 sanitize 로직을 포함한다.",
+      "tags": ["crawler", "parsing", "date", "validation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:supabase/functions/_shared/crawler.ts:extractVenue",
+      "type": "function",
+      "name": "extractVenue",
+      "filePath": "supabase/functions/_shared/crawler.ts",
+      "lineRange": [339, 365],
+      "summary": "라벨(장소/경기장)이 붙은 텍스트 및 무라벨 패턴에서 대회 개최 장소 문자열을 정규식으로 추출한다.",
+      "tags": ["crawler", "parsing", "validation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:supabase/functions/_shared/crawler.ts:findRegulationTable",
+      "type": "function",
+      "name": "findRegulationTable",
+      "filePath": "supabase/functions/_shared/crawler.ts",
+      "lineRange": [474, 507],
+      "summary": "DOM 문서에서 요강(regulation) 라벨 또는 신청 테이블 토큰을 가진 가장 적합한 table 요소를 찾아 반환한다.",
+      "tags": ["crawler", "parsing", "dom"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:supabase/functions/_shared/crawler.ts:extractRegulationFields",
+      "type": "function",
+      "name": "extractRegulationFields",
+      "filePath": "supabase/functions/_shared/crawler.ts",
+      "lineRange": [518, 540],
+      "summary": "요강 테이블의 행을 순회하며 알려진 라벨에 해당하는 라벨-값 쌍을 중복 없이 추출해 regulation_fields 배열로 반환한다.",
+      "tags": ["crawler", "parsing", "dom", "serialization"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:supabase/functions/_shared/crawler.ts:extractRegulationBody",
+      "type": "function",
+      "name": "extractRegulationBody",
+      "filePath": "supabase/functions/_shared/crawler.ts",
+      "lineRange": [562, 628],
+      "summary": "요강 테이블에서 본문 콘텐츠 영역을 식별해 헤더·중복 라벨을 걸러내고 줄 단위로 정리한 뒤 최대 길이로 잘라 regulation_body 문자열을 생성한다.",
+      "tags": ["crawler", "parsing", "dom", "serialization"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:supabase/functions/_shared/crawler.ts:extractRegulationNotes",
+      "type": "function",
+      "name": "extractRegulationNotes",
+      "filePath": "supabase/functions/_shared/crawler.ts",
+      "lineRange": [679, 700],
+      "summary": "문서의 문단과 본문 텍스트에서 ※ 등으로 표시된 유의사항을 pushNote 헬퍼로 정규화·중복 제거하여 regulation_notes 배열을 만든다.",
+      "tags": ["crawler", "parsing", "dom", "serialization"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:supabase/functions/_shared/crawler.ts:extractGJDivisions",
+      "type": "function",
+      "name": "extractGJDivisions",
+      "filePath": "supabase/functions/_shared/crawler.ts",
+      "lineRange": [710, 752],
+      "summary": "텍스트에서 키워드 매칭으로 대회 종별(division) 코드와 한글 라벨을 추출하여 조직(org)별 종별 분류 결과를 반환한다.",
+      "tags": ["crawler", "parsing", "validation", "data-model"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts",
+      "type": "file",
+      "name": "gnuboard_sub5_5_contest.ts",
+      "filePath": "supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts",
+      "summary": "그누보드 sub5.5 대회 게시판 전용 파서. 목록 페이지를 fetch·파싱하고 ETag/콘텐츠 해시로 변경을 감지한 뒤 상세 페이지에서 날짜·참가비·종별·요강을 추출해 tournaments로 upsert한다.",
+      "tags": ["crawler", "parser", "data-pipeline", "serialization", "service"],
+      "complexity": "complex",
+      "languageNotes": "Deno fetch + deno-dom DOMParser 기반. 그누보드 특유의 네비게이션/메뉴 잔해를 다단계 정규식 replace 체인으로 정제하고, 조건부 ETag·콘텐츠 해시로 불필요한 재크롤을 회피한다."
+    },
+    {
+      "id": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:fetchListing",
+      "type": "function",
+      "name": "fetchListing",
+      "filePath": "supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts",
+      "lineRange": [61, 80],
+      "summary": "목록 URL을 조건부 헤더(If-None-Match)와 함께 fetch하고 ETag·304 응답을 처리하여 HTML 본문 또는 미변경 신호를 반환한다.",
+      "tags": ["crawler", "http", "caching"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:parseListing",
+      "type": "function",
+      "name": "parseListing",
+      "filePath": "supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts",
+      "lineRange": [87, 123],
+      "summary": "목록 HTML을 파싱하여 게시글 링크에서 sid·제목·절대 URL을 추출하고 중복을 제거한 항목 배열을 반환한다.",
+      "tags": ["crawler", "parser", "dom"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:listingContentHash",
+      "type": "function",
+      "name": "listingContentHash",
+      "filePath": "supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts",
+      "lineRange": [128, 139],
+      "summary": "목록 항목의 sid·제목을 정렬·결합한 후 SHA-256 해시를 계산해 목록 변경 감지용 콘텐츠 해시를 생성한다.",
+      "tags": ["crawler", "hashing", "caching"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:fetchDetail",
+      "type": "function",
+      "name": "fetchDetail",
+      "filePath": "supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts",
+      "lineRange": [150, 343],
+      "summary": "상세 페이지를 fetch·파싱해 제목·날짜·신청마감·참가비·주최·장소·종별·요강 필드/본문/유의사항·설명을 추출하여 정규화된 대회 객체를 구성한다.",
+      "tags": ["crawler", "parser", "dom", "serialization", "validation"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:gnuboardSub5_5ContestParser",
+      "type": "function",
+      "name": "gnuboardSub5_5ContestParser",
+      "filePath": "supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts",
+      "lineRange": [348, 473],
+      "summary": "파서 진입점. 목록을 가져와 변경 여부를 판단하고 상세를 순회하며 upsertTournament/saveRawDocument를 호출해 대회를 적재하고 에러를 집계한 결과를 반환한다.",
+      "tags": ["crawler", "parser", "entry-point", "data-pipeline"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:supabase/functions/_shared/crawler/registry.ts",
+      "type": "file",
+      "name": "registry.ts",
+      "filePath": "supabase/functions/_shared/crawler/registry.ts",
+      "summary": "파서 레지스트리. 파서 키와 구현 함수를 매핑한 PARSER_REGISTRY를 정의하고 키로 파서를 조회/나열하는 헬퍼를 제공한다.",
+      "tags": ["crawler", "registry", "factory", "barrel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:supabase/functions/_shared/crawler/types.ts",
+      "type": "file",
+      "name": "types.ts",
+      "filePath": "supabase/functions/_shared/crawler/types.ts",
+      "summary": "크롤러 파서 계층의 공용 타입 정의. 파서 함수 시그니처, 소스 설정, 파서 컨텍스트 등 인터페이스를 선언한다.",
+      "tags": ["crawler", "type-definition"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:supabase/functions/crawl-dispatch/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "supabase/functions/crawl-dispatch/index.ts",
+      "summary": "크롤 디스패처 Edge Function. 인증(service-role/admin/cron)을 검증하고 due 상태인 크롤 소스를 선별해 레지스트리의 파서를 실행한 뒤 결과를 JSON으로 응답한다.",
+      "tags": ["api-handler", "entry-point", "crawler", "service"],
+      "complexity": "complex",
+      "languageNotes": "Deno serve 기반 Edge Function. 요청 본문 파싱과 last_crawled_at 기반 isDue 스케줄링 판단을 포함한다."
+    },
+    {
+      "id": "function:supabase/functions/crawl-dispatch/index.ts:isDue",
+      "type": "function",
+      "name": "isDue",
+      "filePath": "supabase/functions/crawl-dispatch/index.ts",
+      "lineRange": [72, 78],
+      "summary": "마지막 크롤 시각을 파싱해 재크롤 주기가 지났는지 여부를 판정한다.",
+      "tags": ["crawler", "scheduling", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:supabase/functions/crawl-dispatch/index.ts:parseRequestBody",
+      "type": "function",
+      "name": "parseRequestBody",
+      "filePath": "supabase/functions/crawl-dispatch/index.ts",
+      "lineRange": [80, 96],
+      "summary": "요청 본문 텍스트를 안전하게 읽어 JSON으로 파싱하고 실패 시 빈 객체로 폴백한다.",
+      "tags": ["api-handler", "parsing", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:supabase/functions/tests/crawler_extract_test.ts",
+      "type": "file",
+      "name": "crawler_extract_test.ts",
+      "filePath": "supabase/functions/tests/crawler_extract_test.ts",
+      "summary": "크롤러 추출 헬퍼(extractDate/extractApplicationDeadline/extractVenue/요강 추출 등)의 단위 테스트. 픽스처 HTML을 파싱해 추출 결과를 검증한다.",
+      "tags": ["test", "crawler", "validation"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:supabase/functions/tests/crawler_upsert_preserve_test.ts",
+      "type": "file",
+      "name": "crawler_upsert_preserve_test.ts",
+      "filePath": "supabase/functions/tests/crawler_upsert_preserve_test.ts",
+      "summary": "upsertTournament가 기존 사용자/관리자 수정 필드를 덮어쓰지 않고 보존하는지 가짜 Supabase 클라이언트로 검증하는 단위 테스트.",
+      "tags": ["test", "crawler", "data-model"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "file:supabase/functions/_shared/enums.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "file:supabase/functions/_shared/supabase.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts", "target": "file:supabase/functions/_shared/crawler.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts", "target": "file:supabase/functions/_shared/crawler/types.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/_shared/crawler/registry.ts", "target": "file:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/_shared/crawler/registry.ts", "target": "file:supabase/functions/_shared/crawler/types.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/_shared/crawler/types.ts", "target": "file:supabase/functions/_shared/crawler.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/crawl-dispatch/index.ts", "target": "file:supabase/functions/_shared/auth.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/crawl-dispatch/index.ts", "target": "file:supabase/functions/_shared/cors.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/crawl-dispatch/index.ts", "target": "file:supabase/functions/_shared/crawler.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/crawl-dispatch/index.ts", "target": "file:supabase/functions/_shared/crawler/registry.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/crawl-dispatch/index.ts", "target": "file:supabase/functions/_shared/crawler/types.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/crawl-dispatch/index.ts", "target": "file:supabase/functions/_shared/supabase.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/tests/crawler_extract_test.ts", "target": "file:supabase/functions/_shared/crawler.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/tests/crawler_upsert_preserve_test.ts", "target": "file:supabase/functions/_shared/crawler.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:startAudit", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:finishAudit", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:saveRawDocument", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:upsertTournament", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:extractDate", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:extractApplicationDeadline", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:extractVenue", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:findRegulationTable", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:extractRegulationFields", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:extractRegulationBody", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:extractRegulationNotes", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:extractGJDivisions", "type": "contains", "direction": "forward", "weight": 1.0},
+
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:startAudit", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:finishAudit", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:saveRawDocument", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:upsertTournament", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:extractDate", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:extractApplicationDeadline", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:extractVenue", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:extractRegulationFields", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:extractRegulationBody", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:extractRegulationNotes", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "function:supabase/functions/_shared/crawler.ts:extractGJDivisions", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "function:supabase/functions/_shared/crawler.ts:upsertTournament", "target": "function:supabase/functions/_shared/crawler.ts:saveRawDocument", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/crawler.ts:upsertTournament", "target": "function:supabase/functions/_shared/enums.ts:regionCodeFromLabel", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/crawler.ts:saveRawDocument", "target": "function:supabase/functions/_shared/crawler.ts:sha256Hex", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/crawler.ts:extractRegulationFields", "target": "function:supabase/functions/_shared/crawler.ts:findRegulationTable", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/crawler.ts:extractRegulationBody", "target": "function:supabase/functions/_shared/crawler.ts:findRegulationTable", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts", "target": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:fetchListing", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts", "target": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:parseListing", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts", "target": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:listingContentHash", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts", "target": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:fetchDetail", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts", "target": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:gnuboardSub5_5ContestParser", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts", "target": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:gnuboardSub5_5ContestParser", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:gnuboardSub5_5ContestParser", "target": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:fetchListing", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:gnuboardSub5_5ContestParser", "target": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:parseListing", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:gnuboardSub5_5ContestParser", "target": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:listingContentHash", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:gnuboardSub5_5ContestParser", "target": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:fetchDetail", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:gnuboardSub5_5ContestParser", "target": "function:supabase/functions/_shared/crawler.ts:upsertTournament", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:gnuboardSub5_5ContestParser", "target": "function:supabase/functions/_shared/crawler.ts:saveRawDocument", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:fetchDetail", "target": "function:supabase/functions/_shared/crawler.ts:extractDate", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:fetchDetail", "target": "function:supabase/functions/_shared/crawler.ts:extractApplicationDeadline", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:fetchDetail", "target": "function:supabase/functions/_shared/crawler.ts:extractVenue", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:fetchDetail", "target": "function:supabase/functions/_shared/crawler.ts:extractGJDivisions", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:fetchDetail", "target": "function:supabase/functions/_shared/crawler.ts:extractRegulationFields", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:fetchDetail", "target": "function:supabase/functions/_shared/crawler.ts:extractRegulationNotes", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:fetchDetail", "target": "function:supabase/functions/_shared/crawler.ts:extractRegulationBody", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:supabase/functions/_shared/crawler/registry.ts", "target": "function:supabase/functions/_shared/crawler/registry.ts:getParser", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/crawler/registry.ts", "target": "function:supabase/functions/_shared/crawler/registry.ts:listParserKeys", "type": "contains", "direction": "forward", "weight": 1.0},
+
+    {"source": "file:supabase/functions/crawl-dispatch/index.ts", "target": "function:supabase/functions/crawl-dispatch/index.ts:isDue", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/crawl-dispatch/index.ts", "target": "function:supabase/functions/crawl-dispatch/index.ts:parseRequestBody", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/crawl-dispatch/index.ts", "target": "function:supabase/functions/_shared/crawler/registry.ts:getParser", "type": "depends_on", "direction": "forward", "weight": 0.6},
+
+    {"source": "function:supabase/functions/_shared/crawler/registry.ts:getParser", "target": "function:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts:gnuboardSub5_5ContestParser", "type": "related", "direction": "forward", "weight": 0.5},
+
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "file:supabase/functions/tests/crawler_extract_test.ts", "type": "tested_by", "direction": "forward", "weight": 0.5},
+    {"source": "file:supabase/functions/_shared/crawler.ts", "target": "file:supabase/functions/tests/crawler_upsert_preserve_test.ts", "type": "tested_by", "direction": "forward", "weight": 0.5}
+  ]
+}

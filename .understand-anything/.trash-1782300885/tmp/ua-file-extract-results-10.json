@@ -1,0 +1,490 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 11,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "docs/db-design.html",
+      "language": "html",
+      "fileCategory": "markup",
+      "totalLines": 1121,
+      "nonEmptyLines": 1037,
+      "metrics": {}
+    },
+    {
+      "path": "docs/deploy.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 166,
+      "nonEmptyLines": 128,
+      "sections": [
+        {
+          "heading": "Match-up 배포 가이드",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. 사전 요구사항",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "2. Supabase 프로젝트",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "2.1 프로젝트 생성",
+          "level": 3,
+          "line": 12
+        },
+        {
+          "heading": "2.2 마이그레이션 적용",
+          "level": 3,
+          "line": 20
+        },
+        {
+          "heading": "2.3 Secrets 설정",
+          "level": 3,
+          "line": 28
+        },
+        {
+          "heading": "2.4 Auth 설정",
+          "level": 3,
+          "line": 44
+        },
+        {
+          "heading": "2.5 Cron 설정 (pg_cron)",
+          "level": 3,
+          "line": 50
+        },
+        {
+          "heading": "3. Edge Functions 배포",
+          "level": 2,
+          "line": 82
+        },
+        {
+          "heading": "4. Flutter 앱 빌드",
+          "level": 2,
+          "line": 103
+        },
+        {
+          "heading": "4.1 환경변수",
+          "level": 3,
+          "line": 105
+        },
+        {
+          "heading": "4.2 빌드",
+          "level": 3,
+          "line": 118
+        },
+        {
+          "heading": "4.3 주의사항",
+          "level": 3,
+          "line": 130
+        },
+        {
+          "heading": "5. 스토어 제출",
+          "level": 2,
+          "line": 136
+        },
+        {
+          "heading": "App Store (iOS)",
+          "level": 3,
+          "line": 138
+        },
+        {
+          "heading": "Google Play (Android)",
+          "level": 3,
+          "line": 144
+        },
+        {
+          "heading": "6. 로컬 개발",
+          "level": 2,
+          "line": 150
+        },
+        {
+          "heading": "7. 모니터링",
+          "level": 2,
+          "line": 161
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 18
+      }
+    },
+    {
+      "path": "docs/futsal_rulebook_db_apply_guide.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 180,
+      "nonEmptyLines": 126,
+      "sections": [
+        {
+          "heading": "풋살 룰북 DB 적용 및 코치봇 검색 확인 가이드",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "목적",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "현재 코드에 준비된 내용",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "1. 현재 DB에 풋살 룰북이 들어갔는지 확인",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "2. 풋살 룰북 50개가 없을 때 적용",
+          "level": 2,
+          "line": 48
+        },
+        {
+          "heading": "방법 A. Supabase CLI",
+          "level": 3,
+          "line": 54
+        },
+        {
+          "heading": "방법 B. Supabase SQL Editor",
+          "level": 3,
+          "line": 60
+        },
+        {
+          "heading": "3. 카테고리 재분류 적용",
+          "level": 2,
+          "line": 64
+        },
+        {
+          "heading": "4. rule_articles.embedding 생성",
+          "level": 2,
+          "line": 88
+        },
+        {
+          "heading": "5. 코치봇 검색에 풋살 룰북이 잡히는지 확인",
+          "level": 2,
+          "line": 115
+        },
+        {
+          "heading": "6. 문제별 확인",
+          "level": 2,
+          "line": 141
+        },
+        {
+          "heading": "룰북 화면에 풋살이 비어 있음",
+          "level": 3,
+          "line": 143
+        },
+        {
+          "heading": "코치봇이 풋살 규칙을 못 찾음",
+          "level": 3,
+          "line": 155
+        },
+        {
+          "heading": "답변에 테니스가 섞임",
+          "level": 3,
+          "line": 170
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 14
+      }
+    },
+    {
+      "path": "docs/harness-system-analysis.html",
+      "language": "html",
+      "fileCategory": "markup",
+      "totalLines": 1279,
+      "nonEmptyLines": 1214,
+      "metrics": {}
+    },
+    {
+      "path": "docs/mvp-roadmap.html",
+      "language": "html",
+      "fileCategory": "markup",
+      "totalLines": 574,
+      "nonEmptyLines": 517,
+      "metrics": {}
+    },
+    {
+      "path": "docs/privacy-policy.html",
+      "language": "html",
+      "fileCategory": "markup",
+      "totalLines": 396,
+      "nonEmptyLines": 343,
+      "metrics": {}
+    },
+    {
+      "path": "docs/project-current-map.html",
+      "language": "html",
+      "fileCategory": "markup",
+      "totalLines": 718,
+      "nonEmptyLines": 655,
+      "metrics": {}
+    },
+    {
+      "path": "docs/store-listing.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 128,
+      "nonEmptyLines": 75,
+      "sections": [
+        {
+          "heading": "스토어 등록 메타데이터",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Google Play Store",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "앱 이름 (30자 이내)",
+          "level": 3,
+          "line": 5
+        },
+        {
+          "heading": "짧은 설명 (80자 이내)",
+          "level": 3,
+          "line": 9
+        },
+        {
+          "heading": "전체 설명",
+          "level": 3,
+          "line": 13
+        },
+        {
+          "heading": "카테고리",
+          "level": 3,
+          "line": 45
+        },
+        {
+          "heading": "태그/키워드",
+          "level": 3,
+          "line": 49
+        },
+        {
+          "heading": "Apple App Store",
+          "level": 2,
+          "line": 55
+        },
+        {
+          "heading": "앱 이름 (30자 이내)",
+          "level": 3,
+          "line": 57
+        },
+        {
+          "heading": "부제목 (30자 이내)",
+          "level": 3,
+          "line": 61
+        },
+        {
+          "heading": "설명",
+          "level": 3,
+          "line": 65
+        },
+        {
+          "heading": "키워드 (100자, 쉼표 구분)",
+          "level": 3,
+          "line": 77
+        },
+        {
+          "heading": "카테고리",
+          "level": 3,
+          "line": 81
+        },
+        {
+          "heading": "공통",
+          "level": 2,
+          "line": 88
+        },
+        {
+          "heading": "앱 아이콘 설명 (디자이너 참고용)",
+          "level": 3,
+          "line": 90
+        },
+        {
+          "heading": "스크린샷 시나리오",
+          "level": 3,
+          "line": 98
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 16
+      }
+    },
+    {
+      "path": "docs/team-collaboration.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 137,
+      "nonEmptyLines": 96,
+      "sections": [
+        {
+          "heading": "Team Collaboration Guide",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "작업 시작 순서",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "추천 브랜치 이름",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "PR 크기 기준",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "팀원이 특히 신경쓸 부분",
+          "level": 2,
+          "line": 38
+        },
+        {
+          "heading": "1. 서버/DB source of truth",
+          "level": 3,
+          "line": 40
+        },
+        {
+          "heading": "2. enum 동기화",
+          "level": 3,
+          "line": 50
+        },
+        {
+          "heading": "3. RLS와 migration discipline",
+          "level": 3,
+          "line": 66
+        },
+        {
+          "heading": "4. AI/RAG와 외부 데이터 안전성",
+          "level": 3,
+          "line": 76
+        },
+        {
+          "heading": "5. 스피드건 품질",
+          "level": 3,
+          "line": 81
+        },
+        {
+          "heading": "6. 루트 규칙 파일 비대화 방지",
+          "level": 3,
+          "line": 94
+        },
+        {
+          "heading": "기본 로컬 검증",
+          "level": 2,
+          "line": 105
+        },
+        {
+          "heading": "GitHub 운영 추천",
+          "level": 2,
+          "line": 131
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 13
+      }
+    },
+    {
+      "path": "docs/team-onboarding.html",
+      "language": "html",
+      "fileCategory": "markup",
+      "totalLines": 844,
+      "nonEmptyLines": 766,
+      "metrics": {}
+    },
+    {
+      "path": "docs/test-account-setup.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 73,
+      "nonEmptyLines": 48,
+      "sections": [
+        {
+          "heading": "테스트 계정 만들기 (개발용)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "배경 — 왜 바뀌었나",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "방법 A — 앱에서 직접 가입 (추천)",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "방법 B — Supabase 대시보드에서 생성 (앱 안 거치고)",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "SQL 실행 (Supabase SQL Editor)",
+          "level": 2,
+          "line": 29
+        },
+        {
+          "heading": "1) 이메일 인증 처리 (가입 후 로그인이 안 될 때)",
+          "level": 3,
+          "line": 33
+        },
+        {
+          "heading": "2) 관리자(admin) 권한 부여",
+          "level": 3,
+          "line": 41
+        },
+        {
+          "heading": "3) 확인",
+          "level": 3,
+          "line": 51
+        },
+        {
+          "heading": "목업(테스트) 데이터 넣기",
+          "level": 2,
+          "line": 60
+        },
+        {
+          "heading": "⚠️ 주의",
+          "level": 2,
+          "line": 69
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    }
+  ]
+}

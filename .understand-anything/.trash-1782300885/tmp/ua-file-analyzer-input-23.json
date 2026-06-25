@@ -1,0 +1,31 @@
+{
+  "projectRoot": "/Users/ssfak/Documents/01-github/ar",
+  "batchFiles": [
+    {"path": "app/test/grade_labels_test.dart", "language": "dart", "sizeLines": 142, "fileCategory": "code"},
+    {"path": "app/test/regulation_body_lines_test.dart", "language": "dart", "sizeLines": 149, "fileCategory": "code"},
+    {"path": "app/test/rule_article_test.dart", "language": "dart", "sizeLines": 31, "fileCategory": "code"},
+    {"path": "app/test/speed_calculator_test.dart", "language": "dart", "sizeLines": 67, "fileCategory": "code"},
+    {"path": "app/test/tournament_card_info_test.dart", "language": "dart", "sizeLines": 98, "fileCategory": "code"},
+    {"path": "app/test/tournament_card_test.dart", "language": "dart", "sizeLines": 74, "fileCategory": "code"},
+    {"path": "app/test/tournament_filters_test.dart", "language": "dart", "sizeLines": 124, "fileCategory": "code"},
+    {"path": "app/test/tournament_regulation_test.dart", "language": "dart", "sizeLines": 151, "fileCategory": "code"},
+    {"path": "app/test/tournament_search_query_test.dart", "language": "dart", "sizeLines": 79, "fileCategory": "code"},
+    {"path": "claudedocs/db-schema.html", "language": "html", "sizeLines": 208, "fileCategory": "markup"},
+    {"path": "claudedocs/schema-audit-remaining.md", "language": "markdown", "sizeLines": 42, "fileCategory": "docs"},
+    {"path": "docs/changelog/2026-W23.md", "language": "markdown", "sizeLines": 68, "fileCategory": "docs"},
+    {"path": "docs/data/futsal/전국_풋살구장_현황.xlsx", "language": "xlsx", "sizeLines": 188, "fileCategory": "code"},
+    {"path": "docs/data/futsal/풋살 정보 정리.docx", "language": "docx", "sizeLines": 108, "fileCategory": "code"},
+    {"path": "docs/data/futsal/풋살_2024-25_경기규칙서_및_협회안내.docx", "language": "docx", "sizeLines": 105, "fileCategory": "code"},
+    {"path": "docs/legal/privacy-policy.html", "language": "html", "sizeLines": 79, "fileCategory": "markup"},
+    {"path": "docs/legal/terms-of-service.html", "language": "html", "sizeLines": 91, "fileCategory": "markup"},
+    {"path": "docs/qa/mvp-qa-checklist.md", "language": "markdown", "sizeLines": 80, "fileCategory": "docs"},
+    {"path": "docs/security/cron-jwt-rotation.md", "language": "markdown", "sizeLines": 132, "fileCategory": "docs"},
+    {"path": "scripts/analyze_chat_cost.py", "language": "python", "sizeLines": 325, "fileCategory": "code"},
+    {"path": "scripts/harness/check_enums.py", "language": "python", "sizeLines": 176, "fileCategory": "code"},
+    {"path": "scripts/harness/check_secrets.sh", "language": "shell", "sizeLines": 61, "fileCategory": "script"},
+    {"path": "scripts/harness/check_static_rules.py", "language": "python", "sizeLines": 107, "fileCategory": "code"},
+    {"path": "scripts/harness/run_all.sh", "language": "shell", "sizeLines": 43, "fileCategory": "script"},
+    {"path": "supabase/config.toml", "language": "toml", "sizeLines": 407, "fileCategory": "config"}
+  ],
+  "batchImportData": {}
+}

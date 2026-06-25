@@ -1,0 +1,440 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "docs/reviews/code-review.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 283,
+      "nonEmptyLines": 215,
+      "sections": [
+        {
+          "heading": "종합 코드 리뷰 보고서",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "요약",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "1. plan 일치도 점검",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "2. 즉시 조치 필요 (Blocking)",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "[REV-B-01] 임베딩 모델이 plan 결정사항과 다름 — 문서/코드 정합성",
+          "level": 3,
+          "line": 43
+        },
+        {
+          "heading": "[REV-B-02] 라우터 redirect의 데드 코드 — 온보딩 강제 가드가 동작하지 않음",
+          "level": 3,
+          "line": 57
+        },
+        {
+          "heading": "[REV-B-03] 크롤러가 published 상태로 즉시 게시 — RLS 우회 + 사이트 셀렉터 깨질 위험",
+          "level": 3,
+          "line": 79
+        },
+        {
+          "heading": "[REV-B-04] `tournaments-search`의 `Sport` 파라미터 검증 부재 + RPC 타입 강제",
+          "level": 3,
+          "line": 93
+        },
+        {
+          "heading": "3. 중요 (Should-fix)",
+          "level": 2,
+          "line": 110
+        },
+        {
+          "heading": "[REV-S-01] 챗봇 SSE 응답 누락 시 빈 assistant 메시지 영구 저장",
+          "level": 3,
+          "line": 112
+        },
+        {
+          "heading": "[REV-S-02] `_authHeaders` 빈 anon 토큰 케이스 미처리",
+          "level": 3,
+          "line": 118
+        },
+        {
+          "heading": "[REV-S-03] `Promise.resolve(supabase.rpc(...))` 부주의한 타이핑",
+          "level": 3,
+          "line": 124
+        },
+        {
+          "heading": "[REV-S-04] `notifications_log` insert 시 status='failed'도 unique idx에 걸려 재시도 불가",
+          "level": 3,
+          "line": 135
+        },
+        {
+          "heading": "[REV-S-05] FCM Legacy HTTP API 사용 — 2024년 6월 deprecation",
+          "level": 3,
+          "line": 141
+        },
+        {
+          "heading": "[REV-S-06] `tournaments_for_user` RPC가 `RETURNS SETOF tournaments` — embedding 컬럼이 응답에 포함",
+          "level": 3,
+          "line": 147
+        },
+        {
+          "heading": "[REV-S-07] `dart:io` 사용으로 Flutter Web 빌드 깨짐",
+          "level": 3,
+          "line": 153
+        },
+        {
+          "heading": "4. 권고 사항 (Nice-to-have)",
+          "level": 2,
+          "line": 161
+        },
+        {
+          "heading": "[REV-N-01] `Sport` enum 중복 정의 — Dart `enum Sport`와 String 사이 변환",
+          "level": 3,
+          "line": 163
+        },
+        {
+          "heading": "[REV-N-02] `is_admin()` SECURITY DEFINER가 search_path 비고정",
+          "level": 3,
+          "line": 169
+        },
+        {
+          "heading": "[REV-N-03] `tournaments-submit`이 `eligible_grades` 종목 검증만 하고 sport-grade enum 일치는 후순위 RLS에 위임",
+          "level": 3,
+          "line": 175
+        },
+        {
+          "heading": "[REV-N-04] `clubs-search` ILIKE 검색이 사용자 입력 이스케이프 없음",
+          "level": 3,
+          "line": 181
+        },
+        {
+          "heading": "[REV-N-05] `notifications_log` 알림 시간대 — UTC 기반 today/d+3 계산",
+          "level": 3,
+          "line": 187
+        },
+        {
+          "heading": "5. 누락된 케이스 (정리)",
+          "level": 2,
+          "line": 195
+        },
+        {
+          "heading": "6. 문서 vs 코드 불일치",
+          "level": 2,
+          "line": 217
+        },
+        {
+          "heading": "권장 문서 수정",
+          "level": 3,
+          "line": 228
+        },
+        {
+          "heading": "7. 잘된 점 (References)",
+          "level": 2,
+          "line": 236
+        },
+        {
+          "heading": "8. 결론 + 다음 단계",
+          "level": 2,
+          "line": 248
+        },
+        {
+          "heading": "MVP 출시 가능 여부",
+          "level": 3,
+          "line": 250
+        },
+        {
+          "heading": "우선 처리 순서",
+          "level": 3,
+          "line": 254
+        },
+        {
+          "heading": "후속 검토 권장 시점",
+          "level": 3,
+          "line": 261
+        },
+        {
+          "heading": "후속 자동화 제안",
+          "level": 3,
+          "line": 267
+        },
+        {
+          "heading": "기존 Linear 이슈 매핑",
+          "level": 2,
+          "line": 275
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 32
+      }
+    },
+    {
+      "path": "docs/reviews/security-review.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 247,
+      "nonEmptyLines": 214,
+      "sections": [
+        {
+          "heading": "보안 검토 보고서 (Security Review)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "요약",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "Critical (즉시 조치)",
+          "level": 2,
+          "line": 16
+        },
+        {
+          "heading": "[SEC-C-01] 운영 GEMINI_API_KEY 가 로컬 `.env` 에 평문 저장 — 키 회전 필요",
+          "level": 3,
+          "line": 18
+        },
+        {
+          "heading": "High",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "[SEC-H-01] 사용자 제보(`tournaments-submit`) 에 길이/형식 검증이 없어 prompt-injection·악성 콘텐츠 storage 가능",
+          "level": 3,
+          "line": 29
+        },
+        {
+          "heading": "[SEC-H-02] cron 함수 (`embed-pending`, `notify-cron`, `crawl-tennis-*`) 에 호출자 인증 없음",
+          "level": 3,
+          "line": 49
+        },
+        {
+          "heading": "[SEC-H-03] `chat` 함수의 RAG 컨텍스트가 prompt injection 가드 없이 user 턴으로 주입",
+          "level": 3,
+          "line": 72
+        },
+        {
+          "heading": "[SEC-H-04] chat / semantic-search 함수에 사용자 단위 rate-limit 부재 → Gemini 비용 폭증 리스크",
+          "level": 3,
+          "line": 87
+        },
+        {
+          "heading": "Medium",
+          "level": 2,
+          "line": 104
+        },
+        {
+          "heading": "[SEC-M-01] `clubs-search` 의 `q` 파라미터가 PostgREST `.or()` 빌더에 직접 보간되어 부울 조건 인젝션 위험",
+          "level": 3,
+          "line": 106
+        },
+        {
+          "heading": "[SEC-M-02] 관리자 권한 부여 경로 부재 — 첫 admin 을 어떻게 만드나?",
+          "level": 3,
+          "line": 125
+        },
+        {
+          "heading": "[SEC-M-03] CORS 가 `Access-Control-Allow-Origin: *` — 운영 도메인 제한 권장",
+          "level": 3,
+          "line": 140
+        },
+        {
+          "heading": "[SEC-M-04] 크롤러가 환경변수 URL 을 fetch — 운영자만 통제 가능하나 SSRF 가드 부재",
+          "level": 3,
+          "line": 154
+        },
+        {
+          "heading": "[SEC-M-05] `chat_messages` 와 `device_tokens` 에 길이/속도 제한 없음 (저장 비용 + abuse)",
+          "level": 3,
+          "line": 166
+        },
+        {
+          "heading": "[SEC-M-06] `notify-cron` 이 service_role 로 `notifications_log` INSERT — 사용자 직접 INSERT 차단 미명시",
+          "level": 3,
+          "line": 176
+        },
+        {
+          "heading": "Low",
+          "level": 2,
+          "line": 189
+        },
+        {
+          "heading": "[SEC-L-01] `notify-cron` 에서 FCM Legacy HTTP API 사용 — 2024년 deprecated",
+          "level": 3,
+          "line": 191
+        },
+        {
+          "heading": "[SEC-L-02] `users.role` 변경 트리거가 `is_admin()` 의 잠재적 race 에 의존",
+          "level": 3,
+          "line": 196
+        },
+        {
+          "heading": "[SEC-L-03] `tournaments_for_user` / `tournaments_semantic_search` 의 `p_user_id` 인자가 신뢰 입력",
+          "level": 3,
+          "line": 210
+        },
+        {
+          "heading": "[SEC-L-04] `tournaments-search` 에 sport / region 의 enum/길이 검증 부재",
+          "level": 3,
+          "line": 221
+        },
+        {
+          "heading": "Info (관찰 / 베스트 프랙티스)",
+          "level": 2,
+          "line": 227
+        },
+        {
+          "heading": "결론",
+          "level": 2,
+          "line": 239
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 23
+      }
+    },
+    {
+      "path": "docs/reviews/simplify-review.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 456,
+      "nonEmptyLines": 389,
+      "sections": [
+        {
+          "heading": "단순화 / 코드 품질 검토 보고서",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "요약",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "발견 사항",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "[SIMP-01] 3개 테니스 크롤러 95% 중복",
+          "level": 3,
+          "line": 24
+        },
+        {
+          "heading": "[SIMP-02] enums.ts 의 미사용 helper",
+          "level": 3,
+          "line": 93
+        },
+        {
+          "heading": "[SIMP-03] grade_labels.dart 의 sportFromString → enum 왕복",
+          "level": 3,
+          "line": 119
+        },
+        {
+          "heading": "[SIMP-04] semantic-search 의 RpcResult 캐스팅 곡예",
+          "level": 3,
+          "line": 147
+        },
+        {
+          "heading": "[SIMP-05] chat/index.ts 단일 함수가 280줄 (책임 6개)",
+          "level": 3,
+          "line": 186
+        },
+        {
+          "heading": "[SIMP-06] tournaments-search/clubs-search/tournament_submit 등 13개 Edge Function 의 boilerplate",
+          "level": 3,
+          "line": 209
+        },
+        {
+          "heading": "[SIMP-07] tournaments_screen / clubs_screen 의 동일한 list+search 패턴",
+          "level": 3,
+          "line": 270
+        },
+        {
+          "heading": "[SIMP-08] tournament_detail_screen 이 직접 `_supabase.from('tournaments').select()` 호출",
+          "level": 3,
+          "line": 302
+        },
+        {
+          "heading": "[SIMP-09] api.dart 의 ChatMessage 모델 + approveTournament 가 어디서도 호출되지 않음",
+          "level": 3,
+          "line": 316
+        },
+        {
+          "heading": "[SIMP-10] api.dart 의 `Uri.replace(queryParameters: query?..removeWhere(...))` 부수 변형",
+          "level": 3,
+          "line": 330
+        },
+        {
+          "heading": "[SIMP-11] notify-cron 에서 `(favorites as any[])` cast — 타입 누수",
+          "level": 3,
+          "line": 355
+        },
+        {
+          "heading": "[SIMP-12] router.dart 의 onboarding redirect 로직 모호",
+          "level": 3,
+          "line": 370
+        },
+        {
+          "heading": "[SIMP-13] 008_cron 의 `current_setting('app.cron_invoke_url', true)` GUC 패턴",
+          "level": 3,
+          "line": 390
+        },
+        {
+          "heading": "[SIMP-14] gemini.ts 의 `parts: ChatPart[]` 타입은 외부에서 매번 `[{ text: ... }]`만 사용",
+          "level": 3,
+          "line": 400
+        },
+        {
+          "heading": "우선순위 분류",
+          "level": 2,
+          "line": 420
+        },
+        {
+          "heading": "즉시 (Quick wins, 영향 큼/리스크 낮음)",
+          "level": 3,
+          "line": 422
+        },
+        {
+          "heading": "중기 (리팩토링 필요)",
+          "level": 3,
+          "line": 432
+        },
+        {
+          "heading": "무시 가능 (취향)",
+          "level": 3,
+          "line": 438
+        },
+        {
+          "heading": "결론",
+          "level": 2,
+          "line": 446
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 22
+      }
+    }
+  ]
+}

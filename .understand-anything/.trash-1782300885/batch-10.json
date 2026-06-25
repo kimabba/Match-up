@@ -1,0 +1,178 @@
+{
+  "nodes": [
+    {
+      "id": "file:docs/db-design.html",
+      "type": "file",
+      "name": "db-design.html",
+      "filePath": "docs/db-design.html",
+      "summary": "Postgres/pgvector DB 설계 문서(HTML). 테이블 구조, 관계, RLS 정책, 임베딩 컬럼 등 데이터 모델 전반을 시각적으로 정리한 레퍼런스.",
+      "tags": ["documentation", "database", "schema-definition", "data-model"],
+      "complexity": "complex",
+      "languageNotes": "정적 HTML 문서로 코드 로직 없이 DB 스키마를 도식화한 산출물."
+    },
+    {
+      "id": "document:docs/deploy.md",
+      "type": "document",
+      "name": "deploy.md",
+      "filePath": "docs/deploy.md",
+      "summary": "Supabase 프로젝트 생성, migration 적용, Edge Functions 배포, pg_cron 설정, Flutter 앱 빌드까지 전체 배포 절차를 단계별로 안내하는 가이드.",
+      "tags": ["documentation", "deployment", "ci-cd", "supabase"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/futsal_rulebook_db_apply_guide.md",
+      "type": "document",
+      "name": "futsal_rulebook_db_apply_guide.md",
+      "filePath": "docs/futsal_rulebook_db_apply_guide.md",
+      "summary": "풋살 룰북 50개를 DB에 적재하고 embedding을 생성한 뒤 코치봇 RAG 검색에 잡히는지 확인하는 운영 절차 가이드.",
+      "tags": ["documentation", "database", "data-pipeline", "rag"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:docs/harness-system-analysis.html",
+      "type": "file",
+      "name": "harness-system-analysis.html",
+      "filePath": "docs/harness-system-analysis.html",
+      "summary": "규칙을 문서가 아닌 하네스(harness)로 강제하는 시스템을 분석한 HTML 리포트. 에이전트·스킬 기반 자동화 체계의 구조와 근거를 설명.",
+      "tags": ["documentation", "infrastructure", "analysis", "automation"],
+      "complexity": "complex",
+      "languageNotes": "장문의 단일 HTML 리포트로 시스템 설계 의사결정을 서술."
+    },
+    {
+      "id": "file:docs/mvp-roadmap.html",
+      "type": "file",
+      "name": "mvp-roadmap.html",
+      "filePath": "docs/mvp-roadmap.html",
+      "summary": "올라운드 MVP 단계별 로드맵을 정리한 HTML 문서. 기능 우선순위와 마일스톤을 시각화한 계획 산출물.",
+      "tags": ["documentation", "roadmap", "planning", "overview"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:docs/privacy-policy.html",
+      "type": "file",
+      "name": "privacy-policy.html",
+      "filePath": "docs/privacy-policy.html",
+      "summary": "앱 스토어 제출용 개인정보처리방침 HTML 페이지. 수집 항목, 이용 목적, 보관 기간 등 법적 고지 내용을 담음.",
+      "tags": ["documentation", "privacy", "legal", "compliance"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:docs/project-current-map.html",
+      "type": "file",
+      "name": "project-current-map.html",
+      "filePath": "docs/project-current-map.html",
+      "summary": "테니스·풋살 동호인 정보 앱의 현재 구현 상태를 한눈에 보여주는 HTML 맵. 화면·기능·데이터 흐름의 현황을 정리.",
+      "tags": ["documentation", "overview", "architecture", "status"],
+      "complexity": "complex",
+      "languageNotes": "프로젝트 전반 구현 현황을 도식화한 단일 HTML 산출물."
+    },
+    {
+      "id": "document:docs/store-listing.md",
+      "type": "document",
+      "name": "store-listing.md",
+      "filePath": "docs/store-listing.md",
+      "summary": "Google Play와 App Store 등록용 메타데이터(앱 이름, 설명, 키워드, 스크린샷 시나리오)를 정리한 스토어 출시 문서.",
+      "tags": ["documentation", "store-listing", "deployment", "metadata"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/team-collaboration.md",
+      "type": "document",
+      "name": "team-collaboration.md",
+      "filePath": "docs/team-collaboration.md",
+      "summary": "브랜치 전략, PR 크기 기준, RLS/migration discipline, enum 동기화 등 팀 협업 규칙과 로컬 검증 절차를 정리한 가이드.",
+      "tags": ["documentation", "development", "collaboration", "workflow"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:docs/team-onboarding.html",
+      "type": "file",
+      "name": "team-onboarding.html",
+      "filePath": "docs/team-onboarding.html",
+      "summary": "macOS 환경에서 앱 실행까지 도달하는 팀원 온보딩 가이드(HTML). 개발 환경 셋업과 첫 실행 절차를 단계별로 안내.",
+      "tags": ["documentation", "onboarding", "development", "setup"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:docs/test-account-setup.md",
+      "type": "document",
+      "name": "test-account-setup.md",
+      "filePath": "docs/test-account-setup.md",
+      "summary": "개발용 테스트 계정 생성, 이메일 인증 처리, admin 권한 부여, 목업 데이터 삽입 SQL을 안내하는 개발 환경 셋업 가이드.",
+      "tags": ["documentation", "development", "setup", "testing"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:docs/deploy.md",
+      "target": "document:docs/store-listing.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/deploy.md",
+      "target": "file:docs/db-design.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:docs/team-onboarding.html",
+      "target": "document:docs/team-collaboration.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:docs/team-onboarding.html",
+      "target": "document:docs/test-account-setup.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/team-collaboration.md",
+      "target": "document:docs/deploy.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/futsal_rulebook_db_apply_guide.md",
+      "target": "file:docs/db-design.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:docs/project-current-map.html",
+      "target": "file:docs/mvp-roadmap.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:docs/project-current-map.html",
+      "target": "file:docs/db-design.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:docs/harness-system-analysis.html",
+      "target": "file:docs/project-current-map.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/store-listing.md",
+      "target": "file:docs/privacy-policy.html",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

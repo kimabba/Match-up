@@ -1,0 +1,2139 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 82,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "supabase/migrations/001_extensions.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 7,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/002_init_users_sports.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 141,
+      "nonEmptyLines": 120,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "email",
+            "display_name",
+            "role",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 17,
+          "endLine": 24
+        },
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "user_id",
+            "sport",
+            "grade",
+            "is_primary",
+            "created_at"
+          ],
+          "startLine": 97,
+          "endLine": 109
+        },
+        {
+          "name": "users_email_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 26,
+          "endLine": 26
+        },
+        {
+          "name": "user_sports_user_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 111,
+          "endLine": 111
+        },
+        {
+          "name": "user_sports_one_primary_per_user",
+          "kind": "index",
+          "fields": [],
+          "startLine": 114,
+          "endLine": 114
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 5
+      }
+    },
+    {
+      "path": "supabase/migrations/003_tournaments.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 245,
+      "nonEmptyLines": 211,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "sport",
+            "title",
+            "organizer",
+            "description",
+            "start_date",
+            "end_date",
+            "application_deadline",
+            "region",
+            "entry_fee",
+            "prize",
+            "format",
+            "source",
+            "approved_by",
+            "approved_at",
+            "rejection_reason",
+            "embedding_updated_at",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 9,
+          "endLine": 48
+        },
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "user_id",
+            "tournament_id",
+            "created_at"
+          ],
+          "startLine": 95,
+          "endLine": 100
+        },
+        {
+          "name": "tournaments_sport_status_date_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 50,
+          "endLine": 50
+        },
+        {
+          "name": "tournaments_region_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 53,
+          "endLine": 53
+        },
+        {
+          "name": "tournaments_eligible_grades_gin",
+          "kind": "index",
+          "fields": [],
+          "startLine": 55,
+          "endLine": 55
+        },
+        {
+          "name": "tournaments_source_url_unique",
+          "kind": "index",
+          "fields": [],
+          "startLine": 59,
+          "endLine": 59
+        },
+        {
+          "name": "tournaments_embedding_hnsw_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 63,
+          "endLine": 63
+        },
+        {
+          "name": "tournament_favorites_tid_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 102,
+          "endLine": 102
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 8
+      }
+    },
+    {
+      "path": "supabase/migrations/004_clubs.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 37,
+      "nonEmptyLines": 28,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "sport",
+            "name",
+            "region",
+            "description",
+            "active",
+            "created_by",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 4,
+          "endLine": 20
+        },
+        {
+          "name": "clubs_sport_region_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 22,
+          "endLine": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 2
+      }
+    },
+    {
+      "path": "supabase/migrations/005_chat_rules.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 126,
+      "nonEmptyLines": 107,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "user_id",
+            "conversation_id",
+            "content",
+            "citations",
+            "created_at"
+          ],
+          "startLine": 9,
+          "endLine": 18
+        },
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "sport",
+            "category",
+            "body",
+            "published",
+            "embedding",
+            "embedding_updated_at",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 29,
+          "endLine": 43
+        },
+        {
+          "name": "chat_messages_user_conv_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 20,
+          "endLine": 20
+        },
+        {
+          "name": "chat_messages_user_recent_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 23,
+          "endLine": 23
+        },
+        {
+          "name": "rule_articles_sport_cat_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 45,
+          "endLine": 45
+        },
+        {
+          "name": "rule_articles_embedding_hnsw_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 48,
+          "endLine": 48
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 6
+      }
+    },
+    {
+      "path": "supabase/migrations/006_notifications.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 62,
+      "nonEmptyLines": 50,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "user_id",
+            "token",
+            "platform",
+            "enabled",
+            "updated_at"
+          ],
+          "startLine": 11,
+          "endLine": 18
+        },
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "user_id",
+            "tournament_id",
+            "type",
+            "status",
+            "error",
+            "sent_at",
+            "created_at"
+          ],
+          "startLine": 29,
+          "endLine": 38
+        },
+        {
+          "name": "device_tokens_token_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 20,
+          "endLine": 20
+        },
+        {
+          "name": "notifications_log_dedup_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 40,
+          "endLine": 40
+        },
+        {
+          "name": "notifications_log_pending_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 43,
+          "endLine": 43
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 5
+      }
+    },
+    {
+      "path": "supabase/migrations/007_crawl_audit.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 23,
+      "nonEmptyLines": 18,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "source",
+            "fetched_count",
+            "inserted_count",
+            "updated_count",
+            "error",
+            "started_at",
+            "finished_at"
+          ],
+          "startLine": 6,
+          "endLine": 16
+        },
+        {
+          "name": "crawl_audit_source_recent_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 18,
+          "endLine": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 2
+      }
+    },
+    {
+      "path": "supabase/migrations/008_cron.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 73,
+      "nonEmptyLines": 65,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/009_regions_and_multi_org.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 97,
+      "nonEmptyLines": 83,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "code",
+            "display_name_ko",
+            "governing_associations",
+            "uses_kato",
+            "uses_kata",
+            "notes",
+            "created_at"
+          ],
+          "startLine": 15,
+          "endLine": 23
+        },
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "user_id",
+            "org",
+            "division_local",
+            "expires_at",
+            "is_primary",
+            "region_code",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 52,
+          "endLine": 63
+        },
+        {
+          "name": "user_tennis_orgs_user_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 65,
+          "endLine": 65
+        },
+        {
+          "name": "user_tennis_orgs_one_primary",
+          "kind": "index",
+          "fields": [],
+          "startLine": 68,
+          "endLine": 68
+        },
+        {
+          "name": "tournaments_region_idx_v2",
+          "kind": "index",
+          "fields": [],
+          "startLine": 96,
+          "endLine": 96
+        },
+        {
+          "name": "tournaments_host_orgs_gin",
+          "kind": "index",
+          "fields": [],
+          "startLine": 97,
+          "endLine": 97
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 6
+      }
+    },
+    {
+      "path": "supabase/migrations/010_tennis_grade_revamp.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 50,
+      "nonEmptyLines": 46,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/011_ensure_profile_rpc.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/012_rate_limit.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 11,
+      "nonEmptyLines": 10,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "user_id",
+            "window_start",
+            "count"
+          ],
+          "startLine": 2,
+          "endLine": 6
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 1
+      }
+    },
+    {
+      "path": "supabase/migrations/013_qa_cache.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 152,
+      "nonEmptyLines": 133,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "RETRIEVAL_QUERY",
+            "hit_count",
+            "created_at"
+          ],
+          "startLine": 10,
+          "endLine": 35
+        },
+        {
+          "name": "qa_cache_embedding_hnsw_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 46,
+          "endLine": 46
+        },
+        {
+          "name": "qa_cache_ctx_ttl_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 50,
+          "endLine": 50
+        },
+        {
+          "name": "qa_cache_unique_question_per_context",
+          "kind": "index",
+          "fields": [],
+          "startLine": 57,
+          "endLine": 57
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 4
+      }
+    },
+    {
+      "path": "supabase/migrations/014_intent_examples.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 125,
+      "nonEmptyLines": 111,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "RETRIEVAL_QUERY",
+            "created_at"
+          ],
+          "startLine": 14,
+          "endLine": 38
+        },
+        {
+          "name": "intent_examples_embedding_hnsw_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 46,
+          "endLine": 46
+        },
+        {
+          "name": "intent_examples_intent_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 50,
+          "endLine": 50
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 3
+      }
+    },
+    {
+      "path": "supabase/migrations/015_uuid_v7.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 79,
+      "nonEmptyLines": 69,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/016_tournaments_search_sport_filter.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 64,
+      "nonEmptyLines": 61,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/017_uuid_v7_pgcrypto_schema_fix.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 60,
+      "nonEmptyLines": 54,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/018_tournament_search_by_slots.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 72,
+      "nonEmptyLines": 70,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/019_crawl_sources.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 140,
+      "nonEmptyLines": 129,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "name",
+            "parser_module",
+            "Phase",
+            "last_status",
+            "last_fetched_count",
+            "last_etag",
+            "updated_at",
+            "created_by"
+          ],
+          "startLine": 32,
+          "endLine": 57
+        },
+        {
+          "name": "crawl_sources_enabled_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 59,
+          "endLine": 59
+        },
+        {
+          "name": "crawl_sources_slug_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 61,
+          "endLine": 61
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 3
+      }
+    },
+    {
+      "path": "supabase/migrations/020_dispatcher_cron_switch.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 52,
+      "nonEmptyLines": 49,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/021_crawl_sources_running_flag.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 54,
+      "nonEmptyLines": 50,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/022_tournament_status_rejected.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 23,
+      "nonEmptyLines": 21,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/023_review_helpers.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 127,
+      "nonEmptyLines": 118,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "view",
+          "fields": [],
+          "startLine": 11,
+          "endLine": 11
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 1
+      }
+    },
+    {
+      "path": "supabase/migrations/024_crawl_sources_url_refresh.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 68,
+      "nonEmptyLines": 64,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/025_futsal_tournament_fields.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 126,
+      "nonEmptyLines": 109,
+      "definitions": [
+        {
+          "name": "tournaments_futsal_filter_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 104,
+          "endLine": 104
+        },
+        {
+          "name": "tournaments_team_slots_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 109,
+          "endLine": 109
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 2
+      }
+    },
+    {
+      "path": "supabase/migrations/026_futsal_crawl_sources.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 74,
+      "nonEmptyLines": 73,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/027_db_crawler_review_fixes.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 72,
+      "nonEmptyLines": 64,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/028_adjust_crawler_schedule.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 32,
+      "nonEmptyLines": 29,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/029_division_codes_reset_eligible_grades.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 15,
+      "nonEmptyLines": 13,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/030_invoke_edge_function_internal_cron_jwt.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 40,
+      "nonEmptyLines": 37,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/031_club_management.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 84,
+      "nonEmptyLines": 73,
+      "definitions": [
+        {
+          "name": "club_members",
+          "kind": "table",
+          "fields": [
+            "id",
+            "club_id",
+            "user_id",
+            "role",
+            "status",
+            "joined_at",
+            "left_at"
+          ],
+          "startLine": 17,
+          "endLine": 26
+        },
+        {
+          "name": "club_join_requests",
+          "kind": "table",
+          "fields": [
+            "id",
+            "club_id",
+            "user_id",
+            "message",
+            "status",
+            "reviewed_by",
+            "reviewed_at",
+            "created_at"
+          ],
+          "startLine": 32,
+          "endLine": 42
+        },
+        {
+          "name": "club_members_club_id_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 28,
+          "endLine": 28
+        },
+        {
+          "name": "club_members_user_id_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 29,
+          "endLine": 29
+        },
+        {
+          "name": "club_join_requests_club_id_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 44,
+          "endLine": 44
+        },
+        {
+          "name": "club_join_requests_user_id_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 45,
+          "endLine": 45
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 6
+      }
+    },
+    {
+      "path": "supabase/migrations/032_drop_legacy_clubs_active_policy.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 12,
+      "nonEmptyLines": 12,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/033_fix_club_members_rls_recursion.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 67,
+      "nonEmptyLines": 62,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/034_invoke_edge_function_use_vault.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 39,
+      "nonEmptyLines": 36,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/035_club_events.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 139,
+      "nonEmptyLines": 124,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "club_id",
+            "created_by",
+            "type",
+            "title",
+            "description",
+            "location_text",
+            "starts_at",
+            "created_at"
+          ],
+          "startLine": 14,
+          "endLine": 24
+        },
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "event_id",
+            "user_id",
+            "status",
+            "responded_at"
+          ],
+          "startLine": 28,
+          "endLine": 35
+        },
+        {
+          "name": "club_events_club_starts_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 25,
+          "endLine": 25
+        },
+        {
+          "name": "club_event_attendees_event_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 36,
+          "endLine": 36
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 4
+      }
+    },
+    {
+      "path": "supabase/migrations/036_club_logos.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 53,
+      "nonEmptyLines": 47,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/037_rate_limits.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 92,
+      "nonEmptyLines": 78,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "user_id",
+            "bucket",
+            "window_started_at",
+            "count"
+          ],
+          "startLine": 7,
+          "endLine": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 1
+      }
+    },
+    {
+      "path": "supabase/migrations/038_search_like_escape.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 57,
+      "nonEmptyLines": 55,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/039_rls_hardening.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 38,
+      "nonEmptyLines": 32,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/040_device_token_cap.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 39,
+      "nonEmptyLines": 35,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/041_fix_grade_matching.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 76,
+      "nonEmptyLines": 73,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/042_manual_description.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 7,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/043_rpc_v2_region_org_filters.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 154,
+      "nonEmptyLines": 147,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/044_rpc_returns_table.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 130,
+      "nonEmptyLines": 128,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/045_seed_regions.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 18,
+      "nonEmptyLines": 17,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/046_venues.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 47,
+      "nonEmptyLines": 40,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "sport",
+            "name",
+            "region",
+            "address",
+            "court_count",
+            "website",
+            "source",
+            "updated_at"
+          ],
+          "startLine": 5,
+          "endLine": 21
+        },
+        {
+          "name": "venues_sport_region",
+          "kind": "index",
+          "fields": [],
+          "startLine": 24,
+          "endLine": 24
+        },
+        {
+          "name": "venues_region_code",
+          "kind": "index",
+          "fields": [],
+          "startLine": 25,
+          "endLine": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 3
+      }
+    },
+    {
+      "path": "supabase/migrations/046b_seed_futsal_venues.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 273,
+      "nonEmptyLines": 273,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/047_seed_futsal_rules.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 403,
+      "nonEmptyLines": 395,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/048_venues_search_rpc.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 42,
+      "nonEmptyLines": 39,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/049_normalize_body_newlines.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 27,
+      "nonEmptyLines": 25,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/050_drop_clubs_active_column.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 11,
+      "nonEmptyLines": 9,
+      "definitions": [
+        {
+          "name": "clubs_sport_region_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 8,
+          "endLine": 8
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 1
+      }
+    },
+    {
+      "path": "supabase/migrations/051_backfill_tournaments_region_code.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 16,
+      "nonEmptyLines": 15,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/052_recategorize_futsal_rule_articles.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 74,
+      "nonEmptyLines": 65,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/053_seed_seoul_citizen_futsal_league_2026.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 118,
+      "nonEmptyLines": 117,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/054_club_favorites.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 23,
+      "nonEmptyLines": 18,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "user_id",
+            "club_id",
+            "created_at"
+          ],
+          "startLine": 5,
+          "endLine": 10
+        },
+        {
+          "name": "club_favorites_club_id_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 12,
+          "endLine": 12
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 2
+      }
+    },
+    {
+      "path": "supabase/migrations/055_users_profile_columns.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 55,
+      "nonEmptyLines": 47,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/056_user_tennis_orgs_pk_change.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 69,
+      "nonEmptyLines": 55,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/057_clubs_members_events_update.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 68,
+      "nonEmptyLines": 55,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/058_club_posts.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 168,
+      "nonEmptyLines": 138,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "club_id",
+            "author_id",
+            "tag",
+            "title",
+            "body",
+            "image_urls",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 13,
+          "endLine": 26
+        },
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "post_id",
+            "author_id",
+            "body",
+            "created_at"
+          ],
+          "startLine": 78,
+          "endLine": 84
+        },
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "post_id",
+            "comment_id",
+            "mentioned_user_id",
+            "created_at"
+          ],
+          "startLine": 121,
+          "endLine": 127
+        },
+        {
+          "name": "club_posts_club_created_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 28,
+          "endLine": 28
+        },
+        {
+          "name": "club_posts_tag_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 31,
+          "endLine": 31
+        },
+        {
+          "name": "club_post_comments_post_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 86,
+          "endLine": 86
+        },
+        {
+          "name": "club_post_mentions_user_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 129,
+          "endLine": 129
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 7
+      }
+    },
+    {
+      "path": "supabase/migrations/059_tournament_extension_tables.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 215,
+      "nonEmptyLines": 192,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "tournament_id",
+            "host_orgs",
+            "division_kta_standard",
+            "division_gender",
+            "division_age_group",
+            "is_joint_event"
+          ],
+          "startLine": 15,
+          "endLine": 22
+        },
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "tournament_id",
+            "host_futsal_orgs",
+            "venue_type",
+            "surface_type",
+            "match_format",
+            "player_count",
+            "team_count_max",
+            "roster_min",
+            "roster_max"
+          ],
+          "startLine": 43,
+          "endLine": 53
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 2
+      }
+    },
+    {
+      "path": "supabase/migrations/060_notifications_unified.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 92,
+      "nonEmptyLines": 78,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "user_id",
+            "type",
+            "title",
+            "body",
+            "reference_type",
+            "reference_id",
+            "club_id",
+            "is_read",
+            "status",
+            "error",
+            "sent_at",
+            "created_at"
+          ],
+          "startLine": 13,
+          "endLine": 31
+        },
+        {
+          "name": "notifications_user_unread_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 34,
+          "endLine": 34
+        },
+        {
+          "name": "notifications_dedup_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 39,
+          "endLine": 39
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 3
+      }
+    },
+    {
+      "path": "supabase/migrations/061_match_records.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 101,
+      "nonEmptyLines": 84,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "user_id",
+            "tournament_id",
+            "division",
+            "partner_id",
+            "partner_name",
+            "team_name",
+            "final_round",
+            "points_earned",
+            "source",
+            "created_at"
+          ],
+          "startLine": 12,
+          "endLine": 24
+        },
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "entry_id",
+            "round",
+            "opponent_1_id",
+            "opponent_1_name",
+            "opponent_2_id",
+            "opponent_2_name",
+            "score",
+            "result",
+            "played_at",
+            "created_at"
+          ],
+          "startLine": 51,
+          "endLine": 63
+        },
+        {
+          "name": "match_entries_user_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 26,
+          "endLine": 26
+        },
+        {
+          "name": "match_entries_tournament_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 29,
+          "endLine": 29
+        },
+        {
+          "name": "match_rounds_entry_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 65,
+          "endLine": 65
+        },
+        {
+          "name": "match_rounds_opponent_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 68,
+          "endLine": 68
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 6
+      }
+    },
+    {
+      "path": "supabase/migrations/062_schedule_shares.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 36,
+      "nonEmptyLines": 29,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "shared_by",
+            "shared_with",
+            "event_type",
+            "event_id",
+            "status",
+            "created_at"
+          ],
+          "startLine": 8,
+          "endLine": 17
+        },
+        {
+          "name": "schedule_shares_dedup_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 20,
+          "endLine": 20
+        },
+        {
+          "name": "schedule_shares_with_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 24,
+          "endLine": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 3
+      }
+    },
+    {
+      "path": "supabase/migrations/063_crawl_documents.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 59,
+      "nonEmptyLines": 51,
+      "definitions": [
+        {
+          "name": "public",
+          "kind": "table",
+          "fields": [
+            "id",
+            "source",
+            "fetched_at",
+            "tournament_id",
+            "parse_status",
+            "parse_error",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 16,
+          "endLine": 31
+        },
+        {
+          "name": "crawl_documents_tournament_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 33,
+          "endLine": 33
+        },
+        {
+          "name": "crawl_documents_source_fetched_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 34,
+          "endLine": 34
+        },
+        {
+          "name": "crawl_documents_hash_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 35,
+          "endLine": 35
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 4
+      }
+    },
+    {
+      "path": "supabase/migrations/064_fix_tournaments_for_user_details_join.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 140,
+      "nonEmptyLines": 138,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/065_rate_limit_security.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 34,
+      "nonEmptyLines": 30,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/066_schedule_shares_rls_fix.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 60,
+      "nonEmptyLines": 51,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/067_fk_on_delete_policy.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 56,
+      "nonEmptyLines": 47,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/068_drop_notifications_log_and_fk_indexes.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 27,
+      "nonEmptyLines": 23,
+      "definitions": [
+        {
+          "name": "match_entries_partner_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 18,
+          "endLine": 18
+        },
+        {
+          "name": "match_rounds_opponent_2_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 20,
+          "endLine": 20
+        },
+        {
+          "name": "club_event_attendees_user_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 22,
+          "endLine": 22
+        },
+        {
+          "name": "club_events_created_by_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 24,
+          "endLine": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 4
+      }
+    },
+    {
+      "path": "supabase/migrations/069_club_posts_storage_owner_folder.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 23,
+      "nonEmptyLines": 20,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/070_trim_crawl_descriptions.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 21,
+      "nonEmptyLines": 20,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/071_futsal_grades_and_2026_official_events.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 561,
+      "nonEmptyLines": 546,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/072_fix_tennis_grade_matching.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 244,
+      "nonEmptyLines": 239,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/073_tournament_regulation_fields.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 35,
+      "nonEmptyLines": 33,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/074_tournament_regulation_body.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 26,
+      "nonEmptyLines": 24,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/075_tournaments_for_user_division_filter.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 155,
+      "nonEmptyLines": 153,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/076_tournaments_for_user_recruiting_and_date_overlap.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 164,
+      "nonEmptyLines": 162,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/077_chat_tournament_regulation_rag.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 102,
+      "nonEmptyLines": 99,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/078_chat_slot_search_consistency.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 84,
+      "nonEmptyLines": 82,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20260617123902_fix_ensure_profile_name.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 30,
+      "nonEmptyLines": 26,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20260618014529_harden_security_definer_execution.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 74,
+      "nonEmptyLines": 61,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "supabase/migrations/20260618042700_set_function_search_path.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 19,
+      "nonEmptyLines": 18,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    }
+  ]
+}

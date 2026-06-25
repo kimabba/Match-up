@@ -1,0 +1,25 @@
+{
+  "projectRoot": "/Users/ssfak/Documents/01-github/ar",
+  "batchFiles": [
+    {"path": "docs/kb/README.md", "language": "markdown", "sizeLines": 24, "fileCategory": "docs"},
+    {"path": "docs/kb/ai-chat.md", "language": "markdown", "sizeLines": 140, "fileCategory": "docs"},
+    {"path": "docs/kb/architecture.md", "language": "markdown", "sizeLines": 89, "fileCategory": "docs"},
+    {"path": "docs/kb/clubs.md", "language": "markdown", "sizeLines": 60, "fileCategory": "docs"},
+    {"path": "docs/kb/crawler.md", "language": "markdown", "sizeLines": 54, "fileCategory": "docs"},
+    {"path": "docs/kb/database.md", "language": "markdown", "sizeLines": 119, "fileCategory": "docs"},
+    {"path": "docs/kb/domain-futsal.md", "language": "markdown", "sizeLines": 35, "fileCategory": "docs"},
+    {"path": "docs/kb/domain-tennis.md", "language": "markdown", "sizeLines": 64, "fileCategory": "docs"},
+    {"path": "docs/kb/flutter-app.md", "language": "markdown", "sizeLines": 74, "fileCategory": "docs"}
+  ],
+  "batchImportData": {
+    "docs/kb/README.md": [],
+    "docs/kb/ai-chat.md": [],
+    "docs/kb/architecture.md": [],
+    "docs/kb/clubs.md": [],
+    "docs/kb/crawler.md": [],
+    "docs/kb/database.md": [],
+    "docs/kb/domain-futsal.md": [],
+    "docs/kb/domain-tennis.md": [],
+    "docs/kb/flutter-app.md": []
+  }
+}

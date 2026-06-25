@@ -1,0 +1,182 @@
+{
+  "projectRoot": "/Users/ssfak/Documents/01-github/ar",
+  "batchFiles": [
+    {
+      "path": ".github/CODEOWNERS",
+      "language": "unknown",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "language": "markdown",
+      "sizeLines": 49,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "app/assets/models/.gitkeep",
+      "language": "unknown",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/assets/models/README.md",
+      "language": "markdown",
+      "sizeLines": 5,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "app/lib/config.dart",
+      "language": "dart",
+      "sizeLines": 72,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/main.dart",
+      "language": "dart",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/admin.dart",
+      "language": "dart",
+      "sizeLines": 37,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/app_notification.dart",
+      "language": "dart",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/chat_ui.dart",
+      "language": "dart",
+      "sizeLines": 139,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/club_event.dart",
+      "language": "dart",
+      "sizeLines": 86,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/club_post.dart",
+      "language": "dart",
+      "sizeLines": 83,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/crawl_source.dart",
+      "language": "dart",
+      "sizeLines": 121,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/match_record.dart",
+      "language": "dart",
+      "sizeLines": 116,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/regulation_body_lines.dart",
+      "language": "dart",
+      "sizeLines": 237,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/schedule_share.dart",
+      "language": "dart",
+      "sizeLines": 42,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/speed_measurement.dart",
+      "language": "dart",
+      "sizeLines": 70,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/tournament_card_info.dart",
+      "language": "dart",
+      "sizeLines": 113,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/models/tournament.dart",
+      "language": "dart",
+      "sizeLines": 409,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/router.dart",
+      "language": "dart",
+      "sizeLines": 322,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/admin/admin_screen.dart",
+      "language": "dart",
+      "sizeLines": 1489,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/admin/admin_shell.dart",
+      "language": "dart",
+      "sizeLines": 162,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/admin/knowledge_base_tab.dart",
+      "language": "dart",
+      "sizeLines": 119,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/admin/no_access_screen.dart",
+      "language": "dart",
+      "sizeLines": 41,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/admin/rule_edit_screen.dart",
+      "language": "dart",
+      "sizeLines": 238,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/lib/screens/admin/tournament_edit_screen.dart",
+      "language": "dart",
+      "sizeLines": 233,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    ".github/CODEOWNERS": [],
+    ".github/pull_request_template.md": [],
+    "app/assets/models/.gitkeep": [],
+    "app/assets/models/README.md": [],
+    "app/lib/config.dart": [],
+    "app/lib/main.dart": [],
+    "app/lib/models/admin.dart": [],
+    "app/lib/models/app_notification.dart": [],
+    "app/lib/models/chat_ui.dart": [],
+    "app/lib/models/club_event.dart": [],
+    "app/lib/models/club_post.dart": [],
+    "app/lib/models/crawl_source.dart": [],
+    "app/lib/models/match_record.dart": [],
+    "app/lib/models/regulation_body_lines.dart": [],
+    "app/lib/models/schedule_share.dart": [],
+    "app/lib/models/speed_measurement.dart": [],
+    "app/lib/models/tournament_card_info.dart": [],
+    "app/lib/models/tournament.dart": [],
+    "app/lib/router.dart": [],
+    "app/lib/screens/admin/admin_screen.dart": [],
+    "app/lib/screens/admin/admin_shell.dart": [],
+    "app/lib/screens/admin/knowledge_base_tab.dart": [],
+    "app/lib/screens/admin/no_access_screen.dart": [],
+    "app/lib/screens/admin/rule_edit_screen.dart": [],
+    "app/lib/screens/admin/tournament_edit_screen.dart": []
+  }
+}

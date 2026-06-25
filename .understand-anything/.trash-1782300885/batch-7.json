@@ -1,0 +1,41 @@
+{
+  "nodes": [
+    {
+      "id": "config:.github/ISSUE_TEMPLATE/bug_report.yml",
+      "type": "config",
+      "name": "bug_report.yml",
+      "filePath": ".github/ISSUE_TEMPLATE/bug_report.yml",
+      "summary": "버그 리포트용 GitHub 이슈 폼 템플릿으로, 재현 절차·기대 동작·실제 동작 등의 입력 필드를 정의합니다.",
+      "tags": ["configuration", "ci-cd", "issue-template", "github"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.github/ISSUE_TEMPLATE/config.yml",
+      "type": "config",
+      "name": "config.yml",
+      "filePath": ".github/ISSUE_TEMPLATE/config.yml",
+      "summary": "GitHub 이슈 템플릿 선택 화면 설정 파일로, 빈 이슈 생성을 허용하고 규칙 문서로 연결되는 contact link를 노출합니다.",
+      "tags": ["configuration", "issue-template", "github"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.github/ISSUE_TEMPLATE/feature_task.yml",
+      "type": "config",
+      "name": "feature_task.yml",
+      "filePath": ".github/ISSUE_TEMPLATE/feature_task.yml",
+      "summary": "기능/작업 단위를 정의하는 GitHub 이슈 폼 템플릿으로, 목표·범위·완료 기준·테스트 계획과 읽어야 할 규칙 문서 체크리스트를 포함합니다.",
+      "tags": ["configuration", "ci-cd", "issue-template", "github"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.github/ISSUE_TEMPLATE/harness_task.yml",
+      "type": "config",
+      "name": "harness_task.yml",
+      "filePath": ".github/ISSUE_TEMPLATE/harness_task.yml",
+      "summary": "하네스(harness) 작업 정의용 GitHub 이슈 폼 템플릿으로, 에이전트·스킬 자동화 작업의 범위와 검증 항목을 구조화합니다.",
+      "tags": ["configuration", "ci-cd", "issue-template", "github"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

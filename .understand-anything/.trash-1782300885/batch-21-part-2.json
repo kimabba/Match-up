@@ -1,0 +1,173 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/lib/screens/clubs/club_detail_screen.dart",
+      "type": "file",
+      "name": "club_detail_screen.dart",
+      "filePath": "app/lib/screens/clubs/club_detail_screen.dart",
+      "summary": "클럽 상세 화면. 소개·멤버·이벤트·게시글 탭을 제공하고 가입/탈퇴, 멤버 강퇴, 이벤트 생성·응답, 게시글 작성을 처리한다.",
+      "tags": ["component", "api-handler", "state-management", "event-handler"],
+      "complexity": "complex",
+      "languageNotes": "TabController 기반 4개 탭과 각 탭별 State(_EventsTab/_PostsTab 등)를 가진 복합 화면."
+    },
+    {
+      "id": "class:app/lib/screens/clubs/club_detail_screen.dart:_ClubDetailScreenState",
+      "type": "class",
+      "name": "_ClubDetailScreenState",
+      "filePath": "app/lib/screens/clubs/club_detail_screen.dart",
+      "lineRange": [22, 179],
+      "summary": "클럽 상세 데이터 reload, 가입(_join)/탈퇴(_leave), 멤버 전용 안내를 관리하는 State 클래스.",
+      "tags": ["state-management", "api-handler", "event-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/lib/screens/clubs/club_detail_screen.dart:_EventCreateSheetState",
+      "type": "class",
+      "name": "_EventCreateSheetState",
+      "filePath": "app/lib/screens/clubs/club_detail_screen.dart",
+      "lineRange": [638, 762],
+      "summary": "클럽 이벤트 생성 sheet의 날짜·시간 선택과 제출(_submit)을 처리하는 State 클래스.",
+      "tags": ["state-management", "validation", "event-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/lib/screens/clubs/club_detail_screen.dart:_PostsTabState",
+      "type": "class",
+      "name": "_PostsTabState",
+      "filePath": "app/lib/screens/clubs/club_detail_screen.dart",
+      "lineRange": [773, 855],
+      "summary": "게시글 탭의 목록 로드와 생성 sheet 오픈을 관리하는 State 클래스.",
+      "tags": ["state-management", "api-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/lib/screens/favorites_screen.dart",
+      "type": "file",
+      "name": "favorites_screen.dart",
+      "filePath": "app/lib/screens/favorites_screen.dart",
+      "summary": "즐겨찾기한 대회·클럽을 탭으로 나눠 보여주는 화면.",
+      "tags": ["component", "state-management"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/screens/favorites_screen.dart:_FavoritesScreenState",
+      "type": "class",
+      "name": "_FavoritesScreenState",
+      "filePath": "app/lib/screens/favorites_screen.dart",
+      "lineRange": [22, 60],
+      "summary": "즐겨찾기 대회/클럽 탭 컨트롤러를 초기화하고 화면을 빌드하는 State 클래스.",
+      "tags": ["state-management"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/screens/favorites_screen.dart:_FavoriteClubCard",
+      "type": "class",
+      "name": "_FavoriteClubCard",
+      "filePath": "app/lib/screens/favorites_screen.dart",
+      "lineRange": [208, 288],
+      "summary": "즐겨찾기한 클럽을 카드 형태로 렌더링하는 위젯.",
+      "tags": ["component"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/lib/screens/friend_schedule_screen.dart",
+      "type": "file",
+      "name": "friend_schedule_screen.dart",
+      "filePath": "app/lib/screens/friend_schedule_screen.dart",
+      "summary": "친구의 활동 일정을 달력 그리드로 보여주는 화면. 월 단위 탐색, 선택일 활동 목록, 친구 목록·활동 요약을 제공한다.",
+      "tags": ["component", "state-management", "event-handler"],
+      "complexity": "complex",
+      "languageNotes": "직접 구현한 _CalendarGrid·_CalendarDay와 날짜별 활동 매핑(_activityByDay) 로직 포함."
+    },
+    {
+      "id": "class:app/lib/screens/friend_schedule_screen.dart:_FriendScheduleScreenState",
+      "type": "class",
+      "name": "_FriendScheduleScreenState",
+      "filePath": "app/lib/screens/friend_schedule_screen.dart",
+      "lineRange": [13, 299],
+      "summary": "월 변경, 날짜별 활동 매핑, 첫 활동일 계산 등 친구 일정 달력의 상태를 관리하는 State 클래스.",
+      "tags": ["state-management", "event-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/lib/screens/friend_schedule_screen.dart:_CalendarGrid",
+      "type": "class",
+      "name": "_CalendarGrid",
+      "filePath": "app/lib/screens/friend_schedule_screen.dart",
+      "lineRange": [372, 430],
+      "summary": "월별 달력 격자를 렌더링하고 같은 날 비교 헬퍼를 제공하는 위젯.",
+      "tags": ["component"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/lib/screens/more_screen.dart",
+      "type": "file",
+      "name": "more_screen.dart",
+      "filePath": "app/lib/screens/more_screen.dart",
+      "summary": "더보기 메뉴 화면. 메뉴 섹션·행과 약관(법적 고지) 섹션을 구성한다.",
+      "tags": ["component", "barrel"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/screens/more_screen.dart:MoreScreen",
+      "type": "class",
+      "name": "MoreScreen",
+      "filePath": "app/lib/screens/more_screen.dart",
+      "lineRange": [11, 130],
+      "summary": "더보기 메뉴 전체를 구성하는 StatelessWidget.",
+      "tags": ["component"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/lib/screens/profile_screen.dart",
+      "type": "file",
+      "name": "profile_screen.dart",
+      "filePath": "app/lib/screens/profile_screen.dart",
+      "summary": "사용자 프로필 화면. 프로필 사진 관리, 통계, 내 클럽·대회 기록, 종목·테니스 협회·테마·계정·알림 설정 섹션을 통합한다.",
+      "tags": ["component", "api-handler", "state-management", "event-handler"],
+      "complexity": "complex",
+      "languageNotes": "Sliver 기반 hero 헤더와 26개 sub-widget으로 구성된 대형 프로필 화면."
+    },
+    {
+      "id": "class:app/lib/screens/profile_screen.dart:_ProfileScreenState",
+      "type": "class",
+      "name": "_ProfileScreenState",
+      "filePath": "app/lib/screens/profile_screen.dart",
+      "lineRange": [29, 275],
+      "summary": "프로필 설정 로드, 프로필 사진 선택/삭제, 알림 설정 sheet 표시 등 프로필 화면 상태를 관리하는 State 클래스.",
+      "tags": ["state-management", "api-handler", "event-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/lib/screens/profile_screen.dart:_TournamentRecordsList",
+      "type": "class",
+      "name": "_TournamentRecordsList",
+      "filePath": "app/lib/screens/profile_screen.dart",
+      "lineRange": [780, 953],
+      "summary": "내 대회 출전 기록 목록을 상태별 배지와 함께 렌더링하는 위젯.",
+      "tags": ["component", "data-model"],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {"source": "file:app/lib/screens/clubs/club_detail_screen.dart", "target": "class:app/lib/screens/clubs/club_detail_screen.dart:_ClubDetailScreenState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/clubs/club_detail_screen.dart", "target": "class:app/lib/screens/clubs/club_detail_screen.dart:_EventCreateSheetState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/clubs/club_detail_screen.dart", "target": "class:app/lib/screens/clubs/club_detail_screen.dart:_PostsTabState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/clubs/club_detail_screen.dart", "target": "file:app/lib/state/providers.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:app/lib/screens/favorites_screen.dart", "target": "class:app/lib/screens/favorites_screen.dart:_FavoritesScreenState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/favorites_screen.dart", "target": "class:app/lib/screens/favorites_screen.dart:_FavoriteClubCard", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/favorites_screen.dart", "target": "file:app/lib/state/providers.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:app/lib/screens/friend_schedule_screen.dart", "target": "class:app/lib/screens/friend_schedule_screen.dart:_FriendScheduleScreenState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/friend_schedule_screen.dart", "target": "class:app/lib/screens/friend_schedule_screen.dart:_CalendarGrid", "type": "contains", "direction": "forward", "weight": 1.0},
+
+    {"source": "file:app/lib/screens/more_screen.dart", "target": "class:app/lib/screens/more_screen.dart:MoreScreen", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/more_screen.dart", "target": "class:app/lib/screens/more_screen.dart:MoreScreen", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:app/lib/screens/more_screen.dart", "target": "file:app/lib/state/providers.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:app/lib/screens/profile_screen.dart", "target": "class:app/lib/screens/profile_screen.dart:_ProfileScreenState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/profile_screen.dart", "target": "class:app/lib/screens/profile_screen.dart:_TournamentRecordsList", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/profile_screen.dart", "target": "file:app/lib/state/providers.dart", "type": "imports", "direction": "forward", "weight": 0.7}
+  ]
+}

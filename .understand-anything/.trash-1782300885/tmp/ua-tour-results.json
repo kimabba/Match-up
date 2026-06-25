@@ -1,0 +1,3167 @@
+{
+  "scriptCompleted": true,
+  "entryPointCandidates": [
+    {
+      "id": "file:supabase/functions/clubs-approve/index.ts",
+      "score": 5,
+      "name": "index.ts",
+      "summary": "관리자가 클럽 생성 요청을 승인·거절하는 clubs-approve Edge Function 핸들러(POST)."
+    },
+    {
+      "id": "file:supabase/functions/clubs-create/index.ts",
+      "score": 5,
+      "name": "index.ts",
+      "summary": "사용자가 status='pending' 상태로 클럽 생성을 요청하는 clubs-create Edge Function 핸들러(POST)."
+    },
+    {
+      "id": "file:supabase/functions/clubs-join/index.ts",
+      "score": 5,
+      "name": "index.ts",
+      "summary": "클럽 가입 신청·취소·탈퇴·강퇴 액션을 처리하는 clubs-join Edge Function 핸들러(POST)."
+    },
+    {
+      "id": "file:supabase/functions/clubs-review-join/index.ts",
+      "score": 5,
+      "name": "index.ts",
+      "summary": "클럽장·운영진이 가입 신청을 승인·거절하는 clubs-review-join Edge Function 핸들러(POST)."
+    },
+    {
+      "id": "file:supabase/functions/clubs-search/index.ts",
+      "score": 5,
+      "name": "index.ts",
+      "summary": "스포츠·지역·키워드로 클럽을 검색하는 clubs-search Edge Function 핸들러(GET). PostgREST .or() 메타문자를 제거해 주입을 방어한다."
+    }
+  ],
+  "fanInRanking": [
+    {
+      "id": "file:app/lib/theme/tokens.dart",
+      "fanIn": 31,
+      "name": "tokens.dart"
+    },
+    {
+      "id": "file:app/lib/state/providers.dart",
+      "fanIn": 20,
+      "name": "providers.dart"
+    },
+    {
+      "id": "file:app/lib/models/tournament.dart",
+      "fanIn": 19,
+      "name": "tournament.dart"
+    },
+    {
+      "id": "file:supabase/functions/_shared/cors.ts",
+      "fanIn": 18,
+      "name": "cors.ts"
+    },
+    {
+      "id": "file:supabase/functions/_shared/auth.ts",
+      "fanIn": 15,
+      "name": "auth.ts"
+    },
+    {
+      "id": "file:app/lib/utils/grade_labels.dart",
+      "fanIn": 14,
+      "name": "grade_labels.dart"
+    },
+    {
+      "id": "file:supabase/functions/_shared/supabase.ts",
+      "fanIn": 12,
+      "name": "supabase.ts"
+    },
+    {
+      "id": "file:app/lib/config.dart",
+      "fanIn": 12,
+      "name": "config.dart"
+    },
+    {
+      "id": "file:app/lib/widgets/app_card.dart",
+      "fanIn": 11,
+      "name": "app_card.dart"
+    },
+    {
+      "id": "file:app/lib/services/api.dart",
+      "fanIn": 9,
+      "name": "api.dart"
+    },
+    {
+      "id": "file:supabase/functions/_shared/enums.ts",
+      "fanIn": 7,
+      "name": "enums.ts"
+    },
+    {
+      "id": "table:supabase/migrations/003_tournaments.sql:tournaments",
+      "fanIn": 7,
+      "name": "tournaments"
+    },
+    {
+      "id": "file:app/lib/widgets/allround_logo.dart",
+      "fanIn": 7,
+      "name": "allround_logo.dart"
+    },
+    {
+      "id": "table:supabase/migrations/004_clubs.sql:clubs",
+      "fanIn": 6,
+      "name": "clubs"
+    },
+    {
+      "id": "file:app/lib/models/speed_measurement.dart",
+      "fanIn": 6,
+      "name": "speed_measurement.dart"
+    },
+    {
+      "id": "file:supabase/functions/_shared/crawler.ts",
+      "fanIn": 5,
+      "name": "crawler.ts"
+    },
+    {
+      "id": "document:docs/kb/database.md",
+      "fanIn": 5,
+      "name": "database.md"
+    },
+    {
+      "id": "file:app/lib/widgets/app_buttons.dart",
+      "fanIn": 5,
+      "name": "app_buttons.dart"
+    },
+    {
+      "id": "file:supabase/functions/_shared/embedding.ts",
+      "fanIn": 4,
+      "name": "embedding.ts"
+    },
+    {
+      "id": "file:supabase/functions/_shared/regulation.ts",
+      "fanIn": 4,
+      "name": "regulation.ts"
+    }
+  ],
+  "fanOutRanking": [
+    {
+      "id": "file:app/lib/router.dart",
+      "fanOut": 22,
+      "name": "router.dart"
+    },
+    {
+      "id": "file:app/lib/screens/speed_gun/speed_gun_screen.dart",
+      "fanOut": 12,
+      "name": "speed_gun_screen.dart"
+    },
+    {
+      "id": "file:app/lib/screens/tournaments/tournaments_screen.dart",
+      "fanOut": 10,
+      "name": "tournaments_screen.dart"
+    },
+    {
+      "id": "file:app/lib/screens/auth/onboarding_screen.dart",
+      "fanOut": 10,
+      "name": "onboarding_screen.dart"
+    },
+    {
+      "id": "file:supabase/functions/chat/index.ts",
+      "fanOut": 9,
+      "name": "index.ts"
+    },
+    {
+      "id": "document:docs/rules/README.md",
+      "fanOut": 9,
+      "name": "README.md"
+    },
+    {
+      "id": "file:app/lib/screens/favorites_screen.dart",
+      "fanOut": 9,
+      "name": "favorites_screen.dart"
+    },
+    {
+      "id": "file:app/lib/services/api.dart",
+      "fanOut": 9,
+      "name": "api.dart"
+    },
+    {
+      "id": "document:docs/kb/README.md",
+      "fanOut": 8,
+      "name": "README.md"
+    },
+    {
+      "id": "file:app/lib/screens/clubs_screen.dart",
+      "fanOut": 8,
+      "name": "clubs_screen.dart"
+    },
+    {
+      "id": "file:app/lib/screens/clubs/club_detail_screen.dart",
+      "fanOut": 7,
+      "name": "club_detail_screen.dart"
+    },
+    {
+      "id": "file:app/lib/screens/rules_screen.dart",
+      "fanOut": 7,
+      "name": "rules_screen.dart"
+    },
+    {
+      "id": "file:app/lib/screens/tournaments/tournament_detail_screen.dart",
+      "fanOut": 7,
+      "name": "tournament_detail_screen.dart"
+    },
+    {
+      "id": "file:app/lib/screens/chat_screen.dart",
+      "fanOut": 7,
+      "name": "chat_screen.dart"
+    },
+    {
+      "id": "file:supabase/functions/crawl-dispatch/index.ts",
+      "fanOut": 6,
+      "name": "index.ts"
+    },
+    {
+      "id": "schema:supabase/migrations/067_fk_on_delete_policy.sql",
+      "fanOut": 6,
+      "name": "067_fk_on_delete_policy.sql"
+    },
+    {
+      "id": "file:app/lib/main.dart",
+      "fanOut": 6,
+      "name": "main.dart"
+    },
+    {
+      "id": "file:app/lib/screens/admin/admin_screen.dart",
+      "fanOut": 6,
+      "name": "admin_screen.dart"
+    },
+    {
+      "id": "file:app/lib/screens/profile_screen.dart",
+      "fanOut": 6,
+      "name": "profile_screen.dart"
+    },
+    {
+      "id": "file:supabase/functions/seed-intent-examples/index.ts",
+      "fanOut": 5,
+      "name": "index.ts"
+    }
+  ],
+  "bfsTraversal": {
+    "startNode": "file:supabase/functions/clubs-approve/index.ts",
+    "order": [
+      "file:supabase/functions/clubs-approve/index.ts",
+      "file:supabase/functions/_shared/auth.ts",
+      "file:supabase/functions/_shared/cors.ts",
+      "file:supabase/functions/_shared/supabase.ts"
+    ],
+    "depthMap": {
+      "file:supabase/functions/clubs-approve/index.ts": 0,
+      "file:supabase/functions/_shared/auth.ts": 1,
+      "file:supabase/functions/_shared/cors.ts": 1,
+      "file:supabase/functions/_shared/supabase.ts": 1
+    },
+    "byDepth": {
+      "0": [
+        "file:supabase/functions/clubs-approve/index.ts"
+      ],
+      "1": [
+        "file:supabase/functions/_shared/auth.ts",
+        "file:supabase/functions/_shared/cors.ts",
+        "file:supabase/functions/_shared/supabase.ts"
+      ]
+    }
+  },
+  "nonCodeFiles": {
+    "documentation": [
+      {
+        "id": "document:AGENTS.md",
+        "name": "AGENTS.md",
+        "type": "document",
+        "summary": "AI 코딩 에이전트용 라우터 문서로, 항상 적용되는 핵심 규칙(타입 안전성, 서버/DB 권위, 작은 커밋)과 작업 영역별 load-on-demand 규칙 맵(docs/rules/, docs/kb/)을 정의한다."
+      },
+      {
+        "id": "document:CLAUDE.md",
+        "name": "CLAUDE.md",
+        "type": "document",
+        "summary": "AGENTS.md 라우터를 가리키는 경량 진입 문서로, 최소 필수 규칙(사용자 변경 보존, 서버/DB 권위, 타입 안전성, 검증 실행)과 Git/PR 워크플로우(admin 강제 머지 금지, main 보호)를 명시한다."
+      },
+      {
+        "id": "document:README.md",
+        "name": "README.md",
+        "type": "document",
+        "summary": "올라운드(AllRound) 프로젝트 개요 문서로, 핵심 가치·종목/등급 모델·기술 스택(Flutter+Supabase+pgvector+Gemini)·로컬 개발 빠른 시작·API 엔드포인트·디렉토리 구조·운영 워크플로우를 16개 섹션으로 정리한다."
+      },
+      {
+        "id": "document:docs/deploy.md",
+        "name": "deploy.md",
+        "type": "document",
+        "summary": "Supabase 프로젝트 생성, migration 적용, Edge Functions 배포, pg_cron 설정, Flutter 앱 빌드까지 전체 배포 절차를 단계별로 안내하는 가이드."
+      },
+      {
+        "id": "document:docs/futsal_rulebook_db_apply_guide.md",
+        "name": "futsal_rulebook_db_apply_guide.md",
+        "type": "document",
+        "summary": "풋살 룰북 50개를 DB에 적재하고 embedding을 생성한 뒤 코치봇 RAG 검색에 잡히는지 확인하는 운영 절차 가이드."
+      },
+      {
+        "id": "document:docs/store-listing.md",
+        "name": "store-listing.md",
+        "type": "document",
+        "summary": "Google Play와 App Store 등록용 메타데이터(앱 이름, 설명, 키워드, 스크린샷 시나리오)를 정리한 스토어 출시 문서."
+      },
+      {
+        "id": "document:docs/team-collaboration.md",
+        "name": "team-collaboration.md",
+        "type": "document",
+        "summary": "브랜치 전략, PR 크기 기준, RLS/migration discipline, enum 동기화 등 팀 협업 규칙과 로컬 검증 절차를 정리한 가이드."
+      },
+      {
+        "id": "document:docs/test-account-setup.md",
+        "name": "test-account-setup.md",
+        "type": "document",
+        "summary": "개발용 테스트 계정 생성, 이메일 인증 처리, admin 권한 부여, 목업 데이터 삽입 SQL을 안내하는 개발 환경 셋업 가이드."
+      },
+      {
+        "id": "document:docs/design/2026-redesign-spec.md",
+        "name": "2026-redesign-spec.md",
+        "type": "document",
+        "summary": "2026 디자인 리뉴얼 통합 Spec. 현재 UI 진단, 글로벌·한국 트렌드 분석, Flutter 디자인 시스템 결정(컬러·타이포·모션 토큰, 10개 컴포넌트 라이브러리), 단계별 작업 청크(Phase 0~4)를 정의한다."
+      },
+      {
+        "id": "document:docs/design/app-map.html",
+        "name": "app-map.html",
+        "type": "document",
+        "summary": "사용자 모바일 앱과 어드민 웹의 화면 구조(App Map)를 시각화한 정적 HTML 뷰. app-map.md 내용을 브라우저에서 보기 위한 렌더링본이다."
+      },
+      {
+        "id": "document:docs/design/app-map.md",
+        "name": "app-map.md",
+        "type": "document",
+        "summary": "Match-up 앱의 화면 구조를 정리한 App Map. 사용자 모바일 앱 화면 계층과 어드민 웹 화면을 범례와 함께 트리 형태로 기술한다."
+      },
+      {
+        "id": "document:docs/design/db-redesign-progress.md",
+        "name": "db-redesign-progress.md",
+        "type": "document",
+        "summary": "DB 재설계 진행 현황 문서. users·user_sports·user_tennis_orgs 등 레이어별 확정 스키마와 PK 변경 사유, 클럽·친구 일정·경기 이력 3개 도메인의 설계 범위를 추적한다."
+      },
+      {
+        "id": "document:docs/design/erd.html",
+        "name": "erd.html",
+        "type": "document",
+        "summary": "Match-up DB 스키마의 ERD를 시각화한 정적 HTML 뷰. erd.md의 엔티티 관계 다이어그램을 브라우저에서 렌더링한다."
+      },
+      {
+        "id": "document:docs/design/erd.md",
+        "name": "erd.md",
+        "type": "document",
+        "summary": "Match-up 전체 DB 스키마의 Entity Relationship Diagram. 모든 테이블과 관계를 Mermaid ERD로 기술하고 테이블 수 요약을 제공한다."
+      },
+      {
+        "id": "document:docs/design/figma-make-ui-handoff.md",
+        "name": "figma-make-ui-handoff.md",
+        "type": "document",
+        "summary": "Figma Make로 생성한 UI를 앱에 반영하기 위한 인수인계 문서. 로그인·첫 설정·룰북 퀴즈·MY 화면별 동작, 추가된 프론트엔드 데이터 호출, 리뷰 순서와 후속 작업을 정리한다."
+      },
+      {
+        "id": "document:docs/kb/README.md",
+        "name": "README.md",
+        "type": "document",
+        "summary": "Match-up 지식 베이스(KB)의 인덱스 문서로, 도메인·아키텍처·DB·크롤러·AI 챗봇 등 8개 KB 파일 목록과 문서 관리 원칙을 정리한다."
+      },
+      {
+        "id": "document:docs/kb/ai-chat.md",
+        "name": "ai-chat.md",
+        "type": "document",
+        "summary": "AI 챗봇 시스템의 4단 라우팅(의도 분류, slot routing, QA cache, RAG)·Search Grounding 정책·비용 제어·Flutter 구현·보안을 설명하는 KB 문서."
+      },
+      {
+        "id": "document:docs/kb/architecture.md",
+        "name": "architecture.md",
+        "type": "document",
+        "summary": "전체 시스템 스택(Flutter + Supabase Edge Functions + Postgres/pgvector), 아키텍처 다이어그램, Edge Function 목록, 인증 레이어, 환경변수, 공유 모듈(_shared)을 정리한 KB 문서."
+      },
+      {
+        "id": "document:docs/kb/clubs.md",
+        "name": "clubs.md",
+        "type": "document",
+        "summary": "클럽 관리 시스템의 워크플로우·역할 체계와 clubs-create/join/review-join/approve/search Edge Function, Flutter UI, 멤버 수 자동 갱신 트리거를 설명하는 KB 문서."
+      },
+      {
+        "id": "document:docs/kb/crawler.md",
+        "name": "crawler.md",
+        "type": "document",
+        "summary": "크롤러 시스템의 아키텍처, crawl-dispatch Edge Function, crawl_sources 테이블, 파서 모듈, 부서코드 추출 흐름, upsertTournament, 인증, 어드민 UI를 설명하는 KB 문서."
+      },
+      {
+        "id": "document:docs/kb/database.md",
+        "name": "database.md",
+        "type": "document",
+        "summary": "users, tournaments, clubs, club_members, crawl_sources 등 핵심 테이블 스키마와 주요 트리거, RLS 정책 요약, 최근 migration 이력을 정리한 데이터베이스 KB 문서."
+      },
+      {
+        "id": "document:docs/kb/domain-futsal.md",
+        "name": "domain-futsal.md",
+        "type": "document",
+        "summary": "풋살 도메인 지식(futsal_org 협회 체계, 등급, tournaments 풋살 전용 컬럼, 클럽, 크롤러 연계)을 정리한 KB 문서."
+      },
+      {
+        "id": "document:docs/kb/domain-tennis.md",
+        "name": "domain-tennis.md",
+        "type": "document",
+        "summary": "테니스 도메인 지식(tennis_org 협회 체계, 부서코드 division code 체계와 광주·전남·KTA·KATA 예시, 코드 정의 위치, 크롤러 부서 추출, 사용자 등급 등록)을 정리한 KB 문서."
+      },
+      {
+        "id": "document:docs/kb/flutter-app.md",
+        "name": "flutter-app.md",
+        "type": "document",
+        "summary": "Flutter 앱 구조(핵심 파일, 바텀탭 내비게이션, 종목 스왑, Riverpod 상태, ApiService 주요 메서드, 로그인 흐름)를 정리한 KB 문서."
+      },
+      {
+        "id": "document:docs/plans/MVP-roadmap.md",
+        "name": "MVP-roadmap.md",
+        "type": "document",
+        "summary": "Match-up MVP의 스프린트 타임라인 요약 문서로, 상세 작업·상태는 Linear(JY-*)가 관리하고 GitHub는 코드/PR을 담당하는 이원화 운영 규칙과 MVP 이후 스코프 아웃 항목을 정리한다."
+      },
+      {
+        "id": "document:docs/plans/PLAN_crawl-admin.md",
+        "name": "PLAN_crawl-admin.md",
+        "type": "document",
+        "summary": "크롤링 source를 어드민 UI에서 등록·수정·토글하고 draft→approve→published 검수 워크플로우와 ETag/Last-Modified 변경 감지를 도입하는 4단계 계획으로, crawl_sources 테이블·crawl-dispatch Edge Function·pg_cron 일원화를 포함한다."
+      },
+      {
+        "id": "document:docs/plans/PLAN_llm-cost-reduction.md",
+        "name": "PLAN_llm-cost-reduction.md",
+        "type": "document",
+        "summary": "챗봇 LLM 비용을 70-85% 절감하기 위한 7일 4단계 계획으로, 모델 다운그레이드+grounding off, semantic cache(pgvector), intent classifier, text-to-SQL 템플릿으로 이어지는 4단 라우팅 아키텍처를 정의한다."
+      },
+      {
+        "id": "document:docs/plans/PLAN_speed-gun-v1.md",
+        "name": "PLAN_speed-gun-v1.md",
+        "type": "document",
+        "summary": "240fps 슬로모 영상에서 프레임 추출·YOLOv8n TFLite 공 검출·homography 기반 속도 계산을 수행하는 Speed Gun v1.1 영상 분석 MVP의 6단계 구현 계획으로, models/services/screens/widgets 파일 구조와 필요한 Flutter 의존성을 정의한다."
+      },
+      {
+        "id": "document:docs/research/ball-speed-measurement-feasibility.md",
+        "name": "ball-speed-measurement-feasibility.md",
+        "type": "document",
+        "summary": "테니스 공 속도 측정 기능의 기술적 타당성 리서치 보고서로, computer vision 기반 ball tracking, 속도 계산·calibration, Flutter ML/CV framework, 상용·오픈소스 선행 사례, MVP 권장 기술 스택까지 8개 섹션으로 정리한다."
+      },
+      {
+        "id": "document:docs/research/llm-cost-optimization-2026.md",
+        "name": "llm-cost-optimization-2026.md",
+        "type": "document",
+        "summary": "LLM 챗봇 비용 최적화 2026 업계 트렌드 리서치로, 현재 Gemini flagship + Search Grounding 호출 비용 구조를 분석하고 cascading routing·semantic cache·intent classification·hybrid RAG + Text-to-SQL 등 6종 패턴과 4단 라우팅 권장 아키텍처를 제시한다."
+      },
+      {
+        "id": "document:docs/research/tennis-ecosystem.md",
+        "name": "tennis-ecosystem.md",
+        "type": "document",
+        "summary": "한국 동호인 테니스 대회 운영 생태계 종합 리서치로, KTA·KATO·KATA·KTFS 단체별 위상과 광주·전남 시드 지역 심층 분석, 참가 사이클·비용·매너 트렌드, 그리고 이를 반영한 Match-up 데이터 모델 권고(추가 컬럼·시드 데이터)를 담는다."
+      },
+      {
+        "id": "document:docs/research/tennis-grade-systems.md",
+        "name": "tennis-grade-systems.md",
+        "type": "document",
+        "summary": "한국 동호인 테니스 등급 체계 리서치 보고서로, 전국 협회·수도권·광역시·도별 등급 분류 체계를 정리하고 통합 권역 매핑과 tennis_division enum·자기신고 텍스트 등 데이터 모델 3개 옵션을 비교 권고한다."
+      },
+      {
+        "id": "document:docs/reviews/code-review.md",
+        "name": "code-review.md",
+        "type": "document",
+        "summary": "종합 코드 리뷰 보고서로, plan 일치도 점검부터 Blocking/Should-fix/Nice-to-have 등급별 이슈(REV-B/S/N), 누락 케이스, 문서-코드 불일치, MVP 출시 가능 여부, Linear 이슈 매핑까지 정리한다."
+      },
+      {
+        "id": "document:docs/reviews/security-review.md",
+        "name": "security-review.md",
+        "type": "document",
+        "summary": "보안 검토 보고서로 Critical/High/Medium/Low/Info 등급별 취약점(SEC-C/H/M/L)을 정리한다. API 키 평문 저장, cron 함수 인증 부재, RAG prompt injection, rate-limit 부재, CORS, SSRF 가드 등을 다룬다."
+      },
+      {
+        "id": "document:docs/reviews/simplify-review.md",
+        "name": "simplify-review.md",
+        "type": "document",
+        "summary": "단순화/코드 품질 검토 보고서로 SIMP-01~14 발견 사항(크롤러 중복, 미사용 helper, 보일러플레이트, 거대 함수, 데드 코드 등)을 정리하고 즉시/중기/무시 가능 우선순위로 분류한다."
+      },
+      {
+        "id": "document:docs/rules/BACKEND_RULES.md",
+        "name": "BACKEND_RULES.md",
+        "type": "document",
+        "summary": "Supabase Edge Function 백엔드 규칙 문서로, 아키텍처·요청 검증·SSE·Gemini 호출 동작 및 체크 항목을 정의한다."
+      },
+      {
+        "id": "document:docs/rules/CODING_RULES.md",
+        "name": "CODING_RULES.md",
+        "type": "document",
+        "summary": "TypeScript/Deno, Dart/Flutter, SQL migration 작성 규칙과 Git/PR 규율 및 baseline 체크를 정리한 코딩 규칙 문서."
+      },
+      {
+        "id": "document:docs/rules/DATABASE_RULES.md",
+        "name": "DATABASE_RULES.md",
+        "type": "document",
+        "summary": "스키마·RLS·RPC·cron worker·pgvector 규칙과 migration 배포(머지 ≠ 프로덕션 적용) 수동 적용 게이트 정책을 다루는 DB 규칙 문서."
+      },
+      {
+        "id": "document:docs/rules/DOMAIN_RULES.md",
+        "name": "DOMAIN_RULES.md",
+        "type": "document",
+        "summary": "종목·등급, 대회 visibility, 검색/필터링, 즐겨찾기·알림 등 비즈니스 도메인 규칙과 도메인 harness 타깃을 정의한다."
+      },
+      {
+        "id": "document:docs/rules/FRONTEND_RULES.md",
+        "name": "FRONTEND_RULES.md",
+        "type": "document",
+        "summary": "Flutter 스택·컨벤션, source of truth, 주요 파일, UI/UX 규칙을 정리한 프론트엔드 규칙 문서. go_router·Riverpod·API client 작업 시 참조한다."
+      },
+      {
+        "id": "document:docs/rules/HARNESS.md",
+        "name": "HARNESS.md",
+        "type": "document",
+        "summary": "harness 정의·계층 모델·root-file 정책·script 형태·현행 merge gate·로컬 체크를 다루는 CI/스크립트/테스트 harness 규칙 문서."
+      },
+      {
+        "id": "document:docs/rules/PROJECT_CONTEXT.md",
+        "name": "PROJECT_CONTEXT.md",
+        "type": "document",
+        "summary": "앱 개요·tech stack·아키텍처·Edge Function endpoint 목록·주요 경로·환경 변수·운영 노트를 담은 프로젝트 전반 컨텍스트 문서."
+      },
+      {
+        "id": "document:docs/rules/README.md",
+        "name": "README.md",
+        "type": "document",
+        "summary": "docs/rules 규칙 시스템의 entry-point 문서로, 작업 유형별로 어떤 규칙 파일을 load-on-demand 로 열어야 하는지 라우팅 표와 작성 정책을 제공한다."
+      },
+      {
+        "id": "document:docs/rules/SECURITY_RULES.md",
+        "name": "SECURITY_RULES.md",
+        "type": "document",
+        "summary": "trust boundary·secrets·auth/admin·비용 및 abuse 통제·RAG prompt injection·logging 등 보안 및 운영 규칙 문서."
+      },
+      {
+        "id": "document:docs/rules/SPEED_GUN_RULES.md",
+        "name": "SPEED_GUN_RULES.md",
+        "type": "document",
+        "summary": "speed-gun 제품 원칙·입력 품질·calibration·ball detection/tracking·속도 계산 및 권장 테스트를 정의한 영상 측정 규칙 문서."
+      },
+      {
+        "id": "document:docs/superpowers/plans/2026-05-19-active-sport-filter.md",
+        "name": "2026-05-19-active-sport-filter.md",
+        "type": "document",
+        "summary": "전역 활성 종목 필터(activeSportProvider) 도입 구현 계획. 대회·클럽·룰북 탭에서 종목 칩을 제거하고 단일 활성 종목 기반 reactive 필터로 전환하며, chat Edge Function의 primary 종목 강조까지 다루는 6개 Task 문서."
+      },
+      {
+        "id": "document:docs/superpowers/plans/2026-05-19-chat-main-admin-panel.md",
+        "name": "2026-05-19-chat-main-admin-panel.md",
+        "type": "document",
+        "summary": "채팅 메인화 및 어드민 패널 구현 계획. 크롤러 Edge Function의 requireAdmin 가드, isAdminProvider, 내비게이션 개편, 채팅 빠른 명령어, HomeScreen 흡수, CrawlAuditLog 기반 AdminScreen까지 7개 Task(SSF-301~307)를 정의."
+      },
+      {
+        "id": "document:docs/superpowers/plans/2026-05-27-knowledge-base-rules.md",
+        "name": "2026-05-27-knowledge-base-rules.md",
+        "type": "document",
+        "summary": "지식베이스 1단계(룰북·지식 문서 관리) 구현 계획. embed-pending의 admin 호출 허용, RuleArticle 모델 확장(TDD), 룰 admin CRUD + 임베딩 재계산, Provider, 편집 전체화면, 지식베이스 목록 탭까지 8개 Task를 정의."
+      },
+      {
+        "id": "document:docs/superpowers/plans/2026-05-30-web-admin-separation.md",
+        "name": "2026-05-30-web-admin-separation.md",
+        "type": "document",
+        "summary": "웹 어드민과 앱 사용자 분리 구현 계획. notifications stub로 웹 빌드 unblock, NoAccessScreen, AdminShell 레이아웃, go_router 웹/앱 라우트 분기, manual_description 컬럼 migration과 upsertTournament 체크, 대회 수기 편집 화면까지 10개 Task를 정의."
+      },
+      {
+        "id": "document:docs/superpowers/plans/2026-06-11-chat-a2ui-tournament-cards.md",
+        "name": "2026-06-11-chat-a2ui-tournament-cards.md",
+        "type": "document",
+        "summary": "채팅 A2UI 대회 카드 구현 계획. Backend(카드 빌더·selected_entity 검증, tournament 라우팅의 ui 이벤트 SSE 발송, 컨텍스트 주입)와 Flutter(ChatUiBlock 모델, ApiService.chat selectedEntity, ui 이벤트 처리, ChatTournamentCard 위젯, 카드 액션 후속 전송)를 2 Phase 8 Task로 정의."
+      },
+      {
+        "id": "document:docs/superpowers/specs/2026-05-19-active-sport-filter-design.md",
+        "name": "2026-05-19-active-sport-filter-design.md",
+        "type": "document",
+        "summary": "전역 활성 종목(테니스/풋살) 필터 도입 설계 문서. 기존 selectedSportProvider를 activeSportProvider로 대체하고 대회·클럽·룰북·채팅·프로필·온보딩 등 각 화면의 종목 필터링 반영 방식과 엣지 케이스를 정의한다."
+      },
+      {
+        "id": "document:docs/superpowers/specs/2026-05-19-chat-main-admin-panel-design.md",
+        "name": "2026-05-19-chat-main-admin-panel-design.md",
+        "type": "document",
+        "summary": "채팅을 메인 화면으로 승격하고 관리자 패널을 신설하는 내비게이션 개편 설계 문서. isAdminProvider 기반 role 확인, 채팅 빠른 명령어, 대회 탭의 홈 피드 흡수, 크롤 현황·Draft 승인·수동 실행 어드민 탭 및 크롤러 Edge Function 인증 처리를 다룬다."
+      },
+      {
+        "id": "document:docs/superpowers/specs/2026-05-27-knowledge-base-rules-design.md",
+        "name": "2026-05-27-knowledge-base-rules-design.md",
+        "type": "document",
+        "summary": "지식베이스 1단계로 룰북·지식 문서 관리 체계를 설계한 문서. 데이터 모델과 임베딩(pgvector) 상태 판정, 백엔드 처리, Flutter의 api.dart·RuleArticle 모델·providers·화면 변경 범위와 검증 절차를 정의한다."
+      },
+      {
+        "id": "document:docs/superpowers/specs/2026-05-28-club-activity-mvp-design.md",
+        "name": "2026-05-28-club-activity-mvp-design.md",
+        "type": "document",
+        "summary": "클럽 활동 MVP 설계 문서. 신규 2개 테이블 데이터 모델, RLS 권한 규칙, 데이터 접근 방식, ClubDetailScreen(/clubs/:id) 화면 구성과 검증·후속 과제를 정의한다."
+      },
+      {
+        "id": "document:docs/superpowers/specs/2026-05-29-strategy-and-roadmap-design.md",
+        "name": "2026-05-29-strategy-and-roadmap-design.md",
+        "type": "document",
+        "summary": "Match-up(올라운드) 제품 전략과 로드맵을 정의한 문서. 제품 정의·타겟 사용자·경쟁 분석, Phase 1~4 전략 로드맵, MVP 스코프, 4개 스프린트 계획, 리스크·성공 지표·사용자 획득 전략·운영 모니터링·Post-MVP 백로그를 포괄한다."
+      },
+      {
+        "id": "document:docs/superpowers/specs/2026-05-30-web-admin-separation-design.md",
+        "name": "2026-05-30-web-admin-separation-design.md",
+        "type": "document",
+        "summary": "웹 어드민과 앱 사용자 경험을 분리하는 설계 문서. 웹 빌드 unblock, go_router 분기와 /admin/* 경로 보호 리다이렉트 가드, AdminShell 레이아웃, 대회 편집 화면 및 크롤 덮어쓰기 방지, 변경 파일·DB 마이그레이션 목록을 정의한다."
+      },
+      {
+        "id": "document:docs/superpowers/specs/2026-06-11-chat-a2ui-cards-design.md",
+        "name": "2026-06-11-chat-a2ui-cards-design.md",
+        "type": "document",
+        "summary": "채팅 응답을 A2UI 카드로 렌더링하는 설계 문서. SSE 컨트랙트, 후속 질문 컨텍스트, 신뢰 경계(security/trust boundaries), 백엔드·Flutter 변경, 에러 처리·테스트·범위 제외 사항을 정의한다."
+      },
+      {
+        "id": "document:.github/pull_request_template.md",
+        "name": "pull_request_template.md",
+        "type": "document",
+        "summary": "PR 작성 시 자동 삽입되는 템플릿으로, 요약·작업 영역 체크리스트(Flutter/Edge Functions 등)와 해당 영역별 규칙 문서 링크를 안내한다."
+      },
+      {
+        "id": "document:app/assets/models/README.md",
+        "name": "README.md",
+        "type": "document",
+        "summary": "스피드건 기능에 쓰이는 YOLOv8n TFLite 모델(yolov8n.tflite) 다운로드 위치와 부재 시 BallDetectorService가 mock 모드로 동작함을 안내하는 문서."
+      },
+      {
+        "id": "document:claudedocs/schema-audit-remaining.md",
+        "name": "schema-audit-remaining.md",
+        "type": "document",
+        "summary": "DB 스키마 감사에서 남은 보안·정합성 항목을 6개 섹션으로 정리한 백로그 문서."
+      },
+      {
+        "id": "document:docs/changelog/2026-W23.md",
+        "name": "2026-W23.md",
+        "type": "document",
+        "summary": "2026년 23주차 변경 이력을 9개 섹션으로 기록한 주간 changelog."
+      },
+      {
+        "id": "document:docs/qa/mvp-qa-checklist.md",
+        "name": "mvp-qa-checklist.md",
+        "type": "document",
+        "summary": "MVP 출시 전 수동 QA 점검 항목을 9개 섹션으로 정리한 체크리스트."
+      },
+      {
+        "id": "document:docs/security/cron-jwt-rotation.md",
+        "name": "cron-jwt-rotation.md",
+        "type": "document",
+        "summary": "cron 호출용 JWT 시크릿 회전 절차와 운영 가이드를 13개 섹션으로 설명한 보안 문서."
+      }
+    ],
+    "infrastructure": [
+      {
+        "id": "pipeline:.github/workflows/ci.yml",
+        "name": "ci.yml",
+        "type": "pipeline",
+        "summary": "main 브랜치 push·PR 시 실행되는 CI 워크플로우로, Flutter 앱(pub get·analyze·test --coverage)과 Deno Edge Functions(fmt·lint·check·test)를 각각 별도 job으로 검증한다."
+      },
+      {
+        "id": "step:.github/workflows/ci.yml:flutter",
+        "name": "flutter",
+        "type": "pipeline",
+        "summary": "Flutter 앱 디렉터리에서 의존성 설치 후 flutter analyze(--no-fatal-infos)와 커버리지 포함 테스트를 실행하는 job."
+      },
+      {
+        "id": "step:.github/workflows/ci.yml:edge-functions",
+        "name": "edge-functions",
+        "type": "pipeline",
+        "summary": "Deno 런타임을 셋업하고 Supabase Edge Functions에 대해 fmt·lint·check·test를 한 번에 실행하는 job."
+      },
+      {
+        "id": "pipeline:.github/workflows/harness.yml",
+        "name": "harness.yml",
+        "type": "pipeline",
+        "summary": "PR·main push 시 저장소 규칙 검사(enum·정적 규칙·시크릿 스캔 Python/Shell 스크립트)와 Flutter analyze/test, Deno Edge Functions 검증을 수행하는 harness 워크플로우."
+      },
+      {
+        "id": "step:.github/workflows/harness.yml:repository-rules",
+        "name": "repository-rules",
+        "type": "pipeline",
+        "summary": "Python 3.12를 셋업하고 check_enums.py·check_static_rules.py·check_secrets.sh를 실행해 저장소 규칙 위반과 시크릿 노출을 차단하는 job."
+      },
+      {
+        "id": "step:.github/workflows/harness.yml:flutter",
+        "name": "flutter",
+        "type": "pipeline",
+        "summary": "app 디렉터리에서 flutter pub get·analyze·test를 실행하는 harness Flutter 검증 job."
+      },
+      {
+        "id": "step:.github/workflows/harness.yml:deno",
+        "name": "deno",
+        "type": "pipeline",
+        "summary": "supabase/functions 디렉터리에서 Deno fmt·lint·check·test를 실행해 Edge Functions를 검증하는 job."
+      },
+      {
+        "id": "pipeline:Makefile",
+        "name": "Makefile",
+        "type": "pipeline",
+        "summary": "로컬 개발 워크플로우를 자동화하는 Makefile로, macOS 의존성 설치(deps), Supabase 로컬 스택/마이그레이션 초기화(setup·reset), Edge Functions 백엔드(backend), Flutter 앱·웹 어드민 실행(app·admin), 정적 검증(check) 명령을 제공한다."
+      }
+    ],
+    "data": [
+      {
+        "id": "schema:supabase/migrations/001_extensions.sql",
+        "name": "001_extensions.sql",
+        "type": "schema",
+        "summary": "001_extensions.sql migration: pg_cron 스케줄 등록."
+      },
+      {
+        "id": "table:supabase/migrations/002_init_users_sports.sql",
+        "name": "002_init_users_sports.sql",
+        "type": "table",
+        "summary": "002_init_users_sports.sql migration: 테이블 users, user_sports 정의; RPC/함수 handle_new_user, touch_updated_at, is_admin, prevent_role_self_update; RLS 정책 설정; trigger on_auth_user_created, users_touch_updated_at, users_prevent_role_self_update."
+      },
+      {
+        "id": "table:supabase/migrations/002_init_users_sports.sql:users",
+        "name": "users",
+        "type": "table",
+        "summary": "users 테이블 — 002_init_users_sports.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/002_init_users_sports.sql:user_sports",
+        "name": "user_sports",
+        "type": "table",
+        "summary": "user_sports 테이블 — 002_init_users_sports.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/003_tournaments.sql",
+        "name": "003_tournaments.sql",
+        "type": "table",
+        "summary": "003_tournaments.sql migration: 테이블 tournaments, tournament_favorites 정의; RPC/함수 invalidate_tournament_embedding, tournaments_for_user, tournaments_semantic_search; RLS 정책 설정; trigger tournaments_touch_updated_at, tournaments_invalidate_embedding."
+      },
+      {
+        "id": "table:supabase/migrations/003_tournaments.sql:tournaments",
+        "name": "tournaments",
+        "type": "table",
+        "summary": "tournaments 테이블 — 003_tournaments.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/003_tournaments.sql:tournament_favorites",
+        "name": "tournament_favorites",
+        "type": "table",
+        "summary": "tournament_favorites 테이블 — 003_tournaments.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/004_clubs.sql",
+        "name": "004_clubs.sql",
+        "type": "table",
+        "summary": "004_clubs.sql migration: 테이블 clubs 정의; RLS 정책 설정; trigger clubs_touch_updated_at."
+      },
+      {
+        "id": "table:supabase/migrations/004_clubs.sql:clubs",
+        "name": "clubs",
+        "type": "table",
+        "summary": "clubs 테이블 — 004_clubs.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/005_chat_rules.sql",
+        "name": "005_chat_rules.sql",
+        "type": "table",
+        "summary": "005_chat_rules.sql migration: 테이블 chat_messages, rule_articles 정의; RPC/함수 invalidate_rule_embedding, rules_semantic_search; RLS 정책 설정; trigger rule_articles_touch_updated_at, rule_articles_invalidate_embedding."
+      },
+      {
+        "id": "table:supabase/migrations/005_chat_rules.sql:chat_messages",
+        "name": "chat_messages",
+        "type": "table",
+        "summary": "chat_messages 테이블 — 005_chat_rules.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/005_chat_rules.sql:rule_articles",
+        "name": "rule_articles",
+        "type": "table",
+        "summary": "rule_articles 테이블 — 005_chat_rules.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/006_notifications.sql",
+        "name": "006_notifications.sql",
+        "type": "table",
+        "summary": "006_notifications.sql migration: 테이블 device_tokens, notifications_log 정의; RLS 정책 설정; trigger device_tokens_touch_updated_at."
+      },
+      {
+        "id": "table:supabase/migrations/006_notifications.sql:device_tokens",
+        "name": "device_tokens",
+        "type": "table",
+        "summary": "device_tokens 테이블 — 006_notifications.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/006_notifications.sql:notifications_log",
+        "name": "notifications_log",
+        "type": "table",
+        "summary": "notifications_log 테이블 — 006_notifications.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/007_crawl_audit.sql",
+        "name": "007_crawl_audit.sql",
+        "type": "table",
+        "summary": "007_crawl_audit.sql migration: 테이블 crawl_audit 정의; RLS 정책 설정."
+      },
+      {
+        "id": "table:supabase/migrations/007_crawl_audit.sql:crawl_audit",
+        "name": "crawl_audit",
+        "type": "table",
+        "summary": "crawl_audit 테이블 — 007_crawl_audit.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "schema:supabase/migrations/008_cron.sql",
+        "name": "008_cron.sql",
+        "type": "schema",
+        "summary": "008_cron.sql migration: RPC/함수 invoke_edge_function; pg_cron 스케줄 등록."
+      },
+      {
+        "id": "table:supabase/migrations/009_regions_and_multi_org.sql",
+        "name": "009_regions_and_multi_org.sql",
+        "type": "table",
+        "summary": "009_regions_and_multi_org.sql migration: 테이블 regions, user_tennis_orgs 정의; RLS 정책 설정; trigger user_tennis_orgs_touch_updated_at."
+      },
+      {
+        "id": "table:supabase/migrations/009_regions_and_multi_org.sql:regions",
+        "name": "regions",
+        "type": "table",
+        "summary": "regions 테이블 — 009_regions_and_multi_org.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/009_regions_and_multi_org.sql:user_tennis_orgs",
+        "name": "user_tennis_orgs",
+        "type": "table",
+        "summary": "user_tennis_orgs 테이블 — 009_regions_and_multi_org.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "schema:supabase/migrations/010_tennis_grade_revamp.sql",
+        "name": "010_tennis_grade_revamp.sql",
+        "type": "schema",
+        "summary": "010_tennis_grade_revamp.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/011_ensure_profile_rpc.sql",
+        "name": "011_ensure_profile_rpc.sql",
+        "type": "schema",
+        "summary": "011_ensure_profile_rpc.sql migration: RPC/함수 ensure_profile."
+      },
+      {
+        "id": "table:supabase/migrations/012_rate_limit.sql",
+        "name": "012_rate_limit.sql",
+        "type": "table",
+        "summary": "012_rate_limit.sql migration: 테이블 chat_rate_limit 정의; RLS 정책 설정."
+      },
+      {
+        "id": "table:supabase/migrations/012_rate_limit.sql:chat_rate_limit",
+        "name": "chat_rate_limit",
+        "type": "table",
+        "summary": "chat_rate_limit 테이블 — 012_rate_limit.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/013_qa_cache.sql",
+        "name": "013_qa_cache.sql",
+        "type": "table",
+        "summary": "013_qa_cache.sql migration: 테이블 qa_cache 정의; RPC/함수 qa_cache_lookup, qa_cache_insert_if_absent; RLS 정책 설정."
+      },
+      {
+        "id": "table:supabase/migrations/013_qa_cache.sql:qa_cache",
+        "name": "qa_cache",
+        "type": "table",
+        "summary": "qa_cache 테이블 — 013_qa_cache.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/014_intent_examples.sql",
+        "name": "014_intent_examples.sql",
+        "type": "table",
+        "summary": "014_intent_examples.sql migration: 테이블 intent_examples 정의; RPC/함수 intent_classify; RLS 정책 설정."
+      },
+      {
+        "id": "table:supabase/migrations/014_intent_examples.sql:intent_examples",
+        "name": "intent_examples",
+        "type": "table",
+        "summary": "intent_examples 테이블 — 014_intent_examples.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "schema:supabase/migrations/015_uuid_v7.sql",
+        "name": "015_uuid_v7.sql",
+        "type": "schema",
+        "summary": "015_uuid_v7.sql migration: RPC/함수 uuid_generate_v7."
+      },
+      {
+        "id": "schema:supabase/migrations/016_tournaments_search_sport_filter.sql",
+        "name": "016_tournaments_search_sport_filter.sql",
+        "type": "schema",
+        "summary": "016_tournaments_search_sport_filter.sql migration: RPC/함수 tournaments_semantic_search."
+      },
+      {
+        "id": "schema:supabase/migrations/017_uuid_v7_pgcrypto_schema_fix.sql",
+        "name": "017_uuid_v7_pgcrypto_schema_fix.sql",
+        "type": "schema",
+        "summary": "017_uuid_v7_pgcrypto_schema_fix.sql migration: RPC/함수 uuid_generate_v7."
+      },
+      {
+        "id": "schema:supabase/migrations/018_tournament_search_by_slots.sql",
+        "name": "018_tournament_search_by_slots.sql",
+        "type": "schema",
+        "summary": "018_tournament_search_by_slots.sql migration: RPC/함수 tournament_search_by_slots."
+      },
+      {
+        "id": "table:supabase/migrations/019_crawl_sources.sql",
+        "name": "019_crawl_sources.sql",
+        "type": "table",
+        "summary": "019_crawl_sources.sql migration: 테이블 crawl_sources 정의; pg_cron 스케줄 등록; RLS 정책 설정; trigger crawl_sources_touch_updated_at."
+      },
+      {
+        "id": "table:supabase/migrations/019_crawl_sources.sql:crawl_sources",
+        "name": "crawl_sources",
+        "type": "table",
+        "summary": "crawl_sources 테이블 — 019_crawl_sources.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "schema:supabase/migrations/020_dispatcher_cron_switch.sql",
+        "name": "020_dispatcher_cron_switch.sql",
+        "type": "schema",
+        "summary": "020_dispatcher_cron_switch.sql migration: pg_cron 스케줄 등록."
+      },
+      {
+        "id": "schema:supabase/migrations/021_crawl_sources_running_flag.sql",
+        "name": "021_crawl_sources_running_flag.sql",
+        "type": "schema",
+        "summary": "021_crawl_sources_running_flag.sql migration: RPC/함수 crawl_try_start, crawl_release."
+      },
+      {
+        "id": "schema:supabase/migrations/022_tournament_status_rejected.sql",
+        "name": "022_tournament_status_rejected.sql",
+        "type": "schema",
+        "summary": "022_tournament_status_rejected.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/023_review_helpers.sql",
+        "name": "023_review_helpers.sql",
+        "type": "schema",
+        "summary": "023_review_helpers.sql migration: RPC/함수 tournaments_bulk_approve, tournaments_bulk_reject; view tournament_review_queue."
+      },
+      {
+        "id": "schema:supabase/migrations/024_crawl_sources_url_refresh.sql",
+        "name": "024_crawl_sources_url_refresh.sql",
+        "type": "schema",
+        "summary": "024_crawl_sources_url_refresh.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/025_futsal_tournament_fields.sql",
+        "name": "025_futsal_tournament_fields.sql",
+        "type": "schema",
+        "summary": "025_futsal_tournament_fields.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/026_futsal_crawl_sources.sql",
+        "name": "026_futsal_crawl_sources.sql",
+        "type": "schema",
+        "summary": "026_futsal_crawl_sources.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/027_db_crawler_review_fixes.sql",
+        "name": "027_db_crawler_review_fixes.sql",
+        "type": "schema",
+        "summary": "027_db_crawler_review_fixes.sql migration: RPC/함수 prevent_role_self_update, close_expired_tournaments; pg_cron 스케줄 등록."
+      },
+      {
+        "id": "schema:supabase/migrations/028_adjust_crawler_schedule.sql",
+        "name": "028_adjust_crawler_schedule.sql",
+        "type": "schema",
+        "summary": "028_adjust_crawler_schedule.sql migration: pg_cron 스케줄 등록."
+      },
+      {
+        "id": "schema:supabase/migrations/029_division_codes_reset_eligible_grades.sql",
+        "name": "029_division_codes_reset_eligible_grades.sql",
+        "type": "schema",
+        "summary": "029_division_codes_reset_eligible_grades.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/030_invoke_edge_function_internal_cron_jwt.sql",
+        "name": "030_invoke_edge_function_internal_cron_jwt.sql",
+        "type": "schema",
+        "summary": "030_invoke_edge_function_internal_cron_jwt.sql migration: RPC/함수 invoke_edge_function."
+      },
+      {
+        "id": "table:supabase/migrations/031_club_management.sql",
+        "name": "031_club_management.sql",
+        "type": "table",
+        "summary": "031_club_management.sql migration: 테이블 club_members, club_join_requests 정의; RPC/함수 update_club_member_count; RLS 정책 설정; trigger club_members_count_trigger."
+      },
+      {
+        "id": "table:supabase/migrations/031_club_management.sql:club_members",
+        "name": "club_members",
+        "type": "table",
+        "summary": "club_members 테이블 — 031_club_management.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/031_club_management.sql:club_join_requests",
+        "name": "club_join_requests",
+        "type": "table",
+        "summary": "club_join_requests 테이블 — 031_club_management.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "schema:supabase/migrations/032_drop_legacy_clubs_active_policy.sql",
+        "name": "032_drop_legacy_clubs_active_policy.sql",
+        "type": "schema",
+        "summary": "032_drop_legacy_clubs_active_policy.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/033_fix_club_members_rls_recursion.sql",
+        "name": "033_fix_club_members_rls_recursion.sql",
+        "type": "schema",
+        "summary": "033_fix_club_members_rls_recursion.sql migration: RPC/함수 is_active_club_member, is_club_manager; RLS 정책 설정."
+      },
+      {
+        "id": "schema:supabase/migrations/034_invoke_edge_function_use_vault.sql",
+        "name": "034_invoke_edge_function_use_vault.sql",
+        "type": "schema",
+        "summary": "034_invoke_edge_function_use_vault.sql migration: RPC/함수 invoke_edge_function."
+      },
+      {
+        "id": "table:supabase/migrations/035_club_events.sql",
+        "name": "035_club_events.sql",
+        "type": "table",
+        "summary": "035_club_events.sql migration: 테이블 club_events, club_event_attendees 정의; RPC/함수 is_event_club_member, is_event_club_manager; RLS 정책 설정."
+      },
+      {
+        "id": "table:supabase/migrations/035_club_events.sql:club_events",
+        "name": "club_events",
+        "type": "table",
+        "summary": "club_events 테이블 — 035_club_events.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/035_club_events.sql:club_event_attendees",
+        "name": "club_event_attendees",
+        "type": "table",
+        "summary": "club_event_attendees 테이블 — 035_club_events.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "schema:supabase/migrations/036_club_logos.sql",
+        "name": "036_club_logos.sql",
+        "type": "schema",
+        "summary": "036_club_logos.sql migration: RLS 정책 설정."
+      },
+      {
+        "id": "table:supabase/migrations/037_rate_limits.sql",
+        "name": "037_rate_limits.sql",
+        "type": "table",
+        "summary": "037_rate_limits.sql migration: 테이블 rate_limits 정의; RPC/함수 consume_rate_limit; RLS 정책 설정."
+      },
+      {
+        "id": "table:supabase/migrations/037_rate_limits.sql:rate_limits",
+        "name": "rate_limits",
+        "type": "table",
+        "summary": "rate_limits 테이블 — 037_rate_limits.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "schema:supabase/migrations/038_search_like_escape.sql",
+        "name": "038_search_like_escape.sql",
+        "type": "schema",
+        "summary": "038_search_like_escape.sql migration: RPC/함수 tournaments_for_user."
+      },
+      {
+        "id": "schema:supabase/migrations/039_rls_hardening.sql",
+        "name": "039_rls_hardening.sql",
+        "type": "schema",
+        "summary": "039_rls_hardening.sql migration: RLS 정책 설정."
+      },
+      {
+        "id": "schema:supabase/migrations/040_device_token_cap.sql",
+        "name": "040_device_token_cap.sql",
+        "type": "schema",
+        "summary": "040_device_token_cap.sql migration: RPC/함수 cap_device_tokens; trigger device_tokens_cap."
+      },
+      {
+        "id": "schema:supabase/migrations/041_fix_grade_matching.sql",
+        "name": "041_fix_grade_matching.sql",
+        "type": "schema",
+        "summary": "041_fix_grade_matching.sql migration: RPC/함수 tournaments_for_user."
+      },
+      {
+        "id": "schema:supabase/migrations/042_manual_description.sql",
+        "name": "042_manual_description.sql",
+        "type": "schema",
+        "summary": "042_manual_description.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/043_rpc_v2_region_org_filters.sql",
+        "name": "043_rpc_v2_region_org_filters.sql",
+        "type": "schema",
+        "summary": "043_rpc_v2_region_org_filters.sql migration: RPC/함수 tournaments_for_user, tournaments_semantic_search."
+      },
+      {
+        "id": "schema:supabase/migrations/044_rpc_returns_table.sql",
+        "name": "044_rpc_returns_table.sql",
+        "type": "schema",
+        "summary": "044_rpc_returns_table.sql migration: RPC/함수 tournaments_for_user."
+      },
+      {
+        "id": "schema:supabase/migrations/045_seed_regions.sql",
+        "name": "045_seed_regions.sql",
+        "type": "schema",
+        "summary": "045_seed_regions.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "table:supabase/migrations/046_venues.sql",
+        "name": "046_venues.sql",
+        "type": "table",
+        "summary": "046_venues.sql migration: 테이블 venues 정의; RLS 정책 설정."
+      },
+      {
+        "id": "table:supabase/migrations/046_venues.sql:venues",
+        "name": "venues",
+        "type": "table",
+        "summary": "venues 테이블 — 046_venues.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "schema:supabase/migrations/046b_seed_futsal_venues.sql",
+        "name": "046b_seed_futsal_venues.sql",
+        "type": "schema",
+        "summary": "046b_seed_futsal_venues.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/047_seed_futsal_rules.sql",
+        "name": "047_seed_futsal_rules.sql",
+        "type": "schema",
+        "summary": "047_seed_futsal_rules.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/048_venues_search_rpc.sql",
+        "name": "048_venues_search_rpc.sql",
+        "type": "schema",
+        "summary": "048_venues_search_rpc.sql migration: RPC/함수 venues_search."
+      },
+      {
+        "id": "schema:supabase/migrations/049_normalize_body_newlines.sql",
+        "name": "049_normalize_body_newlines.sql",
+        "type": "schema",
+        "summary": "049_normalize_body_newlines.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/050_drop_clubs_active_column.sql",
+        "name": "050_drop_clubs_active_column.sql",
+        "type": "schema",
+        "summary": "050_drop_clubs_active_column.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/051_backfill_tournaments_region_code.sql",
+        "name": "051_backfill_tournaments_region_code.sql",
+        "type": "schema",
+        "summary": "051_backfill_tournaments_region_code.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/052_recategorize_futsal_rule_articles.sql",
+        "name": "052_recategorize_futsal_rule_articles.sql",
+        "type": "schema",
+        "summary": "052_recategorize_futsal_rule_articles.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/053_seed_seoul_citizen_futsal_league_2026.sql",
+        "name": "053_seed_seoul_citizen_futsal_league_2026.sql",
+        "type": "schema",
+        "summary": "053_seed_seoul_citizen_futsal_league_2026.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "table:supabase/migrations/054_club_favorites.sql",
+        "name": "054_club_favorites.sql",
+        "type": "table",
+        "summary": "054_club_favorites.sql migration: 테이블 club_favorites 정의; RLS 정책 설정."
+      },
+      {
+        "id": "table:supabase/migrations/054_club_favorites.sql:club_favorites",
+        "name": "club_favorites",
+        "type": "table",
+        "summary": "club_favorites 테이블 — 054_club_favorites.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "schema:supabase/migrations/055_users_profile_columns.sql",
+        "name": "055_users_profile_columns.sql",
+        "type": "schema",
+        "summary": "055_users_profile_columns.sql migration: RPC/함수 handle_new_user."
+      },
+      {
+        "id": "schema:supabase/migrations/056_user_tennis_orgs_pk_change.sql",
+        "name": "056_user_tennis_orgs_pk_change.sql",
+        "type": "schema",
+        "summary": "056_user_tennis_orgs_pk_change.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/057_clubs_members_events_update.sql",
+        "name": "057_clubs_members_events_update.sql",
+        "type": "schema",
+        "summary": "057_clubs_members_events_update.sql migration: RLS 정책 설정."
+      },
+      {
+        "id": "table:supabase/migrations/058_club_posts.sql",
+        "name": "058_club_posts.sql",
+        "type": "table",
+        "summary": "058_club_posts.sql migration: 테이블 club_posts, club_post_comments, club_post_mentions 정의; RPC/함수 is_post_club_member; RLS 정책 설정; trigger club_posts_touch_updated_at."
+      },
+      {
+        "id": "table:supabase/migrations/058_club_posts.sql:club_posts",
+        "name": "club_posts",
+        "type": "table",
+        "summary": "club_posts 테이블 — 058_club_posts.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/058_club_posts.sql:club_post_comments",
+        "name": "club_post_comments",
+        "type": "table",
+        "summary": "club_post_comments 테이블 — 058_club_posts.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/058_club_posts.sql:club_post_mentions",
+        "name": "club_post_mentions",
+        "type": "table",
+        "summary": "club_post_mentions 테이블 — 058_club_posts.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/059_tournament_extension_tables.sql",
+        "name": "059_tournament_extension_tables.sql",
+        "type": "table",
+        "summary": "059_tournament_extension_tables.sql migration: 테이블 tennis_tournament_details, futsal_tournament_details 정의; RPC/함수 tournaments_for_user, tournaments_semantic_search; RLS 정책 설정."
+      },
+      {
+        "id": "table:supabase/migrations/059_tournament_extension_tables.sql:tennis_tournament_details",
+        "name": "tennis_tournament_details",
+        "type": "table",
+        "summary": "tennis_tournament_details 테이블 — 059_tournament_extension_tables.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/059_tournament_extension_tables.sql:futsal_tournament_details",
+        "name": "futsal_tournament_details",
+        "type": "table",
+        "summary": "futsal_tournament_details 테이블 — 059_tournament_extension_tables.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/060_notifications_unified.sql",
+        "name": "060_notifications_unified.sql",
+        "type": "table",
+        "summary": "060_notifications_unified.sql migration: 테이블 notifications 정의; RLS 정책 설정."
+      },
+      {
+        "id": "table:supabase/migrations/060_notifications_unified.sql:notifications",
+        "name": "notifications",
+        "type": "table",
+        "summary": "notifications 테이블 — 060_notifications_unified.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/061_match_records.sql",
+        "name": "061_match_records.sql",
+        "type": "table",
+        "summary": "061_match_records.sql migration: 테이블 match_entries, match_rounds 정의; RLS 정책 설정."
+      },
+      {
+        "id": "table:supabase/migrations/061_match_records.sql:match_entries",
+        "name": "match_entries",
+        "type": "table",
+        "summary": "match_entries 테이블 — 061_match_records.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/061_match_records.sql:match_rounds",
+        "name": "match_rounds",
+        "type": "table",
+        "summary": "match_rounds 테이블 — 061_match_records.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/062_schedule_shares.sql",
+        "name": "062_schedule_shares.sql",
+        "type": "table",
+        "summary": "062_schedule_shares.sql migration: 테이블 schedule_shares 정의; RLS 정책 설정."
+      },
+      {
+        "id": "table:supabase/migrations/062_schedule_shares.sql:schedule_shares",
+        "name": "schedule_shares",
+        "type": "table",
+        "summary": "schedule_shares 테이블 — 062_schedule_shares.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "table:supabase/migrations/063_crawl_documents.sql",
+        "name": "063_crawl_documents.sql",
+        "type": "table",
+        "summary": "063_crawl_documents.sql migration: 테이블 crawl_documents 정의; RLS 정책 설정; trigger crawl_documents_touch_updated_at."
+      },
+      {
+        "id": "table:supabase/migrations/063_crawl_documents.sql:crawl_documents",
+        "name": "crawl_documents",
+        "type": "table",
+        "summary": "crawl_documents 테이블 — 063_crawl_documents.sql 에서 생성. RLS 적용."
+      },
+      {
+        "id": "schema:supabase/migrations/064_fix_tournaments_for_user_details_join.sql",
+        "name": "064_fix_tournaments_for_user_details_join.sql",
+        "type": "schema",
+        "summary": "064_fix_tournaments_for_user_details_join.sql migration: RPC/함수 tournaments_for_user."
+      },
+      {
+        "id": "schema:supabase/migrations/065_rate_limit_security.sql",
+        "name": "065_rate_limit_security.sql",
+        "type": "schema",
+        "summary": "065_rate_limit_security.sql migration: RLS 정책 설정."
+      },
+      {
+        "id": "schema:supabase/migrations/066_schedule_shares_rls_fix.sql",
+        "name": "066_schedule_shares_rls_fix.sql",
+        "type": "schema",
+        "summary": "066_schedule_shares_rls_fix.sql migration: RPC/함수 schedule_shares_guard_recipient_update; RLS 정책 설정; trigger schedule_shares_recipient_guard."
+      },
+      {
+        "id": "schema:supabase/migrations/067_fk_on_delete_policy.sql",
+        "name": "067_fk_on_delete_policy.sql",
+        "type": "schema",
+        "summary": "067_fk_on_delete_policy.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/068_drop_notifications_log_and_fk_indexes.sql",
+        "name": "068_drop_notifications_log_and_fk_indexes.sql",
+        "type": "schema",
+        "summary": "068_drop_notifications_log_and_fk_indexes.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/069_club_posts_storage_owner_folder.sql",
+        "name": "069_club_posts_storage_owner_folder.sql",
+        "type": "schema",
+        "summary": "069_club_posts_storage_owner_folder.sql migration: RLS 정책 설정."
+      },
+      {
+        "id": "schema:supabase/migrations/070_trim_crawl_descriptions.sql",
+        "name": "070_trim_crawl_descriptions.sql",
+        "type": "schema",
+        "summary": "070_trim_crawl_descriptions.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/071_futsal_grades_and_2026_official_events.sql",
+        "name": "071_futsal_grades_and_2026_official_events.sql",
+        "type": "schema",
+        "summary": "071_futsal_grades_and_2026_official_events.sql migration: RPC/함수 tournaments_for_user."
+      },
+      {
+        "id": "schema:supabase/migrations/072_fix_tennis_grade_matching.sql",
+        "name": "072_fix_tennis_grade_matching.sql",
+        "type": "schema",
+        "summary": "072_fix_tennis_grade_matching.sql migration: RPC/함수 expand_gj_jn_codes, tournaments_for_user, tournament_search_by_slots."
+      },
+      {
+        "id": "schema:supabase/migrations/073_tournament_regulation_fields.sql",
+        "name": "073_tournament_regulation_fields.sql",
+        "type": "schema",
+        "summary": "073_tournament_regulation_fields.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/074_tournament_regulation_body.sql",
+        "name": "074_tournament_regulation_body.sql",
+        "type": "schema",
+        "summary": "074_tournament_regulation_body.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/075_tournaments_for_user_division_filter.sql",
+        "name": "075_tournaments_for_user_division_filter.sql",
+        "type": "schema",
+        "summary": "075_tournaments_for_user_division_filter.sql migration: RPC/함수 tournaments_for_user."
+      },
+      {
+        "id": "schema:supabase/migrations/076_tournaments_for_user_recruiting_and_date_overlap.sql",
+        "name": "076_tournaments_for_user_recruiting_and_date_overlap.sql",
+        "type": "schema",
+        "summary": "076_tournaments_for_user_recruiting_and_date_overlap.sql migration: RPC/함수 tournaments_for_user."
+      },
+      {
+        "id": "schema:supabase/migrations/077_chat_tournament_regulation_rag.sql",
+        "name": "077_chat_tournament_regulation_rag.sql",
+        "type": "schema",
+        "summary": "077_chat_tournament_regulation_rag.sql migration: RPC/함수 invalidate_tournament_embedding, tournaments_semantic_search."
+      },
+      {
+        "id": "schema:supabase/migrations/078_chat_slot_search_consistency.sql",
+        "name": "078_chat_slot_search_consistency.sql",
+        "type": "schema",
+        "summary": "078_chat_slot_search_consistency.sql migration: RPC/함수 tournament_search_by_slots."
+      },
+      {
+        "id": "schema:supabase/migrations/20260617123902_fix_ensure_profile_name.sql",
+        "name": "20260617123902_fix_ensure_profile_name.sql",
+        "type": "schema",
+        "summary": "20260617123902_fix_ensure_profile_name.sql migration: RPC/함수 ensure_profile."
+      },
+      {
+        "id": "schema:supabase/migrations/20260618014529_harden_security_definer_execution.sql",
+        "name": "20260618014529_harden_security_definer_execution.sql",
+        "type": "schema",
+        "summary": "20260618014529_harden_security_definer_execution.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "schema:supabase/migrations/20260618042700_set_function_search_path.sql",
+        "name": "20260618042700_set_function_search_path.sql",
+        "type": "schema",
+        "summary": "20260618042700_set_function_search_path.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+      },
+      {
+        "id": "table:supabase/seed.sql",
+        "name": "seed.sql",
+        "type": "table",
+        "summary": "supabase db reset 시 자동 적용되는 개발용 시드 데이터. 테스트 admin 계정(auth.users 트리거로 public.users 생성), rule_articles 룰북, regions 권역 매핑, clubs 디렉토리, 샘플 published tournaments 를 삽입한다."
+      }
+    ],
+    "config": [
+      {
+        "id": "config:.github/ISSUE_TEMPLATE/bug_report.yml",
+        "name": "bug_report.yml",
+        "type": "config",
+        "summary": "버그 리포트용 GitHub 이슈 폼 템플릿으로, 재현 절차·기대 동작·실제 동작 등의 입력 필드를 정의합니다."
+      },
+      {
+        "id": "config:.github/ISSUE_TEMPLATE/config.yml",
+        "name": "config.yml",
+        "type": "config",
+        "summary": "GitHub 이슈 템플릿 선택 화면 설정 파일로, 빈 이슈 생성을 허용하고 규칙 문서로 연결되는 contact link를 노출합니다."
+      },
+      {
+        "id": "config:.github/ISSUE_TEMPLATE/feature_task.yml",
+        "name": "feature_task.yml",
+        "type": "config",
+        "summary": "기능/작업 단위를 정의하는 GitHub 이슈 폼 템플릿으로, 목표·범위·완료 기준·테스트 계획과 읽어야 할 규칙 문서 체크리스트를 포함합니다."
+      },
+      {
+        "id": "config:.github/ISSUE_TEMPLATE/harness_task.yml",
+        "name": "harness_task.yml",
+        "type": "config",
+        "summary": "하네스(harness) 작업 정의용 GitHub 이슈 폼 템플릿으로, 에이전트·스킬 자동화 작업의 범위와 검증 항목을 구조화합니다."
+      },
+      {
+        "id": "config:app/.env.local.example",
+        "name": ".env.local.example",
+        "type": "config",
+        "summary": "Flutter 앱의 로컬 개발용 환경 변수 템플릿으로, Supabase URL/anon key, API base URL, Google 로그인 클라이언트 ID(web/iOS)를 JSON 형식으로 정의한다."
+      },
+      {
+        "id": "config:app/analysis_options.yaml",
+        "name": "analysis_options.yaml",
+        "type": "config",
+        "summary": "Dart 정적 분석기(analyzer) 설정으로, flutter_lints 권장 린트 규칙을 포함하고 프로젝트별 lint 규칙 커스터마이징 지점을 제공한다."
+      },
+      {
+        "id": "config:app/pubspec.yaml",
+        "name": "pubspec.yaml",
+        "type": "config",
+        "summary": "올라운드 Flutter 앱의 패키지 매니페스트로, Supabase·Riverpod·go_router·Firebase FCM·Speed Gun용 ML(tflite/ffmpeg) 등 핵심 의존성과 폰트·에셋·SDK 버전을 정의한다."
+      },
+      {
+        "id": "config:supabase/functions/.env.example",
+        "name": ".env.example",
+        "type": "config",
+        "summary": "Edge Function 로컬 실행용 환경 변수 예시 파일. RAG/채팅에 쓰이는 Gemini API 키(GEMINI_API_KEY)와 모델명(GEMINI_MODEL, 기본값 gemini-2.0-flash)을 정의한다."
+      },
+      {
+        "id": "config:supabase/functions/deno.json",
+        "name": "deno.json",
+        "type": "config",
+        "summary": "Supabase Edge Function용 Deno 런타임 설정. import map(std, supabase-js, deno-dom), compilerOptions(deno.window·deno.unstable·dom lib), lint 규칙, fmt 포맷팅 규칙을 정의한다."
+      },
+      {
+        "id": "config:supabase/functions/import_map.json",
+        "name": "import_map.json",
+        "type": "config",
+        "summary": "Edge Function의 외부 의존성 별칭을 정의하는 독립 import map. Deno std 라이브러리, @supabase/supabase-js, deno-dom(HTML 파싱)을 URL로 매핑한다."
+      },
+      {
+        "id": "config:supabase/config.toml",
+        "name": "config.toml",
+        "type": "config",
+        "summary": "Supabase 로컬/프로젝트 설정으로 api·db·auth·storage·edge_runtime 및 Edge Function(embed-pending·notify-cron·crawl-dispatch·health) 등록을 정의한다."
+      }
+    ]
+  },
+  "clusters": [],
+  "layers": {
+    "count": 6,
+    "list": [
+      {
+        "id": "layer:ui",
+        "name": "UI 레이어 (Flutter 클라이언트)",
+        "description": "go_router 라우팅·Riverpod provider·화면(screens)·재사용 widget·데이터 model·theme·util 을 포함한 Flutter 모바일 앱 클라이언트로, 대회·클럽·채팅·스피드건·관리자 UI 와 진입점(main.dart)을 담당한다."
+      },
+      {
+        "id": "layer:backend",
+        "name": "백엔드 레이어 (Supabase Edge Functions)",
+        "description": "Deno 기반 Supabase Edge Function 13종과 _shared 공용 모듈(auth·cors·rate_limit·embedding·intent·gemini·regulation·crawler)로, 인증 가드·RPC 호출·RAG/pgvector 검색·크롤링 등 서버 비즈니스 로직을 제공한다."
+      },
+      {
+        "id": "layer:data",
+        "name": "데이터 레이어 (Postgres/migration)",
+        "description": "~82개 SQL migration 으로 정의된 테이블·RLS 정책·RPC·pgvector schema 와 seed.sql, supabase config.toml 을 포함하며 데이터 모델과 영속성·권한의 source of truth 역할을 한다."
+      },
+      {
+        "id": "layer:test",
+        "name": "테스트 레이어",
+        "description": "Flutter 위젯/단위 테스트(app/test)와 Edge Function Deno 테스트(supabase/functions/tests)로 클라이언트와 백엔드 동작을 검증한다."
+      },
+      {
+        "id": "layer:infra",
+        "name": "인프라 & CI/CD 레이어",
+        "description": "GitHub Actions workflow(ci·harness), ISSUE/PR 템플릿, CODEOWNERS, Makefile 등 빌드·CI 파이프라인과 저장소 운영 설정을 담당한다."
+      },
+      {
+        "id": "layer:docs",
+        "name": "문서 레이어",
+        "description": "rules·kb·plans·reviews·research·design·superpowers 가이드와 README·AGENTS·CLAUDE, 법무(약관·개인정보) HTML, RAG 데이터 소스(docx/xlsx), DB 스키마 시각화 문서를 포함한 프로젝트 지식·문서 자료다."
+      }
+    ]
+  },
+  "nodeSummaryIndex": {
+    "file:supabase/functions/_shared/auth.ts": {
+      "name": "auth.ts",
+      "type": "file",
+      "summary": "Edge Function 공용 인증 모듈로, 사용자/관리자/service-role/cron-secret 권한을 검증하는 가드 함수들을 제공한다."
+    },
+    "file:supabase/functions/_shared/cors.ts": {
+      "name": "cors.ts",
+      "type": "file",
+      "summary": "Edge Function 공통 CORS 헤더와 preflight·JSON 응답·에러 응답 헬퍼를 제공하는 응답 유틸리티."
+    },
+    "file:supabase/functions/_shared/rate_limit.ts": {
+      "name": "rate_limit.ts",
+      "type": "file",
+      "summary": "사용자별 요청 횟수를 RPC 로 검사해 한도 초과 시 429 응답과 Retry-After 헤더를 반환하는 rate limit 유틸리티."
+    },
+    "file:supabase/functions/_shared/supabase.ts": {
+      "name": "supabase.ts",
+      "type": "file",
+      "summary": "환경변수를 검증해 사용자 토큰 기반 클라이언트(userClient)와 service-role 클라이언트(serviceClient)를 생성하는 Supabase 클라이언트 팩토리."
+    },
+    "file:supabase/functions/chat-history/index.ts": {
+      "name": "index.ts",
+      "type": "file",
+      "summary": "로그인 사용자의 대화 목록·메시지를 조회(GET)하고 본인 대화를 삭제(DELETE)하는 chat-history Edge Function 핸들러."
+    },
+    "file:supabase/functions/clubs-approve/index.ts": {
+      "name": "index.ts",
+      "type": "file",
+      "summary": "관리자가 클럽 생성 요청을 승인·거절하는 clubs-approve Edge Function 핸들러(POST)."
+    },
+    "file:supabase/functions/clubs-create/index.ts": {
+      "name": "index.ts",
+      "type": "file",
+      "summary": "사용자가 status='pending' 상태로 클럽 생성을 요청하는 clubs-create Edge Function 핸들러(POST)."
+    },
+    "file:supabase/functions/clubs-join/index.ts": {
+      "name": "index.ts",
+      "type": "file",
+      "summary": "클럽 가입 신청·취소·탈퇴·강퇴 액션을 처리하는 clubs-join Edge Function 핸들러(POST)."
+    },
+    "file:supabase/functions/clubs-review-join/index.ts": {
+      "name": "index.ts",
+      "type": "file",
+      "summary": "클럽장·운영진이 가입 신청을 승인·거절하는 clubs-review-join Edge Function 핸들러(POST)."
+    },
+    "file:supabase/functions/clubs-search/index.ts": {
+      "name": "index.ts",
+      "type": "file",
+      "summary": "스포츠·지역·키워드로 클럽을 검색하는 clubs-search Edge Function 핸들러(GET). PostgREST .or() 메타문자를 제거해 주입을 방어한다."
+    },
+    "file:supabase/functions/health/index.ts": {
+      "name": "index.ts",
+      "type": "file",
+      "summary": "헬스 체크용 최소 Edge Function 핸들러로 상태 확인 응답을 반환한다."
+    },
+    "file:supabase/functions/notify-cron/index.ts": {
+      "name": "index.ts",
+      "type": "file",
+      "summary": "pg_cron 이 매시간 호출해 즐겨찾기 대회의 D-3·신청 마감 알림을 생성하고 FCM 으로 푸시 발송하는 notify-cron Edge Function."
+    },
+    "file:supabase/functions/tournaments-approve/index.ts": {
+      "name": "index.ts",
+      "type": "file",
+      "summary": "관리자가 대회를 published 로 승인하거나 사유와 함께 rejected 로 거절하는 tournaments-approve Edge Function 핸들러(POST)."
+    },
+    "file:supabase/functions/_shared/embedding.ts": {
+      "name": "embedding.ts",
+      "type": "file",
+      "summary": "Gemini(text-embedding-004) 임베딩 호출을 래핑하는 공유 헬퍼로, 단건/배치 텍스트를 pgvector 리터럴로 변환해 RAG·semantic-search에서 재사용한다."
+    },
+    "file:supabase/functions/_shared/enums.ts": {
+      "name": "enums.ts",
+      "type": "file",
+      "summary": "테니스·풋살 종목의 등급·협회·지역·부서·참가비 단위 등 도메인 enum과 라벨, 유효성/매칭 검증 헬퍼를 모은 핵심 공유 모듈이다."
+    },
+    "file:supabase/functions/_shared/intent.ts": {
+      "name": "intent.ts",
+      "type": "file",
+      "summary": "채팅 질의에서 지역·종목·날짜 범위 슬롯을 추출하고 규칙/임베딩 기반으로 의도(intent)를 분류하는 공유 NLU 모듈로, chat·seed-intent-examples에서 사용된다."
+    },
+    "file:supabase/functions/seed-intent-examples/index.ts": {
+      "name": "index.ts",
+      "type": "file",
+      "summary": "의도별 한국어 예시 문장을 Gemini 임베딩으로 변환해 intent_examples 테이블에 멱등 시드하는 service_role/admin 전용 Edge Function이다."
+    },
+    "file:supabase/functions/semantic-search/index.ts": {
+      "name": "index.ts",
+      "type": "file",
+      "summary": "질의를 Gemini 임베딩 후 pgvector RPC(tournaments/rules)로 유사도 검색하는 인증·rate-limit 적용 Edge Function으로, chat의 RAG 컨텍스트 수집에도 쓰인다."
+    },
+    "file:supabase/functions/tests/enums_test.ts": {
+      "name": "enums_test.ts",
+      "type": "file",
+      "summary": "_shared/enums.ts의 등급·협회·지역·부서 검증 및 참가 가능 매칭 로직을 검증하는 Deno 테스트 스위트이다."
+    },
+    "file:supabase/functions/tests/intent_test.ts": {
+      "name": "intent_test.ts",
+      "type": "file",
+      "summary": "_shared/intent.ts의 슬롯 추출·날짜 범위·규칙 기반 의도 분류 로직을 검증하는 Deno 테스트 스위트이다."
+    },
+    "file:supabase/functions/tournaments-search/index.ts": {
+      "name": "index.ts",
+      "type": "file",
+      "summary": "사용자 등급 기반 자동 필터링과 지역·날짜·부서·모집상태 조건으로 대회를 조회하는 인증 적용 GET Edge Function이다."
+    },
+    "file:supabase/functions/tournaments-submit/index.ts": {
+      "name": "index.ts",
+      "type": "file",
+      "summary": "일반 사용자가 대회를 제보해 draft 상태로 저장하는 POST Edge Function으로, enum 유효성 검증 후 관리자 승인 대상으로 등록한다."
+    },
+    "file:supabase/functions/_shared/chat_cards.ts": {
+      "name": "chat_cards.ts",
+      "type": "file",
+      "summary": "채팅 응답용 대회 카드와 검색 결과 텍스트를 생성하는 공유 헬퍼 모듈. 대회 행(row)을 카드 형태로 변환하고 종목 라벨·필터 문구·선택 엔티티 파싱을 담당한다."
+    },
+    "file:supabase/functions/_shared/gemini.ts": {
+      "name": "gemini.ts",
+      "type": "file",
+      "summary": "Gemini 생성 API를 SSE 스트리밍으로 호출하는 공유 클라이언트. streamChat 비동기 제너레이터로 채팅 응답 토큰을 순차 yield 한다."
+    },
+    "file:supabase/functions/_shared/regulation.ts": {
+      "name": "regulation.ts",
+      "type": "file",
+      "summary": "대회 요강(regulation) 필드 정규화·포맷·임베딩 텍스트·RAG 컨텍스트 라인 생성을 담당하는 공유 모듈. 채팅과 임베딩 양쪽에서 요강 데이터를 일관되게 가공한다."
+    },
+    "file:supabase/functions/chat/index.ts": {
+      "name": "index.ts",
+      "type": "file",
+      "summary": "채팅 Edge Function의 진입점. 사용자 메시지를 의도 분류·임베딩·시맨틱 검색하고 요강 RAG 컨텍스트를 구성해 Gemini로 SSE 스트리밍 응답과 대회 카드를 반환한다. QA 캐시와 대화 이력 저장도 처리한다."
+    },
+    "file:supabase/functions/embed-pending/index.ts": {
+      "name": "index.ts",
+      "type": "file",
+      "summary": "임베딩 대기열 처리 Edge Function. 미임베딩 대회·룰 데이터를 조회해 텍스트를 구성하고 embedding을 생성·저장하는 배치 작업 진입점."
+    },
+    "file:supabase/functions/tests/chat_cards_test.ts": {
+      "name": "chat_cards_test.ts",
+      "type": "file",
+      "summary": "chat_cards 모듈의 대회 카드 생성·검색 텍스트 렌더링·엔티티 파싱 동작을 검증하는 Deno 테스트."
+    },
+    "file:supabase/functions/tests/regulation_test.ts": {
+      "name": "regulation_test.ts",
+      "type": "file",
+      "summary": "regulation 모듈의 필드 정규화·포맷·임베딩 텍스트·컨텍스트 라인 생성 로직을 검증하는 Deno 테스트."
+    },
+    "file:supabase/functions/_shared/crawler.ts": {
+      "name": "crawler.ts",
+      "type": "file",
+      "summary": "크롤러 공용 코어 모듈. crawl_audit 감사 기록, 원본 HTML 저장, tournaments upsert(기존 사용자/관리자 변경 보존), 날짜·신청마감·장소·요강(regulation) 필드·본문·유의사항·종별(division) 추출 헬퍼를 제공한다."
+    },
+    "file:supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts": {
+      "name": "gnuboard_sub5_5_contest.ts",
+      "type": "file",
+      "summary": "그누보드 sub5.5 대회 게시판 전용 파서. 목록 페이지를 fetch·파싱하고 ETag/콘텐츠 해시로 변경을 감지한 뒤 상세 페이지에서 날짜·참가비·종별·요강을 추출해 tournaments로 upsert한다."
+    },
+    "file:supabase/functions/_shared/crawler/registry.ts": {
+      "name": "registry.ts",
+      "type": "file",
+      "summary": "파서 레지스트리. 파서 키와 구현 함수를 매핑한 PARSER_REGISTRY를 정의하고 키로 파서를 조회/나열하는 헬퍼를 제공한다."
+    },
+    "file:supabase/functions/_shared/crawler/types.ts": {
+      "name": "types.ts",
+      "type": "file",
+      "summary": "크롤러 파서 계층의 공용 타입 정의. 파서 함수 시그니처, 소스 설정, 파서 컨텍스트 등 인터페이스를 선언한다."
+    },
+    "file:supabase/functions/crawl-dispatch/index.ts": {
+      "name": "index.ts",
+      "type": "file",
+      "summary": "크롤 디스패처 Edge Function. 인증(service-role/admin/cron)을 검증하고 due 상태인 크롤 소스를 선별해 레지스트리의 파서를 실행한 뒤 결과를 JSON으로 응답한다."
+    },
+    "file:supabase/functions/tests/crawler_extract_test.ts": {
+      "name": "crawler_extract_test.ts",
+      "type": "file",
+      "summary": "크롤러 추출 헬퍼(extractDate/extractApplicationDeadline/extractVenue/요강 추출 등)의 단위 테스트. 픽스처 HTML을 파싱해 추출 결과를 검증한다."
+    },
+    "file:supabase/functions/tests/crawler_upsert_preserve_test.ts": {
+      "name": "crawler_upsert_preserve_test.ts",
+      "type": "file",
+      "summary": "upsertTournament가 기존 사용자/관리자 수정 필드를 덮어쓰지 않고 보존하는지 가짜 Supabase 클라이언트로 검증하는 단위 테스트."
+    },
+    "pipeline:.github/workflows/ci.yml": {
+      "name": "ci.yml",
+      "type": "pipeline",
+      "summary": "main 브랜치 push·PR 시 실행되는 CI 워크플로우로, Flutter 앱(pub get·analyze·test --coverage)과 Deno Edge Functions(fmt·lint·check·test)를 각각 별도 job으로 검증한다."
+    },
+    "step:.github/workflows/ci.yml:flutter": {
+      "name": "flutter",
+      "type": "pipeline",
+      "summary": "Flutter 앱 디렉터리에서 의존성 설치 후 flutter analyze(--no-fatal-infos)와 커버리지 포함 테스트를 실행하는 job."
+    },
+    "step:.github/workflows/ci.yml:edge-functions": {
+      "name": "edge-functions",
+      "type": "pipeline",
+      "summary": "Deno 런타임을 셋업하고 Supabase Edge Functions에 대해 fmt·lint·check·test를 한 번에 실행하는 job."
+    },
+    "pipeline:.github/workflows/harness.yml": {
+      "name": "harness.yml",
+      "type": "pipeline",
+      "summary": "PR·main push 시 저장소 규칙 검사(enum·정적 규칙·시크릿 스캔 Python/Shell 스크립트)와 Flutter analyze/test, Deno Edge Functions 검증을 수행하는 harness 워크플로우."
+    },
+    "step:.github/workflows/harness.yml:repository-rules": {
+      "name": "repository-rules",
+      "type": "pipeline",
+      "summary": "Python 3.12를 셋업하고 check_enums.py·check_static_rules.py·check_secrets.sh를 실행해 저장소 규칙 위반과 시크릿 노출을 차단하는 job."
+    },
+    "step:.github/workflows/harness.yml:flutter": {
+      "name": "flutter",
+      "type": "pipeline",
+      "summary": "app 디렉터리에서 flutter pub get·analyze·test를 실행하는 harness Flutter 검증 job."
+    },
+    "step:.github/workflows/harness.yml:deno": {
+      "name": "deno",
+      "type": "pipeline",
+      "summary": "supabase/functions 디렉터리에서 Deno fmt·lint·check·test를 실행해 Edge Functions를 검증하는 job."
+    },
+    "schema:supabase/migrations/001_extensions.sql": {
+      "name": "001_extensions.sql",
+      "type": "schema",
+      "summary": "001_extensions.sql migration: pg_cron 스케줄 등록."
+    },
+    "table:supabase/migrations/002_init_users_sports.sql": {
+      "name": "002_init_users_sports.sql",
+      "type": "table",
+      "summary": "002_init_users_sports.sql migration: 테이블 users, user_sports 정의; RPC/함수 handle_new_user, touch_updated_at, is_admin, prevent_role_self_update; RLS 정책 설정; trigger on_auth_user_created, users_touch_updated_at, users_prevent_role_self_update."
+    },
+    "table:supabase/migrations/002_init_users_sports.sql:users": {
+      "name": "users",
+      "type": "table",
+      "summary": "users 테이블 — 002_init_users_sports.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/002_init_users_sports.sql:user_sports": {
+      "name": "user_sports",
+      "type": "table",
+      "summary": "user_sports 테이블 — 002_init_users_sports.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/003_tournaments.sql": {
+      "name": "003_tournaments.sql",
+      "type": "table",
+      "summary": "003_tournaments.sql migration: 테이블 tournaments, tournament_favorites 정의; RPC/함수 invalidate_tournament_embedding, tournaments_for_user, tournaments_semantic_search; RLS 정책 설정; trigger tournaments_touch_updated_at, tournaments_invalidate_embedding."
+    },
+    "table:supabase/migrations/003_tournaments.sql:tournaments": {
+      "name": "tournaments",
+      "type": "table",
+      "summary": "tournaments 테이블 — 003_tournaments.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/003_tournaments.sql:tournament_favorites": {
+      "name": "tournament_favorites",
+      "type": "table",
+      "summary": "tournament_favorites 테이블 — 003_tournaments.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/004_clubs.sql": {
+      "name": "004_clubs.sql",
+      "type": "table",
+      "summary": "004_clubs.sql migration: 테이블 clubs 정의; RLS 정책 설정; trigger clubs_touch_updated_at."
+    },
+    "table:supabase/migrations/004_clubs.sql:clubs": {
+      "name": "clubs",
+      "type": "table",
+      "summary": "clubs 테이블 — 004_clubs.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/005_chat_rules.sql": {
+      "name": "005_chat_rules.sql",
+      "type": "table",
+      "summary": "005_chat_rules.sql migration: 테이블 chat_messages, rule_articles 정의; RPC/함수 invalidate_rule_embedding, rules_semantic_search; RLS 정책 설정; trigger rule_articles_touch_updated_at, rule_articles_invalidate_embedding."
+    },
+    "table:supabase/migrations/005_chat_rules.sql:chat_messages": {
+      "name": "chat_messages",
+      "type": "table",
+      "summary": "chat_messages 테이블 — 005_chat_rules.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/005_chat_rules.sql:rule_articles": {
+      "name": "rule_articles",
+      "type": "table",
+      "summary": "rule_articles 테이블 — 005_chat_rules.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/006_notifications.sql": {
+      "name": "006_notifications.sql",
+      "type": "table",
+      "summary": "006_notifications.sql migration: 테이블 device_tokens, notifications_log 정의; RLS 정책 설정; trigger device_tokens_touch_updated_at."
+    },
+    "table:supabase/migrations/006_notifications.sql:device_tokens": {
+      "name": "device_tokens",
+      "type": "table",
+      "summary": "device_tokens 테이블 — 006_notifications.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/006_notifications.sql:notifications_log": {
+      "name": "notifications_log",
+      "type": "table",
+      "summary": "notifications_log 테이블 — 006_notifications.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/007_crawl_audit.sql": {
+      "name": "007_crawl_audit.sql",
+      "type": "table",
+      "summary": "007_crawl_audit.sql migration: 테이블 crawl_audit 정의; RLS 정책 설정."
+    },
+    "table:supabase/migrations/007_crawl_audit.sql:crawl_audit": {
+      "name": "crawl_audit",
+      "type": "table",
+      "summary": "crawl_audit 테이블 — 007_crawl_audit.sql 에서 생성. RLS 적용."
+    },
+    "schema:supabase/migrations/008_cron.sql": {
+      "name": "008_cron.sql",
+      "type": "schema",
+      "summary": "008_cron.sql migration: RPC/함수 invoke_edge_function; pg_cron 스케줄 등록."
+    },
+    "table:supabase/migrations/009_regions_and_multi_org.sql": {
+      "name": "009_regions_and_multi_org.sql",
+      "type": "table",
+      "summary": "009_regions_and_multi_org.sql migration: 테이블 regions, user_tennis_orgs 정의; RLS 정책 설정; trigger user_tennis_orgs_touch_updated_at."
+    },
+    "table:supabase/migrations/009_regions_and_multi_org.sql:regions": {
+      "name": "regions",
+      "type": "table",
+      "summary": "regions 테이블 — 009_regions_and_multi_org.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/009_regions_and_multi_org.sql:user_tennis_orgs": {
+      "name": "user_tennis_orgs",
+      "type": "table",
+      "summary": "user_tennis_orgs 테이블 — 009_regions_and_multi_org.sql 에서 생성. RLS 적용."
+    },
+    "schema:supabase/migrations/010_tennis_grade_revamp.sql": {
+      "name": "010_tennis_grade_revamp.sql",
+      "type": "schema",
+      "summary": "010_tennis_grade_revamp.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/011_ensure_profile_rpc.sql": {
+      "name": "011_ensure_profile_rpc.sql",
+      "type": "schema",
+      "summary": "011_ensure_profile_rpc.sql migration: RPC/함수 ensure_profile."
+    },
+    "table:supabase/migrations/012_rate_limit.sql": {
+      "name": "012_rate_limit.sql",
+      "type": "table",
+      "summary": "012_rate_limit.sql migration: 테이블 chat_rate_limit 정의; RLS 정책 설정."
+    },
+    "table:supabase/migrations/012_rate_limit.sql:chat_rate_limit": {
+      "name": "chat_rate_limit",
+      "type": "table",
+      "summary": "chat_rate_limit 테이블 — 012_rate_limit.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/013_qa_cache.sql": {
+      "name": "013_qa_cache.sql",
+      "type": "table",
+      "summary": "013_qa_cache.sql migration: 테이블 qa_cache 정의; RPC/함수 qa_cache_lookup, qa_cache_insert_if_absent; RLS 정책 설정."
+    },
+    "table:supabase/migrations/013_qa_cache.sql:qa_cache": {
+      "name": "qa_cache",
+      "type": "table",
+      "summary": "qa_cache 테이블 — 013_qa_cache.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/014_intent_examples.sql": {
+      "name": "014_intent_examples.sql",
+      "type": "table",
+      "summary": "014_intent_examples.sql migration: 테이블 intent_examples 정의; RPC/함수 intent_classify; RLS 정책 설정."
+    },
+    "table:supabase/migrations/014_intent_examples.sql:intent_examples": {
+      "name": "intent_examples",
+      "type": "table",
+      "summary": "intent_examples 테이블 — 014_intent_examples.sql 에서 생성. RLS 적용."
+    },
+    "schema:supabase/migrations/015_uuid_v7.sql": {
+      "name": "015_uuid_v7.sql",
+      "type": "schema",
+      "summary": "015_uuid_v7.sql migration: RPC/함수 uuid_generate_v7."
+    },
+    "schema:supabase/migrations/016_tournaments_search_sport_filter.sql": {
+      "name": "016_tournaments_search_sport_filter.sql",
+      "type": "schema",
+      "summary": "016_tournaments_search_sport_filter.sql migration: RPC/함수 tournaments_semantic_search."
+    },
+    "schema:supabase/migrations/017_uuid_v7_pgcrypto_schema_fix.sql": {
+      "name": "017_uuid_v7_pgcrypto_schema_fix.sql",
+      "type": "schema",
+      "summary": "017_uuid_v7_pgcrypto_schema_fix.sql migration: RPC/함수 uuid_generate_v7."
+    },
+    "schema:supabase/migrations/018_tournament_search_by_slots.sql": {
+      "name": "018_tournament_search_by_slots.sql",
+      "type": "schema",
+      "summary": "018_tournament_search_by_slots.sql migration: RPC/함수 tournament_search_by_slots."
+    },
+    "table:supabase/migrations/019_crawl_sources.sql": {
+      "name": "019_crawl_sources.sql",
+      "type": "table",
+      "summary": "019_crawl_sources.sql migration: 테이블 crawl_sources 정의; pg_cron 스케줄 등록; RLS 정책 설정; trigger crawl_sources_touch_updated_at."
+    },
+    "table:supabase/migrations/019_crawl_sources.sql:crawl_sources": {
+      "name": "crawl_sources",
+      "type": "table",
+      "summary": "crawl_sources 테이블 — 019_crawl_sources.sql 에서 생성. RLS 적용."
+    },
+    "schema:supabase/migrations/020_dispatcher_cron_switch.sql": {
+      "name": "020_dispatcher_cron_switch.sql",
+      "type": "schema",
+      "summary": "020_dispatcher_cron_switch.sql migration: pg_cron 스케줄 등록."
+    },
+    "schema:supabase/migrations/021_crawl_sources_running_flag.sql": {
+      "name": "021_crawl_sources_running_flag.sql",
+      "type": "schema",
+      "summary": "021_crawl_sources_running_flag.sql migration: RPC/함수 crawl_try_start, crawl_release."
+    },
+    "schema:supabase/migrations/022_tournament_status_rejected.sql": {
+      "name": "022_tournament_status_rejected.sql",
+      "type": "schema",
+      "summary": "022_tournament_status_rejected.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/023_review_helpers.sql": {
+      "name": "023_review_helpers.sql",
+      "type": "schema",
+      "summary": "023_review_helpers.sql migration: RPC/함수 tournaments_bulk_approve, tournaments_bulk_reject; view tournament_review_queue."
+    },
+    "schema:supabase/migrations/024_crawl_sources_url_refresh.sql": {
+      "name": "024_crawl_sources_url_refresh.sql",
+      "type": "schema",
+      "summary": "024_crawl_sources_url_refresh.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/025_futsal_tournament_fields.sql": {
+      "name": "025_futsal_tournament_fields.sql",
+      "type": "schema",
+      "summary": "025_futsal_tournament_fields.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/026_futsal_crawl_sources.sql": {
+      "name": "026_futsal_crawl_sources.sql",
+      "type": "schema",
+      "summary": "026_futsal_crawl_sources.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/027_db_crawler_review_fixes.sql": {
+      "name": "027_db_crawler_review_fixes.sql",
+      "type": "schema",
+      "summary": "027_db_crawler_review_fixes.sql migration: RPC/함수 prevent_role_self_update, close_expired_tournaments; pg_cron 스케줄 등록."
+    },
+    "schema:supabase/migrations/028_adjust_crawler_schedule.sql": {
+      "name": "028_adjust_crawler_schedule.sql",
+      "type": "schema",
+      "summary": "028_adjust_crawler_schedule.sql migration: pg_cron 스케줄 등록."
+    },
+    "schema:supabase/migrations/029_division_codes_reset_eligible_grades.sql": {
+      "name": "029_division_codes_reset_eligible_grades.sql",
+      "type": "schema",
+      "summary": "029_division_codes_reset_eligible_grades.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/030_invoke_edge_function_internal_cron_jwt.sql": {
+      "name": "030_invoke_edge_function_internal_cron_jwt.sql",
+      "type": "schema",
+      "summary": "030_invoke_edge_function_internal_cron_jwt.sql migration: RPC/함수 invoke_edge_function."
+    },
+    "table:supabase/migrations/031_club_management.sql": {
+      "name": "031_club_management.sql",
+      "type": "table",
+      "summary": "031_club_management.sql migration: 테이블 club_members, club_join_requests 정의; RPC/함수 update_club_member_count; RLS 정책 설정; trigger club_members_count_trigger."
+    },
+    "table:supabase/migrations/031_club_management.sql:club_members": {
+      "name": "club_members",
+      "type": "table",
+      "summary": "club_members 테이블 — 031_club_management.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/031_club_management.sql:club_join_requests": {
+      "name": "club_join_requests",
+      "type": "table",
+      "summary": "club_join_requests 테이블 — 031_club_management.sql 에서 생성. RLS 적용."
+    },
+    "schema:supabase/migrations/032_drop_legacy_clubs_active_policy.sql": {
+      "name": "032_drop_legacy_clubs_active_policy.sql",
+      "type": "schema",
+      "summary": "032_drop_legacy_clubs_active_policy.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/033_fix_club_members_rls_recursion.sql": {
+      "name": "033_fix_club_members_rls_recursion.sql",
+      "type": "schema",
+      "summary": "033_fix_club_members_rls_recursion.sql migration: RPC/함수 is_active_club_member, is_club_manager; RLS 정책 설정."
+    },
+    "schema:supabase/migrations/034_invoke_edge_function_use_vault.sql": {
+      "name": "034_invoke_edge_function_use_vault.sql",
+      "type": "schema",
+      "summary": "034_invoke_edge_function_use_vault.sql migration: RPC/함수 invoke_edge_function."
+    },
+    "table:supabase/migrations/035_club_events.sql": {
+      "name": "035_club_events.sql",
+      "type": "table",
+      "summary": "035_club_events.sql migration: 테이블 club_events, club_event_attendees 정의; RPC/함수 is_event_club_member, is_event_club_manager; RLS 정책 설정."
+    },
+    "table:supabase/migrations/035_club_events.sql:club_events": {
+      "name": "club_events",
+      "type": "table",
+      "summary": "club_events 테이블 — 035_club_events.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/035_club_events.sql:club_event_attendees": {
+      "name": "club_event_attendees",
+      "type": "table",
+      "summary": "club_event_attendees 테이블 — 035_club_events.sql 에서 생성. RLS 적용."
+    },
+    "schema:supabase/migrations/036_club_logos.sql": {
+      "name": "036_club_logos.sql",
+      "type": "schema",
+      "summary": "036_club_logos.sql migration: RLS 정책 설정."
+    },
+    "table:supabase/migrations/037_rate_limits.sql": {
+      "name": "037_rate_limits.sql",
+      "type": "table",
+      "summary": "037_rate_limits.sql migration: 테이블 rate_limits 정의; RPC/함수 consume_rate_limit; RLS 정책 설정."
+    },
+    "table:supabase/migrations/037_rate_limits.sql:rate_limits": {
+      "name": "rate_limits",
+      "type": "table",
+      "summary": "rate_limits 테이블 — 037_rate_limits.sql 에서 생성. RLS 적용."
+    },
+    "schema:supabase/migrations/038_search_like_escape.sql": {
+      "name": "038_search_like_escape.sql",
+      "type": "schema",
+      "summary": "038_search_like_escape.sql migration: RPC/함수 tournaments_for_user."
+    },
+    "schema:supabase/migrations/039_rls_hardening.sql": {
+      "name": "039_rls_hardening.sql",
+      "type": "schema",
+      "summary": "039_rls_hardening.sql migration: RLS 정책 설정."
+    },
+    "schema:supabase/migrations/040_device_token_cap.sql": {
+      "name": "040_device_token_cap.sql",
+      "type": "schema",
+      "summary": "040_device_token_cap.sql migration: RPC/함수 cap_device_tokens; trigger device_tokens_cap."
+    },
+    "schema:supabase/migrations/041_fix_grade_matching.sql": {
+      "name": "041_fix_grade_matching.sql",
+      "type": "schema",
+      "summary": "041_fix_grade_matching.sql migration: RPC/함수 tournaments_for_user."
+    },
+    "schema:supabase/migrations/042_manual_description.sql": {
+      "name": "042_manual_description.sql",
+      "type": "schema",
+      "summary": "042_manual_description.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/043_rpc_v2_region_org_filters.sql": {
+      "name": "043_rpc_v2_region_org_filters.sql",
+      "type": "schema",
+      "summary": "043_rpc_v2_region_org_filters.sql migration: RPC/함수 tournaments_for_user, tournaments_semantic_search."
+    },
+    "schema:supabase/migrations/044_rpc_returns_table.sql": {
+      "name": "044_rpc_returns_table.sql",
+      "type": "schema",
+      "summary": "044_rpc_returns_table.sql migration: RPC/함수 tournaments_for_user."
+    },
+    "schema:supabase/migrations/045_seed_regions.sql": {
+      "name": "045_seed_regions.sql",
+      "type": "schema",
+      "summary": "045_seed_regions.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "table:supabase/migrations/046_venues.sql": {
+      "name": "046_venues.sql",
+      "type": "table",
+      "summary": "046_venues.sql migration: 테이블 venues 정의; RLS 정책 설정."
+    },
+    "table:supabase/migrations/046_venues.sql:venues": {
+      "name": "venues",
+      "type": "table",
+      "summary": "venues 테이블 — 046_venues.sql 에서 생성. RLS 적용."
+    },
+    "schema:supabase/migrations/046b_seed_futsal_venues.sql": {
+      "name": "046b_seed_futsal_venues.sql",
+      "type": "schema",
+      "summary": "046b_seed_futsal_venues.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/047_seed_futsal_rules.sql": {
+      "name": "047_seed_futsal_rules.sql",
+      "type": "schema",
+      "summary": "047_seed_futsal_rules.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/048_venues_search_rpc.sql": {
+      "name": "048_venues_search_rpc.sql",
+      "type": "schema",
+      "summary": "048_venues_search_rpc.sql migration: RPC/함수 venues_search."
+    },
+    "schema:supabase/migrations/049_normalize_body_newlines.sql": {
+      "name": "049_normalize_body_newlines.sql",
+      "type": "schema",
+      "summary": "049_normalize_body_newlines.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/050_drop_clubs_active_column.sql": {
+      "name": "050_drop_clubs_active_column.sql",
+      "type": "schema",
+      "summary": "050_drop_clubs_active_column.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/051_backfill_tournaments_region_code.sql": {
+      "name": "051_backfill_tournaments_region_code.sql",
+      "type": "schema",
+      "summary": "051_backfill_tournaments_region_code.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/052_recategorize_futsal_rule_articles.sql": {
+      "name": "052_recategorize_futsal_rule_articles.sql",
+      "type": "schema",
+      "summary": "052_recategorize_futsal_rule_articles.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/053_seed_seoul_citizen_futsal_league_2026.sql": {
+      "name": "053_seed_seoul_citizen_futsal_league_2026.sql",
+      "type": "schema",
+      "summary": "053_seed_seoul_citizen_futsal_league_2026.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "table:supabase/migrations/054_club_favorites.sql": {
+      "name": "054_club_favorites.sql",
+      "type": "table",
+      "summary": "054_club_favorites.sql migration: 테이블 club_favorites 정의; RLS 정책 설정."
+    },
+    "table:supabase/migrations/054_club_favorites.sql:club_favorites": {
+      "name": "club_favorites",
+      "type": "table",
+      "summary": "club_favorites 테이블 — 054_club_favorites.sql 에서 생성. RLS 적용."
+    },
+    "schema:supabase/migrations/055_users_profile_columns.sql": {
+      "name": "055_users_profile_columns.sql",
+      "type": "schema",
+      "summary": "055_users_profile_columns.sql migration: RPC/함수 handle_new_user."
+    },
+    "schema:supabase/migrations/056_user_tennis_orgs_pk_change.sql": {
+      "name": "056_user_tennis_orgs_pk_change.sql",
+      "type": "schema",
+      "summary": "056_user_tennis_orgs_pk_change.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/057_clubs_members_events_update.sql": {
+      "name": "057_clubs_members_events_update.sql",
+      "type": "schema",
+      "summary": "057_clubs_members_events_update.sql migration: RLS 정책 설정."
+    },
+    "table:supabase/migrations/058_club_posts.sql": {
+      "name": "058_club_posts.sql",
+      "type": "table",
+      "summary": "058_club_posts.sql migration: 테이블 club_posts, club_post_comments, club_post_mentions 정의; RPC/함수 is_post_club_member; RLS 정책 설정; trigger club_posts_touch_updated_at."
+    },
+    "table:supabase/migrations/058_club_posts.sql:club_posts": {
+      "name": "club_posts",
+      "type": "table",
+      "summary": "club_posts 테이블 — 058_club_posts.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/058_club_posts.sql:club_post_comments": {
+      "name": "club_post_comments",
+      "type": "table",
+      "summary": "club_post_comments 테이블 — 058_club_posts.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/058_club_posts.sql:club_post_mentions": {
+      "name": "club_post_mentions",
+      "type": "table",
+      "summary": "club_post_mentions 테이블 — 058_club_posts.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/059_tournament_extension_tables.sql": {
+      "name": "059_tournament_extension_tables.sql",
+      "type": "table",
+      "summary": "059_tournament_extension_tables.sql migration: 테이블 tennis_tournament_details, futsal_tournament_details 정의; RPC/함수 tournaments_for_user, tournaments_semantic_search; RLS 정책 설정."
+    },
+    "table:supabase/migrations/059_tournament_extension_tables.sql:tennis_tournament_details": {
+      "name": "tennis_tournament_details",
+      "type": "table",
+      "summary": "tennis_tournament_details 테이블 — 059_tournament_extension_tables.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/059_tournament_extension_tables.sql:futsal_tournament_details": {
+      "name": "futsal_tournament_details",
+      "type": "table",
+      "summary": "futsal_tournament_details 테이블 — 059_tournament_extension_tables.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/060_notifications_unified.sql": {
+      "name": "060_notifications_unified.sql",
+      "type": "table",
+      "summary": "060_notifications_unified.sql migration: 테이블 notifications 정의; RLS 정책 설정."
+    },
+    "table:supabase/migrations/060_notifications_unified.sql:notifications": {
+      "name": "notifications",
+      "type": "table",
+      "summary": "notifications 테이블 — 060_notifications_unified.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/061_match_records.sql": {
+      "name": "061_match_records.sql",
+      "type": "table",
+      "summary": "061_match_records.sql migration: 테이블 match_entries, match_rounds 정의; RLS 정책 설정."
+    },
+    "table:supabase/migrations/061_match_records.sql:match_entries": {
+      "name": "match_entries",
+      "type": "table",
+      "summary": "match_entries 테이블 — 061_match_records.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/061_match_records.sql:match_rounds": {
+      "name": "match_rounds",
+      "type": "table",
+      "summary": "match_rounds 테이블 — 061_match_records.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/062_schedule_shares.sql": {
+      "name": "062_schedule_shares.sql",
+      "type": "table",
+      "summary": "062_schedule_shares.sql migration: 테이블 schedule_shares 정의; RLS 정책 설정."
+    },
+    "table:supabase/migrations/062_schedule_shares.sql:schedule_shares": {
+      "name": "schedule_shares",
+      "type": "table",
+      "summary": "schedule_shares 테이블 — 062_schedule_shares.sql 에서 생성. RLS 적용."
+    },
+    "table:supabase/migrations/063_crawl_documents.sql": {
+      "name": "063_crawl_documents.sql",
+      "type": "table",
+      "summary": "063_crawl_documents.sql migration: 테이블 crawl_documents 정의; RLS 정책 설정; trigger crawl_documents_touch_updated_at."
+    },
+    "table:supabase/migrations/063_crawl_documents.sql:crawl_documents": {
+      "name": "crawl_documents",
+      "type": "table",
+      "summary": "crawl_documents 테이블 — 063_crawl_documents.sql 에서 생성. RLS 적용."
+    },
+    "schema:supabase/migrations/064_fix_tournaments_for_user_details_join.sql": {
+      "name": "064_fix_tournaments_for_user_details_join.sql",
+      "type": "schema",
+      "summary": "064_fix_tournaments_for_user_details_join.sql migration: RPC/함수 tournaments_for_user."
+    },
+    "schema:supabase/migrations/065_rate_limit_security.sql": {
+      "name": "065_rate_limit_security.sql",
+      "type": "schema",
+      "summary": "065_rate_limit_security.sql migration: RLS 정책 설정."
+    },
+    "schema:supabase/migrations/066_schedule_shares_rls_fix.sql": {
+      "name": "066_schedule_shares_rls_fix.sql",
+      "type": "schema",
+      "summary": "066_schedule_shares_rls_fix.sql migration: RPC/함수 schedule_shares_guard_recipient_update; RLS 정책 설정; trigger schedule_shares_recipient_guard."
+    },
+    "schema:supabase/migrations/067_fk_on_delete_policy.sql": {
+      "name": "067_fk_on_delete_policy.sql",
+      "type": "schema",
+      "summary": "067_fk_on_delete_policy.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/068_drop_notifications_log_and_fk_indexes.sql": {
+      "name": "068_drop_notifications_log_and_fk_indexes.sql",
+      "type": "schema",
+      "summary": "068_drop_notifications_log_and_fk_indexes.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/069_club_posts_storage_owner_folder.sql": {
+      "name": "069_club_posts_storage_owner_folder.sql",
+      "type": "schema",
+      "summary": "069_club_posts_storage_owner_folder.sql migration: RLS 정책 설정."
+    },
+    "schema:supabase/migrations/070_trim_crawl_descriptions.sql": {
+      "name": "070_trim_crawl_descriptions.sql",
+      "type": "schema",
+      "summary": "070_trim_crawl_descriptions.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/071_futsal_grades_and_2026_official_events.sql": {
+      "name": "071_futsal_grades_and_2026_official_events.sql",
+      "type": "schema",
+      "summary": "071_futsal_grades_and_2026_official_events.sql migration: RPC/함수 tournaments_for_user."
+    },
+    "schema:supabase/migrations/072_fix_tennis_grade_matching.sql": {
+      "name": "072_fix_tennis_grade_matching.sql",
+      "type": "schema",
+      "summary": "072_fix_tennis_grade_matching.sql migration: RPC/함수 expand_gj_jn_codes, tournaments_for_user, tournament_search_by_slots."
+    },
+    "schema:supabase/migrations/073_tournament_regulation_fields.sql": {
+      "name": "073_tournament_regulation_fields.sql",
+      "type": "schema",
+      "summary": "073_tournament_regulation_fields.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/074_tournament_regulation_body.sql": {
+      "name": "074_tournament_regulation_body.sql",
+      "type": "schema",
+      "summary": "074_tournament_regulation_body.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/075_tournaments_for_user_division_filter.sql": {
+      "name": "075_tournaments_for_user_division_filter.sql",
+      "type": "schema",
+      "summary": "075_tournaments_for_user_division_filter.sql migration: RPC/함수 tournaments_for_user."
+    },
+    "schema:supabase/migrations/076_tournaments_for_user_recruiting_and_date_overlap.sql": {
+      "name": "076_tournaments_for_user_recruiting_and_date_overlap.sql",
+      "type": "schema",
+      "summary": "076_tournaments_for_user_recruiting_and_date_overlap.sql migration: RPC/함수 tournaments_for_user."
+    },
+    "schema:supabase/migrations/077_chat_tournament_regulation_rag.sql": {
+      "name": "077_chat_tournament_regulation_rag.sql",
+      "type": "schema",
+      "summary": "077_chat_tournament_regulation_rag.sql migration: RPC/함수 invalidate_tournament_embedding, tournaments_semantic_search."
+    },
+    "schema:supabase/migrations/078_chat_slot_search_consistency.sql": {
+      "name": "078_chat_slot_search_consistency.sql",
+      "type": "schema",
+      "summary": "078_chat_slot_search_consistency.sql migration: RPC/함수 tournament_search_by_slots."
+    },
+    "schema:supabase/migrations/20260617123902_fix_ensure_profile_name.sql": {
+      "name": "20260617123902_fix_ensure_profile_name.sql",
+      "type": "schema",
+      "summary": "20260617123902_fix_ensure_profile_name.sql migration: RPC/함수 ensure_profile."
+    },
+    "schema:supabase/migrations/20260618014529_harden_security_definer_execution.sql": {
+      "name": "20260618014529_harden_security_definer_execution.sql",
+      "type": "schema",
+      "summary": "20260618014529_harden_security_definer_execution.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "schema:supabase/migrations/20260618042700_set_function_search_path.sql": {
+      "name": "20260618042700_set_function_search_path.sql",
+      "type": "schema",
+      "summary": "20260618042700_set_function_search_path.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업."
+    },
+    "config:.github/ISSUE_TEMPLATE/bug_report.yml": {
+      "name": "bug_report.yml",
+      "type": "config",
+      "summary": "버그 리포트용 GitHub 이슈 폼 템플릿으로, 재현 절차·기대 동작·실제 동작 등의 입력 필드를 정의합니다."
+    },
+    "config:.github/ISSUE_TEMPLATE/config.yml": {
+      "name": "config.yml",
+      "type": "config",
+      "summary": "GitHub 이슈 템플릿 선택 화면 설정 파일로, 빈 이슈 생성을 허용하고 규칙 문서로 연결되는 contact link를 노출합니다."
+    },
+    "config:.github/ISSUE_TEMPLATE/feature_task.yml": {
+      "name": "feature_task.yml",
+      "type": "config",
+      "summary": "기능/작업 단위를 정의하는 GitHub 이슈 폼 템플릿으로, 목표·범위·완료 기준·테스트 계획과 읽어야 할 규칙 문서 체크리스트를 포함합니다."
+    },
+    "config:.github/ISSUE_TEMPLATE/harness_task.yml": {
+      "name": "harness_task.yml",
+      "type": "config",
+      "summary": "하네스(harness) 작업 정의용 GitHub 이슈 폼 템플릿으로, 에이전트·스킬 자동화 작업의 범위와 검증 항목을 구조화합니다."
+    },
+    "document:AGENTS.md": {
+      "name": "AGENTS.md",
+      "type": "document",
+      "summary": "AI 코딩 에이전트용 라우터 문서로, 항상 적용되는 핵심 규칙(타입 안전성, 서버/DB 권위, 작은 커밋)과 작업 영역별 load-on-demand 규칙 맵(docs/rules/, docs/kb/)을 정의한다."
+    },
+    "document:CLAUDE.md": {
+      "name": "CLAUDE.md",
+      "type": "document",
+      "summary": "AGENTS.md 라우터를 가리키는 경량 진입 문서로, 최소 필수 규칙(사용자 변경 보존, 서버/DB 권위, 타입 안전성, 검증 실행)과 Git/PR 워크플로우(admin 강제 머지 금지, main 보호)를 명시한다."
+    },
+    "pipeline:Makefile": {
+      "name": "Makefile",
+      "type": "pipeline",
+      "summary": "로컬 개발 워크플로우를 자동화하는 Makefile로, macOS 의존성 설치(deps), Supabase 로컬 스택/마이그레이션 초기화(setup·reset), Edge Functions 백엔드(backend), Flutter 앱·웹 어드민 실행(app·admin), 정적 검증(check) 명령을 제공한다."
+    },
+    "document:README.md": {
+      "name": "README.md",
+      "type": "document",
+      "summary": "올라운드(AllRound) 프로젝트 개요 문서로, 핵심 가치·종목/등급 모델·기술 스택(Flutter+Supabase+pgvector+Gemini)·로컬 개발 빠른 시작·API 엔드포인트·디렉토리 구조·운영 워크플로우를 16개 섹션으로 정리한다."
+    },
+    "config:app/.env.local.example": {
+      "name": ".env.local.example",
+      "type": "config",
+      "summary": "Flutter 앱의 로컬 개발용 환경 변수 템플릿으로, Supabase URL/anon key, API base URL, Google 로그인 클라이언트 ID(web/iOS)를 JSON 형식으로 정의한다."
+    },
+    "config:app/analysis_options.yaml": {
+      "name": "analysis_options.yaml",
+      "type": "config",
+      "summary": "Dart 정적 분석기(analyzer) 설정으로, flutter_lints 권장 린트 규칙을 포함하고 프로젝트별 lint 규칙 커스터마이징 지점을 제공한다."
+    },
+    "config:app/pubspec.yaml": {
+      "name": "pubspec.yaml",
+      "type": "config",
+      "summary": "올라운드 Flutter 앱의 패키지 매니페스트로, Supabase·Riverpod·go_router·Firebase FCM·Speed Gun용 ML(tflite/ffmpeg) 등 핵심 의존성과 폰트·에셋·SDK 버전을 정의한다."
+    },
+    "file:docs/db-design.html": {
+      "name": "db-design.html",
+      "type": "file",
+      "summary": "Postgres/pgvector DB 설계 문서(HTML). 테이블 구조, 관계, RLS 정책, 임베딩 컬럼 등 데이터 모델 전반을 시각적으로 정리한 레퍼런스."
+    },
+    "document:docs/deploy.md": {
+      "name": "deploy.md",
+      "type": "document",
+      "summary": "Supabase 프로젝트 생성, migration 적용, Edge Functions 배포, pg_cron 설정, Flutter 앱 빌드까지 전체 배포 절차를 단계별로 안내하는 가이드."
+    },
+    "document:docs/futsal_rulebook_db_apply_guide.md": {
+      "name": "futsal_rulebook_db_apply_guide.md",
+      "type": "document",
+      "summary": "풋살 룰북 50개를 DB에 적재하고 embedding을 생성한 뒤 코치봇 RAG 검색에 잡히는지 확인하는 운영 절차 가이드."
+    },
+    "file:docs/harness-system-analysis.html": {
+      "name": "harness-system-analysis.html",
+      "type": "file",
+      "summary": "규칙을 문서가 아닌 하네스(harness)로 강제하는 시스템을 분석한 HTML 리포트. 에이전트·스킬 기반 자동화 체계의 구조와 근거를 설명."
+    },
+    "file:docs/mvp-roadmap.html": {
+      "name": "mvp-roadmap.html",
+      "type": "file",
+      "summary": "올라운드 MVP 단계별 로드맵을 정리한 HTML 문서. 기능 우선순위와 마일스톤을 시각화한 계획 산출물."
+    },
+    "file:docs/privacy-policy.html": {
+      "name": "privacy-policy.html",
+      "type": "file",
+      "summary": "앱 스토어 제출용 개인정보처리방침 HTML 페이지. 수집 항목, 이용 목적, 보관 기간 등 법적 고지 내용을 담음."
+    },
+    "file:docs/project-current-map.html": {
+      "name": "project-current-map.html",
+      "type": "file",
+      "summary": "테니스·풋살 동호인 정보 앱의 현재 구현 상태를 한눈에 보여주는 HTML 맵. 화면·기능·데이터 흐름의 현황을 정리."
+    },
+    "document:docs/store-listing.md": {
+      "name": "store-listing.md",
+      "type": "document",
+      "summary": "Google Play와 App Store 등록용 메타데이터(앱 이름, 설명, 키워드, 스크린샷 시나리오)를 정리한 스토어 출시 문서."
+    },
+    "document:docs/team-collaboration.md": {
+      "name": "team-collaboration.md",
+      "type": "document",
+      "summary": "브랜치 전략, PR 크기 기준, RLS/migration discipline, enum 동기화 등 팀 협업 규칙과 로컬 검증 절차를 정리한 가이드."
+    },
+    "file:docs/team-onboarding.html": {
+      "name": "team-onboarding.html",
+      "type": "file",
+      "summary": "macOS 환경에서 앱 실행까지 도달하는 팀원 온보딩 가이드(HTML). 개발 환경 셋업과 첫 실행 절차를 단계별로 안내."
+    },
+    "document:docs/test-account-setup.md": {
+      "name": "test-account-setup.md",
+      "type": "document",
+      "summary": "개발용 테스트 계정 생성, 이메일 인증 처리, admin 권한 부여, 목업 데이터 삽입 SQL을 안내하는 개발 환경 셋업 가이드."
+    },
+    "document:docs/design/2026-redesign-spec.md": {
+      "name": "2026-redesign-spec.md",
+      "type": "document",
+      "summary": "2026 디자인 리뉴얼 통합 Spec. 현재 UI 진단, 글로벌·한국 트렌드 분석, Flutter 디자인 시스템 결정(컬러·타이포·모션 토큰, 10개 컴포넌트 라이브러리), 단계별 작업 청크(Phase 0~4)를 정의한다."
+    },
+    "document:docs/design/app-map.html": {
+      "name": "app-map.html",
+      "type": "document",
+      "summary": "사용자 모바일 앱과 어드민 웹의 화면 구조(App Map)를 시각화한 정적 HTML 뷰. app-map.md 내용을 브라우저에서 보기 위한 렌더링본이다."
+    },
+    "document:docs/design/app-map.md": {
+      "name": "app-map.md",
+      "type": "document",
+      "summary": "Match-up 앱의 화면 구조를 정리한 App Map. 사용자 모바일 앱 화면 계층과 어드민 웹 화면을 범례와 함께 트리 형태로 기술한다."
+    },
+    "document:docs/design/db-redesign-progress.md": {
+      "name": "db-redesign-progress.md",
+      "type": "document",
+      "summary": "DB 재설계 진행 현황 문서. users·user_sports·user_tennis_orgs 등 레이어별 확정 스키마와 PK 변경 사유, 클럽·친구 일정·경기 이력 3개 도메인의 설계 범위를 추적한다."
+    },
+    "document:docs/design/erd.html": {
+      "name": "erd.html",
+      "type": "document",
+      "summary": "Match-up DB 스키마의 ERD를 시각화한 정적 HTML 뷰. erd.md의 엔티티 관계 다이어그램을 브라우저에서 렌더링한다."
+    },
+    "document:docs/design/erd.md": {
+      "name": "erd.md",
+      "type": "document",
+      "summary": "Match-up 전체 DB 스키마의 Entity Relationship Diagram. 모든 테이블과 관계를 Mermaid ERD로 기술하고 테이블 수 요약을 제공한다."
+    },
+    "document:docs/design/figma-make-ui-handoff.md": {
+      "name": "figma-make-ui-handoff.md",
+      "type": "document",
+      "summary": "Figma Make로 생성한 UI를 앱에 반영하기 위한 인수인계 문서. 로그인·첫 설정·룰북 퀴즈·MY 화면별 동작, 추가된 프론트엔드 데이터 호출, 리뷰 순서와 후속 작업을 정리한다."
+    },
+    "document:docs/kb/README.md": {
+      "name": "README.md",
+      "type": "document",
+      "summary": "Match-up 지식 베이스(KB)의 인덱스 문서로, 도메인·아키텍처·DB·크롤러·AI 챗봇 등 8개 KB 파일 목록과 문서 관리 원칙을 정리한다."
+    },
+    "document:docs/kb/ai-chat.md": {
+      "name": "ai-chat.md",
+      "type": "document",
+      "summary": "AI 챗봇 시스템의 4단 라우팅(의도 분류, slot routing, QA cache, RAG)·Search Grounding 정책·비용 제어·Flutter 구현·보안을 설명하는 KB 문서."
+    },
+    "document:docs/kb/architecture.md": {
+      "name": "architecture.md",
+      "type": "document",
+      "summary": "전체 시스템 스택(Flutter + Supabase Edge Functions + Postgres/pgvector), 아키텍처 다이어그램, Edge Function 목록, 인증 레이어, 환경변수, 공유 모듈(_shared)을 정리한 KB 문서."
+    },
+    "document:docs/kb/clubs.md": {
+      "name": "clubs.md",
+      "type": "document",
+      "summary": "클럽 관리 시스템의 워크플로우·역할 체계와 clubs-create/join/review-join/approve/search Edge Function, Flutter UI, 멤버 수 자동 갱신 트리거를 설명하는 KB 문서."
+    },
+    "document:docs/kb/crawler.md": {
+      "name": "crawler.md",
+      "type": "document",
+      "summary": "크롤러 시스템의 아키텍처, crawl-dispatch Edge Function, crawl_sources 테이블, 파서 모듈, 부서코드 추출 흐름, upsertTournament, 인증, 어드민 UI를 설명하는 KB 문서."
+    },
+    "document:docs/kb/database.md": {
+      "name": "database.md",
+      "type": "document",
+      "summary": "users, tournaments, clubs, club_members, crawl_sources 등 핵심 테이블 스키마와 주요 트리거, RLS 정책 요약, 최근 migration 이력을 정리한 데이터베이스 KB 문서."
+    },
+    "document:docs/kb/domain-futsal.md": {
+      "name": "domain-futsal.md",
+      "type": "document",
+      "summary": "풋살 도메인 지식(futsal_org 협회 체계, 등급, tournaments 풋살 전용 컬럼, 클럽, 크롤러 연계)을 정리한 KB 문서."
+    },
+    "document:docs/kb/domain-tennis.md": {
+      "name": "domain-tennis.md",
+      "type": "document",
+      "summary": "테니스 도메인 지식(tennis_org 협회 체계, 부서코드 division code 체계와 광주·전남·KTA·KATA 예시, 코드 정의 위치, 크롤러 부서 추출, 사용자 등급 등록)을 정리한 KB 문서."
+    },
+    "document:docs/kb/flutter-app.md": {
+      "name": "flutter-app.md",
+      "type": "document",
+      "summary": "Flutter 앱 구조(핵심 파일, 바텀탭 내비게이션, 종목 스왑, Riverpod 상태, ApiService 주요 메서드, 로그인 흐름)를 정리한 KB 문서."
+    },
+    "document:docs/plans/MVP-roadmap.md": {
+      "name": "MVP-roadmap.md",
+      "type": "document",
+      "summary": "Match-up MVP의 스프린트 타임라인 요약 문서로, 상세 작업·상태는 Linear(JY-*)가 관리하고 GitHub는 코드/PR을 담당하는 이원화 운영 규칙과 MVP 이후 스코프 아웃 항목을 정리한다."
+    },
+    "document:docs/plans/PLAN_crawl-admin.md": {
+      "name": "PLAN_crawl-admin.md",
+      "type": "document",
+      "summary": "크롤링 source를 어드민 UI에서 등록·수정·토글하고 draft→approve→published 검수 워크플로우와 ETag/Last-Modified 변경 감지를 도입하는 4단계 계획으로, crawl_sources 테이블·crawl-dispatch Edge Function·pg_cron 일원화를 포함한다."
+    },
+    "document:docs/plans/PLAN_llm-cost-reduction.md": {
+      "name": "PLAN_llm-cost-reduction.md",
+      "type": "document",
+      "summary": "챗봇 LLM 비용을 70-85% 절감하기 위한 7일 4단계 계획으로, 모델 다운그레이드+grounding off, semantic cache(pgvector), intent classifier, text-to-SQL 템플릿으로 이어지는 4단 라우팅 아키텍처를 정의한다."
+    },
+    "document:docs/plans/PLAN_speed-gun-v1.md": {
+      "name": "PLAN_speed-gun-v1.md",
+      "type": "document",
+      "summary": "240fps 슬로모 영상에서 프레임 추출·YOLOv8n TFLite 공 검출·homography 기반 속도 계산을 수행하는 Speed Gun v1.1 영상 분석 MVP의 6단계 구현 계획으로, models/services/screens/widgets 파일 구조와 필요한 Flutter 의존성을 정의한다."
+    },
+    "document:docs/research/ball-speed-measurement-feasibility.md": {
+      "name": "ball-speed-measurement-feasibility.md",
+      "type": "document",
+      "summary": "테니스 공 속도 측정 기능의 기술적 타당성 리서치 보고서로, computer vision 기반 ball tracking, 속도 계산·calibration, Flutter ML/CV framework, 상용·오픈소스 선행 사례, MVP 권장 기술 스택까지 8개 섹션으로 정리한다."
+    },
+    "document:docs/research/llm-cost-optimization-2026.md": {
+      "name": "llm-cost-optimization-2026.md",
+      "type": "document",
+      "summary": "LLM 챗봇 비용 최적화 2026 업계 트렌드 리서치로, 현재 Gemini flagship + Search Grounding 호출 비용 구조를 분석하고 cascading routing·semantic cache·intent classification·hybrid RAG + Text-to-SQL 등 6종 패턴과 4단 라우팅 권장 아키텍처를 제시한다."
+    },
+    "document:docs/research/tennis-ecosystem.md": {
+      "name": "tennis-ecosystem.md",
+      "type": "document",
+      "summary": "한국 동호인 테니스 대회 운영 생태계 종합 리서치로, KTA·KATO·KATA·KTFS 단체별 위상과 광주·전남 시드 지역 심층 분석, 참가 사이클·비용·매너 트렌드, 그리고 이를 반영한 Match-up 데이터 모델 권고(추가 컬럼·시드 데이터)를 담는다."
+    },
+    "document:docs/research/tennis-grade-systems.md": {
+      "name": "tennis-grade-systems.md",
+      "type": "document",
+      "summary": "한국 동호인 테니스 등급 체계 리서치 보고서로, 전국 협회·수도권·광역시·도별 등급 분류 체계를 정리하고 통합 권역 매핑과 tennis_division enum·자기신고 텍스트 등 데이터 모델 3개 옵션을 비교 권고한다."
+    },
+    "document:docs/reviews/code-review.md": {
+      "name": "code-review.md",
+      "type": "document",
+      "summary": "종합 코드 리뷰 보고서로, plan 일치도 점검부터 Blocking/Should-fix/Nice-to-have 등급별 이슈(REV-B/S/N), 누락 케이스, 문서-코드 불일치, MVP 출시 가능 여부, Linear 이슈 매핑까지 정리한다."
+    },
+    "document:docs/reviews/security-review.md": {
+      "name": "security-review.md",
+      "type": "document",
+      "summary": "보안 검토 보고서로 Critical/High/Medium/Low/Info 등급별 취약점(SEC-C/H/M/L)을 정리한다. API 키 평문 저장, cron 함수 인증 부재, RAG prompt injection, rate-limit 부재, CORS, SSRF 가드 등을 다룬다."
+    },
+    "document:docs/reviews/simplify-review.md": {
+      "name": "simplify-review.md",
+      "type": "document",
+      "summary": "단순화/코드 품질 검토 보고서로 SIMP-01~14 발견 사항(크롤러 중복, 미사용 helper, 보일러플레이트, 거대 함수, 데드 코드 등)을 정리하고 즉시/중기/무시 가능 우선순위로 분류한다."
+    },
+    "document:docs/rules/BACKEND_RULES.md": {
+      "name": "BACKEND_RULES.md",
+      "type": "document",
+      "summary": "Supabase Edge Function 백엔드 규칙 문서로, 아키텍처·요청 검증·SSE·Gemini 호출 동작 및 체크 항목을 정의한다."
+    },
+    "document:docs/rules/CODING_RULES.md": {
+      "name": "CODING_RULES.md",
+      "type": "document",
+      "summary": "TypeScript/Deno, Dart/Flutter, SQL migration 작성 규칙과 Git/PR 규율 및 baseline 체크를 정리한 코딩 규칙 문서."
+    },
+    "document:docs/rules/DATABASE_RULES.md": {
+      "name": "DATABASE_RULES.md",
+      "type": "document",
+      "summary": "스키마·RLS·RPC·cron worker·pgvector 규칙과 migration 배포(머지 ≠ 프로덕션 적용) 수동 적용 게이트 정책을 다루는 DB 규칙 문서."
+    },
+    "document:docs/rules/DOMAIN_RULES.md": {
+      "name": "DOMAIN_RULES.md",
+      "type": "document",
+      "summary": "종목·등급, 대회 visibility, 검색/필터링, 즐겨찾기·알림 등 비즈니스 도메인 규칙과 도메인 harness 타깃을 정의한다."
+    },
+    "document:docs/rules/FRONTEND_RULES.md": {
+      "name": "FRONTEND_RULES.md",
+      "type": "document",
+      "summary": "Flutter 스택·컨벤션, source of truth, 주요 파일, UI/UX 규칙을 정리한 프론트엔드 규칙 문서. go_router·Riverpod·API client 작업 시 참조한다."
+    },
+    "document:docs/rules/HARNESS.md": {
+      "name": "HARNESS.md",
+      "type": "document",
+      "summary": "harness 정의·계층 모델·root-file 정책·script 형태·현행 merge gate·로컬 체크를 다루는 CI/스크립트/테스트 harness 규칙 문서."
+    },
+    "document:docs/rules/PROJECT_CONTEXT.md": {
+      "name": "PROJECT_CONTEXT.md",
+      "type": "document",
+      "summary": "앱 개요·tech stack·아키텍처·Edge Function endpoint 목록·주요 경로·환경 변수·운영 노트를 담은 프로젝트 전반 컨텍스트 문서."
+    },
+    "document:docs/rules/README.md": {
+      "name": "README.md",
+      "type": "document",
+      "summary": "docs/rules 규칙 시스템의 entry-point 문서로, 작업 유형별로 어떤 규칙 파일을 load-on-demand 로 열어야 하는지 라우팅 표와 작성 정책을 제공한다."
+    },
+    "document:docs/rules/SECURITY_RULES.md": {
+      "name": "SECURITY_RULES.md",
+      "type": "document",
+      "summary": "trust boundary·secrets·auth/admin·비용 및 abuse 통제·RAG prompt injection·logging 등 보안 및 운영 규칙 문서."
+    },
+    "document:docs/rules/SPEED_GUN_RULES.md": {
+      "name": "SPEED_GUN_RULES.md",
+      "type": "document",
+      "summary": "speed-gun 제품 원칙·입력 품질·calibration·ball detection/tracking·속도 계산 및 권장 테스트를 정의한 영상 측정 규칙 문서."
+    },
+    "document:docs/superpowers/plans/2026-05-19-active-sport-filter.md": {
+      "name": "2026-05-19-active-sport-filter.md",
+      "type": "document",
+      "summary": "전역 활성 종목 필터(activeSportProvider) 도입 구현 계획. 대회·클럽·룰북 탭에서 종목 칩을 제거하고 단일 활성 종목 기반 reactive 필터로 전환하며, chat Edge Function의 primary 종목 강조까지 다루는 6개 Task 문서."
+    },
+    "document:docs/superpowers/plans/2026-05-19-chat-main-admin-panel.md": {
+      "name": "2026-05-19-chat-main-admin-panel.md",
+      "type": "document",
+      "summary": "채팅 메인화 및 어드민 패널 구현 계획. 크롤러 Edge Function의 requireAdmin 가드, isAdminProvider, 내비게이션 개편, 채팅 빠른 명령어, HomeScreen 흡수, CrawlAuditLog 기반 AdminScreen까지 7개 Task(SSF-301~307)를 정의."
+    },
+    "document:docs/superpowers/plans/2026-05-27-knowledge-base-rules.md": {
+      "name": "2026-05-27-knowledge-base-rules.md",
+      "type": "document",
+      "summary": "지식베이스 1단계(룰북·지식 문서 관리) 구현 계획. embed-pending의 admin 호출 허용, RuleArticle 모델 확장(TDD), 룰 admin CRUD + 임베딩 재계산, Provider, 편집 전체화면, 지식베이스 목록 탭까지 8개 Task를 정의."
+    },
+    "document:docs/superpowers/plans/2026-05-30-web-admin-separation.md": {
+      "name": "2026-05-30-web-admin-separation.md",
+      "type": "document",
+      "summary": "웹 어드민과 앱 사용자 분리 구현 계획. notifications stub로 웹 빌드 unblock, NoAccessScreen, AdminShell 레이아웃, go_router 웹/앱 라우트 분기, manual_description 컬럼 migration과 upsertTournament 체크, 대회 수기 편집 화면까지 10개 Task를 정의."
+    },
+    "document:docs/superpowers/plans/2026-06-11-chat-a2ui-tournament-cards.md": {
+      "name": "2026-06-11-chat-a2ui-tournament-cards.md",
+      "type": "document",
+      "summary": "채팅 A2UI 대회 카드 구현 계획. Backend(카드 빌더·selected_entity 검증, tournament 라우팅의 ui 이벤트 SSE 발송, 컨텍스트 주입)와 Flutter(ChatUiBlock 모델, ApiService.chat selectedEntity, ui 이벤트 처리, ChatTournamentCard 위젯, 카드 액션 후속 전송)를 2 Phase 8 Task로 정의."
+    },
+    "document:docs/superpowers/specs/2026-05-19-active-sport-filter-design.md": {
+      "name": "2026-05-19-active-sport-filter-design.md",
+      "type": "document",
+      "summary": "전역 활성 종목(테니스/풋살) 필터 도입 설계 문서. 기존 selectedSportProvider를 activeSportProvider로 대체하고 대회·클럽·룰북·채팅·프로필·온보딩 등 각 화면의 종목 필터링 반영 방식과 엣지 케이스를 정의한다."
+    },
+    "document:docs/superpowers/specs/2026-05-19-chat-main-admin-panel-design.md": {
+      "name": "2026-05-19-chat-main-admin-panel-design.md",
+      "type": "document",
+      "summary": "채팅을 메인 화면으로 승격하고 관리자 패널을 신설하는 내비게이션 개편 설계 문서. isAdminProvider 기반 role 확인, 채팅 빠른 명령어, 대회 탭의 홈 피드 흡수, 크롤 현황·Draft 승인·수동 실행 어드민 탭 및 크롤러 Edge Function 인증 처리를 다룬다."
+    },
+    "document:docs/superpowers/specs/2026-05-27-knowledge-base-rules-design.md": {
+      "name": "2026-05-27-knowledge-base-rules-design.md",
+      "type": "document",
+      "summary": "지식베이스 1단계로 룰북·지식 문서 관리 체계를 설계한 문서. 데이터 모델과 임베딩(pgvector) 상태 판정, 백엔드 처리, Flutter의 api.dart·RuleArticle 모델·providers·화면 변경 범위와 검증 절차를 정의한다."
+    },
+    "document:docs/superpowers/specs/2026-05-28-club-activity-mvp-design.md": {
+      "name": "2026-05-28-club-activity-mvp-design.md",
+      "type": "document",
+      "summary": "클럽 활동 MVP 설계 문서. 신규 2개 테이블 데이터 모델, RLS 권한 규칙, 데이터 접근 방식, ClubDetailScreen(/clubs/:id) 화면 구성과 검증·후속 과제를 정의한다."
+    },
+    "document:docs/superpowers/specs/2026-05-29-strategy-and-roadmap-design.md": {
+      "name": "2026-05-29-strategy-and-roadmap-design.md",
+      "type": "document",
+      "summary": "Match-up(올라운드) 제품 전략과 로드맵을 정의한 문서. 제품 정의·타겟 사용자·경쟁 분석, Phase 1~4 전략 로드맵, MVP 스코프, 4개 스프린트 계획, 리스크·성공 지표·사용자 획득 전략·운영 모니터링·Post-MVP 백로그를 포괄한다."
+    },
+    "document:docs/superpowers/specs/2026-05-30-web-admin-separation-design.md": {
+      "name": "2026-05-30-web-admin-separation-design.md",
+      "type": "document",
+      "summary": "웹 어드민과 앱 사용자 경험을 분리하는 설계 문서. 웹 빌드 unblock, go_router 분기와 /admin/* 경로 보호 리다이렉트 가드, AdminShell 레이아웃, 대회 편집 화면 및 크롤 덮어쓰기 방지, 변경 파일·DB 마이그레이션 목록을 정의한다."
+    },
+    "document:docs/superpowers/specs/2026-06-11-chat-a2ui-cards-design.md": {
+      "name": "2026-06-11-chat-a2ui-cards-design.md",
+      "type": "document",
+      "summary": "채팅 응답을 A2UI 카드로 렌더링하는 설계 문서. SSE 컨트랙트, 후속 질문 컨텍스트, 신뢰 경계(security/trust boundaries), 백엔드·Flutter 변경, 에러 처리·테스트·범위 제외 사항을 정의한다."
+    },
+    "config:supabase/functions/.env.example": {
+      "name": ".env.example",
+      "type": "config",
+      "summary": "Edge Function 로컬 실행용 환경 변수 예시 파일. RAG/채팅에 쓰이는 Gemini API 키(GEMINI_API_KEY)와 모델명(GEMINI_MODEL, 기본값 gemini-2.0-flash)을 정의한다."
+    },
+    "config:supabase/functions/deno.json": {
+      "name": "deno.json",
+      "type": "config",
+      "summary": "Supabase Edge Function용 Deno 런타임 설정. import map(std, supabase-js, deno-dom), compilerOptions(deno.window·deno.unstable·dom lib), lint 규칙, fmt 포맷팅 규칙을 정의한다."
+    },
+    "config:supabase/functions/import_map.json": {
+      "name": "import_map.json",
+      "type": "config",
+      "summary": "Edge Function의 외부 의존성 별칭을 정의하는 독립 import map. Deno std 라이브러리, @supabase/supabase-js, deno-dom(HTML 파싱)을 URL로 매핑한다."
+    },
+    "file:.github/CODEOWNERS": {
+      "name": "CODEOWNERS",
+      "type": "file",
+      "summary": "저장소 전체(`*`)의 코드 소유자를 @kimabba 으로 지정하는 GitHub CODEOWNERS 설정으로, PR 자동 리뷰어 할당에 사용된다."
+    },
+    "document:.github/pull_request_template.md": {
+      "name": "pull_request_template.md",
+      "type": "document",
+      "summary": "PR 작성 시 자동 삽입되는 템플릿으로, 요약·작업 영역 체크리스트(Flutter/Edge Functions 등)와 해당 영역별 규칙 문서 링크를 안내한다."
+    },
+    "file:app/assets/models/.gitkeep": {
+      "name": ".gitkeep",
+      "type": "file",
+      "summary": "YOLOv8n TFLite 모델 파일이 놓일 빈 assets 디렉터리를 git 추적에 유지하기 위한 placeholder 파일."
+    },
+    "document:app/assets/models/README.md": {
+      "name": "README.md",
+      "type": "document",
+      "summary": "스피드건 기능에 쓰이는 YOLOv8n TFLite 모델(yolov8n.tflite) 다운로드 위치와 부재 시 BallDetectorService가 mock 모드로 동작함을 안내하는 문서."
+    },
+    "file:app/lib/config.dart": {
+      "name": "config.dart",
+      "type": "file",
+      "summary": "`--dart-define` 빌드 시점 환경변수(Supabase URL/anon key, Edge Function base URL, Google client id, 디자인/관리자 프리뷰 플래그)를 노출하는 AppConfig 설정 클래스."
+    },
+    "file:app/lib/main.dart": {
+      "name": "main.dart",
+      "type": "file",
+      "summary": "Flutter 앱 진입점으로 Supabase 초기화·로케일 설정·로그인 시 FCM 등록을 수행하고 ProviderScope 하위에 MatchUpApp 을 실행한다."
+    },
+    "file:app/lib/models/admin.dart": {
+      "name": "admin.dart",
+      "type": "file",
+      "summary": "크롤 감사 로그(CrawlAuditLog) 데이터 모델로, 관리자 화면에서 크롤링 실행 이력을 표시하기 위한 fromJson 직렬화를 제공한다."
+    },
+    "file:app/lib/models/app_notification.dart": {
+      "name": "app_notification.dart",
+      "type": "file",
+      "summary": "인앱/푸시 알림 항목을 표현하는 AppNotification 데이터 모델로 fromJson 직렬화와 읽음 상태 등을 제공한다."
+    },
+    "file:app/lib/models/chat_ui.dart": {
+      "name": "chat_ui.dart",
+      "type": "file",
+      "summary": "채팅 화면에서 대회 요강 카드·UI 블록을 렌더링하기 위한 뷰 모델(RegulationField, TournamentChatCardItem, ChatUiBlock) 집합."
+    },
+    "file:app/lib/models/club_event.dart": {
+      "name": "club_event.dart",
+      "type": "file",
+      "summary": "클럽 일정(ClubEvent)과 참여 멤버(ClubMember)를 표현하는 데이터 모델로 fromJson 직렬화를 제공한다."
+    },
+    "file:app/lib/models/club_post.dart": {
+      "name": "club_post.dart",
+      "type": "file",
+      "summary": "클럽 게시글(ClubPost)과 댓글(ClubPostComment)을 표현하는 데이터 모델로 fromJson 직렬화를 제공한다."
+    },
+    "file:app/lib/models/crawl_source.dart": {
+      "name": "crawl_source.dart",
+      "type": "file",
+      "summary": "대회 정보 크롤링 소스(URL·파서·스케줄·last_etag 등)를 표현하는 CrawlSource 데이터 모델로 관리자 편집용 update patch 직렬화를 제공한다."
+    },
+    "file:app/lib/models/match_record.dart": {
+      "name": "match_record.dart",
+      "type": "file",
+      "summary": "경기 기록(MatchRound·MatchEntry)을 표현하는 데이터 모델로 대진/세트 결과의 fromJson·toJson 직렬화를 제공한다."
+    },
+    "file:app/lib/models/regulation_body_lines.dart": {
+      "name": "regulation_body_lines.dart",
+      "type": "file",
+      "summary": "대회 요강 본문을 구조화한 라인 단위 모델(RegulationLine·RegulationLineKind 열거형)로, RAG·요강 요약 렌더링의 기반이 된다."
+    },
+    "file:app/lib/models/schedule_share.dart": {
+      "name": "schedule_share.dart",
+      "type": "file",
+      "summary": "친구 간 일정 공유(ScheduleShare)를 표현하는 데이터 모델로 공유 상태·대상의 fromJson 직렬화를 제공한다."
+    },
+    "file:app/lib/models/speed_measurement.dart": {
+      "name": "speed_measurement.dart",
+      "type": "file",
+      "summary": "스피드건(공 속도 측정) 기능의 좌표·코트 보정·궤적·결과를 표현하는 값 객체 집합(BallPosition, CourtCalibration, TrajectoryPoint, SpeedResult)."
+    },
+    "file:app/lib/models/tournament_card_info.dart": {
+      "name": "tournament_card_info.dart",
+      "type": "file",
+      "summary": "대회 카드의 마감 상태(DeadlineStatus enum)와 마감 정보(DeadlineInfo)를 계산·표현하는 뷰 모델로 목록 카드의 모집중/마감 표시에 사용된다."
+    },
+    "file:app/lib/models/tournament.dart": {
+      "name": "tournament.dart",
+      "type": "file",
+      "summary": "대회·클럽·지역·규칙·사용자 종목 등 앱 핵심 도메인 모델을 한데 모은 파일로, 다수 화면과 admin/router 가 의존하는 중심 데이터 정의이다."
+    },
+    "file:app/lib/router.dart": {
+      "name": "router.dart",
+      "type": "file",
+      "summary": "go_router 기반 라우팅 설정으로 인증·관리자 가드, 메인 셸(_MainShell) 탭 네비게이션, 대회·클럽·관리자 화면 경로를 정의한다."
+    },
+    "file:app/lib/screens/admin/admin_screen.dart": {
+      "name": "admin_screen.dart",
+      "type": "file",
+      "summary": "크롤 소스 관리·대회 검수·감사 로그 등을 탭으로 제공하는 대형 관리자 화면으로, 소스 카드/편집 다이얼로그 등 다수의 내부 위젯을 포함한다."
+    },
+    "file:app/lib/screens/admin/admin_shell.dart": {
+      "name": "admin_shell.dart",
+      "type": "file",
+      "summary": "웹 관리자 콘솔의 사이드바 내비게이션과 본문 레이아웃을 구성하는 셸 위젯(AdminShell, _AdminSidebar)."
+    },
+    "file:app/lib/screens/admin/knowledge_base_tab.dart": {
+      "name": "knowledge_base_tab.dart",
+      "type": "file",
+      "summary": "관리자 콘솔의 지식베이스(요강·규칙) 관리 탭으로, RAG embedding 상태를 표시하고 규칙 편집 화면으로 연결한다."
+    },
+    "file:app/lib/screens/admin/no_access_screen.dart": {
+      "name": "no_access_screen.dart",
+      "type": "file",
+      "summary": "관리자 권한이 없는 사용자에게 접근 거부 안내를 표시하는 단순 화면 위젯."
+    },
+    "file:app/lib/screens/admin/rule_edit_screen.dart": {
+      "name": "rule_edit_screen.dart",
+      "type": "file",
+      "summary": "규칙/요강 조항을 추가·편집하는 관리자 화면으로, 저장 시 RAG embedding 재생성 대상이 되는 RuleArticle 을 다룬다."
+    },
+    "file:app/lib/screens/admin/tournament_edit_screen.dart": {
+      "name": "tournament_edit_screen.dart",
+      "type": "file",
+      "summary": "대회 정보를 추가·수정하는 관리자 화면으로, 검수 워크플로우에서 크롤된 대회를 편집·승인하는 데 사용된다."
+    },
+    "file:app/lib/screens/clubs/club_detail_screen.dart": {
+      "name": "club_detail_screen.dart",
+      "type": "file",
+      "summary": "클럽 상세 화면. 소개·멤버·이벤트·게시글 탭을 제공하고 가입/탈퇴, 멤버 강퇴, 이벤트 생성·응답, 게시글 작성을 처리한다."
+    },
+    "file:app/lib/screens/favorites_screen.dart": {
+      "name": "favorites_screen.dart",
+      "type": "file",
+      "summary": "즐겨찾기한 대회·클럽을 탭으로 나눠 보여주는 화면."
+    },
+    "file:app/lib/screens/friend_schedule_screen.dart": {
+      "name": "friend_schedule_screen.dart",
+      "type": "file",
+      "summary": "친구의 활동 일정을 달력 그리드로 보여주는 화면. 월 단위 탐색, 선택일 활동 목록, 친구 목록·활동 요약을 제공한다."
+    },
+    "file:app/lib/screens/more_screen.dart": {
+      "name": "more_screen.dart",
+      "type": "file",
+      "summary": "더보기 메뉴 화면. 메뉴 섹션·행과 약관(법적 고지) 섹션을 구성한다."
+    },
+    "file:app/lib/screens/profile_screen.dart": {
+      "name": "profile_screen.dart",
+      "type": "file",
+      "summary": "사용자 프로필 화면. 프로필 사진 관리, 통계, 내 클럽·대회 기록, 종목·테니스 협회·테마·계정·알림 설정 섹션을 통합한다."
+    },
+    "file:app/lib/screens/rules_screen.dart": {
+      "name": "rules_screen.dart",
+      "type": "file",
+      "summary": "경기 규정 룰북 화면. 규정 검색, 카테고리 그리드, 인기 규정, 일일 규정 퀴즈, AI 코치 챗봇 진입(FAB)을 제공한다."
+    },
+    "file:app/lib/screens/speed_gun/court_calibration_screen.dart": {
+      "name": "court_calibration_screen.dart",
+      "type": "file",
+      "summary": "스피드건 측정을 위한 코트 보정 화면. 이미지 위 기준점을 탭으로 지정하고 보정 정보를 확정한다."
+    },
+    "file:app/lib/screens/speed_gun/speed_gun_screen_web.dart": {
+      "name": "speed_gun_screen_web.dart",
+      "type": "file",
+      "summary": "웹 플랫폼에서 스피드건 기능이 미지원임을 안내하는 대체 화면(conditional import용 스텁)."
+    },
+    "file:app/lib/screens/speed_gun/speed_gun_screen.dart": {
+      "name": "speed_gun_screen.dart",
+      "type": "file",
+      "summary": "스피드건 측정 메인 화면. 영상 선택, 코트 보정, 공 검출·속도 분석 단계를 순차 진행한다."
+    },
+    "file:app/lib/screens/speed_gun/speed_result_screen.dart": {
+      "name": "speed_result_screen.dart",
+      "type": "file",
+      "summary": "스피드건 측정 결과 화면. 속도 통계와 공 궤적을 CustomPainter로 시각화한다."
+    },
+    "file:app/lib/screens/tournaments/tournament_detail_screen.dart": {
+      "name": "tournament_detail_screen.dart",
+      "type": "file",
+      "summary": "대회 상세 화면. 대회 정보·요강(regulation) 본문·신청 바·아코디언 섹션을 렌더링하고 미리보기/에러 상태를 처리한다."
+    },
+    "file:app/lib/screens/tournaments/tournament_submit_screen.dart": {
+      "name": "tournament_submit_screen.dart",
+      "type": "file",
+      "summary": "사용자가 대회 정보를 제보·등록하는 제출 폼 화면. 날짜 선택과 입력 검증 후 제출한다."
+    },
+    "file:app/lib/screens/tournaments/tournaments_screen.dart": {
+      "name": "tournaments_screen.dart",
+      "type": "file",
+      "summary": "대회 목록·달력 통합 탐색 화면. 종목·지역·날짜·부문·주최 필터 sheet와 리스트/캘린더 뷰 전환을 제공한다."
+    },
+    "file:app/lib/services/api.dart": {
+      "name": "api.dart",
+      "type": "file",
+      "summary": "Supabase Edge Function·REST 엔드포인트를 호출하는 앱의 핵심 API 클라이언트. 대회 검색·즐겨찾기·클럽/이벤트/게시글·규정·챗(SSE)·알림·매치 기록·일정 공유 등 전 기능을 래핑한다."
+    },
+    "file:app/lib/services/ball_detector_service.dart": {
+      "name": "ball_detector_service.dart",
+      "type": "file",
+      "summary": "TFLite 모델로 영상 프레임에서 공을 검출하는 서비스. 전처리(float32 변환)·후처리와 미지원 환경용 mock 검출을 제공한다."
+    },
+    "file:app/lib/services/notifications_web.dart": {
+      "name": "notifications_web.dart",
+      "type": "file",
+      "summary": "웹 플랫폼용 알림 초기화 no-op 스텁(conditional import 대상)."
+    },
+    "file:app/lib/services/notifications.dart": {
+      "name": "notifications.dart",
+      "type": "file",
+      "summary": "푸시 알림을 초기화하고 디바이스 토큰을 API에 등록하는 서비스."
+    },
+    "file:app/lib/services/speed_calculator.dart": {
+      "name": "speed_calculator.dart",
+      "type": "file",
+      "summary": "코트 호모그래피·픽셀-실좌표 변환·칼만 평활화로 공의 속도를 계산하는 서비스. DLT 해법과 행렬 연산을 직접 구현한다."
+    },
+    "file:app/lib/services/video_processing_service.dart": {
+      "name": "video_processing_service.dart",
+      "type": "file",
+      "summary": "영상 선택·메타 정보 추출·프레임 추출·정리를 담당하는 비디오 처리 서비스."
+    },
+    "file:app/lib/state/providers.dart": {
+      "name": "providers.dart",
+      "type": "file",
+      "summary": "앱 전역 Riverpod provider 정의 모음. ApiService 인스턴스와 주 종목 파생(primarySportFrom) 등 공유 상태를 제공한다."
+    },
+    "file:app/lib/screens/auth/login_screen.dart": {
+      "name": "login_screen.dart",
+      "type": "file",
+      "summary": "카카오·구글·이메일 소셜 로그인과 회원가입을 처리하는 인증 화면. 인트로 애니메이션(테니스볼 painter)과 이메일 인증 bottom sheet, 마케팅 동의 UI를 포함한다."
+    },
+    "file:app/lib/screens/auth/onboarding_screen.dart": {
+      "name": "onboarding_screen.dart",
+      "type": "file",
+      "summary": "신규 사용자 온보딩 다단계 플로우(닉네임·지역·종목·테니스 협회 등록)를 단계별 진행 상태와 함께 처리하는 화면."
+    },
+    "file:app/lib/screens/chat_screen.dart": {
+      "name": "chat_screen.dart",
+      "type": "file",
+      "summary": "규정·대회 정보 RAG 챗봇 화면. SSE 스트림으로 응답을 소비하고 대회 카드 엔티티를 함께 표시한다."
+    },
+    "file:app/lib/screens/clubs_screen.dart": {
+      "name": "clubs_screen.dart",
+      "type": "file",
+      "summary": "동호회(클럽) 탐색·추천·필터링·팀원 모집 게시판을 통합한 대형 화면. 내 클럽 로드, 근처 신규 클럽 sheet, 검색 필터를 포함한다."
+    },
+    "file:app/lib/screens/clubs/club_create_screen.dart": {
+      "name": "club_create_screen.dart",
+      "type": "file",
+      "summary": "신규 클럽 생성 화면. 클럽 정보 입력, 로고 이미지 선택·업로드, 주소 선택 sheet를 통해 클럽을 등록한다."
+    },
+    "file:app/lib/state/theme_provider.dart": {
+      "name": "theme_provider.dart",
+      "type": "file",
+      "summary": "앱 테마 모드(라이트/다크/시스템)를 SharedPreferences에 영속화하는 Riverpod 상태 controller."
+    },
+    "file:app/lib/theme/app_theme.dart": {
+      "name": "app_theme.dart",
+      "type": "file",
+      "summary": "라이트/다크 ThemeData를 조립하는 진입점. color_schemes·tokens·typography를 결합해 Material 3 테마를 구성한다."
+    },
+    "file:app/lib/theme/color_schemes.dart": {
+      "name": "color_schemes.dart",
+      "type": "file",
+      "summary": "앱 브랜드 색상 팔레트(AppPalette)와 라이트/다크 ColorScheme 정의."
+    },
+    "file:app/lib/theme/motion.dart": {
+      "name": "motion.dart",
+      "type": "file",
+      "summary": "애니메이션 지속시간(AppDuration)과 이징 커브(AppCurves) 디자인 토큰."
+    },
+    "file:app/lib/theme/tokens.dart": {
+      "name": "tokens.dart",
+      "type": "file",
+      "summary": "반경·간격·그림자·종목별 색상 등 핵심 디자인 토큰. 위젯 전반에서 가장 많이 의존하는 토큰 모듈."
+    },
+    "file:app/lib/theme/typography.dart": {
+      "name": "typography.dart",
+      "type": "file",
+      "summary": "앱 타이포그래피 스케일(AppTypography)을 정의하는 TextTheme 빌더."
+    },
+    "file:app/lib/utils/active_filters.dart": {
+      "name": "active_filters.dart",
+      "type": "file",
+      "summary": "활성 필터를 칩 데이터로 변환하는 순수 로직. grade_labels·tournament_filters와 결합해 필터 요약 칩을 생성한다."
+    },
+    "file:app/lib/utils/grade_labels.dart": {
+      "name": "grade_labels.dart",
+      "type": "file",
+      "summary": "테니스·풋살 종목별 등급·부서·지역 코드와 한글 라벨 매핑을 제공하는 도메인 라벨 유틸. 대회 자격(eligible_grades) 표시에 사용."
+    },
+    "file:app/lib/utils/tournament_filters.dart": {
+      "name": "tournament_filters.dart",
+      "type": "file",
+      "summary": "상세검색 시트의 클라이언트 측 순수 필터 로직. 기간 프리셋(DatePreset) 범위 계산과 모집 상태 판정을 담당한다."
+    },
+    "file:app/lib/widgets/allround_logo.dart": {
+      "name": "allround_logo.dart",
+      "type": "file",
+      "summary": "올라운드(AllRound) 브랜드 로고 위젯과 CustomPainter 기반 마크, 앱바 타이틀 위젯."
+    },
+    "file:app/lib/widgets/app_bottom_nav.dart": {
+      "name": "app_bottom_nav.dart",
+      "type": "file",
+      "summary": "앱 하단 네비게이션 바 위젯."
+    },
+    "file:app/lib/widgets/app_buttons.dart": {
+      "name": "app_buttons.dart",
+      "type": "file",
+      "summary": "기본/보조/고스트 3종 앱 버튼 위젯. tokens 디자인 토큰을 적용한 재사용 버튼 컴포넌트."
+    },
+    "file:app/lib/widgets/app_card.dart": {
+      "name": "app_card.dart",
+      "type": "file",
+      "summary": "variant 기반 공용 카드 컨테이너 위젯. 다수의 카드형 위젯이 의존하는 기본 컴포넌트."
+    },
+    "file:app/lib/widgets/app_chip.dart": {
+      "name": "app_chip.dart",
+      "type": "file",
+      "summary": "모션·토큰을 적용한 선택 가능한 칩 위젯."
+    },
+    "file:app/lib/widgets/app_empty_state.dart": {
+      "name": "app_empty_state.dart",
+      "type": "file",
+      "summary": "빈 상태(데이터 없음) 안내 위젯. 액션 버튼(app_buttons)을 포함한다."
+    },
+    "file:app/lib/widgets/app_hero_section.dart": {
+      "name": "app_hero_section.dart",
+      "type": "file",
+      "summary": "화면 상단 히어로 섹션 위젯."
+    },
+    "file:app/lib/widgets/app_info_tile.dart": {
+      "name": "app_info_tile.dart",
+      "type": "file",
+      "summary": "아이콘·라벨·값을 표시하는 정보 타일 위젯."
+    },
+    "file:app/lib/widgets/app_list_section.dart": {
+      "name": "app_list_section.dart",
+      "type": "file",
+      "summary": "제목과 항목 목록을 묶는 리스트 섹션 위젯."
+    },
+    "file:app/lib/widgets/app_skeleton_card.dart": {
+      "name": "app_skeleton_card.dart",
+      "type": "file",
+      "summary": "skeletonizer 기반 로딩 스켈레톤 카드 위젯."
+    },
+    "file:app/lib/widgets/app_toast.dart": {
+      "name": "app_toast.dart",
+      "type": "file",
+      "summary": "종류별(성공/오류 등) 토스트 메시지를 띄우는 정적 헬퍼 위젯."
+    },
+    "file:app/lib/widgets/chat_tournament_card.dart": {
+      "name": "chat_tournament_card.dart",
+      "type": "file",
+      "summary": "채팅 RAG 결과로 노출되는 대회 카드 위젯. 요강 요약과 정보 행을 표시하며 app_card·chat_ui 모델에 의존한다."
+    },
+    "file:app/lib/widgets/tournament_card.dart": {
+      "name": "tournament_card.dart",
+      "type": "file",
+      "summary": "대회 목록의 핵심 카드 위젯. 마감 D-day·상태 배지·일정·장소를 계산해 표시하며 grade_labels·tournament 모델에 의존한다."
+    },
+    "file:app/test/active_filters_test.dart": {
+      "name": "active_filters_test.dart",
+      "type": "file",
+      "summary": "active_filters·tournament_filters 순수 로직에 대한 단위 테스트."
+    },
+    "file:app/test/active_sport_provider_test.dart": {
+      "name": "active_sport_provider_test.dart",
+      "type": "file",
+      "summary": "활성 종목 provider 상태에 대한 단위 테스트."
+    },
+    "file:app/test/chat_ui_test.dart": {
+      "name": "chat_ui_test.dart",
+      "type": "file",
+      "summary": "chat_ui 모델과 chat_tournament_card 위젯 렌더링에 대한 위젯 테스트."
+    },
+    "file:app/test/grade_labels_test.dart": {
+      "name": "grade_labels_test.dart",
+      "type": "file",
+      "summary": "동호인 급수(grade) 라벨 변환 유틸을 검증하는 단위 테스트로, grade_labels 유틸의 출력 포맷을 케이스별로 확인한다."
+    },
+    "file:app/test/regulation_body_lines_test.dart": {
+      "name": "regulation_body_lines_test.dart",
+      "type": "file",
+      "summary": "대회 요강(regulation) 본문을 줄 단위로 분해·정규화하는 모델 로직을 검증하는 단위 테스트."
+    },
+    "file:app/test/rule_article_test.dart": {
+      "name": "rule_article_test.dart",
+      "type": "file",
+      "summary": "Tournament 모델의 규정 조항(rule article) 파싱 동작을 확인하는 소형 단위 테스트."
+    },
+    "file:app/test/speed_calculator_test.dart": {
+      "name": "speed_calculator_test.dart",
+      "type": "file",
+      "summary": "스피드 측정값(speed_measurement)과 speed_calculator 서비스의 계산 로직을 검증하는 단위 테스트."
+    },
+    "file:app/test/tournament_card_info_test.dart": {
+      "name": "tournament_card_info_test.dart",
+      "type": "file",
+      "summary": "대회 카드 요약 정보(tournament_card_info) 모델의 필드 구성과 요약 생성 로직을 검증하는 단위 테스트."
+    },
+    "file:app/test/tournament_card_test.dart": {
+      "name": "tournament_card_test.dart",
+      "type": "file",
+      "summary": "TournamentCard 위젯의 렌더링과 날짜 로케일(intl) 표시를 검증하는 widget 테스트."
+    },
+    "file:app/test/tournament_filters_test.dart": {
+      "name": "tournament_filters_test.dart",
+      "type": "file",
+      "summary": "대회 목록 필터링 유틸(tournament_filters)의 날짜 오버랩·모집중 등 필터 조건을 검증하는 단위 테스트."
+    },
+    "file:app/test/tournament_regulation_test.dart": {
+      "name": "tournament_regulation_test.dart",
+      "type": "file",
+      "summary": "Tournament 모델의 요강(regulation) 파싱을 baseJson 픽스처로 다양한 입력에 대해 검증하는 단위 테스트."
+    },
+    "file:app/test/tournament_search_query_test.dart": {
+      "name": "tournament_search_query_test.dart",
+      "type": "file",
+      "summary": "api 서비스의 대회 검색 쿼리 빌더 동작(슬롯 검색 파라미터 구성)을 검증하는 단위 테스트."
+    },
+    "file:claudedocs/db-schema.html": {
+      "name": "db-schema.html",
+      "type": "file",
+      "summary": "DB 스키마를 사람이 읽기 쉽게 시각화한 정적 HTML 문서로, 테이블·컬럼·관계를 표 형태로 정리한다."
+    },
+    "file:docs/legal/privacy-policy.html": {
+      "name": "privacy-policy.html",
+      "type": "file",
+      "summary": "앱 개인정보 처리방침을 담은 정적 HTML 법무 문서."
+    },
+    "file:docs/legal/terms-of-service.html": {
+      "name": "terms-of-service.html",
+      "type": "file",
+      "summary": "앱 이용약관을 담은 정적 HTML 법무 문서."
+    },
+    "document:claudedocs/schema-audit-remaining.md": {
+      "name": "schema-audit-remaining.md",
+      "type": "document",
+      "summary": "DB 스키마 감사에서 남은 보안·정합성 항목을 6개 섹션으로 정리한 백로그 문서."
+    },
+    "document:docs/changelog/2026-W23.md": {
+      "name": "2026-W23.md",
+      "type": "document",
+      "summary": "2026년 23주차 변경 이력을 9개 섹션으로 기록한 주간 changelog."
+    },
+    "document:docs/qa/mvp-qa-checklist.md": {
+      "name": "mvp-qa-checklist.md",
+      "type": "document",
+      "summary": "MVP 출시 전 수동 QA 점검 항목을 9개 섹션으로 정리한 체크리스트."
+    },
+    "document:docs/security/cron-jwt-rotation.md": {
+      "name": "cron-jwt-rotation.md",
+      "type": "document",
+      "summary": "cron 호출용 JWT 시크릿 회전 절차와 운영 가이드를 13개 섹션으로 설명한 보안 문서."
+    },
+    "file:docs/data/futsal/전국_풋살구장_현황.xlsx": {
+      "name": "전국_풋살구장_현황.xlsx",
+      "type": "file",
+      "summary": "전국 풋살구장 현황을 정리한 엑셀 데이터 시트로, 풋살 관련 정보·RAG 데이터 소스로 활용된다."
+    },
+    "file:docs/data/futsal/풋살 정보 정리.docx": {
+      "name": "풋살 정보 정리.docx",
+      "type": "file",
+      "summary": "풋살 관련 정보를 정리한 Word 문서 데이터 소스."
+    },
+    "file:docs/data/futsal/풋살_2024-25_경기규칙서_및_협회안내.docx": {
+      "name": "풋살_2024-25_경기규칙서_및_협회안내.docx",
+      "type": "file",
+      "summary": "2024-25 풋살 경기규칙서와 협회 안내를 담은 Word 문서로, 규정 RAG 데이터의 원본."
+    },
+    "file:scripts/analyze_chat_cost.py": {
+      "name": "analyze_chat_cost.py",
+      "type": "file",
+      "summary": "채팅(RAG) 호출 로그를 파싱해 토큰·비용 통계와 분위수 리포트를 생성하는 분석 스크립트."
+    },
+    "file:scripts/harness/check_enums.py": {
+      "name": "check_enums.py",
+      "type": "file",
+      "summary": "Dart·TypeScript·SQL·seed 간 enum/상수 정의(급수·지역코드·참가비 단위 등)가 일치하는지 교차 검증하는 harness 스크립트."
+    },
+    "file:scripts/harness/check_static_rules.py": {
+      "name": "check_static_rules.py",
+      "type": "file",
+      "summary": "루트 파일 길이·필수 rule 문서·AGENTS 링크·GitHub 템플릿 등 프로젝트 정적 규칙 준수를 검사하는 harness 스크립트."
+    },
+    "file:scripts/harness/check_secrets.sh": {
+      "name": "check_secrets.sh",
+      "type": "file",
+      "summary": "커밋된 시크릿(키·토큰)이 코드베이스에 노출됐는지 패턴 기반으로 점검하는 셸 harness 스크립트."
+    },
+    "file:scripts/harness/run_all.sh": {
+      "name": "run_all.sh",
+      "type": "file",
+      "summary": "check_enums·check_static_rules·check_secrets 등 모든 harness 검사를 순차 실행하는 통합 러너 셸 스크립트."
+    },
+    "config:supabase/config.toml": {
+      "name": "config.toml",
+      "type": "config",
+      "summary": "Supabase 로컬/프로젝트 설정으로 api·db·auth·storage·edge_runtime 및 Edge Function(embed-pending·notify-cron·crawl-dispatch·health) 등록을 정의한다."
+    },
+    "table:supabase/seed.sql": {
+      "name": "seed.sql",
+      "type": "table",
+      "summary": "supabase db reset 시 자동 적용되는 개발용 시드 데이터. 테스트 admin 계정(auth.users 트리거로 public.users 생성), rule_articles 룰북, regions 권역 매핑, clubs 디렉토리, 샘플 published tournaments 를 삽입한다."
+    }
+  },
+  "totalNodes": 333,
+  "totalEdges": 406
+}

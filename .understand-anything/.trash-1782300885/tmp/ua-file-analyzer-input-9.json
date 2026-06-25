@@ -1,0 +1,13 @@
+{
+  "projectRoot": "/Users/ssfak/Documents/01-github/ar",
+  "batchFiles": [
+    {"path": "app/.env.local.example", "language": "config", "sizeLines": 7, "fileCategory": "config"},
+    {"path": "app/analysis_options.yaml", "language": "yaml", "sizeLines": 28, "fileCategory": "config"},
+    {"path": "app/pubspec.yaml", "language": "yaml", "sizeLines": 62, "fileCategory": "config"}
+  ],
+  "batchImportData": {
+    "app/.env.local.example": [],
+    "app/analysis_options.yaml": [],
+    "app/pubspec.yaml": []
+  }
+}

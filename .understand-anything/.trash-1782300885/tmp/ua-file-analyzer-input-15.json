@@ -1,0 +1,13 @@
+{
+  "projectRoot": "/Users/ssfak/Documents/01-github/ar",
+  "batchFiles": [
+    {"path": "docs/reviews/code-review.md", "language": "markdown", "sizeLines": 283, "fileCategory": "docs"},
+    {"path": "docs/reviews/security-review.md", "language": "markdown", "sizeLines": 247, "fileCategory": "docs"},
+    {"path": "docs/reviews/simplify-review.md", "language": "markdown", "sizeLines": 456, "fileCategory": "docs"}
+  ],
+  "batchImportData": {
+    "docs/reviews/code-review.md": [],
+    "docs/reviews/security-review.md": [],
+    "docs/reviews/simplify-review.md": []
+  }
+}

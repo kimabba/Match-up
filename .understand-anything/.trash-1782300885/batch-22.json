@@ -1,0 +1,1327 @@
+{
+ "nodes": [
+  {
+   "id": "file:app/lib/state/theme_provider.dart",
+   "type": "file",
+   "name": "theme_provider.dart",
+   "filePath": "app/lib/state/theme_provider.dart",
+   "summary": "앱 테마 모드(라이트/다크/시스템)를 SharedPreferences에 영속화하는 Riverpod 상태 controller.",
+   "tags": [
+    "state",
+    "provider",
+    "theme",
+    "persistence"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/lib/theme/app_theme.dart",
+   "type": "file",
+   "name": "app_theme.dart",
+   "filePath": "app/lib/theme/app_theme.dart",
+   "summary": "라이트/다크 ThemeData를 조립하는 진입점. color_schemes·tokens·typography를 결합해 Material 3 테마를 구성한다.",
+   "tags": [
+    "theme",
+    "design-system",
+    "material3",
+    "factory"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/lib/theme/color_schemes.dart",
+   "type": "file",
+   "name": "color_schemes.dart",
+   "filePath": "app/lib/theme/color_schemes.dart",
+   "summary": "앱 브랜드 색상 팔레트(AppPalette)와 라이트/다크 ColorScheme 정의.",
+   "tags": [
+    "theme",
+    "color",
+    "design-system",
+    "palette"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/lib/theme/motion.dart",
+   "type": "file",
+   "name": "motion.dart",
+   "filePath": "app/lib/theme/motion.dart",
+   "summary": "애니메이션 지속시간(AppDuration)과 이징 커브(AppCurves) 디자인 토큰.",
+   "tags": [
+    "theme",
+    "motion",
+    "animation",
+    "design-tokens"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/lib/theme/tokens.dart",
+   "type": "file",
+   "name": "tokens.dart",
+   "filePath": "app/lib/theme/tokens.dart",
+   "summary": "반경·간격·그림자·종목별 색상 등 핵심 디자인 토큰. 위젯 전반에서 가장 많이 의존하는 토큰 모듈.",
+   "tags": [
+    "theme",
+    "design-tokens",
+    "spacing",
+    "shadow"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/lib/theme/typography.dart",
+   "type": "file",
+   "name": "typography.dart",
+   "filePath": "app/lib/theme/typography.dart",
+   "summary": "앱 타이포그래피 스케일(AppTypography)을 정의하는 TextTheme 빌더.",
+   "tags": [
+    "theme",
+    "typography",
+    "design-system",
+    "text"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/lib/utils/active_filters.dart",
+   "type": "file",
+   "name": "active_filters.dart",
+   "filePath": "app/lib/utils/active_filters.dart",
+   "summary": "활성 필터를 칩 데이터로 변환하는 순수 로직. grade_labels·tournament_filters와 결합해 필터 요약 칩을 생성한다.",
+   "tags": [
+    "utility",
+    "filter",
+    "chip",
+    "pure-logic"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/lib/utils/grade_labels.dart",
+   "type": "file",
+   "name": "grade_labels.dart",
+   "filePath": "app/lib/utils/grade_labels.dart",
+   "summary": "테니스·풋살 종목별 등급·부서·지역 코드와 한글 라벨 매핑을 제공하는 도메인 라벨 유틸. 대회 자격(eligible_grades) 표시에 사용.",
+   "tags": [
+    "utility",
+    "domain-labels",
+    "tennis",
+    "futsal"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:app/lib/utils/tournament_filters.dart",
+   "type": "file",
+   "name": "tournament_filters.dart",
+   "filePath": "app/lib/utils/tournament_filters.dart",
+   "summary": "상세검색 시트의 클라이언트 측 순수 필터 로직. 기간 프리셋(DatePreset) 범위 계산과 모집 상태 판정을 담당한다.",
+   "tags": [
+    "utility",
+    "filter",
+    "date-range",
+    "pure-logic"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/lib/widgets/allround_logo.dart",
+   "type": "file",
+   "name": "allround_logo.dart",
+   "filePath": "app/lib/widgets/allround_logo.dart",
+   "summary": "올라운드(AllRound) 브랜드 로고 위젯과 CustomPainter 기반 마크, 앱바 타이틀 위젯.",
+   "tags": [
+    "component",
+    "branding",
+    "custom-painter",
+    "logo"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/lib/widgets/app_bottom_nav.dart",
+   "type": "file",
+   "name": "app_bottom_nav.dart",
+   "filePath": "app/lib/widgets/app_bottom_nav.dart",
+   "summary": "앱 하단 네비게이션 바 위젯.",
+   "tags": [
+    "component",
+    "navigation",
+    "widget"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/lib/widgets/app_buttons.dart",
+   "type": "file",
+   "name": "app_buttons.dart",
+   "filePath": "app/lib/widgets/app_buttons.dart",
+   "summary": "기본/보조/고스트 3종 앱 버튼 위젯. tokens 디자인 토큰을 적용한 재사용 버튼 컴포넌트.",
+   "tags": [
+    "component",
+    "button",
+    "design-system",
+    "widget"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/lib/widgets/app_card.dart",
+   "type": "file",
+   "name": "app_card.dart",
+   "filePath": "app/lib/widgets/app_card.dart",
+   "summary": "variant 기반 공용 카드 컨테이너 위젯. 다수의 카드형 위젯이 의존하는 기본 컴포넌트.",
+   "tags": [
+    "component",
+    "card",
+    "design-system",
+    "widget"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/lib/widgets/app_chip.dart",
+   "type": "file",
+   "name": "app_chip.dart",
+   "filePath": "app/lib/widgets/app_chip.dart",
+   "summary": "모션·토큰을 적용한 선택 가능한 칩 위젯.",
+   "tags": [
+    "component",
+    "chip",
+    "widget",
+    "design-system"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/lib/widgets/app_empty_state.dart",
+   "type": "file",
+   "name": "app_empty_state.dart",
+   "filePath": "app/lib/widgets/app_empty_state.dart",
+   "summary": "빈 상태(데이터 없음) 안내 위젯. 액션 버튼(app_buttons)을 포함한다.",
+   "tags": [
+    "component",
+    "empty-state",
+    "widget"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/lib/widgets/app_hero_section.dart",
+   "type": "file",
+   "name": "app_hero_section.dart",
+   "filePath": "app/lib/widgets/app_hero_section.dart",
+   "summary": "화면 상단 히어로 섹션 위젯.",
+   "tags": [
+    "component",
+    "hero",
+    "widget"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/lib/widgets/app_info_tile.dart",
+   "type": "file",
+   "name": "app_info_tile.dart",
+   "filePath": "app/lib/widgets/app_info_tile.dart",
+   "summary": "아이콘·라벨·값을 표시하는 정보 타일 위젯.",
+   "tags": [
+    "component",
+    "info-tile",
+    "widget"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/lib/widgets/app_list_section.dart",
+   "type": "file",
+   "name": "app_list_section.dart",
+   "filePath": "app/lib/widgets/app_list_section.dart",
+   "summary": "제목과 항목 목록을 묶는 리스트 섹션 위젯.",
+   "tags": [
+    "component",
+    "list-section",
+    "widget"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/lib/widgets/app_skeleton_card.dart",
+   "type": "file",
+   "name": "app_skeleton_card.dart",
+   "filePath": "app/lib/widgets/app_skeleton_card.dart",
+   "summary": "skeletonizer 기반 로딩 스켈레톤 카드 위젯.",
+   "tags": [
+    "component",
+    "skeleton",
+    "loading",
+    "widget"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/lib/widgets/app_toast.dart",
+   "type": "file",
+   "name": "app_toast.dart",
+   "filePath": "app/lib/widgets/app_toast.dart",
+   "summary": "종류별(성공/오류 등) 토스트 메시지를 띄우는 정적 헬퍼 위젯.",
+   "tags": [
+    "component",
+    "toast",
+    "notification",
+    "widget"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/lib/widgets/chat_tournament_card.dart",
+   "type": "file",
+   "name": "chat_tournament_card.dart",
+   "filePath": "app/lib/widgets/chat_tournament_card.dart",
+   "summary": "채팅 RAG 결과로 노출되는 대회 카드 위젯. 요강 요약과 정보 행을 표시하며 app_card·chat_ui 모델에 의존한다.",
+   "tags": [
+    "component",
+    "card",
+    "chat",
+    "rag"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/lib/widgets/tournament_card.dart",
+   "type": "file",
+   "name": "tournament_card.dart",
+   "filePath": "app/lib/widgets/tournament_card.dart",
+   "summary": "대회 목록의 핵심 카드 위젯. 마감 D-day·상태 배지·일정·장소를 계산해 표시하며 grade_labels·tournament 모델에 의존한다.",
+   "tags": [
+    "component",
+    "card",
+    "tournament",
+    "deadline"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:app/test/active_filters_test.dart",
+   "type": "file",
+   "name": "active_filters_test.dart",
+   "filePath": "app/test/active_filters_test.dart",
+   "summary": "active_filters·tournament_filters 순수 로직에 대한 단위 테스트.",
+   "tags": [
+    "test",
+    "unit-test",
+    "filter"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/test/active_sport_provider_test.dart",
+   "type": "file",
+   "name": "active_sport_provider_test.dart",
+   "filePath": "app/test/active_sport_provider_test.dart",
+   "summary": "활성 종목 provider 상태에 대한 단위 테스트.",
+   "tags": [
+    "test",
+    "unit-test",
+    "provider"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/test/chat_ui_test.dart",
+   "type": "file",
+   "name": "chat_ui_test.dart",
+   "filePath": "app/test/chat_ui_test.dart",
+   "summary": "chat_ui 모델과 chat_tournament_card 위젯 렌더링에 대한 위젯 테스트.",
+   "tags": [
+    "test",
+    "widget-test",
+    "chat"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:app/lib/state/theme_provider.dart:ThemeModeController",
+   "type": "class",
+   "name": "ThemeModeController",
+   "filePath": "app/lib/state/theme_provider.dart",
+   "lineRange": [
+    9,
+    34
+   ],
+   "summary": "ThemeMode를 SharedPreferences에서 로드/저장하는 StateNotifier 성격의 controller.",
+   "tags": [
+    "state",
+    "controller",
+    "theme"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:app/lib/theme/app_theme.dart:AppTheme",
+   "type": "class",
+   "name": "AppTheme",
+   "filePath": "app/lib/theme/app_theme.dart",
+   "lineRange": [
+    6,
+    144
+   ],
+   "summary": "라이트/다크 ThemeData를 빌드하는 팩토리 클래스.",
+   "tags": [
+    "theme",
+    "factory",
+    "material3"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:app/lib/theme/color_schemes.dart:AppPalette",
+   "type": "class",
+   "name": "AppPalette",
+   "filePath": "app/lib/theme/color_schemes.dart",
+   "lineRange": [
+    4,
+    19
+   ],
+   "summary": "브랜드 색상 상수와 ColorScheme를 보유하는 팔레트 클래스.",
+   "tags": [
+    "theme",
+    "color",
+    "palette"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:app/lib/theme/typography.dart:AppTypography",
+   "type": "class",
+   "name": "AppTypography",
+   "filePath": "app/lib/theme/typography.dart",
+   "lineRange": [
+    5,
+    121
+   ],
+   "summary": "앱 TextTheme 스케일을 정의하는 타이포그래피 클래스.",
+   "tags": [
+    "theme",
+    "typography",
+    "text"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:app/lib/theme/tokens.dart:AppShadows",
+   "type": "class",
+   "name": "AppShadows",
+   "filePath": "app/lib/theme/tokens.dart",
+   "lineRange": [
+    44,
+    67
+   ],
+   "summary": "카드·엘리베이션 그림자 토큰과 sport별 그림자 헬퍼를 제공.",
+   "tags": [
+    "theme",
+    "shadow",
+    "design-tokens"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:app/lib/theme/tokens.dart:AppSportColors",
+   "type": "class",
+   "name": "AppSportColors",
+   "filePath": "app/lib/theme/tokens.dart",
+   "lineRange": [
+    70,
+    76
+   ],
+   "summary": "종목별 색상 토큰과 forSport 헬퍼.",
+   "tags": [
+    "theme",
+    "color",
+    "sport"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:app/lib/utils/active_filters.dart:ActiveFilterChipData",
+   "type": "class",
+   "name": "ActiveFilterChipData",
+   "filePath": "app/lib/utils/active_filters.dart",
+   "lineRange": [
+    23,
+    50
+   ],
+   "summary": "활성 필터 칩의 표시 데이터(종류·라벨)를 담는 값 객체.",
+   "tags": [
+    "filter",
+    "chip",
+    "value-object"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/lib/utils/active_filters.dart:activeFilterChips",
+   "type": "function",
+   "name": "activeFilterChips",
+   "filePath": "app/lib/utils/active_filters.dart",
+   "lineRange": [
+    72,
+    83
+   ],
+   "summary": "현재 필터 상태를 칩 데이터 목록으로 변환하는 순수 함수.",
+   "tags": [
+    "filter",
+    "pure-function",
+    "chip"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:app/lib/utils/grade_labels.dart:TennisDivision",
+   "type": "class",
+   "name": "TennisDivision",
+   "filePath": "app/lib/utils/grade_labels.dart",
+   "lineRange": [
+    29,
+    42
+   ],
+   "summary": "테니스 협회별 부서 코드와 라벨을 정의하는 도메인 모델.",
+   "tags": [
+    "domain-model",
+    "tennis",
+    "division"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/lib/utils/grade_labels.dart:tennisDivisionLabelsForOrg",
+   "type": "function",
+   "name": "tennisDivisionLabelsForOrg",
+   "filePath": "app/lib/utils/grade_labels.dart",
+   "lineRange": [
+    223,
+    240
+   ],
+   "summary": "협회 코드별 테니스 부서 라벨 목록을 반환하는 도메인 헬퍼.",
+   "tags": [
+    "domain-labels",
+    "tennis",
+    "helper"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/lib/utils/grade_labels.dart:formatEligibleGrades",
+   "type": "function",
+   "name": "formatEligibleGrades",
+   "filePath": "app/lib/utils/grade_labels.dart",
+   "lineRange": [
+    250,
+    259
+   ],
+   "summary": "대회 자격 등급 코드 배열을 한글 라벨 문자열로 포맷하는 함수.",
+   "tags": [
+    "domain-labels",
+    "formatting",
+    "grades"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:app/lib/utils/tournament_filters.dart:dateRangeForPreset",
+   "type": "function",
+   "name": "dateRangeForPreset",
+   "filePath": "app/lib/utils/tournament_filters.dart",
+   "lineRange": [
+    40,
+    60
+   ],
+   "summary": "기간 프리셋(DatePreset)을 (from, to) 날짜 범위 record로 변환하는 순수 함수.",
+   "tags": [
+    "date-range",
+    "pure-function",
+    "filter"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:app/lib/widgets/allround_logo.dart:AllRoundLogo",
+   "type": "class",
+   "name": "AllRoundLogo",
+   "filePath": "app/lib/widgets/allround_logo.dart",
+   "lineRange": [
+    5,
+    66
+   ],
+   "summary": "올라운드 브랜드 로고를 렌더링하는 위젯.",
+   "tags": [
+    "branding",
+    "logo",
+    "widget"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:app/lib/widgets/allround_logo.dart:_AllroundMarkPainter",
+   "type": "class",
+   "name": "_AllroundMarkPainter",
+   "filePath": "app/lib/widgets/allround_logo.dart",
+   "lineRange": [
+    131,
+    209
+   ],
+   "summary": "로고 마크를 그리는 CustomPainter 구현(paint/shouldRepaint).",
+   "tags": [
+    "custom-painter",
+    "branding",
+    "canvas"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:app/lib/widgets/app_buttons.dart:AppPrimaryButton",
+   "type": "class",
+   "name": "AppPrimaryButton",
+   "filePath": "app/lib/widgets/app_buttons.dart",
+   "lineRange": [
+    4,
+    46
+   ],
+   "summary": "기본(primary) 스타일 앱 버튼 위젯.",
+   "tags": [
+    "button",
+    "widget",
+    "design-system"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:app/lib/widgets/app_buttons.dart:AppSecondaryButton",
+   "type": "class",
+   "name": "AppSecondaryButton",
+   "filePath": "app/lib/widgets/app_buttons.dart",
+   "lineRange": [
+    48,
+    79
+   ],
+   "summary": "보조(secondary) 스타일 앱 버튼 위젯.",
+   "tags": [
+    "button",
+    "widget",
+    "design-system"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:app/lib/widgets/app_buttons.dart:AppGhostButton",
+   "type": "class",
+   "name": "AppGhostButton",
+   "filePath": "app/lib/widgets/app_buttons.dart",
+   "lineRange": [
+    81,
+    109
+   ],
+   "summary": "고스트(ghost) 스타일 앱 버튼 위젯.",
+   "tags": [
+    "button",
+    "widget",
+    "design-system"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:app/lib/widgets/app_card.dart:AppCard",
+   "type": "class",
+   "name": "AppCard",
+   "filePath": "app/lib/widgets/app_card.dart",
+   "lineRange": [
+    6,
+    62
+   ],
+   "summary": "variant 기반 공용 카드 컨테이너 위젯.",
+   "tags": [
+    "card",
+    "widget",
+    "design-system"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:app/lib/widgets/app_chip.dart:AppChip",
+   "type": "class",
+   "name": "AppChip",
+   "filePath": "app/lib/widgets/app_chip.dart",
+   "lineRange": [
+    5,
+    63
+   ],
+   "summary": "모션·토큰을 적용한 선택 가능한 칩 위젯.",
+   "tags": [
+    "chip",
+    "widget",
+    "design-system"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:app/lib/widgets/app_empty_state.dart:AppEmptyState",
+   "type": "class",
+   "name": "AppEmptyState",
+   "filePath": "app/lib/widgets/app_empty_state.dart",
+   "lineRange": [
+    5,
+    63
+   ],
+   "summary": "액션 버튼을 포함한 빈 상태 안내 위젯.",
+   "tags": [
+    "empty-state",
+    "widget"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:app/lib/widgets/app_hero_section.dart:AppHeroSection",
+   "type": "class",
+   "name": "AppHeroSection",
+   "filePath": "app/lib/widgets/app_hero_section.dart",
+   "lineRange": [
+    4,
+    80
+   ],
+   "summary": "화면 상단 히어로 섹션 위젯.",
+   "tags": [
+    "hero",
+    "widget"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:app/lib/widgets/app_info_tile.dart:AppInfoTile",
+   "type": "class",
+   "name": "AppInfoTile",
+   "filePath": "app/lib/widgets/app_info_tile.dart",
+   "lineRange": [
+    4,
+    80
+   ],
+   "summary": "아이콘·라벨·값을 표시하는 정보 타일 위젯.",
+   "tags": [
+    "info-tile",
+    "widget"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:app/lib/widgets/app_list_section.dart:AppListSection",
+   "type": "class",
+   "name": "AppListSection",
+   "filePath": "app/lib/widgets/app_list_section.dart",
+   "lineRange": [
+    4,
+    51
+   ],
+   "summary": "제목과 항목을 묶는 리스트 섹션 위젯.",
+   "tags": [
+    "list-section",
+    "widget"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:app/lib/widgets/app_toast.dart:AppToast",
+   "type": "class",
+   "name": "AppToast",
+   "filePath": "app/lib/widgets/app_toast.dart",
+   "lineRange": [
+    6,
+    59
+   ],
+   "summary": "종류별 토스트 메시지를 띄우는 정적 헬퍼 위젯.",
+   "tags": [
+    "toast",
+    "notification",
+    "widget"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:app/lib/widgets/chat_tournament_card.dart:ChatTournamentCard",
+   "type": "class",
+   "name": "ChatTournamentCard",
+   "filePath": "app/lib/widgets/chat_tournament_card.dart",
+   "lineRange": [
+    9,
+    113
+   ],
+   "summary": "채팅 RAG 결과 대회 카드 위젯. 요강 요약과 정보 행을 표시.",
+   "tags": [
+    "card",
+    "chat",
+    "rag",
+    "widget"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:app/lib/widgets/tournament_card.dart:TournamentCard",
+   "type": "class",
+   "name": "TournamentCard",
+   "filePath": "app/lib/widgets/tournament_card.dart",
+   "lineRange": [
+    11,
+    273
+   ],
+   "summary": "대회 카드 핵심 위젯. 마감 D-day·상태 배지·일정·장소 계산 및 렌더링.",
+   "tags": [
+    "card",
+    "tournament",
+    "deadline",
+    "widget"
+   ],
+   "complexity": "complex"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:app/lib/state/theme_provider.dart",
+   "target": "class:app/lib/state/theme_provider.dart:ThemeModeController",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/state/theme_provider.dart",
+   "target": "class:app/lib/state/theme_provider.dart:ThemeModeController",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/theme/app_theme.dart",
+   "target": "class:app/lib/theme/app_theme.dart:AppTheme",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/theme/app_theme.dart",
+   "target": "class:app/lib/theme/app_theme.dart:AppTheme",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/theme/color_schemes.dart",
+   "target": "class:app/lib/theme/color_schemes.dart:AppPalette",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/theme/color_schemes.dart",
+   "target": "class:app/lib/theme/color_schemes.dart:AppPalette",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/theme/typography.dart",
+   "target": "class:app/lib/theme/typography.dart:AppTypography",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/theme/typography.dart",
+   "target": "class:app/lib/theme/typography.dart:AppTypography",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/theme/tokens.dart",
+   "target": "class:app/lib/theme/tokens.dart:AppShadows",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/theme/tokens.dart",
+   "target": "class:app/lib/theme/tokens.dart:AppShadows",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/theme/tokens.dart",
+   "target": "class:app/lib/theme/tokens.dart:AppSportColors",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/theme/tokens.dart",
+   "target": "class:app/lib/theme/tokens.dart:AppSportColors",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/utils/active_filters.dart",
+   "target": "class:app/lib/utils/active_filters.dart:ActiveFilterChipData",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/utils/active_filters.dart",
+   "target": "class:app/lib/utils/active_filters.dart:ActiveFilterChipData",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/utils/active_filters.dart",
+   "target": "function:app/lib/utils/active_filters.dart:activeFilterChips",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/utils/active_filters.dart",
+   "target": "function:app/lib/utils/active_filters.dart:activeFilterChips",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/utils/grade_labels.dart",
+   "target": "class:app/lib/utils/grade_labels.dart:TennisDivision",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/utils/grade_labels.dart",
+   "target": "class:app/lib/utils/grade_labels.dart:TennisDivision",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/utils/grade_labels.dart",
+   "target": "function:app/lib/utils/grade_labels.dart:tennisDivisionLabelsForOrg",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/utils/grade_labels.dart",
+   "target": "function:app/lib/utils/grade_labels.dart:tennisDivisionLabelsForOrg",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/utils/grade_labels.dart",
+   "target": "function:app/lib/utils/grade_labels.dart:formatEligibleGrades",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/utils/grade_labels.dart",
+   "target": "function:app/lib/utils/grade_labels.dart:formatEligibleGrades",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/utils/tournament_filters.dart",
+   "target": "function:app/lib/utils/tournament_filters.dart:dateRangeForPreset",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/utils/tournament_filters.dart",
+   "target": "function:app/lib/utils/tournament_filters.dart:dateRangeForPreset",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/widgets/allround_logo.dart",
+   "target": "class:app/lib/widgets/allround_logo.dart:AllRoundLogo",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/widgets/allround_logo.dart",
+   "target": "class:app/lib/widgets/allround_logo.dart:AllRoundLogo",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/widgets/allround_logo.dart",
+   "target": "class:app/lib/widgets/allround_logo.dart:_AllroundMarkPainter",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/widgets/app_buttons.dart",
+   "target": "class:app/lib/widgets/app_buttons.dart:AppPrimaryButton",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/widgets/app_buttons.dart",
+   "target": "class:app/lib/widgets/app_buttons.dart:AppPrimaryButton",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/widgets/app_buttons.dart",
+   "target": "class:app/lib/widgets/app_buttons.dart:AppSecondaryButton",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/widgets/app_buttons.dart",
+   "target": "class:app/lib/widgets/app_buttons.dart:AppSecondaryButton",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/widgets/app_buttons.dart",
+   "target": "class:app/lib/widgets/app_buttons.dart:AppGhostButton",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/widgets/app_buttons.dart",
+   "target": "class:app/lib/widgets/app_buttons.dart:AppGhostButton",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/widgets/app_card.dart",
+   "target": "class:app/lib/widgets/app_card.dart:AppCard",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/widgets/app_card.dart",
+   "target": "class:app/lib/widgets/app_card.dart:AppCard",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/widgets/app_chip.dart",
+   "target": "class:app/lib/widgets/app_chip.dart:AppChip",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/widgets/app_chip.dart",
+   "target": "class:app/lib/widgets/app_chip.dart:AppChip",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/widgets/app_empty_state.dart",
+   "target": "class:app/lib/widgets/app_empty_state.dart:AppEmptyState",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/widgets/app_empty_state.dart",
+   "target": "class:app/lib/widgets/app_empty_state.dart:AppEmptyState",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/widgets/app_hero_section.dart",
+   "target": "class:app/lib/widgets/app_hero_section.dart:AppHeroSection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/widgets/app_hero_section.dart",
+   "target": "class:app/lib/widgets/app_hero_section.dart:AppHeroSection",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/widgets/app_info_tile.dart",
+   "target": "class:app/lib/widgets/app_info_tile.dart:AppInfoTile",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/widgets/app_info_tile.dart",
+   "target": "class:app/lib/widgets/app_info_tile.dart:AppInfoTile",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/widgets/app_list_section.dart",
+   "target": "class:app/lib/widgets/app_list_section.dart:AppListSection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/widgets/app_list_section.dart",
+   "target": "class:app/lib/widgets/app_list_section.dart:AppListSection",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/widgets/app_toast.dart",
+   "target": "class:app/lib/widgets/app_toast.dart:AppToast",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/widgets/app_toast.dart",
+   "target": "class:app/lib/widgets/app_toast.dart:AppToast",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/widgets/chat_tournament_card.dart",
+   "target": "class:app/lib/widgets/chat_tournament_card.dart:ChatTournamentCard",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/widgets/chat_tournament_card.dart",
+   "target": "class:app/lib/widgets/chat_tournament_card.dart:ChatTournamentCard",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/widgets/tournament_card.dart",
+   "target": "class:app/lib/widgets/tournament_card.dart:TournamentCard",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:app/lib/widgets/tournament_card.dart",
+   "target": "class:app/lib/widgets/tournament_card.dart:TournamentCard",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:app/lib/theme/app_theme.dart",
+   "target": "file:app/lib/theme/color_schemes.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/theme/app_theme.dart",
+   "target": "file:app/lib/theme/tokens.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/theme/app_theme.dart",
+   "target": "file:app/lib/theme/typography.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/utils/active_filters.dart",
+   "target": "file:app/lib/utils/grade_labels.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/utils/active_filters.dart",
+   "target": "file:app/lib/utils/tournament_filters.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/widgets/app_buttons.dart",
+   "target": "file:app/lib/theme/tokens.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/widgets/app_card.dart",
+   "target": "file:app/lib/theme/tokens.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/widgets/app_chip.dart",
+   "target": "file:app/lib/theme/motion.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/widgets/app_chip.dart",
+   "target": "file:app/lib/theme/tokens.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/widgets/app_empty_state.dart",
+   "target": "file:app/lib/theme/tokens.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/widgets/app_empty_state.dart",
+   "target": "file:app/lib/widgets/app_buttons.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/widgets/app_hero_section.dart",
+   "target": "file:app/lib/theme/tokens.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/widgets/app_info_tile.dart",
+   "target": "file:app/lib/theme/tokens.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/widgets/app_list_section.dart",
+   "target": "file:app/lib/theme/tokens.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/widgets/app_toast.dart",
+   "target": "file:app/lib/theme/tokens.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/widgets/chat_tournament_card.dart",
+   "target": "file:app/lib/theme/tokens.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/widgets/chat_tournament_card.dart",
+   "target": "file:app/lib/widgets/app_card.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/widgets/tournament_card.dart",
+   "target": "file:app/lib/theme/tokens.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/widgets/tournament_card.dart",
+   "target": "file:app/lib/utils/grade_labels.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/widgets/tournament_card.dart",
+   "target": "file:app/lib/widgets/app_card.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/test/active_filters_test.dart",
+   "target": "file:app/lib/utils/active_filters.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/test/active_filters_test.dart",
+   "target": "file:app/lib/utils/tournament_filters.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/test/chat_ui_test.dart",
+   "target": "file:app/lib/widgets/chat_tournament_card.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/utils/active_filters.dart",
+   "target": "file:app/test/active_filters_test.dart",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:app/lib/utils/tournament_filters.dart",
+   "target": "file:app/test/active_filters_test.dart",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:app/lib/widgets/chat_tournament_card.dart",
+   "target": "file:app/test/chat_ui_test.dart",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  }
+ ]
+}

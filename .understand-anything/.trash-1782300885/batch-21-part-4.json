@@ -1,0 +1,230 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/lib/screens/tournaments/tournament_detail_screen.dart",
+      "type": "file",
+      "name": "tournament_detail_screen.dart",
+      "filePath": "app/lib/screens/tournaments/tournament_detail_screen.dart",
+      "summary": "대회 상세 화면. 대회 정보·요강(regulation) 본문·신청 바·아코디언 섹션을 렌더링하고 미리보기/에러 상태를 처리한다.",
+      "tags": ["component", "api-handler", "state-management", "data-model"],
+      "complexity": "complex",
+      "languageNotes": "요강 본문을 구조화 라인으로 파싱(_buildRegulationChildren)해 아코디언으로 표시."
+    },
+    {
+      "id": "class:app/lib/screens/tournaments/tournament_detail_screen.dart:_TournamentDetailScreenState",
+      "type": "class",
+      "name": "_TournamentDetailScreenState",
+      "filePath": "app/lib/screens/tournaments/tournament_detail_screen.dart",
+      "lineRange": [23, 112],
+      "summary": "대회 상세 데이터를 로드(_load)하고 화면을 빌드하는 State 클래스.",
+      "tags": ["state-management", "api-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/screens/tournaments/tournament_detail_screen.dart:_RegulationBody",
+      "type": "class",
+      "name": "_RegulationBody",
+      "filePath": "app/lib/screens/tournaments/tournament_detail_screen.dart",
+      "lineRange": [745, 969],
+      "summary": "대회 요강 본문을 구조화된 라인·섹션으로 렌더링하는 위젯.",
+      "tags": ["component", "serialization"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/lib/screens/tournaments/tournament_submit_screen.dart",
+      "type": "file",
+      "name": "tournament_submit_screen.dart",
+      "filePath": "app/lib/screens/tournaments/tournament_submit_screen.dart",
+      "summary": "사용자가 대회 정보를 제보·등록하는 제출 폼 화면. 날짜 선택과 입력 검증 후 제출한다.",
+      "tags": ["component", "api-handler", "validation"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/lib/screens/tournaments/tournament_submit_screen.dart:_TournamentSubmitScreenState",
+      "type": "class",
+      "name": "_TournamentSubmitScreenState",
+      "filePath": "app/lib/screens/tournaments/tournament_submit_screen.dart",
+      "lineRange": [20, 328],
+      "summary": "대회 제보 폼의 날짜 선택과 제출(_submit)·입력 데코를 관리하는 State 클래스.",
+      "tags": ["state-management", "validation", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/lib/screens/tournaments/tournaments_screen.dart",
+      "type": "file",
+      "name": "tournaments_screen.dart",
+      "filePath": "app/lib/screens/tournaments/tournaments_screen.dart",
+      "summary": "대회 목록·달력 통합 탐색 화면. 종목·지역·날짜·부문·주최 필터 sheet와 리스트/캘린더 뷰 전환을 제공한다.",
+      "tags": ["component", "api-handler", "state-management", "validation"],
+      "complexity": "complex",
+      "languageNotes": "검색 필터 sheet와 월간 캘린더(_TournamentMonthCalendar)를 직접 구현한 대형 화면."
+    },
+    {
+      "id": "class:app/lib/screens/tournaments/tournaments_screen.dart:_TournamentsScreenState",
+      "type": "class",
+      "name": "_TournamentsScreenState",
+      "filePath": "app/lib/screens/tournaments/tournaments_screen.dart",
+      "lineRange": [24, 481],
+      "summary": "대회 검색(_search), 종목/부문 코드 해석, 활성 필터 칩·빠른 필터·검색 sheet를 관리하는 State 클래스.",
+      "tags": ["state-management", "api-handler", "validation"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/lib/screens/tournaments/tournaments_screen.dart:_SearchFilterSheetState",
+      "type": "class",
+      "name": "_SearchFilterSheetState",
+      "filePath": "app/lib/screens/tournaments/tournaments_screen.dart",
+      "lineRange": [1394, 1878],
+      "summary": "지역·날짜·부문·주최·모집 여부 필터 입력을 관리하고 적용/초기화하는 검색 필터 sheet State 클래스.",
+      "tags": ["state-management", "validation", "event-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/lib/screens/tournaments/tournaments_screen.dart:_TournamentMonthCalendar",
+      "type": "class",
+      "name": "_TournamentMonthCalendar",
+      "filePath": "app/lib/screens/tournaments/tournaments_screen.dart",
+      "lineRange": [706, 842],
+      "summary": "대회가 표시되는 월간 캘린더 그리드를 렌더링하는 위젯.",
+      "tags": ["component"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/lib/services/api.dart",
+      "type": "file",
+      "name": "api.dart",
+      "filePath": "app/lib/services/api.dart",
+      "summary": "Supabase Edge Function·REST 엔드포인트를 호출하는 앱의 핵심 API 클라이언트. 대회 검색·즐겨찾기·클럽/이벤트/게시글·규정·챗(SSE)·알림·매치 기록·일정 공유 등 전 기능을 래핑한다.",
+      "tags": ["service", "api-handler", "serialization", "singleton"],
+      "complexity": "complex",
+      "languageNotes": "ApiService 단일 클래스에 76개 메서드로 모든 백엔드 호출을 집약. _authHeaders로 JWT 인증 헤더 부착, chat()는 SSE 스트림 반환."
+    },
+    {
+      "id": "class:app/lib/services/api.dart:ApiService",
+      "type": "class",
+      "name": "ApiService",
+      "filePath": "app/lib/services/api.dart",
+      "lineRange": [58, 1131],
+      "summary": "모든 백엔드 호출(대회·클럽·규정·챗·알림·매치·일정공유)을 메서드로 제공하는 중앙 API 클라이언트 클래스.",
+      "tags": ["service", "api-handler", "singleton"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/lib/services/api.dart:searchTournaments",
+      "type": "function",
+      "name": "searchTournaments",
+      "filePath": "app/lib/services/api.dart",
+      "lineRange": [86, 99],
+      "summary": "필터 조건으로 대회 목록을 검색해 반환하는 API 호출.",
+      "tags": ["api-handler", "serialization"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/lib/services/api.dart:createClub",
+      "type": "function",
+      "name": "createClub",
+      "filePath": "app/lib/services/api.dart",
+      "lineRange": [327, 339],
+      "summary": "신규 클럽을 생성하는 API 호출.",
+      "tags": ["api-handler", "serialization"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/lib/services/api.dart:chat",
+      "type": "function",
+      "name": "chat",
+      "filePath": "app/lib/services/api.dart",
+      "lineRange": [611, 617],
+      "summary": "규정·대회 RAG 챗봇 Edge Function을 호출하고 SSE 이벤트 스트림(ChatStreamEvent)을 반환한다.",
+      "tags": ["api-handler", "service", "serialization"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:app/lib/services/api.dart:createClubEvent",
+      "type": "function",
+      "name": "createClubEvent",
+      "filePath": "app/lib/services/api.dart",
+      "lineRange": [490, 496],
+      "summary": "클럽 이벤트를 생성하는 API 호출.",
+      "tags": ["api-handler", "serialization"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/lib/services/api.dart:addMatchEntry",
+      "type": "function",
+      "name": "addMatchEntry",
+      "filePath": "app/lib/services/api.dart",
+      "lineRange": [1037, 1045],
+      "summary": "사용자의 매치(대회 출전) 기록 항목을 추가하는 API 호출.",
+      "tags": ["api-handler", "serialization"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/lib/services/api.dart:buildTournamentSearchQuery",
+      "type": "function",
+      "name": "buildTournamentSearchQuery",
+      "filePath": "app/lib/services/api.dart",
+      "lineRange": [24, 37],
+      "summary": "대회 검색 필터를 쿼리 파라미터 맵으로 직렬화하는 헬퍼.",
+      "tags": ["utility", "serialization"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/services/api.dart:ChatStreamEvent",
+      "type": "class",
+      "name": "ChatStreamEvent",
+      "filePath": "app/lib/services/api.dart",
+      "lineRange": [1133, 1137],
+      "summary": "챗 SSE 스트림의 단위 이벤트를 표현하는 데이터 모델.",
+      "tags": ["data-model", "type-definition"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/services/ball_detector_service.dart",
+      "type": "file",
+      "name": "ball_detector_service.dart",
+      "filePath": "app/lib/services/ball_detector_service.dart",
+      "summary": "TFLite 모델로 영상 프레임에서 공을 검출하는 서비스. 전처리(float32 변환)·후처리와 미지원 환경용 mock 검출을 제공한다.",
+      "tags": ["service", "data-pipeline"],
+      "complexity": "moderate",
+      "languageNotes": "실제 추론(_realDetect)과 mock(_mockDetect)을 분리한 ML 추론 서비스."
+    },
+    {
+      "id": "class:app/lib/services/ball_detector_service.dart:BallDetectorService",
+      "type": "class",
+      "name": "BallDetectorService",
+      "filePath": "app/lib/services/ball_detector_service.dart",
+      "lineRange": [15, 162],
+      "summary": "TFLite 모델 초기화·프레임별 공 검출·전후처리를 수행하는 추론 서비스 클래스.",
+      "tags": ["service", "data-pipeline"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {"source": "file:app/lib/screens/tournaments/tournament_detail_screen.dart", "target": "class:app/lib/screens/tournaments/tournament_detail_screen.dart:_TournamentDetailScreenState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/tournaments/tournament_detail_screen.dart", "target": "class:app/lib/screens/tournaments/tournament_detail_screen.dart:_RegulationBody", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/tournaments/tournament_detail_screen.dart", "target": "file:app/lib/state/providers.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:app/lib/screens/tournaments/tournament_submit_screen.dart", "target": "class:app/lib/screens/tournaments/tournament_submit_screen.dart:_TournamentSubmitScreenState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/tournaments/tournament_submit_screen.dart", "target": "file:app/lib/state/providers.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:app/lib/screens/tournaments/tournaments_screen.dart", "target": "class:app/lib/screens/tournaments/tournaments_screen.dart:_TournamentsScreenState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/tournaments/tournaments_screen.dart", "target": "class:app/lib/screens/tournaments/tournaments_screen.dart:_SearchFilterSheetState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/tournaments/tournaments_screen.dart", "target": "class:app/lib/screens/tournaments/tournaments_screen.dart:_TournamentMonthCalendar", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/tournaments/tournaments_screen.dart", "target": "file:app/lib/state/providers.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:app/lib/services/api.dart", "target": "class:app/lib/services/api.dart:ApiService", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/services/api.dart", "target": "class:app/lib/services/api.dart:ChatStreamEvent", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/services/api.dart", "target": "function:app/lib/services/api.dart:buildTournamentSearchQuery", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/services/api.dart", "target": "class:app/lib/services/api.dart:ApiService", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:app/lib/services/api.dart", "target": "class:app/lib/services/api.dart:ChatStreamEvent", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "class:app/lib/services/api.dart:ApiService", "target": "function:app/lib/services/api.dart:searchTournaments", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "class:app/lib/services/api.dart:ApiService", "target": "function:app/lib/services/api.dart:createClub", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "class:app/lib/services/api.dart:ApiService", "target": "function:app/lib/services/api.dart:chat", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "class:app/lib/services/api.dart:ApiService", "target": "function:app/lib/services/api.dart:createClubEvent", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "class:app/lib/services/api.dart:ApiService", "target": "function:app/lib/services/api.dart:addMatchEntry", "type": "contains", "direction": "forward", "weight": 1.0},
+
+    {"source": "file:app/lib/services/ball_detector_service.dart", "target": "class:app/lib/services/ball_detector_service.dart:BallDetectorService", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/services/ball_detector_service.dart", "target": "class:app/lib/services/ball_detector_service.dart:BallDetectorService", "type": "exports", "direction": "forward", "weight": 0.8}
+  ]
+}

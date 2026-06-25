@@ -1,0 +1,53 @@
+{
+  "nodes": [
+    {
+      "id": "document:docs/plans/MVP-roadmap.md",
+      "type": "document",
+      "name": "MVP-roadmap.md",
+      "filePath": "docs/plans/MVP-roadmap.md",
+      "summary": "Match-up MVP의 스프린트 타임라인 요약 문서로, 상세 작업·상태는 Linear(JY-*)가 관리하고 GitHub는 코드/PR을 담당하는 이원화 운영 규칙과 MVP 이후 스코프 아웃 항목을 정리한다.",
+      "tags": ["documentation", "roadmap", "planning", "project-management"],
+      "complexity": "simple",
+      "languageNotes": "Linear를 source of truth로 두고 문서는 경량 요약본만 유지하는 이원화 방식."
+    },
+    {
+      "id": "document:docs/plans/PLAN_crawl-admin.md",
+      "type": "document",
+      "name": "PLAN_crawl-admin.md",
+      "filePath": "docs/plans/PLAN_crawl-admin.md",
+      "summary": "크롤링 source를 어드민 UI에서 등록·수정·토글하고 draft→approve→published 검수 워크플로우와 ETag/Last-Modified 변경 감지를 도입하는 4단계 계획으로, crawl_sources 테이블·crawl-dispatch Edge Function·pg_cron 일원화를 포함한다.",
+      "tags": ["documentation", "planning", "crawling", "admin", "edge-function"],
+      "complexity": "moderate",
+      "languageNotes": "pg_cron 중복 실행 회피(기존 3개 cron DROP)와 conditional GET 기반 변경 감지가 핵심 함정."
+    },
+    {
+      "id": "document:docs/plans/PLAN_llm-cost-reduction.md",
+      "type": "document",
+      "name": "PLAN_llm-cost-reduction.md",
+      "filePath": "docs/plans/PLAN_llm-cost-reduction.md",
+      "summary": "챗봇 LLM 비용을 70-85% 절감하기 위한 7일 4단계 계획으로, 모델 다운그레이드+grounding off, semantic cache(pgvector), intent classifier, text-to-SQL 템플릿으로 이어지는 4단 라우팅 아키텍처를 정의한다.",
+      "tags": ["documentation", "planning", "llm-cost", "rag", "semantic-cache"],
+      "complexity": "complex",
+      "languageNotes": "Gemini Flash-Lite + DB context, threshold 0.92 semantic cache, 화이트리스트 SQL로 LLM 호출 0회 경로 설계."
+    },
+    {
+      "id": "document:docs/plans/PLAN_speed-gun-v1.md",
+      "type": "document",
+      "name": "PLAN_speed-gun-v1.md",
+      "filePath": "docs/plans/PLAN_speed-gun-v1.md",
+      "summary": "240fps 슬로모 영상에서 프레임 추출·YOLOv8n TFLite 공 검출·homography 기반 속도 계산을 수행하는 Speed Gun v1.1 영상 분석 MVP의 6단계 구현 계획으로, models/services/screens/widgets 파일 구조와 필요한 Flutter 의존성을 정의한다.",
+      "tags": ["documentation", "planning", "computer-vision", "flutter", "speed-gun"],
+      "complexity": "moderate",
+      "languageNotes": "ffmpeg_kit_flutter 프레임 추출 + tflite_flutter YOLOv8n 추론 + Kalman filter 궤적 추적 파이프라인."
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:docs/plans/PLAN_crawl-admin.md",
+      "target": "document:docs/plans/MVP-roadmap.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

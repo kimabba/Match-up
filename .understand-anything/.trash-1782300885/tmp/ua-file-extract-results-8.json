@@ -1,0 +1,231 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 65,
+      "nonEmptyLines": 50,
+      "sections": [
+        {
+          "heading": "AGENTS.md — Match-up Agent Router",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Always-on rules",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "Load-on-demand rule map",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "Knowledge base (현재 상태 문서)",
+          "level": 2,
+          "line": 34
+        },
+        {
+          "heading": "Common checks",
+          "level": 2,
+          "line": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "CLAUDE.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 26,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "CLAUDE.md — Match-up",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Minimum mandatory rules",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "Git/PR workflow",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "Rule index",
+          "level": 2,
+          "line": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "Makefile",
+      "language": "makefile",
+      "fileCategory": "infra",
+      "totalLines": 65,
+      "nonEmptyLines": 56,
+      "steps": [
+        {
+          "name": "deps",
+          "startLine": 13,
+          "endLine": 15
+        },
+        {
+          "name": "reset",
+          "startLine": 20,
+          "endLine": 28
+        },
+        {
+          "name": "setup",
+          "startLine": 32,
+          "endLine": 40
+        },
+        {
+          "name": "backend",
+          "startLine": 46,
+          "endLine": 49
+        },
+        {
+          "name": "app",
+          "startLine": 51,
+          "endLine": 54
+        },
+        {
+          "name": "admin",
+          "startLine": 56,
+          "endLine": 59
+        },
+        {
+          "name": "check",
+          "startLine": 63,
+          "endLine": 66
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "stepCount": 7
+      }
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 185,
+      "nonEmptyLines": 138,
+      "sections": [
+        {
+          "heading": "올라운드 (AllRound)",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "핵심 가치",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "종목 · 등급 모델",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "기술 스택",
+          "level": 2,
+          "line": 35
+        },
+        {
+          "heading": "빠른 시작 (로컬 개발)",
+          "level": 2,
+          "line": 65
+        },
+        {
+          "heading": "사전 준비 (최초 1회)",
+          "level": 3,
+          "line": 67
+        },
+        {
+          "heading": "1단계 — 환경 파일 준비 (최초 1회)",
+          "level": 3,
+          "line": 75
+        },
+        {
+          "heading": "2단계 — Supabase 로컬 스택 기동 (최초 1회)",
+          "level": 3,
+          "line": 86
+        },
+        {
+          "heading": "3단계 — 매일 개발 (터미널 2개)",
+          "level": 3,
+          "line": 94
+        },
+        {
+          "heading": "검증",
+          "level": 3,
+          "line": 104
+        },
+        {
+          "heading": "관리자 권한 부여",
+          "level": 3,
+          "line": 113
+        },
+        {
+          "heading": "API 엔드포인트",
+          "level": 2,
+          "line": 123
+        },
+        {
+          "heading": "디렉토리 구조",
+          "level": 2,
+          "line": 141
+        },
+        {
+          "heading": "운영 작업 흐름",
+          "level": 2,
+          "line": 171
+        },
+        {
+          "heading": "프로젝트 관리",
+          "level": 2,
+          "line": 179
+        },
+        {
+          "heading": "라이선스",
+          "level": 2,
+          "line": 183
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 16
+      }
+    }
+  ]
+}

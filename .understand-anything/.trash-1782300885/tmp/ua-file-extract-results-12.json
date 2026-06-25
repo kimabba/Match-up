@@ -1,0 +1,581 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 9,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "docs/kb/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 24,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "Match-up Knowledge Base",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "파일 목록",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "관리 원칙",
+          "level": 2,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "docs/kb/ai-chat.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 140,
+      "nonEmptyLines": 110,
+      "sections": [
+        {
+          "heading": "AI 챗봇 시스템",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "아키텍처 (4단 라우팅)",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "핵심 구성",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "의도 분류 (`_shared/intent.ts`)",
+          "level": 2,
+          "line": 36
+        },
+        {
+          "heading": "Slot routing (LLM 0회)",
+          "level": 2,
+          "line": 49
+        },
+        {
+          "heading": "QA cache (`qa_cache`)",
+          "level": 2,
+          "line": 56
+        },
+        {
+          "heading": "RAG 파이프라인",
+          "level": 2,
+          "line": 68
+        },
+        {
+          "heading": "Search Grounding 발동 기준 (정책)",
+          "level": 2,
+          "line": 76
+        },
+        {
+          "heading": "비용 제어 요약",
+          "level": 2,
+          "line": 95
+        },
+        {
+          "heading": "모니터링 (비용 로그)",
+          "level": 2,
+          "line": 107
+        },
+        {
+          "heading": "Flutter 구현",
+          "level": 2,
+          "line": 129
+        },
+        {
+          "heading": "보안",
+          "level": 2,
+          "line": 136
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    },
+    {
+      "path": "docs/kb/architecture.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 89,
+      "nonEmptyLines": 74,
+      "sections": [
+        {
+          "heading": "시스템 아키텍처",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "스택",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "아키텍처 다이어그램",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Edge Function 목록",
+          "level": 2,
+          "line": 30
+        },
+        {
+          "heading": "인증 레이어 (`_shared/auth.ts`)",
+          "level": 2,
+          "line": 51
+        },
+        {
+          "heading": "환경변수",
+          "level": 2,
+          "line": 63
+        },
+        {
+          "heading": "Edge Function secrets",
+          "level": 3,
+          "line": 65
+        },
+        {
+          "heading": "Flutter (`--dart-define-from-file=.env.local`)",
+          "level": 3,
+          "line": 73
+        },
+        {
+          "heading": "공유 모듈 (`_shared/`)",
+          "level": 2,
+          "line": 80
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "docs/kb/clubs.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 60,
+      "nonEmptyLines": 47,
+      "sections": [
+        {
+          "heading": "클럽 관리 시스템",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "워크플로우",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "역할 체계",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "Edge Functions",
+          "level": 2,
+          "line": 25
+        },
+        {
+          "heading": "clubs-create",
+          "level": 3,
+          "line": 27
+        },
+        {
+          "heading": "clubs-join",
+          "level": 3,
+          "line": 32
+        },
+        {
+          "heading": "clubs-review-join",
+          "level": 3,
+          "line": 38
+        },
+        {
+          "heading": "clubs-approve",
+          "level": 3,
+          "line": 43
+        },
+        {
+          "heading": "clubs-search",
+          "level": 3,
+          "line": 48
+        },
+        {
+          "heading": "Flutter UI",
+          "level": 2,
+          "line": 53
+        },
+        {
+          "heading": "멤버 수 자동 갱신",
+          "level": 2,
+          "line": 59
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    },
+    {
+      "path": "docs/kb/crawler.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 54,
+      "nonEmptyLines": 44,
+      "sections": [
+        {
+          "heading": "크롤러 시스템",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "아키텍처",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "crawl-dispatch",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "crawl_sources 테이블",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "파서 모듈 (`_shared/crawler/parsers/`)",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "부서코드 추출 흐름",
+          "level": 2,
+          "line": 37
+        },
+        {
+          "heading": "upsertTournament",
+          "level": 2,
+          "line": 42
+        },
+        {
+          "heading": "인증",
+          "level": 2,
+          "line": 47
+        },
+        {
+          "heading": "어드민 UI",
+          "level": 2,
+          "line": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "docs/kb/database.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 119,
+      "nonEmptyLines": 105,
+      "sections": [
+        {
+          "heading": "데이터베이스 스키마",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "핵심 테이블",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "users",
+          "level": 3,
+          "line": 7
+        },
+        {
+          "heading": "user_sports",
+          "level": 3,
+          "line": 15
+        },
+        {
+          "heading": "user_tennis_orgs",
+          "level": 3,
+          "line": 24
+        },
+        {
+          "heading": "tournaments",
+          "level": 3,
+          "line": 35
+        },
+        {
+          "heading": "clubs",
+          "level": 3,
+          "line": 52
+        },
+        {
+          "heading": "club_members",
+          "level": 3,
+          "line": 65
+        },
+        {
+          "heading": "club_join_requests",
+          "level": 3,
+          "line": 74
+        },
+        {
+          "heading": "crawl_sources",
+          "level": 3,
+          "line": 83
+        },
+        {
+          "heading": "기타 테이블",
+          "level": 3,
+          "line": 94
+        },
+        {
+          "heading": "주요 트리거",
+          "level": 2,
+          "line": 106
+        },
+        {
+          "heading": "RLS 정책 요약",
+          "level": 2,
+          "line": 109
+        },
+        {
+          "heading": "마이그레이션 이력 (최근)",
+          "level": 2,
+          "line": 116
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 14
+      }
+    },
+    {
+      "path": "docs/kb/domain-futsal.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 35,
+      "nonEmptyLines": 28,
+      "sections": [
+        {
+          "heading": "풋살 도메인 지식",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "협회 체계 (futsal_org)",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "등급",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "tournaments 테이블 풋살 전용 컬럼",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "클럽",
+          "level": 2,
+          "line": 29
+        },
+        {
+          "heading": "크롤러",
+          "level": 2,
+          "line": 33
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "docs/kb/domain-tennis.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 64,
+      "nonEmptyLines": 51,
+      "sections": [
+        {
+          "heading": "테니스 도메인 지식",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "협회 체계 (tennis_org)",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "부서코드 체계 (division code)",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "광주 (gj) / 전남 (jn) 예시",
+          "level": 3,
+          "line": 19
+        },
+        {
+          "heading": "KTA 예시",
+          "level": 3,
+          "line": 32
+        },
+        {
+          "heading": "KATA 예시",
+          "level": 3,
+          "line": 37
+        },
+        {
+          "heading": "코드 정의 위치",
+          "level": 2,
+          "line": 42
+        },
+        {
+          "heading": "크롤러 부서 추출",
+          "level": 2,
+          "line": 47
+        },
+        {
+          "heading": "tournaments 테이블 관련 컬럼",
+          "level": 2,
+          "line": 55
+        },
+        {
+          "heading": "사용자 등급 등록",
+          "level": 2,
+          "line": 61
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": "docs/kb/flutter-app.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 74,
+      "nonEmptyLines": 59,
+      "sections": [
+        {
+          "heading": "Flutter 앱 구조",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "핵심 파일",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "내비게이션 (바텀탭 4개)",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "종목 스왑 (dev 기능)",
+          "level": 2,
+          "line": 26
+        },
+        {
+          "heading": "Riverpod 상태",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "ApiService 주요 메서드",
+          "level": 2,
+          "line": 48
+        },
+        {
+          "heading": "대회",
+          "level": 3,
+          "line": 50
+        },
+        {
+          "heading": "클럽",
+          "level": 3,
+          "line": 54
+        },
+        {
+          "heading": "사용자",
+          "level": 3,
+          "line": 60
+        },
+        {
+          "heading": "챗봇",
+          "level": 3,
+          "line": 65
+        },
+        {
+          "heading": "어드민",
+          "level": 3,
+          "line": 68
+        },
+        {
+          "heading": "로그인 흐름",
+          "level": 2,
+          "line": 71
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    }
+  ]
+}

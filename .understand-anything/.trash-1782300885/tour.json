@@ -1,0 +1,84 @@
+[
+  {
+    "order": 1,
+    "title": "프로젝트 개요 — 올라운드란?",
+    "description": "README.md 와 아키텍처 KB 문서로 투어를 시작합니다. 올라운드는 회원가입 시 등록한 종목·등급으로 출전 가능한 대회만 자동 필터링해 보여주는 테니스·풋살 동호인 앱입니다. 기술 스택은 Flutter 클라이언트 + Supabase Edge Functions(Deno) + Postgres/pgvector이며, 이 두 문서가 앞으로 따라갈 전체 지도를 제공합니다.",
+    "nodeIds": ["document:README.md", "document:docs/kb/architecture.md"]
+  },
+  {
+    "order": 2,
+    "title": "앱 부팅 — main.dart 진입점",
+    "description": "Flutter 앱의 시작점입니다. main.dart 는 Supabase를 초기화하고 로케일을 설정하며, 로그인 상태면 FCM(푸시) 등록을 수행한 뒤 ProviderScope 하위에 루트 앱 위젯을 실행합니다. config.dart 는 빌드 시점 환경변수(Supabase URL/anon key, Edge Function base URL 등)를 노출해 앱이 어떤 백엔드에 연결될지 결정합니다.",
+    "nodeIds": ["file:app/lib/main.dart", "file:app/lib/config.dart"],
+    "languageLesson": "Flutter에서 ProviderScope는 Riverpod 상태 관리의 최상위 컨테이너입니다. 위젯 트리의 루트를 ProviderScope로 감싸면 하위 어디서든 provider를 읽을 수 있습니다. 환경변수는 --dart-define 빌드 플래그로 주입해 코드에 비밀값을 하드코딩하지 않습니다."
+  },
+  {
+    "order": 3,
+    "title": "라우팅과 인증 가드 — go_router",
+    "description": "router.dart 는 go_router 기반으로 화면 경로를 정의하고, 인증·관리자 가드로 접근을 제어하며 메인 셸의 탭 네비게이션을 구성합니다(앱에서 가장 fan-out이 높은 허브 파일). login_screen은 카카오·구글·이메일 소셜 로그인을, onboarding_screen은 신규 사용자의 닉네임·지역·종목·협회 등록 다단계 플로우를 담당합니다. README의 \"가입 시 종목·등급 등록\" 가치가 여기서 코드로 실현됩니다.",
+    "nodeIds": ["file:app/lib/router.dart", "file:app/lib/screens/auth/login_screen.dart", "file:app/lib/screens/auth/onboarding_screen.dart"],
+    "languageLesson": "go_router의 redirect 콜백은 라우팅 전 인증 상태를 검사해 미인증 사용자를 로그인 화면으로 보내는 가드 패턴을 구현합니다. 선언적 경로 정의(GoRoute)로 딥링크와 셸 라우트(탭 유지)를 함께 다룰 수 있습니다."
+  },
+  {
+    "order": 4,
+    "title": "도메인 모델 — 종목·등급",
+    "description": "tournament.dart 는 대회·클럽·지역·규칙·사용자 종목 등 앱의 핵심 도메인 모델을 모은 중심 파일로, 다수 화면과 admin/router가 의존합니다(클라이언트 fan-in 상위). grade_labels.dart 는 테니스·풋살 종목별 등급·부서·지역 코드를 한글 라벨로 매핑해 대회 자격(eligible_grades) 표시의 기준이 됩니다. Step 3에서 등록한 등급이 곧 어떤 대회에 출전 가능한지를 결정하는 어휘입니다.",
+    "nodeIds": ["file:app/lib/models/tournament.dart", "file:app/lib/utils/grade_labels.dart", "file:app/lib/state/providers.dart"],
+    "languageLesson": "providers.dart의 Riverpod provider는 ApiService 같은 공유 인스턴스와 primarySportFrom 같은 파생 상태를 전역에 노출합니다. provider는 의존성을 명시적으로 선언하므로 입력이 바뀌면 자동으로 재계산됩니다."
+  },
+  {
+    "order": 5,
+    "title": "대회 검색 화면과 클라이언트 필터",
+    "description": "tournaments_screen 은 대회 목록·달력을 통합한 핵심 탐색 화면으로, 종목·지역·날짜·부문·주최 필터 시트와 리스트/캘린더 뷰 전환을 제공합니다. tournament_filters.dart 는 상세검색의 클라이언트 측 순수 필터 로직(기간 프리셋 계산, 모집 상태 판정)을 담당합니다. 등급 기반 자동 필터링은 서버에서 일어나고(다음 단계), 여기서는 사용자가 추가로 좁히는 UI 필터를 다룹니다.",
+    "nodeIds": ["file:app/lib/screens/tournaments/tournaments_screen.dart", "file:app/lib/utils/tournament_filters.dart"]
+  },
+  {
+    "order": 6,
+    "title": "API 클라이언트 — 앱과 백엔드의 다리",
+    "description": "api.dart 는 Supabase Edge Function·REST 엔드포인트를 호출하는 앱의 핵심 API 클라이언트로, 대회 검색·즐겨찾기·클럽/이벤트/게시글·규정·챗(SSE)·알림·매치 기록 등 거의 모든 기능을 래핑합니다. UI(Step 5)와 서버 로직(Step 7 이후)을 잇는 경계 지점으로, 이 파일을 읽으면 클라이언트가 백엔드에 무엇을 요청하는지 한눈에 보입니다.",
+    "nodeIds": ["file:app/lib/services/api.dart"],
+    "languageLesson": "채팅 응답은 SSE(Server-Sent Events)로 스트리밍됩니다. 클라이언트는 HTTP 응답 스트림을 줄 단위로 파싱해 토큰이 도착하는 대로 화면에 점진적으로 렌더링하므로, 전체 응답을 기다리지 않고 타이핑 효과를 줄 수 있습니다."
+  },
+  {
+    "order": 7,
+    "title": "Edge Function 진입과 인증 가드",
+    "description": "이제 서버로 넘어갑니다. 각 Edge Function은 Deno.serve 핸들러 형태이며, _shared/auth.ts 가 사용자/관리자/service-role/cron-secret 권한을 검증하는 공용 가드를 제공합니다(백엔드 fan-in 상위, cors 다음으로 의존도 높음). tournaments-search 는 사용자 등급을 기준으로 출전 가능한 대회만 자동 필터링하고 지역·날짜·부서·모집상태 조건으로 조회하는, README 핵심 가치의 서버 측 구현입니다.",
+    "nodeIds": ["file:supabase/functions/tournaments-search/index.ts", "file:supabase/functions/_shared/auth.ts"],
+    "languageLesson": "auth.ts의 가드는 성공 시 Supabase 클라이언트를, 실패 시 { error: Response }를 반환하는 TypeScript 판별 유니온(discriminated union) 패턴을 씁니다. 호출부는 반환값의 error 필드 유무로 분기해 타입 안전하게 조기 반환합니다."
+  },
+  {
+    "order": 8,
+    "title": "DB 스키마와 등급 필터 RPC",
+    "description": "서버 검색의 진짜 두뇌는 DB에 있습니다. 002 migration의 users·user_sports 테이블이 사용자의 종목·등급을, 003의 tournaments 테이블이 대회를 정의합니다(데이터 source of truth, RLS 적용). 핵심 RPC인 tournaments_for_user(076)와 tournament_search_by_slots(018)는 사용자 등급과 대회의 자격 부문을 매칭하고 모집중·날짜 오버랩까지 판정해 \"출전 가능한 대회\"를 SQL 레벨에서 직접 계산합니다.",
+    "nodeIds": ["table:supabase/migrations/002_init_users_sports.sql:users", "table:supabase/migrations/002_init_users_sports.sql:user_sports", "table:supabase/migrations/003_tournaments.sql:tournaments", "schema:supabase/migrations/076_tournaments_for_user_recruiting_and_date_overlap.sql", "schema:supabase/migrations/018_tournament_search_by_slots.sql"],
+    "languageLesson": "Postgres RPC는 DB 안에서 실행되는 함수로, Edge Function에서 supabase.rpc('tournaments_for_user', ...)로 호출합니다. 등급 매칭 같은 핵심 비즈니스 규칙을 DB에 두면 클라이언트가 우회할 수 없어 보안과 일관성이 보장됩니다."
+  },
+  {
+    "order": 9,
+    "title": "RLS — 행 단위 보안 정책",
+    "description": "Step 8의 테이블들은 모두 RLS(Row Level Security)로 보호됩니다. 039_rls_hardening migration은 누가 어떤 행을 읽고 쓸 수 있는지를 정책으로 못박아, 인증·가시성·권한을 서버/DB가 단독으로 결정하게 합니다. database KB 문서는 핵심 테이블·트리거·RLS 정책과 최근 migration 이력을 요약해 데이터 레이어 전체를 조망하게 해줍니다.",
+    "nodeIds": ["schema:supabase/migrations/039_rls_hardening.sql", "document:docs/kb/database.md"],
+    "languageLesson": "RLS는 테이블에 USING/WITH CHECK 식을 단 정책을 붙여, 모든 쿼리에 자동으로 WHERE 조건을 주입하는 방식입니다. anon key로 접근해도 정책을 통과하는 행만 보이므로, 앱 코드의 실수와 무관하게 데이터 격리가 강제됩니다."
+  },
+  {
+    "order": 10,
+    "title": "AI 챗봇 — SSE 스트리밍 + RAG",
+    "description": "chat/index.ts 는 사용자 메시지를 의도 분류(intent)·임베딩·시맨틱 검색하고 대회 요강 RAG 컨텍스트를 구성해 Gemini로 SSE 스트리밍 응답과 대회 카드를 반환합니다(QA 캐시·이력 저장 포함). 공유 모듈로 gemini.ts(스트리밍 호출), intent.ts(슬롯·의도 추출), regulation.ts(요강 정규화·RAG 라인 생성)가 협력합니다. ai-chat KB가 4단 라우팅과 비용 제어를 설명합니다.",
+    "nodeIds": ["file:supabase/functions/chat/index.ts", "file:supabase/functions/_shared/gemini.ts", "file:supabase/functions/_shared/intent.ts", "file:supabase/functions/_shared/regulation.ts", "document:docs/kb/ai-chat.md"],
+    "languageLesson": "gemini.ts의 streamChat는 async generator(async function*)로, 응답 토큰을 도착하는 대로 yield 합니다. 호출부는 for await...of로 소비해 SSE로 흘려보냅니다. RAG는 의미 검색으로 찾은 요강 문맥을 프롬프트에 주입해 LLM이 실제 대회 데이터에 근거해 답하도록 만듭니다."
+  },
+  {
+    "order": 11,
+    "title": "pgvector 임베딩 워커",
+    "description": "RAG의 의미 검색이 작동하려면 텍스트가 벡터로 임베딩되어 있어야 합니다. 001 migration이 pg_cron 등 확장을 설치하고(pgvector 기반), embedding.ts 는 Gemini text-embedding-004 호출을 pgvector 리터럴로 변환하는 공유 헬퍼입니다. embed-pending Edge Function은 미임베딩 대회·룰 데이터를 주기적으로 조회해 임베딩을 생성·저장하는 배치 워커로, Step 10의 시맨틱 검색이 참조할 벡터를 채워 넣습니다.",
+    "nodeIds": ["file:supabase/functions/embed-pending/index.ts", "file:supabase/functions/_shared/embedding.ts", "schema:supabase/migrations/001_extensions.sql"],
+    "languageLesson": "pgvector는 임베딩 벡터를 Postgres 컬럼 타입으로 저장하고, 코사인 거리(<=>) 같은 연산자로 의미적 최근접 검색을 지원합니다. embedding.ts는 부동소수 배열을 '[0.1,0.2,...]' 형태의 벡터 리터럴 문자열로 직렬화해 DB에 넘깁니다."
+  },
+  {
+    "order": 12,
+    "title": "크롤러와 알림 cron — 데이터 파이프라인",
+    "description": "마지막은 대회 데이터를 채우고 사용자에게 알리는 자동화입니다. crawl-dispatch 는 인증을 검증하고 due 상태인 크롤 소스를 골라 레지스트리 파서를 실행하며, _shared/crawler.ts 가 감사 기록·원본 HTML 저장·tournaments upsert(사용자/관리자 변경 보존)·요강 추출을 담당합니다. notify-cron 은 pg_cron이 매시간 호출해 즐겨찾기 대회의 D-3·마감 알림을 FCM으로 발송합니다. 008 migration의 invoke_edge_function이 이 cron 워커들을 스케줄에 묶습니다.",
+    "nodeIds": ["file:supabase/functions/crawl-dispatch/index.ts", "file:supabase/functions/_shared/crawler.ts", "file:supabase/functions/notify-cron/index.ts", "schema:supabase/migrations/008_cron.sql", "document:docs/kb/crawler.md"],
+    "languageLesson": "pg_cron은 Postgres 안에서 도는 크론 스케줄러입니다. 008 migration의 invoke_edge_function RPC가 정해진 주기마다 Edge Function(크롤·임베딩·알림)을 내부 JWT로 호출하므로, 외부 서버 없이 DB가 백그라운드 워커의 타이머 역할을 합니다."
+  }
+]

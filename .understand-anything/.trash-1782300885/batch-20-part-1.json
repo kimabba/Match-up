@@ -1,0 +1,641 @@
+{
+  "nodes": [
+    {
+      "id": "file:.github/CODEOWNERS",
+      "type": "file",
+      "name": "CODEOWNERS",
+      "filePath": ".github/CODEOWNERS",
+      "summary": "저장소 전체(`*`)의 코드 소유자를 @kimabba 으로 지정하는 GitHub CODEOWNERS 설정으로, PR 자동 리뷰어 할당에 사용된다.",
+      "tags": [
+        "configuration",
+        "ci-cd",
+        "github",
+        "code-owners"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.github/pull_request_template.md",
+      "type": "document",
+      "name": "pull_request_template.md",
+      "filePath": ".github/pull_request_template.md",
+      "summary": "PR 작성 시 자동 삽입되는 템플릿으로, 요약·작업 영역 체크리스트(Flutter/Edge Functions 등)와 해당 영역별 규칙 문서 링크를 안내한다.",
+      "tags": [
+        "documentation",
+        "github",
+        "pull-request",
+        "workflow"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/assets/models/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "app/assets/models/.gitkeep",
+      "summary": "YOLOv8n TFLite 모델 파일이 놓일 빈 assets 디렉터리를 git 추적에 유지하기 위한 placeholder 파일.",
+      "tags": [
+        "placeholder",
+        "assets",
+        "git"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:app/assets/models/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "app/assets/models/README.md",
+      "summary": "스피드건 기능에 쓰이는 YOLOv8n TFLite 모델(yolov8n.tflite) 다운로드 위치와 부재 시 BallDetectorService가 mock 모드로 동작함을 안내하는 문서.",
+      "tags": [
+        "documentation",
+        "assets",
+        "machine-learning",
+        "speed-gun"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/config.dart",
+      "type": "file",
+      "name": "config.dart",
+      "filePath": "app/lib/config.dart",
+      "summary": "`--dart-define` 빌드 시점 환경변수(Supabase URL/anon key, Edge Function base URL, Google client id, 디자인/관리자 프리뷰 플래그)를 노출하는 AppConfig 설정 클래스.",
+      "tags": [
+        "config",
+        "entry-point",
+        "environment",
+        "supabase"
+      ],
+      "complexity": "simple",
+      "languageNotes": "String.fromEnvironment/bool.fromEnvironment 로 컴파일 타임 상수 주입. 프리뷰 플래그는 UI 표시용일 뿐 실제 권한은 서버 RLS/Edge가 진실의 원천."
+    },
+    {
+      "id": "class:app/lib/config.dart:AppConfig",
+      "type": "class",
+      "name": "AppConfig",
+      "filePath": "app/lib/config.dart",
+      "lineRange": [
+        7,
+        72
+      ],
+      "summary": "Supabase 연결 정보와 각종 빌드 플래그를 정적 멤버로 제공하고 assertConfigured()로 필수 환경변수 누락을 검증하는 전역 설정 클래스.",
+      "tags": [
+        "config",
+        "singleton",
+        "environment"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/main.dart",
+      "type": "file",
+      "name": "main.dart",
+      "filePath": "app/lib/main.dart",
+      "summary": "Flutter 앱 진입점으로 Supabase 초기화·로케일 설정·로그인 시 FCM 등록을 수행하고 ProviderScope 하위에 MatchUpApp 을 실행한다.",
+      "tags": [
+        "entry-point",
+        "bootstrap",
+        "supabase",
+        "riverpod"
+      ],
+      "complexity": "simple",
+      "languageNotes": "main()에서 AppConfig.assertConfigured()로 설정 검증 후 Supabase.initialize. 조건부 import(notifications_web)로 웹/네이티브 알림 분기."
+    },
+    {
+      "id": "class:app/lib/main.dart:MatchUpApp",
+      "type": "class",
+      "name": "MatchUpApp",
+      "filePath": "app/lib/main.dart",
+      "lineRange": [
+        36,
+        62
+      ],
+      "summary": "go_router·테마 모드 provider 를 watch 하여 MaterialApp.router 를 구성하는 루트 ConsumerWidget(한국어 로케일 기본).",
+      "tags": [
+        "component",
+        "entry-point",
+        "router",
+        "theme"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/models/admin.dart",
+      "type": "file",
+      "name": "admin.dart",
+      "filePath": "app/lib/models/admin.dart",
+      "summary": "크롤 감사 로그(CrawlAuditLog) 데이터 모델로, 관리자 화면에서 크롤링 실행 이력을 표시하기 위한 fromJson 직렬화를 제공한다.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "admin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/models/admin.dart:CrawlAuditLog",
+      "type": "class",
+      "name": "CrawlAuditLog",
+      "filePath": "app/lib/models/admin.dart",
+      "lineRange": [
+        1,
+        37
+      ],
+      "summary": "크롤 소스별 실행 결과(상태·메시지·시각 등)를 담는 감사 로그 DTO.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "admin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/models/app_notification.dart",
+      "type": "file",
+      "name": "app_notification.dart",
+      "filePath": "app/lib/models/app_notification.dart",
+      "summary": "인앱/푸시 알림 항목을 표현하는 AppNotification 데이터 모델로 fromJson 직렬화와 읽음 상태 등을 제공한다.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "notification"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/models/app_notification.dart:AppNotification",
+      "type": "class",
+      "name": "AppNotification",
+      "filePath": "app/lib/models/app_notification.dart",
+      "lineRange": [
+        1,
+        47
+      ],
+      "summary": "알림 제목·본문·타입·읽음 여부·시각을 담는 알림 DTO.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "notification"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/models/chat_ui.dart",
+      "type": "file",
+      "name": "chat_ui.dart",
+      "filePath": "app/lib/models/chat_ui.dart",
+      "summary": "채팅 화면에서 대회 요강 카드·UI 블록을 렌더링하기 위한 뷰 모델(RegulationField, TournamentChatCardItem, ChatUiBlock) 집합.",
+      "tags": [
+        "data-model",
+        "view-model",
+        "chat",
+        "serialization"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/models/chat_ui.dart:RegulationField",
+      "type": "class",
+      "name": "RegulationField",
+      "filePath": "app/lib/models/chat_ui.dart",
+      "lineRange": [
+        5,
+        35
+      ],
+      "summary": "대회 요강의 개별 필드(라벨·값)를 표현하는 채팅 카드용 모델.",
+      "tags": [
+        "data-model",
+        "chat",
+        "view-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/models/chat_ui.dart:TournamentChatCardItem",
+      "type": "class",
+      "name": "TournamentChatCardItem",
+      "filePath": "app/lib/models/chat_ui.dart",
+      "lineRange": [
+        37,
+        98
+      ],
+      "summary": "채팅 RAG 응답에 표시되는 대회 카드 항목(요강 요약 포함) 뷰 모델.",
+      "tags": [
+        "data-model",
+        "chat",
+        "view-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/models/chat_ui.dart:ChatUiBlock",
+      "type": "class",
+      "name": "ChatUiBlock",
+      "filePath": "app/lib/models/chat_ui.dart",
+      "lineRange": [
+        100,
+        139
+      ],
+      "summary": "채팅 메시지를 구성하는 UI 블록(텍스트·카드 등) 단위 모델.",
+      "tags": [
+        "data-model",
+        "chat",
+        "view-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/models/club_event.dart",
+      "type": "file",
+      "name": "club_event.dart",
+      "filePath": "app/lib/models/club_event.dart",
+      "summary": "클럽 일정(ClubEvent)과 참여 멤버(ClubMember)를 표현하는 데이터 모델로 fromJson 직렬화를 제공한다.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "club"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/models/club_event.dart:ClubMember",
+      "type": "class",
+      "name": "ClubMember",
+      "filePath": "app/lib/models/club_event.dart",
+      "lineRange": [
+        3,
+        33
+      ],
+      "summary": "클럽 일정에 참여하는 멤버(역할·상태)를 담는 DTO.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "club"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/models/club_event.dart:ClubEvent",
+      "type": "class",
+      "name": "ClubEvent",
+      "filePath": "app/lib/models/club_event.dart",
+      "lineRange": [
+        35,
+        86
+      ],
+      "summary": "클럽 일정의 일시·장소·참여자 목록을 담는 DTO.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "club"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/models/club_post.dart",
+      "type": "file",
+      "name": "club_post.dart",
+      "filePath": "app/lib/models/club_post.dart",
+      "summary": "클럽 게시글(ClubPost)과 댓글(ClubPostComment)을 표현하는 데이터 모델로 fromJson 직렬화를 제공한다.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "club"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/models/club_post.dart:ClubPost",
+      "type": "class",
+      "name": "ClubPost",
+      "filePath": "app/lib/models/club_post.dart",
+      "lineRange": [
+        1,
+        53
+      ],
+      "summary": "클럽 게시판 글의 작성자·내용·작성시각 등을 담는 DTO.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "club"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/models/club_post.dart:ClubPostComment",
+      "type": "class",
+      "name": "ClubPostComment",
+      "filePath": "app/lib/models/club_post.dart",
+      "lineRange": [
+        55,
+        83
+      ],
+      "summary": "클럽 게시글에 달린 댓글 DTO.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "club"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/models/crawl_source.dart",
+      "type": "file",
+      "name": "crawl_source.dart",
+      "filePath": "app/lib/models/crawl_source.dart",
+      "summary": "대회 정보 크롤링 소스(URL·파서·스케줄·last_etag 등)를 표현하는 CrawlSource 데이터 모델로 관리자 편집용 update patch 직렬화를 제공한다.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "crawl",
+        "admin"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/models/crawl_source.dart:CrawlSource",
+      "type": "class",
+      "name": "CrawlSource",
+      "filePath": "app/lib/models/crawl_source.dart",
+      "lineRange": [
+        6,
+        121
+      ],
+      "summary": "크롤 대상 소스 설정(활성 여부·파서 종류·갱신 주기·etag)을 담고 toUpdatePatch로 부분 갱신 페이로드를 생성하는 DTO.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "crawl",
+        "admin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/models/match_record.dart",
+      "type": "file",
+      "name": "match_record.dart",
+      "filePath": "app/lib/models/match_record.dart",
+      "summary": "경기 기록(MatchRound·MatchEntry)을 표현하는 데이터 모델로 대진/세트 결과의 fromJson·toJson 직렬화를 제공한다.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "match"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/models/match_record.dart:MatchEntry",
+      "type": "class",
+      "name": "MatchEntry",
+      "filePath": "app/lib/models/match_record.dart",
+      "lineRange": [
+        1,
+        66
+      ],
+      "summary": "단일 경기 항목(상대·스코어·승패 등)을 담는 DTO.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "match"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/models/match_record.dart:MatchRound",
+      "type": "class",
+      "name": "MatchRound",
+      "filePath": "app/lib/models/match_record.dart",
+      "lineRange": [
+        68,
+        116
+      ],
+      "summary": "여러 MatchEntry 를 묶는 라운드/세트 단위 DTO.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "match"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:app/lib/config.dart",
+      "target": "class:app/lib/config.dart:AppConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/config.dart",
+      "target": "class:app/lib/config.dart:AppConfig",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/main.dart",
+      "target": "class:app/lib/main.dart:MatchUpApp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/main.dart",
+      "target": "class:app/lib/main.dart:MatchUpApp",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/main.dart",
+      "target": "file:app/lib/config.dart",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/lib/main.dart",
+      "target": "file:app/lib/router.dart",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/lib/models/admin.dart",
+      "target": "class:app/lib/models/admin.dart:CrawlAuditLog",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/admin.dart",
+      "target": "class:app/lib/models/admin.dart:CrawlAuditLog",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/app_notification.dart",
+      "target": "class:app/lib/models/app_notification.dart:AppNotification",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/app_notification.dart",
+      "target": "class:app/lib/models/app_notification.dart:AppNotification",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/chat_ui.dart",
+      "target": "class:app/lib/models/chat_ui.dart:RegulationField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/chat_ui.dart",
+      "target": "class:app/lib/models/chat_ui.dart:RegulationField",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/chat_ui.dart",
+      "target": "class:app/lib/models/chat_ui.dart:TournamentChatCardItem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/chat_ui.dart",
+      "target": "class:app/lib/models/chat_ui.dart:TournamentChatCardItem",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/chat_ui.dart",
+      "target": "class:app/lib/models/chat_ui.dart:ChatUiBlock",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/chat_ui.dart",
+      "target": "class:app/lib/models/chat_ui.dart:ChatUiBlock",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/club_event.dart",
+      "target": "class:app/lib/models/club_event.dart:ClubMember",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/club_event.dart",
+      "target": "class:app/lib/models/club_event.dart:ClubMember",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/club_event.dart",
+      "target": "class:app/lib/models/club_event.dart:ClubEvent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/club_event.dart",
+      "target": "class:app/lib/models/club_event.dart:ClubEvent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/club_post.dart",
+      "target": "class:app/lib/models/club_post.dart:ClubPost",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/club_post.dart",
+      "target": "class:app/lib/models/club_post.dart:ClubPost",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/club_post.dart",
+      "target": "class:app/lib/models/club_post.dart:ClubPostComment",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/club_post.dart",
+      "target": "class:app/lib/models/club_post.dart:ClubPostComment",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/crawl_source.dart",
+      "target": "class:app/lib/models/crawl_source.dart:CrawlSource",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/crawl_source.dart",
+      "target": "class:app/lib/models/crawl_source.dart:CrawlSource",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/match_record.dart",
+      "target": "class:app/lib/models/match_record.dart:MatchEntry",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/match_record.dart",
+      "target": "class:app/lib/models/match_record.dart:MatchEntry",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/match_record.dart",
+      "target": "class:app/lib/models/match_record.dart:MatchRound",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/match_record.dart",
+      "target": "class:app/lib/models/match_record.dart:MatchRound",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "document:.github/pull_request_template.md",
+      "target": "file:.github/CODEOWNERS",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

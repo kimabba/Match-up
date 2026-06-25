@@ -6,6 +6,7 @@ import '../config.dart';
 import '../models/tournament.dart';
 import '../state/providers.dart';
 import '../theme/tokens.dart';
+import '../utils/club_labels.dart';
 import '../utils/grade_labels.dart';
 import '../widgets/app_empty_state.dart';
 import '../widgets/allround_logo.dart';
@@ -334,15 +335,15 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
   }
 
   bool _matchesClubFilters(Club club, _ClubSearchFilters filters) {
-    if (filters.region != null && club.region != filters.region) return false;
-    if (filters.gender != null &&
-        club.genderPreference != null &&
-        club.genderPreference != filters.gender) {
+    if (filters.region != null &&
+        !clubRegionMatches(club.region, filters.region!)) {
       return false;
     }
-    if (filters.days.isNotEmpty &&
-        club.meetingDays.isNotEmpty &&
-        club.meetingDays.every((day) => !filters.days.contains(day))) {
+    if (filters.gender != null &&
+        !clubGenderMatches(club.genderPreference, filters.gender!)) {
+      return false;
+    }
+    if (!clubDaysMatch(club.meetingDays, filters.days)) {
       return false;
     }
     if (club.monthlyFee != null &&
@@ -380,11 +381,11 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
         (
           club: club,
           score: (_clubFilters.region != null &&
-                      club.region == _clubFilters.region
+                      clubRegionMatches(club.region, _clubFilters.region!)
                   ? 4
                   : 0) +
               (_clubFilters.days.isNotEmpty &&
-                      club.meetingDays.any(_clubFilters.days.contains)
+                      clubDaysMatch(club.meetingDays, _clubFilters.days)
                   ? 2
                   : 0) +
               club.memberCount,
@@ -572,7 +573,7 @@ final _previewSearchClubs = [
     memberCount: 78,
     meetingDays: const ['화', '목', '토'],
     monthlyFee: 30000,
-    genderPreference: '혼성',
+    genderPreference: 'mixed',
     createdAt: DateTime.now().subtract(const Duration(days: 1)),
   ),
   Club(
@@ -585,7 +586,7 @@ final _previewSearchClubs = [
     memberCount: 24,
     meetingDays: const ['수', '토'],
     monthlyFee: 20000,
-    genderPreference: '혼성',
+    genderPreference: 'mixed',
     createdAt: DateTime.now().subtract(const Duration(days: 2)),
   ),
   Club(
@@ -598,7 +599,7 @@ final _previewSearchClubs = [
     memberCount: 32,
     meetingDays: const ['일'],
     monthlyFee: 10000,
-    genderPreference: '남성',
+    genderPreference: 'male',
     createdAt: DateTime.now().subtract(const Duration(days: 5)),
   ),
   Club(
@@ -611,7 +612,7 @@ final _previewSearchClubs = [
     memberCount: 41,
     meetingDays: const ['월', '목'],
     monthlyFee: 40000,
-    genderPreference: '혼성',
+    genderPreference: 'mixed',
     createdAt: DateTime.now().subtract(const Duration(days: 6)),
   ),
   Club(
@@ -624,7 +625,7 @@ final _previewSearchClubs = [
     memberCount: 18,
     meetingDays: const ['금'],
     monthlyFee: 0,
-    genderPreference: '혼성',
+    genderPreference: 'mixed',
     createdAt: DateTime.now().subtract(const Duration(days: 14)),
   ),
   Club(
@@ -637,7 +638,7 @@ final _previewSearchClubs = [
     memberCount: 56,
     meetingDays: const ['토', '일'],
     monthlyFee: 50000,
-    genderPreference: '혼성',
+    genderPreference: 'mixed',
     createdAt: DateTime.now().subtract(const Duration(days: 21)),
   ),
 ];
@@ -2266,7 +2267,7 @@ class _ClubSearchFilters {
 
   List<String> get labels => [
         if (region != null) region!,
-        if (gender != null) gender!,
+        if (gender != null) clubGenderLabel(gender),
         for (final day in days) day,
         if (feeRange.start > 0 || feeRange.end < 100000)
           '${_formatFee(feeRange.start)}~${_formatFee(feeRange.end)}',
@@ -2581,7 +2582,7 @@ class _ClubFilterSheetState extends State<_ClubFilterSheet> {
                     onPressed: () => setState(() {
                       _filters = _filters.cleared();
                       _selectedInterests = widget.initialInterests.isEmpty
-                          ? const {'tennis'}
+                          ? const {'tennis', 'futsal'}
                           : {...widget.initialInterests};
                     }),
                     child: const Text('초기화'),
