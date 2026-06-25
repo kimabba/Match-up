@@ -14,7 +14,7 @@ import 'services/notifications.dart'
     if (dart.library.html) 'services/notifications_web.dart';
 import 'state/theme_provider.dart';
 import 'theme/app_theme.dart';
-import 'widgets/matchup_logo.dart';
+import 'widgets/allround_logo.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -148,7 +148,7 @@ class _AllRoundStartupSplashState extends State<_AllRoundStartupSplash>
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const MatchUpLogo(
+                                const AllRoundLogo(
                                   fontSize: 34,
                                   markSize: 58,
                                   textColor: Colors.white,
