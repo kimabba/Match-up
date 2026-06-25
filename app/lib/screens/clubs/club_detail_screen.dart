@@ -13,6 +13,67 @@ import '../../utils/club_labels.dart';
 import '../../utils/grade_labels.dart';
 import '../../widgets/app_card.dart';
 
+class ClubDetailLoaderScreen extends ConsumerStatefulWidget {
+  final String clubId;
+
+  const ClubDetailLoaderScreen({super.key, required this.clubId});
+
+  @override
+  ConsumerState<ClubDetailLoaderScreen> createState() =>
+      _ClubDetailLoaderScreenState();
+}
+
+class _ClubDetailLoaderScreenState
+    extends ConsumerState<ClubDetailLoaderScreen> {
+  late Future<Club> _clubF;
+
+  @override
+  void initState() {
+    super.initState();
+    _clubF = ref.read(apiProvider).clubById(widget.clubId);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Club>(
+      future: _clubF,
+      builder: (context, snap) {
+        if (snap.connectionState != ConnectionState.done) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
+        final club = snap.data;
+        if (club == null) {
+          return const Scaffold(
+            appBar: _SimpleBackAppBar(title: '클럽'),
+            body: _EmptyState(
+              icon: Icons.groups_2_outlined,
+              title: '클럽을 찾을 수 없습니다',
+              message: '삭제되었거나 접근 권한이 없는 클럽입니다.',
+            ),
+          );
+        }
+        return ClubDetailScreen(club: club);
+      },
+    );
+  }
+}
+
+class _SimpleBackAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
+
+  const _SimpleBackAppBar({required this.title});
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(title: Text(title));
+  }
+}
+
 /// 클럽 상세 전체화면: 소개 / 멤버 / 일정 탭.
 class ClubDetailScreen extends ConsumerStatefulWidget {
   final Club club;

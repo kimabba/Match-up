@@ -319,6 +319,20 @@ class ApiService {
         .toList();
   }
 
+  Future<Club> clubById(String clubId) async {
+    final userId = _supabase.auth.currentUser?.id;
+    final row = await _supabase
+        .from('clubs')
+        .select(
+          '*, meeting_days, monthly_fee, gender_preference, club_members!left(user_id, role, status)',
+        )
+        .eq('id', clubId)
+        .eq('club_members.user_id', userId ?? '')
+        .maybeSingle();
+    if (row == null) throw StateError('Club not found');
+    return Club.fromJson(row);
+  }
+
   Future<List<Club>> myClubs() async {
     final res = await http.get(
       _uri('clubs-search', {'mine': 'true'}),
