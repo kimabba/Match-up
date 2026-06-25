@@ -256,7 +256,9 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
                         : '맞춤 조건을 조정해 보세요.',
                   )
                 else
-                  for (final club in recommendedClubs.take(3))
+                  for (final club in hasClubNameQuery
+                      ? recommendedClubs
+                      : recommendedClubs.take(3))
                     Padding(
                       padding: const EdgeInsets.only(bottom: AppSpacing.sm),
                       child: _SimpleClubTile(
@@ -1675,7 +1677,7 @@ class _TeamRecruitingDetailScreen extends StatelessWidget {
               ),
               _RecruitingDetailRow(
                 icon: Icons.groups_rounded,
-                label: isFutsal ? '모집 인원' : '모집 인원',
+                label: '모집 인원',
                 value: post.countLabel,
               ),
               _RecruitingDetailRow(
