@@ -1,0 +1,34 @@
+{
+  "nodes": [
+    {
+      "id": "config:app/.env.local.example",
+      "type": "config",
+      "name": ".env.local.example",
+      "filePath": "app/.env.local.example",
+      "summary": "Flutter 앱의 로컬 개발용 환경 변수 템플릿으로, Supabase URL/anon key, API base URL, Google 로그인 클라이언트 ID(web/iOS)를 JSON 형식으로 정의한다.",
+      "tags": ["configuration", "environment", "supabase", "google-sign-in", "template"],
+      "complexity": "simple",
+      "languageNotes": "dart-define-from-file 방식으로 주입되는 JSON 형태의 환경 설정 예시 파일이다."
+    },
+    {
+      "id": "config:app/analysis_options.yaml",
+      "type": "config",
+      "name": "analysis_options.yaml",
+      "filePath": "app/analysis_options.yaml",
+      "summary": "Dart 정적 분석기(analyzer) 설정으로, flutter_lints 권장 린트 규칙을 포함하고 프로젝트별 lint 규칙 커스터마이징 지점을 제공한다.",
+      "tags": ["configuration", "dart", "linter", "build-system", "flutter"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:app/pubspec.yaml",
+      "type": "config",
+      "name": "pubspec.yaml",
+      "filePath": "app/pubspec.yaml",
+      "summary": "올라운드 Flutter 앱의 패키지 매니페스트로, Supabase·Riverpod·go_router·Firebase FCM·Speed Gun용 ML(tflite/ffmpeg) 등 핵심 의존성과 폰트·에셋·SDK 버전을 정의한다.",
+      "tags": ["configuration", "dependencies", "flutter", "build-system", "manifest"],
+      "complexity": "moderate",
+      "languageNotes": "supabase_flutter(인증·DB), flutter_riverpod(상태관리), go_router(라우팅), firebase_messaging(FCM), tflite_flutter·ffmpeg_kit(Speed Gun 영상/ML)으로 앱 전체 기술 스택을 한눈에 보여준다."
+    }
+  ],
+  "edges": []
+}

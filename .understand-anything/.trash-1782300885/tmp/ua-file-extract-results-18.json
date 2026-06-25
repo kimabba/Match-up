@@ -1,0 +1,819 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 7,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "docs/superpowers/specs/2026-05-19-active-sport-filter-design.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 168,
+      "nonEmptyLines": 123,
+      "sections": [
+        {
+          "heading": "설계: 전역 활성 종목 필터 (2026-05-19)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "개요",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "1. 상태 설계",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "추가: `activeSportProvider`",
+          "level": 3,
+          "line": 12
+        },
+        {
+          "heading": "제거: `selectedSportProvider`",
+          "level": 3,
+          "line": 28
+        },
+        {
+          "heading": "수정: `homeTournamentsProvider`",
+          "level": 3,
+          "line": 32
+        },
+        {
+          "heading": "2. 화면별 변경",
+          "level": 2,
+          "line": 44
+        },
+        {
+          "heading": "2-1. 대회 탭 (`tournaments_screen.dart`)",
+          "level": 3,
+          "line": 46
+        },
+        {
+          "heading": "2-2. 클럽 탭 (`clubs_screen.dart`)",
+          "level": 3,
+          "line": 59
+        },
+        {
+          "heading": "2-3. 룰북 탭 (`rules_screen.dart`)",
+          "level": 3,
+          "line": 78
+        },
+        {
+          "heading": "2-4. 채팅 (`chat/index.ts`)",
+          "level": 3,
+          "line": 97
+        },
+        {
+          "heading": "2-5. 프로필 (`profile_screen.dart`)",
+          "level": 3,
+          "line": 133
+        },
+        {
+          "heading": "2-6. 온보딩 (`onboarding_screen.dart`)",
+          "level": 3,
+          "line": 139
+        },
+        {
+          "heading": "3. 엣지 케이스",
+          "level": 2,
+          "line": 147
+        },
+        {
+          "heading": "4. 변경 파일 요약",
+          "level": 2,
+          "line": 158
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 15
+      }
+    },
+    {
+      "path": "docs/superpowers/specs/2026-05-19-chat-main-admin-panel-design.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 183,
+      "nonEmptyLines": 141,
+      "sections": [
+        {
+          "heading": "설계: 채팅 메인화 + 어드민 패널 (2026-05-19)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "개요",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "1. 내비게이션 구조 개편",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "현재",
+          "level": 3,
+          "line": 11
+        },
+        {
+          "heading": "변경 후",
+          "level": 3,
+          "line": 16
+        },
+        {
+          "heading": "구현 상세",
+          "level": 3,
+          "line": 21
+        },
+        {
+          "heading": "2. 어드민 role 확인 메커니즘",
+          "level": 2,
+          "line": 36
+        },
+        {
+          "heading": "추가: `isAdminProvider`",
+          "level": 3,
+          "line": 40
+        },
+        {
+          "heading": "3. 채팅 화면 빠른 명령어",
+          "level": 2,
+          "line": 63
+        },
+        {
+          "heading": "동작",
+          "level": 3,
+          "line": 65
+        },
+        {
+          "heading": "명령어 목록 (2열 그리드, 6개)",
+          "level": 3,
+          "line": 69
+        },
+        {
+          "heading": "코드 범위",
+          "level": 3,
+          "line": 79
+        },
+        {
+          "heading": "4. 대회 탭 — 홈 피드 흡수",
+          "level": 2,
+          "line": 86
+        },
+        {
+          "heading": "변경",
+          "level": 3,
+          "line": 88
+        },
+        {
+          "heading": "코드 범위",
+          "level": 3,
+          "line": 93
+        },
+        {
+          "heading": "5. 어드민 패널",
+          "level": 2,
+          "line": 99
+        },
+        {
+          "heading": "라우트",
+          "level": 3,
+          "line": 101
+        },
+        {
+          "heading": "탭 구조",
+          "level": 3,
+          "line": 105
+        },
+        {
+          "heading": "탭 1 — 크롤 현황",
+          "level": 4,
+          "line": 108
+        },
+        {
+          "heading": "탭 2 — Draft 승인",
+          "level": 4,
+          "line": 113
+        },
+        {
+          "heading": "탭 3 — 수동 실행",
+          "level": 4,
+          "line": 123
+        },
+        {
+          "heading": "크롤러 Edge Function 인증 처리 (필수 선행 작업)",
+          "level": 3,
+          "line": 129
+        },
+        {
+          "heading": "API 추가 (`api.dart`)",
+          "level": 3,
+          "line": 136
+        },
+        {
+          "heading": "새 파일",
+          "level": 3,
+          "line": 164
+        },
+        {
+          "heading": "6. 변경 파일 요약",
+          "level": 2,
+          "line": 170
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 25
+      }
+    },
+    {
+      "path": "docs/superpowers/specs/2026-05-27-knowledge-base-rules-design.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 102,
+      "nonEmptyLines": 79,
+      "sections": [
+        {
+          "heading": "지식베이스 1단계 — 룰북·지식 문서 관리 설계",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Context",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "범위",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "포함 (1단계)",
+          "level": 3,
+          "line": 21
+        },
+        {
+          "heading": "제외 (후속)",
+          "level": 3,
+          "line": 28
+        },
+        {
+          "heading": "데이터 모델",
+          "level": 2,
+          "line": 35
+        },
+        {
+          "heading": "임베딩 상태 판정 (2가지)",
+          "level": 3,
+          "line": 46
+        },
+        {
+          "heading": "백엔드",
+          "level": 2,
+          "line": 53
+        },
+        {
+          "heading": "Flutter",
+          "level": 2,
+          "line": 60
+        },
+        {
+          "heading": "API (`app/lib/services/api.dart`)",
+          "level": 3,
+          "line": 62
+        },
+        {
+          "heading": "Model (`app/lib/models/tournament.dart` 의 `RuleArticle`)",
+          "level": 3,
+          "line": 68
+        },
+        {
+          "heading": "Providers (`app/lib/state/providers.dart`)",
+          "level": 3,
+          "line": 74
+        },
+        {
+          "heading": "화면",
+          "level": 3,
+          "line": 77
+        },
+        {
+          "heading": "검증",
+          "level": 2,
+          "line": 88
+        },
+        {
+          "heading": "주의",
+          "level": 2,
+          "line": 99
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 15
+      }
+    },
+    {
+      "path": "docs/superpowers/specs/2026-05-28-club-activity-mvp-design.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 110,
+      "nonEmptyLines": 85,
+      "sections": [
+        {
+          "heading": "클럽 활동 MVP 설계",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "목적",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "현황 (이미 구현됨 — 건드리지 않음)",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "범위",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "포함 (MVP)",
+          "level": 3,
+          "line": 21
+        },
+        {
+          "heading": "제외 (후속 과제)",
+          "level": 3,
+          "line": 26
+        },
+        {
+          "heading": "데이터 모델 (신규 2테이블)",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "권한 규칙 (RLS)",
+          "level": 2,
+          "line": 61
+        },
+        {
+          "heading": "데이터 접근 방식",
+          "level": 2,
+          "line": 76
+        },
+        {
+          "heading": "화면",
+          "level": 2,
+          "line": 87
+        },
+        {
+          "heading": "`ClubDetailScreen` (`/clubs/:id`)",
+          "level": 3,
+          "line": 89
+        },
+        {
+          "heading": "검증 / 테스트",
+          "level": 2,
+          "line": 101
+        },
+        {
+          "heading": "후속 (이 MVP 이후)",
+          "level": 2,
+          "line": 108
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 13
+      }
+    },
+    {
+      "path": "docs/superpowers/specs/2026-05-29-strategy-and-roadmap-design.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 307,
+      "nonEmptyLines": 224,
+      "sections": [
+        {
+          "heading": "Match-up 전략 정의 및 로드맵",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. 제품 정의",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "한 줄 정의",
+          "level": 3,
+          "line": 13
+        },
+        {
+          "heading": "핵심 가치",
+          "level": 3,
+          "line": 17
+        },
+        {
+          "heading": "아하 모먼트",
+          "level": 3,
+          "line": 22
+        },
+        {
+          "heading": "2. 타겟 사용자",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "1차 타겟: 전남/광주 테니스 동호인",
+          "level": 3,
+          "line": 35
+        },
+        {
+          "heading": "2차 타겟: 풋살 동호인",
+          "level": 3,
+          "line": 42
+        },
+        {
+          "heading": "3. 경쟁 분석",
+          "level": 2,
+          "line": 51
+        },
+        {
+          "heading": "테니스 앱",
+          "level": 3,
+          "line": 53
+        },
+        {
+          "heading": "풋살 앱",
+          "level": 3,
+          "line": 62
+        },
+        {
+          "heading": "Match-up 차별점",
+          "level": 3,
+          "line": 69
+        },
+        {
+          "heading": "4. 전략 로드맵",
+          "level": 2,
+          "line": 78
+        },
+        {
+          "heading": "Phase 1: MVP (~ 2026-07-22)",
+          "level": 3,
+          "line": 80
+        },
+        {
+          "heading": "Phase 2: A2UI + 데이터 확장 (2026 Q3)",
+          "level": 3,
+          "line": 84
+        },
+        {
+          "heading": "Phase 3: 커뮤니티 + 고도화 (2026 Q4)",
+          "level": 3,
+          "line": 94
+        },
+        {
+          "heading": "Phase 4: BM + 스케일 (2027~)",
+          "level": 3,
+          "line": 103
+        },
+        {
+          "heading": "5. MVP 스코프 (Phase 1 상세)",
+          "level": 2,
+          "line": 113
+        },
+        {
+          "heading": "포함",
+          "level": 3,
+          "line": 115
+        },
+        {
+          "heading": "제외 (MVP 이후)",
+          "level": 3,
+          "line": 131
+        },
+        {
+          "heading": "6. 스프린트 계획 (역할 분담 포함)",
+          "level": 2,
+          "line": 144
+        },
+        {
+          "heading": "팀 구성",
+          "level": 3,
+          "line": 146
+        },
+        {
+          "heading": "Sprint 1: 보안 + 핵심 동선 QA (5/28 ~ 6/10, ~20h)",
+          "level": 3,
+          "line": 155
+        },
+        {
+          "heading": "Sprint 2: 클럽 활동 MVP + 데이터 품질 (6/11 ~ 6/24, ~20h)",
+          "level": 3,
+          "line": 177
+        },
+        {
+          "heading": "Sprint 3: AI 운영 + 종합 QA (6/25 ~ 7/8, ~20h)",
+          "level": 3,
+          "line": 197
+        },
+        {
+          "heading": "Sprint 4: 배포 준비 (7/9 ~ 7/22, ~15h)",
+          "level": 3,
+          "line": 216
+        },
+        {
+          "heading": "7. 리스크 및 대응",
+          "level": 2,
+          "line": 241
+        },
+        {
+          "heading": "8. 성공 지표 (PMF 검증)",
+          "level": 2,
+          "line": 257
+        },
+        {
+          "heading": "9. 초기 사용자 획득 전략",
+          "level": 2,
+          "line": 273
+        },
+        {
+          "heading": "10. 운영 모니터링",
+          "level": 2,
+          "line": 284
+        },
+        {
+          "heading": "11. Post-MVP 백로그",
+          "level": 2,
+          "line": 295
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 31
+      }
+    },
+    {
+      "path": "docs/superpowers/specs/2026-05-30-web-admin-separation-design.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 243,
+      "nonEmptyLines": 173,
+      "sections": [
+        {
+          "heading": "Web Admin / App User Separation Design",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Summary",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Motivation",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "Design Decisions",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Step 1: Web Build Unblock (JY-21)",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "Problem",
+          "level": 3,
+          "line": 25
+        },
+        {
+          "heading": "Solution",
+          "level": 3,
+          "line": 30
+        },
+        {
+          "heading": "Step 2: Router Branching",
+          "level": 2,
+          "line": 61
+        },
+        {
+          "heading": "Web Redirect Flow",
+          "level": 3,
+          "line": 63
+        },
+        {
+          "heading": "App Redirect Flow",
+          "level": 3,
+          "line": 71
+        },
+        {
+          "heading": "Redirect Guard: /admin/* 전체 경로 보호",
+          "level": 3,
+          "line": 75
+        },
+        {
+          "heading": "Web Onboarding Bypass",
+          "level": 3,
+          "line": 90
+        },
+        {
+          "heading": "AdminShell Loading State",
+          "level": 3,
+          "line": 101
+        },
+        {
+          "heading": "_moreSubPaths 정리",
+          "level": 3,
+          "line": 109
+        },
+        {
+          "heading": "Route Tree Changes",
+          "level": 3,
+          "line": 114
+        },
+        {
+          "heading": "Step 3: AdminShell Layout",
+          "level": 2,
+          "line": 132
+        },
+        {
+          "heading": "Step 4: Tournament Edit Screen",
+          "level": 2,
+          "line": 151
+        },
+        {
+          "heading": "Editable Fields",
+          "level": 3,
+          "line": 155
+        },
+        {
+          "heading": "Behavior",
+          "level": 3,
+          "line": 163
+        },
+        {
+          "heading": "Crawl Overwrite Protection",
+          "level": 3,
+          "line": 171
+        },
+        {
+          "heading": "File Changes",
+          "level": 2,
+          "line": 191
+        },
+        {
+          "heading": "New Files (4)",
+          "level": 3,
+          "line": 193
+        },
+        {
+          "heading": "Modified Files (3)",
+          "level": 3,
+          "line": 202
+        },
+        {
+          "heading": "DB Migration (1)",
+          "level": 3,
+          "line": 210
+        },
+        {
+          "heading": "Backend (1)",
+          "level": 3,
+          "line": 216
+        },
+        {
+          "heading": "Unchanged",
+          "level": 3,
+          "line": 222
+        },
+        {
+          "heading": "Error Handling",
+          "level": 2,
+          "line": 227
+        },
+        {
+          "heading": "Dashboard Tab Content",
+          "level": 2,
+          "line": 233
+        },
+        {
+          "heading": "Success Criteria",
+          "level": 2,
+          "line": 238
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 29
+      }
+    },
+    {
+      "path": "docs/superpowers/specs/2026-06-11-chat-a2ui-cards-design.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 269,
+      "nonEmptyLines": 208,
+      "sections": [
+        {
+          "heading": "Chat A2UI Cards Design",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Goal",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "User Experience",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "Architecture",
+          "level": 2,
+          "line": 37
+        },
+        {
+          "heading": "SSE Contract",
+          "level": 2,
+          "line": 58
+        },
+        {
+          "heading": "Follow-Up Context",
+          "level": 2,
+          "line": 123
+        },
+        {
+          "heading": "Security And Trust Boundaries",
+          "level": 2,
+          "line": 148
+        },
+        {
+          "heading": "Backend Changes",
+          "level": 2,
+          "line": 161
+        },
+        {
+          "heading": "Flutter Changes",
+          "level": 2,
+          "line": 187
+        },
+        {
+          "heading": "Error Handling",
+          "level": 2,
+          "line": 212
+        },
+        {
+          "heading": "Testing",
+          "level": 2,
+          "line": 224
+        },
+        {
+          "heading": "Out Of Scope",
+          "level": 2,
+          "line": 260
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    }
+  ]
+}

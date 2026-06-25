@@ -1,0 +1,21 @@
+{
+  "projectRoot": "/Users/ssfak/Documents/01-github/ar",
+  "batchFiles": [
+    {"path": "docs/superpowers/specs/2026-05-19-active-sport-filter-design.md", "language": "markdown", "sizeLines": 168, "fileCategory": "docs"},
+    {"path": "docs/superpowers/specs/2026-05-19-chat-main-admin-panel-design.md", "language": "markdown", "sizeLines": 183, "fileCategory": "docs"},
+    {"path": "docs/superpowers/specs/2026-05-27-knowledge-base-rules-design.md", "language": "markdown", "sizeLines": 102, "fileCategory": "docs"},
+    {"path": "docs/superpowers/specs/2026-05-28-club-activity-mvp-design.md", "language": "markdown", "sizeLines": 110, "fileCategory": "docs"},
+    {"path": "docs/superpowers/specs/2026-05-29-strategy-and-roadmap-design.md", "language": "markdown", "sizeLines": 307, "fileCategory": "docs"},
+    {"path": "docs/superpowers/specs/2026-05-30-web-admin-separation-design.md", "language": "markdown", "sizeLines": 243, "fileCategory": "docs"},
+    {"path": "docs/superpowers/specs/2026-06-11-chat-a2ui-cards-design.md", "language": "markdown", "sizeLines": 269, "fileCategory": "docs"}
+  ],
+  "batchImportData": {
+    "docs/superpowers/specs/2026-05-19-active-sport-filter-design.md": [],
+    "docs/superpowers/specs/2026-05-19-chat-main-admin-panel-design.md": [],
+    "docs/superpowers/specs/2026-05-27-knowledge-base-rules-design.md": [],
+    "docs/superpowers/specs/2026-05-28-club-activity-mvp-design.md": [],
+    "docs/superpowers/specs/2026-05-29-strategy-and-roadmap-design.md": [],
+    "docs/superpowers/specs/2026-05-30-web-admin-separation-design.md": [],
+    "docs/superpowers/specs/2026-06-11-chat-a2ui-cards-design.md": []
+  }
+}

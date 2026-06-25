@@ -1,0 +1,166 @@
+{
+  "nodes": [
+    {
+      "id": "document:docs/rules/BACKEND_RULES.md",
+      "type": "document",
+      "name": "BACKEND_RULES.md",
+      "filePath": "docs/rules/BACKEND_RULES.md",
+      "summary": "Supabase Edge Function 백엔드 규칙 문서로, 아키텍처·요청 검증·SSE·Gemini 호출 동작 및 체크 항목을 정의한다.",
+      "tags": ["documentation", "backend", "edge-function", "rules"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/rules/CODING_RULES.md",
+      "type": "document",
+      "name": "CODING_RULES.md",
+      "filePath": "docs/rules/CODING_RULES.md",
+      "summary": "TypeScript/Deno, Dart/Flutter, SQL migration 작성 규칙과 Git/PR 규율 및 baseline 체크를 정리한 코딩 규칙 문서.",
+      "tags": ["documentation", "coding-standards", "typescript", "dart", "rules"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/rules/DATABASE_RULES.md",
+      "type": "document",
+      "name": "DATABASE_RULES.md",
+      "filePath": "docs/rules/DATABASE_RULES.md",
+      "summary": "스키마·RLS·RPC·cron worker·pgvector 규칙과 migration 배포(머지 ≠ 프로덕션 적용) 수동 적용 게이트 정책을 다루는 DB 규칙 문서.",
+      "tags": ["documentation", "database", "rls", "migration", "pgvector"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/rules/DOMAIN_RULES.md",
+      "type": "document",
+      "name": "DOMAIN_RULES.md",
+      "filePath": "docs/rules/DOMAIN_RULES.md",
+      "summary": "종목·등급, 대회 visibility, 검색/필터링, 즐겨찾기·알림 등 비즈니스 도메인 규칙과 도메인 harness 타깃을 정의한다.",
+      "tags": ["documentation", "domain", "business-rules", "tournament"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/rules/FRONTEND_RULES.md",
+      "type": "document",
+      "name": "FRONTEND_RULES.md",
+      "filePath": "docs/rules/FRONTEND_RULES.md",
+      "summary": "Flutter 스택·컨벤션, source of truth, 주요 파일, UI/UX 규칙을 정리한 프론트엔드 규칙 문서. go_router·Riverpod·API client 작업 시 참조한다.",
+      "tags": ["documentation", "frontend", "flutter", "rules"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/rules/HARNESS.md",
+      "type": "document",
+      "name": "HARNESS.md",
+      "filePath": "docs/rules/HARNESS.md",
+      "summary": "harness 정의·계층 모델·root-file 정책·script 형태·현행 merge gate·로컬 체크를 다루는 CI/스크립트/테스트 harness 규칙 문서.",
+      "tags": ["documentation", "ci-cd", "harness", "testing", "rules"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/rules/PROJECT_CONTEXT.md",
+      "type": "document",
+      "name": "PROJECT_CONTEXT.md",
+      "filePath": "docs/rules/PROJECT_CONTEXT.md",
+      "summary": "앱 개요·tech stack·아키텍처·Edge Function endpoint 목록·주요 경로·환경 변수·운영 노트를 담은 프로젝트 전반 컨텍스트 문서.",
+      "tags": ["documentation", "project-context", "architecture", "overview"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/rules/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "docs/rules/README.md",
+      "summary": "docs/rules 규칙 시스템의 entry-point 문서로, 작업 유형별로 어떤 규칙 파일을 load-on-demand 로 열어야 하는지 라우팅 표와 작성 정책을 제공한다.",
+      "tags": ["documentation", "entry-point", "rules", "index"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/rules/SECURITY_RULES.md",
+      "type": "document",
+      "name": "SECURITY_RULES.md",
+      "filePath": "docs/rules/SECURITY_RULES.md",
+      "summary": "trust boundary·secrets·auth/admin·비용 및 abuse 통제·RAG prompt injection·logging 등 보안 및 운영 규칙 문서.",
+      "tags": ["documentation", "security", "auth", "rag", "rules"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/rules/SPEED_GUN_RULES.md",
+      "type": "document",
+      "name": "SPEED_GUN_RULES.md",
+      "filePath": "docs/rules/SPEED_GUN_RULES.md",
+      "summary": "speed-gun 제품 원칙·입력 품질·calibration·ball detection/tracking·속도 계산 및 권장 테스트를 정의한 영상 측정 규칙 문서.",
+      "tags": ["documentation", "speed-gun", "video-tracking", "rules"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:docs/rules/README.md",
+      "target": "document:docs/rules/PROJECT_CONTEXT.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/rules/README.md",
+      "target": "document:docs/rules/CODING_RULES.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/rules/README.md",
+      "target": "document:docs/rules/DOMAIN_RULES.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/rules/README.md",
+      "target": "document:docs/rules/FRONTEND_RULES.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/rules/README.md",
+      "target": "document:docs/rules/BACKEND_RULES.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/rules/README.md",
+      "target": "document:docs/rules/DATABASE_RULES.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/rules/README.md",
+      "target": "document:docs/rules/SECURITY_RULES.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/rules/README.md",
+      "target": "document:docs/rules/SPEED_GUN_RULES.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/rules/README.md",
+      "target": "document:docs/rules/HARNESS.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/rules/CODING_RULES.md",
+      "target": "document:docs/rules/HARNESS.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

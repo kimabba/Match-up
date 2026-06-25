@@ -1,0 +1,412 @@
+{
+  "nodes": [
+    {
+      "id": "file:supabase/functions/_shared/embedding.ts",
+      "type": "file",
+      "name": "embedding.ts",
+      "filePath": "supabase/functions/_shared/embedding.ts",
+      "summary": "Gemini(text-embedding-004) 임베딩 호출을 래핑하는 공유 헬퍼로, 단건/배치 텍스트를 pgvector 리터럴로 변환해 RAG·semantic-search에서 재사용한다.",
+      "tags": ["utility", "embedding", "pgvector", "shared", "rag"],
+      "complexity": "moderate",
+      "languageNotes": "Gemini batchEmbedContents API를 사용하며 task_type(RETRIEVAL_QUERY/DOCUMENT)에 따라 임베딩 모드를 분기한다."
+    },
+    {
+      "id": "function:supabase/functions/_shared/embedding.ts:embedText",
+      "type": "function",
+      "name": "embedText",
+      "filePath": "supabase/functions/_shared/embedding.ts",
+      "lineRange": [28, 46],
+      "summary": "단일 텍스트를 Gemini 임베딩 API로 보내 지정한 task_type 기준 임베딩 벡터를 반환한다.",
+      "tags": ["embedding", "utility", "api-handler"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:supabase/functions/_shared/embedding.ts:embedBatch",
+      "type": "function",
+      "name": "embedBatch",
+      "filePath": "supabase/functions/_shared/embedding.ts",
+      "lineRange": [51, 74],
+      "summary": "여러 텍스트를 한 번의 batchEmbedContents 호출로 묶어 임베딩 배열을 반환하여 호출 비용을 절감한다.",
+      "tags": ["embedding", "batch", "utility"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:supabase/functions/_shared/enums.ts",
+      "type": "file",
+      "name": "enums.ts",
+      "filePath": "supabase/functions/_shared/enums.ts",
+      "summary": "테니스·풋살 종목의 등급·협회·지역·부서·참가비 단위 등 도메인 enum과 라벨, 유효성/매칭 검증 헬퍼를 모은 핵심 공유 모듈이다.",
+      "tags": ["type-definition", "validation", "domain-model", "shared", "enums"],
+      "complexity": "complex",
+      "languageNotes": "as const + 유니온 타입으로 enum을 표현하고, 등급·부서 코드 매칭(canEnter, parseDivisionCodes)에 도메인 규칙이 인코딩되어 있다."
+    },
+    {
+      "id": "function:supabase/functions/_shared/enums.ts:parseDivisionCodes",
+      "type": "function",
+      "name": "parseDivisionCodes",
+      "filePath": "supabase/functions/_shared/enums.ts",
+      "lineRange": [222, 229],
+      "summary": "쉼표 구분 문자열을 협회별 유효 부서 코드 배열로 파싱·검증한다.",
+      "tags": ["validation", "parsing", "domain-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:supabase/functions/_shared/enums.ts:canEnter",
+      "type": "function",
+      "name": "canEnter",
+      "filePath": "supabase/functions/_shared/enums.ts",
+      "lineRange": [298, 300],
+      "summary": "사용자 등급과 대회의 참가 가능 등급을 매칭해 참가 가능 여부를 판정한다.",
+      "tags": ["validation", "eligibility", "domain-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:supabase/functions/_shared/intent.ts",
+      "type": "file",
+      "name": "intent.ts",
+      "filePath": "supabase/functions/_shared/intent.ts",
+      "summary": "채팅 질의에서 지역·종목·날짜 범위 슬롯을 추출하고 규칙/임베딩 기반으로 의도(intent)를 분류하는 공유 NLU 모듈로, chat·seed-intent-examples에서 사용된다.",
+      "tags": ["intent-classification", "nlu", "slot-extraction", "shared", "rag"],
+      "complexity": "complex",
+      "languageNotes": "KST 기준 날짜 계산(thisWeekRange, monthRange 등)과 규칙 기반 분류(classifyByRule)를 결합한 하이브리드 의도 분류 로직을 담는다."
+    },
+    {
+      "id": "function:supabase/functions/_shared/intent.ts:extractDateRange",
+      "type": "function",
+      "name": "extractDateRange",
+      "filePath": "supabase/functions/_shared/intent.ts",
+      "lineRange": [213, 271],
+      "summary": "질의 텍스트에서 '이번 주', '이번 달' 등 한국어 시간 표현을 KST 기준 날짜 범위로 변환한다.",
+      "tags": ["slot-extraction", "date", "nlu"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:supabase/functions/_shared/intent.ts:classifyByRule",
+      "type": "function",
+      "name": "classifyByRule",
+      "filePath": "supabase/functions/_shared/intent.ts",
+      "lineRange": [304, 344],
+      "summary": "키워드·슬롯 규칙으로 질의 의도를 먼저 분류해 임베딩 호출 전 빠른 경로를 제공한다.",
+      "tags": ["intent-classification", "rule-based", "nlu"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:supabase/functions/_shared/intent.ts:resolveRequestedSport",
+      "type": "function",
+      "name": "resolveRequestedSport",
+      "filePath": "supabase/functions/_shared/intent.ts",
+      "lineRange": [397, 407],
+      "summary": "질의에서 추출한 종목 슬롯을 정규화해 요청 종목(tennis/futsal)을 결정한다.",
+      "tags": ["slot-extraction", "normalization", "domain-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:supabase/functions/seed-intent-examples/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "supabase/functions/seed-intent-examples/index.ts",
+      "summary": "의도별 한국어 예시 문장을 Gemini 임베딩으로 변환해 intent_examples 테이블에 멱등 시드하는 service_role/admin 전용 Edge Function이다.",
+      "tags": ["edge-function", "seed", "embedding", "admin", "data-pipeline"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:supabase/functions/semantic-search/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "supabase/functions/semantic-search/index.ts",
+      "summary": "질의를 Gemini 임베딩 후 pgvector RPC(tournaments/rules)로 유사도 검색하는 인증·rate-limit 적용 Edge Function으로, chat의 RAG 컨텍스트 수집에도 쓰인다.",
+      "tags": ["edge-function", "semantic-search", "rag", "api-handler", "rate-limit"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:supabase/functions/tests/enums_test.ts",
+      "type": "file",
+      "name": "enums_test.ts",
+      "filePath": "supabase/functions/tests/enums_test.ts",
+      "summary": "_shared/enums.ts의 등급·협회·지역·부서 검증 및 참가 가능 매칭 로직을 검증하는 Deno 테스트 스위트이다.",
+      "tags": ["test", "validation", "deno-test", "shared"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:supabase/functions/tests/intent_test.ts",
+      "type": "file",
+      "name": "intent_test.ts",
+      "filePath": "supabase/functions/tests/intent_test.ts",
+      "summary": "_shared/intent.ts의 슬롯 추출·날짜 범위·규칙 기반 의도 분류 로직을 검증하는 Deno 테스트 스위트이다.",
+      "tags": ["test", "intent-classification", "deno-test", "shared"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:supabase/functions/tournaments-search/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "supabase/functions/tournaments-search/index.ts",
+      "summary": "사용자 등급 기반 자동 필터링과 지역·날짜·부서·모집상태 조건으로 대회를 조회하는 인증 적용 GET Edge Function이다.",
+      "tags": ["edge-function", "api-handler", "search", "tournaments", "filtering"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:supabase/functions/tournaments-submit/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "supabase/functions/tournaments-submit/index.ts",
+      "summary": "일반 사용자가 대회를 제보해 draft 상태로 저장하는 POST Edge Function으로, enum 유효성 검증 후 관리자 승인 대상으로 등록한다.",
+      "tags": ["edge-function", "api-handler", "tournaments", "validation", "submission"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:supabase/functions/_shared/embedding.ts",
+      "target": "function:supabase/functions/_shared/embedding.ts:embedText",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:supabase/functions/_shared/embedding.ts",
+      "target": "function:supabase/functions/_shared/embedding.ts:embedText",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:supabase/functions/_shared/embedding.ts",
+      "target": "function:supabase/functions/_shared/embedding.ts:embedBatch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:supabase/functions/_shared/embedding.ts",
+      "target": "function:supabase/functions/_shared/embedding.ts:embedBatch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:supabase/functions/_shared/enums.ts",
+      "target": "function:supabase/functions/_shared/enums.ts:parseDivisionCodes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:supabase/functions/_shared/enums.ts",
+      "target": "function:supabase/functions/_shared/enums.ts:parseDivisionCodes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:supabase/functions/_shared/enums.ts",
+      "target": "function:supabase/functions/_shared/enums.ts:canEnter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:supabase/functions/_shared/enums.ts",
+      "target": "function:supabase/functions/_shared/enums.ts:canEnter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:supabase/functions/_shared/intent.ts",
+      "target": "function:supabase/functions/_shared/intent.ts:extractDateRange",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:supabase/functions/_shared/intent.ts",
+      "target": "function:supabase/functions/_shared/intent.ts:extractDateRange",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:supabase/functions/_shared/intent.ts",
+      "target": "function:supabase/functions/_shared/intent.ts:classifyByRule",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:supabase/functions/_shared/intent.ts",
+      "target": "function:supabase/functions/_shared/intent.ts:classifyByRule",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:supabase/functions/_shared/intent.ts",
+      "target": "function:supabase/functions/_shared/intent.ts:resolveRequestedSport",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:supabase/functions/_shared/intent.ts",
+      "target": "function:supabase/functions/_shared/intent.ts:resolveRequestedSport",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:supabase/functions/_shared/intent.ts",
+      "target": "file:supabase/functions/_shared/enums.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:supabase/functions/seed-intent-examples/index.ts",
+      "target": "file:supabase/functions/_shared/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:supabase/functions/seed-intent-examples/index.ts",
+      "target": "file:supabase/functions/_shared/cors.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:supabase/functions/seed-intent-examples/index.ts",
+      "target": "file:supabase/functions/_shared/embedding.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:supabase/functions/seed-intent-examples/index.ts",
+      "target": "file:supabase/functions/_shared/intent.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:supabase/functions/seed-intent-examples/index.ts",
+      "target": "file:supabase/functions/_shared/supabase.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:supabase/functions/seed-intent-examples/index.ts",
+      "target": "function:supabase/functions/_shared/embedding.ts:embedBatch",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:supabase/functions/semantic-search/index.ts",
+      "target": "file:supabase/functions/_shared/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:supabase/functions/semantic-search/index.ts",
+      "target": "file:supabase/functions/_shared/cors.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:supabase/functions/semantic-search/index.ts",
+      "target": "file:supabase/functions/_shared/embedding.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:supabase/functions/semantic-search/index.ts",
+      "target": "file:supabase/functions/_shared/enums.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:supabase/functions/semantic-search/index.ts",
+      "target": "function:supabase/functions/_shared/embedding.ts:embedText",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:supabase/functions/tests/enums_test.ts",
+      "target": "file:supabase/functions/_shared/enums.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:supabase/functions/_shared/enums.ts",
+      "target": "file:supabase/functions/tests/enums_test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:supabase/functions/tests/intent_test.ts",
+      "target": "file:supabase/functions/_shared/intent.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:supabase/functions/_shared/intent.ts",
+      "target": "file:supabase/functions/tests/intent_test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:supabase/functions/tournaments-search/index.ts",
+      "target": "file:supabase/functions/_shared/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:supabase/functions/tournaments-search/index.ts",
+      "target": "file:supabase/functions/_shared/cors.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:supabase/functions/tournaments-search/index.ts",
+      "target": "file:supabase/functions/_shared/enums.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:supabase/functions/tournaments-submit/index.ts",
+      "target": "file:supabase/functions/_shared/auth.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:supabase/functions/tournaments-submit/index.ts",
+      "target": "file:supabase/functions/_shared/cors.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:supabase/functions/tournaments-submit/index.ts",
+      "target": "file:supabase/functions/_shared/enums.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

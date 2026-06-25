@@ -1,0 +1,33 @@
+# .understandignore — patterns for files/dirs to exclude from analysis
+# Syntax: same as .gitignore (globs, # comments, ! negation, trailing / for dirs)
+
+# --- Flutter native platform scaffolding (boilerplate) ---
+app/android/
+app/ios/
+app/macos/
+app/web/
+app/.dart_tool/
+app/build/
+app/.flutter-plugins
+app/.flutter-plugins-dependencies
+app/.metadata
+app/.dev.json
+app/flutter_01.png
+app/pubspec.lock
+
+# --- Env / secrets / generated ---
+.env
+.env.local
+.env.production
+supabase/functions/.env
+supabase/.branches/
+supabase/.temp/
+artifacts/
+.DS_Store
+*.swp
+*.swo
+
+# --- Tooling dirs ---
+.claude/
+.superpowers/
+.understand-anything/

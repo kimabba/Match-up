@@ -1,0 +1,45 @@
+{
+  "nodes": [
+    {
+      "id": "document:docs/research/ball-speed-measurement-feasibility.md",
+      "type": "document",
+      "name": "ball-speed-measurement-feasibility.md",
+      "filePath": "docs/research/ball-speed-measurement-feasibility.md",
+      "summary": "테니스 공 속도 측정 기능의 기술적 타당성 리서치 보고서로, computer vision 기반 ball tracking, 속도 계산·calibration, Flutter ML/CV framework, 상용·오픈소스 선행 사례, MVP 권장 기술 스택까지 8개 섹션으로 정리한다.",
+      "tags": ["documentation", "research", "computer-vision", "flutter", "feasibility"],
+      "complexity": "complex",
+      "languageNotes": "40개 섹션의 영문 기술 타당성 보고서로, feasibility matrix·개발 공수 추정·출처 목록을 포함한다."
+    },
+    {
+      "id": "document:docs/research/llm-cost-optimization-2026.md",
+      "type": "document",
+      "name": "llm-cost-optimization-2026.md",
+      "filePath": "docs/research/llm-cost-optimization-2026.md",
+      "summary": "LLM 챗봇 비용 최적화 2026 업계 트렌드 리서치로, 현재 Gemini flagship + Search Grounding 호출 비용 구조를 분석하고 cascading routing·semantic cache·intent classification·hybrid RAG + Text-to-SQL 등 6종 패턴과 4단 라우팅 권장 아키텍처를 제시한다.",
+      "tags": ["documentation", "research", "llm", "cost-optimization", "rag"],
+      "complexity": "moderate",
+      "languageNotes": "한국어 리서치 문서로 RAG·Text-to-SQL·semantic cache·Edge runtime 라우팅의 비용 절감 효과를 정량 분석한다."
+    },
+    {
+      "id": "document:docs/research/tennis-ecosystem.md",
+      "type": "document",
+      "name": "tennis-ecosystem.md",
+      "filePath": "docs/research/tennis-ecosystem.md",
+      "summary": "한국 동호인 테니스 대회 운영 생태계 종합 리서치로, KTA·KATO·KATA·KTFS 단체별 위상과 광주·전남 시드 지역 심층 분석, 참가 사이클·비용·매너 트렌드, 그리고 이를 반영한 Match-up 데이터 모델 권고(추가 컬럼·시드 데이터)를 담는다.",
+      "tags": ["documentation", "research", "domain-knowledge", "data-model", "tennis"],
+      "complexity": "complex",
+      "languageNotes": "63개 섹션의 한국어 도메인 리서치로, 단체간 비교표·권역별 운영 차이·rule_articles 콘텐츠 우선순위를 정리한다."
+    },
+    {
+      "id": "document:docs/research/tennis-grade-systems.md",
+      "type": "document",
+      "name": "tennis-grade-systems.md",
+      "filePath": "docs/research/tennis-grade-systems.md",
+      "summary": "한국 동호인 테니스 등급 체계 리서치 보고서로, 전국 협회·수도권·광역시·도별 등급 분류 체계를 정리하고 통합 권역 매핑과 tennis_division enum·자기신고 텍스트 등 데이터 모델 3개 옵션을 비교 권고한다.",
+      "tags": ["documentation", "research", "domain-knowledge", "data-model", "tennis"],
+      "complexity": "complex",
+      "languageNotes": "41개 섹션의 한국어 도메인 리서치로, 협회별 등급 체계의 다층성과 대회 자동 매칭용 권역 매핑을 다룬다."
+    }
+  ],
+  "edges": []
+}

@@ -1,0 +1,110 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/lib/services/notifications_web.dart",
+      "type": "file",
+      "name": "notifications_web.dart",
+      "filePath": "app/lib/services/notifications_web.dart",
+      "summary": "웹 플랫폼용 알림 초기화 no-op 스텁(conditional import 대상).",
+      "tags": ["service", "stub"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/services/notifications.dart",
+      "type": "file",
+      "name": "notifications.dart",
+      "filePath": "app/lib/services/notifications.dart",
+      "summary": "푸시 알림을 초기화하고 디바이스 토큰을 API에 등록하는 서비스.",
+      "tags": ["service", "event-handler"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/services/speed_calculator.dart",
+      "type": "file",
+      "name": "speed_calculator.dart",
+      "filePath": "app/lib/services/speed_calculator.dart",
+      "summary": "코트 호모그래피·픽셀-실좌표 변환·칼만 평활화로 공의 속도를 계산하는 서비스. DLT 해법과 행렬 연산을 직접 구현한다.",
+      "tags": ["service", "utility", "data-pipeline"],
+      "complexity": "complex",
+      "languageNotes": "computeHomography·_solveDlt 등 선형대수 알고리즘을 순수 Dart로 구현."
+    },
+    {
+      "id": "class:app/lib/services/speed_calculator.dart:SpeedCalculator",
+      "type": "class",
+      "name": "SpeedCalculator",
+      "filePath": "app/lib/services/speed_calculator.dart",
+      "lineRange": [6, 206],
+      "summary": "호모그래피 계산·좌표 변환·칼만 평활화·속도 산출을 수행하는 계산 서비스 클래스.",
+      "tags": ["service", "utility"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/lib/services/video_processing_service.dart",
+      "type": "file",
+      "name": "video_processing_service.dart",
+      "filePath": "app/lib/services/video_processing_service.dart",
+      "summary": "영상 선택·메타 정보 추출·프레임 추출·정리를 담당하는 비디오 처리 서비스.",
+      "tags": ["service", "data-pipeline"],
+      "complexity": "moderate",
+      "languageNotes": "VideoMeta 모델과 프레임 추출/FPS 파싱 로직을 포함."
+    },
+    {
+      "id": "class:app/lib/services/video_processing_service.dart:VideoProcessingService",
+      "type": "class",
+      "name": "VideoProcessingService",
+      "filePath": "app/lib/services/video_processing_service.dart",
+      "lineRange": [26, 148],
+      "summary": "영상 선택·프로브·프레임 추출·첫 프레임 추출·정리를 수행하는 비디오 처리 클래스.",
+      "tags": ["service", "data-pipeline"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/services/video_processing_service.dart:VideoMeta",
+      "type": "class",
+      "name": "VideoMeta",
+      "filePath": "app/lib/services/video_processing_service.dart",
+      "lineRange": [8, 24],
+      "summary": "영상의 메타 정보(프레임 수 추정 등)를 담는 데이터 모델.",
+      "tags": ["data-model", "type-definition"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/state/providers.dart",
+      "type": "file",
+      "name": "providers.dart",
+      "filePath": "app/lib/state/providers.dart",
+      "summary": "앱 전역 Riverpod provider 정의 모음. ApiService 인스턴스와 주 종목 파생(primarySportFrom) 등 공유 상태를 제공한다.",
+      "tags": ["service", "state-management", "barrel"],
+      "complexity": "moderate",
+      "languageNotes": "Riverpod provider 정의 파일로 ApiService를 주입하고 다수 화면이 공유."
+    },
+    {
+      "id": "function:app/lib/state/providers.dart:primarySportFrom",
+      "type": "function",
+      "name": "primarySportFrom",
+      "filePath": "app/lib/state/providers.dart",
+      "lineRange": [97, 121],
+      "summary": "사용자 종목 데이터로부터 주 종목을 파생하는 헬퍼 함수.",
+      "tags": ["utility", "state-management"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {"source": "file:app/lib/services/notifications_web.dart", "target": "file:app/lib/services/api.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:app/lib/services/notifications.dart", "target": "file:app/lib/services/api.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:app/lib/services/notifications.dart", "target": "file:app/lib/services/api.dart", "type": "depends_on", "direction": "forward", "weight": 0.6},
+
+    {"source": "file:app/lib/services/speed_calculator.dart", "target": "class:app/lib/services/speed_calculator.dart:SpeedCalculator", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/services/speed_calculator.dart", "target": "class:app/lib/services/speed_calculator.dart:SpeedCalculator", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:app/lib/services/video_processing_service.dart", "target": "class:app/lib/services/video_processing_service.dart:VideoProcessingService", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/services/video_processing_service.dart", "target": "class:app/lib/services/video_processing_service.dart:VideoMeta", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/services/video_processing_service.dart", "target": "class:app/lib/services/video_processing_service.dart:VideoProcessingService", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:app/lib/state/providers.dart", "target": "function:app/lib/state/providers.dart:primarySportFrom", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/state/providers.dart", "target": "function:app/lib/state/providers.dart:primarySportFrom", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:app/lib/state/providers.dart", "target": "file:app/lib/services/api.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:app/lib/state/providers.dart", "target": "file:app/lib/services/api.dart", "type": "depends_on", "direction": "forward", "weight": 0.6}
+  ]
+}

@@ -1,0 +1,537 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 10,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "docs/rules/BACKEND_RULES.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 41,
+      "nonEmptyLines": 30,
+      "sections": [
+        {
+          "heading": "Backend Rules",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Architecture",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Request validation",
+          "level": 2,
+          "line": 12
+        },
+        {
+          "heading": "Edge Function behavior",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "AI / Gemini / SSE",
+          "level": 2,
+          "line": 26
+        },
+        {
+          "heading": "Checks",
+          "level": 2,
+          "line": 33
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "docs/rules/CODING_RULES.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 41,
+      "nonEmptyLines": 30,
+      "sections": [
+        {
+          "heading": "Coding Rules",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "TypeScript / Deno Edge Functions",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Dart / Flutter",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "SQL migrations",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "Git / PR discipline",
+          "level": 2,
+          "line": 29
+        },
+        {
+          "heading": "Baseline checks",
+          "level": 2,
+          "line": 36
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "docs/rules/DATABASE_RULES.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 64,
+      "nonEmptyLines": 43,
+      "sections": [
+        {
+          "heading": "Database Rules",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Schema rules",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "RLS and authorization",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "RPC rules",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "Cron and workers",
+          "level": 2,
+          "line": 25
+        },
+        {
+          "heading": "pgvector / embeddings",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "마이그레이션 배포 (머지 ≠ 프로덕션 적용)",
+          "level": 2,
+          "line": 37
+        },
+        {
+          "heading": "현행 정책 — 수동 적용 + 게이트",
+          "level": 3,
+          "line": 41
+        },
+        {
+          "heading": "데이터 시드 컨벤션",
+          "level": 3,
+          "line": 50
+        },
+        {
+          "heading": "향후 과제",
+          "level": 3,
+          "line": 56
+        },
+        {
+          "heading": "Checks",
+          "level": 2,
+          "line": 60
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    },
+    {
+      "path": "docs/rules/DOMAIN_RULES.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 45,
+      "nonEmptyLines": 32,
+      "sections": [
+        {
+          "heading": "Domain Rules",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Sports and grades",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Tournament visibility",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "Search and filtering",
+          "level": 2,
+          "line": 26
+        },
+        {
+          "heading": "Favorites and notifications",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "Domain harness targets",
+          "level": 2,
+          "line": 39
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "docs/rules/FRONTEND_RULES.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 42,
+      "nonEmptyLines": 31,
+      "sections": [
+        {
+          "heading": "Frontend Rules",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Stack and conventions",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Source of truth",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Important files",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "UI/UX rules",
+          "level": 2,
+          "line": 29
+        },
+        {
+          "heading": "Checks",
+          "level": 2,
+          "line": 36
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "docs/rules/HARNESS.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 75,
+      "nonEmptyLines": 55,
+      "sections": [
+        {
+          "heading": "Harness Rules",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Definition",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Layered model",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "Root-file policy",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "Script shape",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "Current merge gates",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "Local checks",
+          "level": 2,
+          "line": 44
+        },
+        {
+          "heading": "Next harness candidates",
+          "level": 2,
+          "line": 68
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "docs/rules/PROJECT_CONTEXT.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 120,
+      "nonEmptyLines": 96,
+      "sections": [
+        {
+          "heading": "Project Context",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Overview",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "Tech stack",
+          "level": 2,
+          "line": 12
+        },
+        {
+          "heading": "Architecture",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "Edge Function endpoints",
+          "level": 2,
+          "line": 44
+        },
+        {
+          "heading": "Key paths",
+          "level": 2,
+          "line": 60
+        },
+        {
+          "heading": "Supabase",
+          "level": 3,
+          "line": 62
+        },
+        {
+          "heading": "Flutter",
+          "level": 3,
+          "line": 69
+        },
+        {
+          "heading": "Environment variables",
+          "level": 2,
+          "line": 80
+        },
+        {
+          "heading": "Edge Function secrets",
+          "level": 3,
+          "line": 82
+        },
+        {
+          "heading": "DB GUC for cron → Edge Function invocation",
+          "level": 3,
+          "line": 96
+        },
+        {
+          "heading": "Flutter `--dart-define`",
+          "level": 3,
+          "line": 103
+        },
+        {
+          "heading": "Operational notes",
+          "level": 2,
+          "line": 113
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 13
+      }
+    },
+    {
+      "path": "docs/rules/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 33,
+      "nonEmptyLines": 26,
+      "sections": [
+        {
+          "heading": "Match-up Rule System",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "How to use",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "Files",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Rule authoring policy",
+          "level": 2,
+          "line": 27
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "docs/rules/SECURITY_RULES.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 40,
+      "nonEmptyLines": 27,
+      "sections": [
+        {
+          "heading": "Security and Operations Rules",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Trust boundaries",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Secrets",
+          "level": 2,
+          "line": 12
+        },
+        {
+          "heading": "Auth and admin",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "Cost and abuse controls",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "RAG / prompt injection",
+          "level": 2,
+          "line": 30
+        },
+        {
+          "heading": "Logging",
+          "level": 2,
+          "line": 37
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "docs/rules/SPEED_GUN_RULES.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 42,
+      "nonEmptyLines": 29,
+      "sections": [
+        {
+          "heading": "Speed Gun Rules",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Product principle",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Input quality",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "Calibration",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "Ball detection and tracking",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "Speed calculation",
+          "level": 2,
+          "line": 30
+        },
+        {
+          "heading": "Suggested tests",
+          "level": 2,
+          "line": 37
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    }
+  ]
+}

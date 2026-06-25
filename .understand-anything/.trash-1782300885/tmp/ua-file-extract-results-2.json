@@ -1,0 +1,1221 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 9,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "supabase/functions/_shared/embedding.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 82,
+      "nonEmptyLines": 76,
+      "functions": [
+        {
+          "name": "apiKey",
+          "startLine": 19,
+          "endLine": 23,
+          "params": []
+        },
+        {
+          "name": "embedText",
+          "startLine": 28,
+          "endLine": 46,
+          "params": [
+            "text",
+            "taskType"
+          ]
+        },
+        {
+          "name": "embedBatch",
+          "startLine": 51,
+          "endLine": 74,
+          "params": [
+            "texts",
+            "taskType"
+          ]
+        },
+        {
+          "name": "toVectorLiteral",
+          "startLine": 80,
+          "endLine": 82,
+          "params": [
+            "values"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "EMBEDDING_DIM",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "embedText",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "embedBatch",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "toVectorLiteral",
+          "line": 80,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "apiKey",
+          "callee": "Deno.env.get",
+          "lineNumber": 20
+        },
+        {
+          "caller": "embedText",
+          "callee": "apiKey",
+          "lineNumber": 30
+        },
+        {
+          "caller": "embedText",
+          "callee": "fetch",
+          "lineNumber": 31
+        },
+        {
+          "caller": "embedText",
+          "callee": "JSON.stringify",
+          "lineNumber": 34
+        },
+        {
+          "caller": "embedText",
+          "callee": "res.json",
+          "lineNumber": 41
+        },
+        {
+          "caller": "embedBatch",
+          "callee": "apiKey",
+          "lineNumber": 56
+        },
+        {
+          "caller": "embedBatch",
+          "callee": "fetch",
+          "lineNumber": 57
+        },
+        {
+          "caller": "embedBatch",
+          "callee": "JSON.stringify",
+          "lineNumber": 60
+        },
+        {
+          "caller": "embedBatch",
+          "callee": "texts.map",
+          "lineNumber": 61
+        },
+        {
+          "caller": "embedBatch",
+          "callee": "res.json",
+          "lineNumber": 69
+        },
+        {
+          "caller": "embedBatch",
+          "callee": "data.embeddings.map",
+          "lineNumber": 73
+        },
+        {
+          "caller": "toVectorLiteral",
+          "callee": "values.join",
+          "lineNumber": 81
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/_shared/enums.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 352,
+      "nonEmptyLines": 309,
+      "functions": [
+        {
+          "name": "isValidTennisOrg",
+          "startLine": 41,
+          "endLine": 43,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "isValidRegionCode",
+          "startLine": 72,
+          "endLine": 74,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "regionCodeFromLabel",
+          "startLine": 84,
+          "endLine": 89,
+          "params": [
+            "label"
+          ]
+        },
+        {
+          "name": "isValidEntryFeeUnit",
+          "startLine": 97,
+          "endLine": 99,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "parseRecruiting",
+          "startLine": 113,
+          "endLine": 116,
+          "params": [
+            "raw"
+          ]
+        },
+        {
+          "name": "getDivisionsForOrg",
+          "startLine": 202,
+          "endLine": 204,
+          "params": [
+            "org"
+          ]
+        },
+        {
+          "name": "getDivisionLabel",
+          "startLine": 206,
+          "endLine": 208,
+          "params": [
+            "code"
+          ]
+        },
+        {
+          "name": "parseDivisionCodes",
+          "startLine": 222,
+          "endLine": 229,
+          "params": [
+            "raw"
+          ]
+        },
+        {
+          "name": "isValidGrade",
+          "startLine": 264,
+          "endLine": 271,
+          "params": [
+            "sport",
+            "grade"
+          ]
+        },
+        {
+          "name": "isValidDivisionCode",
+          "startLine": 274,
+          "endLine": 279,
+          "params": [
+            "code"
+          ]
+        },
+        {
+          "name": "canEnter",
+          "startLine": 298,
+          "endLine": 300,
+          "params": [
+            "userGrade",
+            "eligibleGrades"
+          ]
+        },
+        {
+          "name": "isValidPlayerOrigin",
+          "startLine": 344,
+          "endLine": 346,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "rankOf",
+          "startLine": 348,
+          "endLine": 352,
+          "params": [
+            "sport",
+            "grade"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "TENNIS_GRADES",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "FUTSAL_GRADES",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "TENNIS_ORGS",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "TENNIS_ORG_LABELS",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "isValidTennisOrg",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "REGION_CODES",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "REGION_LABELS",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "isValidRegionCode",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "regionCodeFromLabel",
+          "line": 84,
+          "isDefault": false
+        },
+        {
+          "name": "ENTRY_FEE_UNITS",
+          "line": 94,
+          "isDefault": false
+        },
+        {
+          "name": "isValidEntryFeeUnit",
+          "line": 97,
+          "isDefault": false
+        },
+        {
+          "name": "RECRUITING_STATES",
+          "line": 105,
+          "isDefault": false
+        },
+        {
+          "name": "parseRecruiting",
+          "line": 113,
+          "isDefault": false
+        },
+        {
+          "name": "TENNIS_DIVISIONS",
+          "line": 131,
+          "isDefault": false
+        },
+        {
+          "name": "TENNIS_DIVISION_LABELS",
+          "line": 198,
+          "isDefault": false
+        },
+        {
+          "name": "getDivisionsForOrg",
+          "line": 202,
+          "isDefault": false
+        },
+        {
+          "name": "getDivisionLabel",
+          "line": 206,
+          "isDefault": false
+        },
+        {
+          "name": "parseDivisionCodes",
+          "line": 222,
+          "isDefault": false
+        },
+        {
+          "name": "GJ_KEYWORD_TO_SUFFIX",
+          "line": 233,
+          "isDefault": false
+        },
+        {
+          "name": "isValidGrade",
+          "line": 264,
+          "isDefault": false
+        },
+        {
+          "name": "canEnter",
+          "line": 298,
+          "isDefault": false
+        },
+        {
+          "name": "GRADE_LABELS",
+          "line": 305,
+          "isDefault": false
+        },
+        {
+          "name": "SPORT_LABELS",
+          "line": 317,
+          "isDefault": false
+        },
+        {
+          "name": "PLAYER_ORIGINS",
+          "line": 325,
+          "isDefault": false
+        },
+        {
+          "name": "PLAYER_ORIGIN_LABELS",
+          "line": 335,
+          "isDefault": false
+        },
+        {
+          "name": "isValidPlayerOrigin",
+          "line": 344,
+          "isDefault": false
+        },
+        {
+          "name": "rankOf",
+          "line": 348,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "isValidTennisOrg",
+          "callee": "(TENNIS_ORGS as readonly string[]).includes",
+          "lineNumber": 42
+        },
+        {
+          "caller": "isValidRegionCode",
+          "callee": "(REGION_CODES as readonly string[]).includes",
+          "lineNumber": 73
+        },
+        {
+          "caller": "regionCodeFromLabel",
+          "callee": "label.trim",
+          "lineNumber": 88
+        },
+        {
+          "caller": "isValidEntryFeeUnit",
+          "callee": "(ENTRY_FEE_UNITS as readonly string[]).includes",
+          "lineNumber": 98
+        },
+        {
+          "caller": "parseRecruiting",
+          "callee": "(RECRUITING_STATES as readonly string[]).includes",
+          "lineNumber": 115
+        },
+        {
+          "caller": "getDivisionsForOrg",
+          "callee": "TENNIS_DIVISIONS.filter",
+          "lineNumber": 203
+        },
+        {
+          "caller": "parseDivisionCodes",
+          "callee": "raw\n    .split(',')\n    .map((c) => c.trim())\n    .filter",
+          "lineNumber": 224
+        },
+        {
+          "caller": "parseDivisionCodes",
+          "callee": "raw\n    .split(',')\n    .map",
+          "lineNumber": 224
+        },
+        {
+          "caller": "parseDivisionCodes",
+          "callee": "raw\n    .split",
+          "lineNumber": 224
+        },
+        {
+          "caller": "parseDivisionCodes",
+          "callee": "c.trim",
+          "lineNumber": 226
+        },
+        {
+          "caller": "parseDivisionCodes",
+          "callee": "DIVISION_CODE_PATTERN.test",
+          "lineNumber": 227
+        },
+        {
+          "caller": "isValidGrade",
+          "callee": "(TENNIS_GRADES as readonly string[]).includes",
+          "lineNumber": 267
+        },
+        {
+          "caller": "isValidGrade",
+          "callee": "isValidDivisionCode",
+          "lineNumber": 268
+        },
+        {
+          "caller": "isValidGrade",
+          "callee": "(FUTSAL_GRADES as readonly string[]).includes",
+          "lineNumber": 270
+        },
+        {
+          "caller": "isValidDivisionCode",
+          "callee": "code.indexOf",
+          "lineNumber": 275
+        },
+        {
+          "caller": "isValidDivisionCode",
+          "callee": "code.substring",
+          "lineNumber": 277
+        },
+        {
+          "caller": "isValidDivisionCode",
+          "callee": "(TENNIS_ORGS as readonly string[]).includes",
+          "lineNumber": 278
+        },
+        {
+          "caller": "canEnter",
+          "callee": "eligibleGrades.includes",
+          "lineNumber": 299
+        },
+        {
+          "caller": "isValidPlayerOrigin",
+          "callee": "(PLAYER_ORIGINS as readonly string[]).includes",
+          "lineNumber": 345
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 27,
+        "functionCount": 13,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/_shared/intent.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 407,
+      "nonEmptyLines": 358,
+      "functions": [
+        {
+          "name": "regionFromDirectCode",
+          "startLine": 96,
+          "endLine": 103,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "extractRegion",
+          "startLine": 105,
+          "endLine": 112,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "extractSport",
+          "startLine": 117,
+          "endLine": 121,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "kstToday",
+          "startLine": 130,
+          "endLine": 135,
+          "params": [
+            "now"
+          ]
+        },
+        {
+          "name": "formatKstDate",
+          "startLine": 138,
+          "endLine": 144,
+          "params": [
+            "d"
+          ]
+        },
+        {
+          "name": "addDays",
+          "startLine": 147,
+          "endLine": 149,
+          "params": [
+            "d",
+            "days"
+          ]
+        },
+        {
+          "name": "kstDayOfWeek",
+          "startLine": 152,
+          "endLine": 155,
+          "params": [
+            "d"
+          ]
+        },
+        {
+          "name": "thisWeekRange",
+          "startLine": 158,
+          "endLine": 165,
+          "params": [
+            "today"
+          ]
+        },
+        {
+          "name": "thisWeekendRange",
+          "startLine": 167,
+          "endLine": 180,
+          "params": [
+            "today"
+          ]
+        },
+        {
+          "name": "nextWeekRange",
+          "startLine": 182,
+          "endLine": 187,
+          "params": [
+            "today"
+          ]
+        },
+        {
+          "name": "monthRange",
+          "startLine": 190,
+          "endLine": 198,
+          "params": [
+            "today",
+            "month"
+          ]
+        },
+        {
+          "name": "singleDayRange",
+          "startLine": 201,
+          "endLine": 207,
+          "params": [
+            "today",
+            "month",
+            "day"
+          ]
+        },
+        {
+          "name": "extractDateRange",
+          "startLine": 213,
+          "endLine": 271,
+          "params": [
+            "text",
+            "now"
+          ]
+        },
+        {
+          "name": "extractSlots",
+          "startLine": 276,
+          "endLine": 285,
+          "params": [
+            "text",
+            "now"
+          ]
+        },
+        {
+          "name": "classifyByRule",
+          "startLine": 304,
+          "endLine": 344,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "buildEmbeddingResult",
+          "startLine": 350,
+          "endLine": 361,
+          "params": [
+            "intent",
+            "similarity",
+            "slots"
+          ]
+        },
+        {
+          "name": "buildRuleResult",
+          "startLine": 363,
+          "endLine": 374,
+          "params": [
+            "rule",
+            "slots"
+          ]
+        },
+        {
+          "name": "buildFallbackResult",
+          "startLine": 376,
+          "endLine": 383,
+          "params": [
+            "slots"
+          ]
+        },
+        {
+          "name": "normalizeSportSlot",
+          "startLine": 392,
+          "endLine": 395,
+          "params": [
+            "sport"
+          ]
+        },
+        {
+          "name": "resolveRequestedSport",
+          "startLine": 397,
+          "endLine": 407,
+          "params": [
+            "explicitSport",
+            "clientActiveSport"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "INTENT_VALUES",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "extractDateRange",
+          "line": 213,
+          "isDefault": false
+        },
+        {
+          "name": "extractSlots",
+          "line": 276,
+          "isDefault": false
+        },
+        {
+          "name": "classifyByRule",
+          "line": 304,
+          "isDefault": false
+        },
+        {
+          "name": "buildEmbeddingResult",
+          "line": 350,
+          "isDefault": false
+        },
+        {
+          "name": "buildRuleResult",
+          "line": 363,
+          "isDefault": false
+        },
+        {
+          "name": "buildFallbackResult",
+          "line": 376,
+          "isDefault": false
+        },
+        {
+          "name": "resolveRequestedSport",
+          "line": 397,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "regionFromDirectCode",
+          "callee": "re.test",
+          "lineNumber": 100
+        },
+        {
+          "caller": "extractRegion",
+          "callee": "regionFromDirectCode",
+          "lineNumber": 106
+        },
+        {
+          "caller": "extractRegion",
+          "callee": "pattern.test",
+          "lineNumber": 109
+        },
+        {
+          "caller": "extractSport",
+          "callee": "/(테니스|tennis)/i.test",
+          "lineNumber": 118
+        },
+        {
+          "caller": "extractSport",
+          "callee": "/(풋살|futsal)/i.test",
+          "lineNumber": 119
+        },
+        {
+          "caller": "kstToday",
+          "callee": "now.getTime",
+          "lineNumber": 132
+        },
+        {
+          "caller": "kstToday",
+          "callee": "Math.floor",
+          "lineNumber": 133
+        },
+        {
+          "caller": "formatKstDate",
+          "callee": "d.getTime",
+          "lineNumber": 139
+        },
+        {
+          "caller": "formatKstDate",
+          "callee": "kst.getUTCFullYear",
+          "lineNumber": 140
+        },
+        {
+          "caller": "formatKstDate",
+          "callee": "String(kst.getUTCMonth() + 1).padStart",
+          "lineNumber": 141
+        },
+        {
+          "caller": "formatKstDate",
+          "callee": "String",
+          "lineNumber": 141
+        },
+        {
+          "caller": "formatKstDate",
+          "callee": "kst.getUTCMonth",
+          "lineNumber": 141
+        },
+        {
+          "caller": "formatKstDate",
+          "callee": "String(kst.getUTCDate()).padStart",
+          "lineNumber": 142
+        },
+        {
+          "caller": "formatKstDate",
+          "callee": "String",
+          "lineNumber": 142
+        },
+        {
+          "caller": "formatKstDate",
+          "callee": "kst.getUTCDate",
+          "lineNumber": 142
+        },
+        {
+          "caller": "addDays",
+          "callee": "d.getTime",
+          "lineNumber": 148
+        },
+        {
+          "caller": "kstDayOfWeek",
+          "callee": "d.getTime",
+          "lineNumber": 153
+        },
+        {
+          "caller": "kstDayOfWeek",
+          "callee": "kst.getUTCDay",
+          "lineNumber": 154
+        },
+        {
+          "caller": "thisWeekRange",
+          "callee": "kstDayOfWeek",
+          "lineNumber": 159
+        },
+        {
+          "caller": "thisWeekRange",
+          "callee": "addDays",
+          "lineNumber": 162
+        },
+        {
+          "caller": "thisWeekRange",
+          "callee": "addDays",
+          "lineNumber": 163
+        },
+        {
+          "caller": "thisWeekRange",
+          "callee": "formatKstDate",
+          "lineNumber": 164
+        },
+        {
+          "caller": "thisWeekRange",
+          "callee": "formatKstDate",
+          "lineNumber": 164
+        },
+        {
+          "caller": "thisWeekendRange",
+          "callee": "kstDayOfWeek",
+          "lineNumber": 169
+        },
+        {
+          "caller": "thisWeekendRange",
+          "callee": "addDays",
+          "lineNumber": 174
+        },
+        {
+          "caller": "thisWeekendRange",
+          "callee": "addDays",
+          "lineNumber": 176
+        },
+        {
+          "caller": "thisWeekendRange",
+          "callee": "addDays",
+          "lineNumber": 178
+        },
+        {
+          "caller": "thisWeekendRange",
+          "callee": "formatKstDate",
+          "lineNumber": 179
+        },
+        {
+          "caller": "thisWeekendRange",
+          "callee": "formatKstDate",
+          "lineNumber": 179
+        },
+        {
+          "caller": "nextWeekRange",
+          "callee": "thisWeekRange",
+          "lineNumber": 183
+        },
+        {
+          "caller": "nextWeekRange",
+          "callee": "addDays",
+          "lineNumber": 184
+        },
+        {
+          "caller": "nextWeekRange",
+          "callee": "addDays",
+          "lineNumber": 185
+        },
+        {
+          "caller": "nextWeekRange",
+          "callee": "formatKstDate",
+          "lineNumber": 186
+        },
+        {
+          "caller": "nextWeekRange",
+          "callee": "formatKstDate",
+          "lineNumber": 186
+        },
+        {
+          "caller": "monthRange",
+          "callee": "today.getTime",
+          "lineNumber": 191
+        },
+        {
+          "caller": "monthRange",
+          "callee": "kst.getUTCFullYear",
+          "lineNumber": 192
+        },
+        {
+          "caller": "monthRange",
+          "callee": "Date.UTC",
+          "lineNumber": 193
+        },
+        {
+          "caller": "monthRange",
+          "callee": "Date.UTC",
+          "lineNumber": 195
+        },
+        {
+          "caller": "monthRange",
+          "callee": "addDays",
+          "lineNumber": 196
+        },
+        {
+          "caller": "monthRange",
+          "callee": "formatKstDate",
+          "lineNumber": 197
+        },
+        {
+          "caller": "monthRange",
+          "callee": "formatKstDate",
+          "lineNumber": 197
+        },
+        {
+          "caller": "singleDayRange",
+          "callee": "today.getTime",
+          "lineNumber": 202
+        },
+        {
+          "caller": "singleDayRange",
+          "callee": "kst.getUTCFullYear",
+          "lineNumber": 203
+        },
+        {
+          "caller": "singleDayRange",
+          "callee": "Date.UTC",
+          "lineNumber": 204
+        },
+        {
+          "caller": "singleDayRange",
+          "callee": "formatKstDate",
+          "lineNumber": 205
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "kstToday",
+          "lineNumber": 214
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "text.match",
+          "lineNumber": 217
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "parseInt",
+          "lineNumber": 219
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "parseInt",
+          "lineNumber": 220
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "singleDayRange",
+          "lineNumber": 222
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "text.match",
+          "lineNumber": 227
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "parseInt",
+          "lineNumber": 229
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "parseInt",
+          "lineNumber": 230
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "singleDayRange",
+          "lineNumber": 232
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "/다음\\s*주/.test",
+          "lineNumber": 237
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "nextWeekRange",
+          "lineNumber": 238
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "/이번\\s*주말|주말/.test",
+          "lineNumber": 242
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "thisWeekendRange",
+          "lineNumber": 243
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "/이번\\s*주|금주/.test",
+          "lineNumber": 246
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "thisWeekRange",
+          "lineNumber": 247
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "/내일/.test",
+          "lineNumber": 250
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "addDays",
+          "lineNumber": 251
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "formatKstDate",
+          "lineNumber": 252
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "/오늘|금일/.test",
+          "lineNumber": 256
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "formatKstDate",
+          "lineNumber": 257
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "text.match",
+          "lineNumber": 262
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "parseInt",
+          "lineNumber": 264
+        },
+        {
+          "caller": "extractDateRange",
+          "callee": "monthRange",
+          "lineNumber": 266
+        },
+        {
+          "caller": "extractSlots",
+          "callee": "extractRegion",
+          "lineNumber": 278
+        },
+        {
+          "caller": "extractSlots",
+          "callee": "extractSport",
+          "lineNumber": 280
+        },
+        {
+          "caller": "extractSlots",
+          "callee": "extractDateRange",
+          "lineNumber": 282
+        },
+        {
+          "caller": "classifyByRule",
+          "callee": "TOURNAMENT_KW.test",
+          "lineNumber": 306
+        },
+        {
+          "caller": "classifyByRule",
+          "callee": "DETAIL_KW.test",
+          "lineNumber": 306
+        },
+        {
+          "caller": "classifyByRule",
+          "callee": "TOURNAMENT_KW.test",
+          "lineNumber": 311
+        },
+        {
+          "caller": "classifyByRule",
+          "callee": "MY_PROFILE_KW.test",
+          "lineNumber": 316
+        },
+        {
+          "caller": "classifyByRule",
+          "callee": "RULE_KW.test",
+          "lineNumber": 321
+        },
+        {
+          "caller": "classifyByRule",
+          "callee": "VENUE_KW.test",
+          "lineNumber": 326
+        },
+        {
+          "caller": "classifyByRule",
+          "callee": "CLUB_KW.test",
+          "lineNumber": 331
+        },
+        {
+          "caller": "classifyByRule",
+          "callee": "MATCH_KW.test",
+          "lineNumber": 337
+        },
+        {
+          "caller": "classifyByRule",
+          "callee": "SCHEDULE_KW.test",
+          "lineNumber": 337
+        },
+        {
+          "caller": "buildEmbeddingResult",
+          "callee": "Math.max",
+          "lineNumber": 357
+        },
+        {
+          "caller": "buildEmbeddingResult",
+          "callee": "Math.min",
+          "lineNumber": 357
+        },
+        {
+          "caller": "resolveRequestedSport",
+          "callee": "normalizeSportSlot",
+          "lineNumber": 401
+        },
+        {
+          "caller": "resolveRequestedSport",
+          "callee": "normalizeSportSlot",
+          "lineNumber": 402
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 8,
+        "functionCount": 20,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/seed-intent-examples/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 196,
+      "nonEmptyLines": 182,
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/semantic-search/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 111,
+      "nonEmptyLines": 97,
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/tests/enums_test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 219,
+      "nonEmptyLines": 183,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/tests/intent_test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 212,
+      "nonEmptyLines": 198,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/tournaments-search/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 82,
+      "nonEmptyLines": 76,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/tournaments-submit/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 169,
+      "nonEmptyLines": 158,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,1270 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/lib/models/regulation_body_lines.dart",
+      "type": "file",
+      "name": "regulation_body_lines.dart",
+      "filePath": "app/lib/models/regulation_body_lines.dart",
+      "summary": "대회 요강 본문을 구조화한 라인 단위 모델(RegulationLine·RegulationLineKind 열거형)로, RAG·요강 요약 렌더링의 기반이 된다.",
+      "tags": [
+        "data-model",
+        "regulation",
+        "serialization",
+        "rag"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/lib/models/regulation_body_lines.dart:RegulationLineKind",
+      "type": "class",
+      "name": "RegulationLineKind",
+      "filePath": "app/lib/models/regulation_body_lines.dart",
+      "lineRange": [
+        13,
+        37
+      ],
+      "summary": "요강 라인의 종류(제목·항목·표 등)를 구분하는 enum.",
+      "tags": [
+        "data-model",
+        "enum",
+        "regulation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/models/regulation_body_lines.dart:RegulationLine",
+      "type": "class",
+      "name": "RegulationLine",
+      "filePath": "app/lib/models/regulation_body_lines.dart",
+      "lineRange": [
+        40,
+        62
+      ],
+      "summary": "요강 본문의 한 라인(종류·텍스트·들여쓰기 등)을 표현하는 모델.",
+      "tags": [
+        "data-model",
+        "regulation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/models/schedule_share.dart",
+      "type": "file",
+      "name": "schedule_share.dart",
+      "filePath": "app/lib/models/schedule_share.dart",
+      "summary": "친구 간 일정 공유(ScheduleShare)를 표현하는 데이터 모델로 공유 상태·대상의 fromJson 직렬화를 제공한다.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "schedule"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/models/schedule_share.dart:ScheduleShare",
+      "type": "class",
+      "name": "ScheduleShare",
+      "filePath": "app/lib/models/schedule_share.dart",
+      "lineRange": [
+        1,
+        42
+      ],
+      "summary": "일정 공유 요청/상태(공유자·대상·승인 여부)를 담는 DTO.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "schedule"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/models/speed_measurement.dart",
+      "type": "file",
+      "name": "speed_measurement.dart",
+      "filePath": "app/lib/models/speed_measurement.dart",
+      "summary": "스피드건(공 속도 측정) 기능의 좌표·코트 보정·궤적·결과를 표현하는 값 객체 집합(BallPosition, CourtCalibration, TrajectoryPoint, SpeedResult).",
+      "tags": [
+        "data-model",
+        "speed-gun",
+        "value-object"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/models/speed_measurement.dart:BallPosition",
+      "type": "class",
+      "name": "BallPosition",
+      "filePath": "app/lib/models/speed_measurement.dart",
+      "lineRange": [
+        3,
+        15
+      ],
+      "summary": "프레임 내 공의 위치 좌표를 담는 값 객체.",
+      "tags": [
+        "data-model",
+        "value-object",
+        "speed-gun"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/models/speed_measurement.dart:CourtCalibration",
+      "type": "class",
+      "name": "CourtCalibration",
+      "filePath": "app/lib/models/speed_measurement.dart",
+      "lineRange": [
+        18,
+        38
+      ],
+      "summary": "실측 속도 환산을 위한 코트 기준점 보정 정보.",
+      "tags": [
+        "data-model",
+        "value-object",
+        "speed-gun"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/models/speed_measurement.dart:TrajectoryPoint",
+      "type": "class",
+      "name": "TrajectoryPoint",
+      "filePath": "app/lib/models/speed_measurement.dart",
+      "lineRange": [
+        40,
+        52
+      ],
+      "summary": "시간·위치를 포함한 궤적 상의 한 점.",
+      "tags": [
+        "data-model",
+        "value-object",
+        "speed-gun"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/models/speed_measurement.dart:SpeedResult",
+      "type": "class",
+      "name": "SpeedResult",
+      "filePath": "app/lib/models/speed_measurement.dart",
+      "lineRange": [
+        54,
+        70
+      ],
+      "summary": "측정된 최고/평균 속도 등 결과를 담는 값 객체.",
+      "tags": [
+        "data-model",
+        "value-object",
+        "speed-gun"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/models/tournament_card_info.dart",
+      "type": "file",
+      "name": "tournament_card_info.dart",
+      "filePath": "app/lib/models/tournament_card_info.dart",
+      "summary": "대회 카드의 마감 상태(DeadlineStatus enum)와 마감 정보(DeadlineInfo)를 계산·표현하는 뷰 모델로 목록 카드의 모집중/마감 표시에 사용된다.",
+      "tags": [
+        "data-model",
+        "view-model",
+        "tournament"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/models/tournament_card_info.dart:DeadlineStatus",
+      "type": "class",
+      "name": "DeadlineStatus",
+      "filePath": "app/lib/models/tournament_card_info.dart",
+      "lineRange": [
+        10,
+        25
+      ],
+      "summary": "대회 모집 마감 상태(모집중·임박·마감)를 구분하는 enum.",
+      "tags": [
+        "data-model",
+        "enum",
+        "tournament"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/models/tournament_card_info.dart:DeadlineInfo",
+      "type": "class",
+      "name": "DeadlineInfo",
+      "filePath": "app/lib/models/tournament_card_info.dart",
+      "lineRange": [
+        29,
+        71
+      ],
+      "summary": "마감일 기준 남은 기간과 상태를 계산해 카드 표시용 정보를 제공하는 모델.",
+      "tags": [
+        "data-model",
+        "view-model",
+        "tournament"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/models/tournament.dart",
+      "type": "file",
+      "name": "tournament.dart",
+      "filePath": "app/lib/models/tournament.dart",
+      "summary": "대회·클럽·지역·규칙·사용자 종목 등 앱 핵심 도메인 모델을 한데 모은 파일로, 다수 화면과 admin/router 가 의존하는 중심 데이터 정의이다.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "domain",
+        "tournament"
+      ],
+      "complexity": "complex",
+      "languageNotes": "8개 도메인 클래스(Tournament, Club, Region, RuleArticle 등)를 한 파일에 집약. fromJson 중심의 불변 DTO 패턴."
+    },
+    {
+      "id": "class:app/lib/models/tournament.dart:RegulationField",
+      "type": "class",
+      "name": "RegulationField",
+      "filePath": "app/lib/models/tournament.dart",
+      "lineRange": [
+        3,
+        20
+      ],
+      "summary": "대회 요강의 라벨/값 한 쌍을 표현하는 모델.",
+      "tags": [
+        "data-model",
+        "regulation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/models/tournament.dart:Tournament",
+      "type": "class",
+      "name": "Tournament",
+      "filePath": "app/lib/models/tournament.dart",
+      "lineRange": [
+        22,
+        162
+      ],
+      "summary": "대회의 일정·장소·종목·요강 등 전체 정보를 담는 핵심 DTO.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "tournament"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/models/tournament.dart:Region",
+      "type": "class",
+      "name": "Region",
+      "filePath": "app/lib/models/tournament.dart",
+      "lineRange": [
+        164,
+        190
+      ],
+      "summary": "시·도/시군구 등 지역 정보를 표현하는 DTO.",
+      "tags": [
+        "data-model",
+        "serialization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/models/tournament.dart:UserTennisOrg",
+      "type": "class",
+      "name": "UserTennisOrg",
+      "filePath": "app/lib/models/tournament.dart",
+      "lineRange": [
+        192,
+        239
+      ],
+      "summary": "사용자가 소속된 테니스 협회/조직 정보를 담는 DTO.",
+      "tags": [
+        "data-model",
+        "serialization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/models/tournament.dart:Club",
+      "type": "class",
+      "name": "Club",
+      "filePath": "app/lib/models/tournament.dart",
+      "lineRange": [
+        241,
+        321
+      ],
+      "summary": "동호회 클럽의 기본 정보·소속·통계 등을 담는 도메인 DTO.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "club"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/models/tournament.dart:RuleArticle",
+      "type": "class",
+      "name": "RuleArticle",
+      "filePath": "app/lib/models/tournament.dart",
+      "lineRange": [
+        323,
+        364
+      ],
+      "summary": "규칙/요강 조항(제목·본문)을 표현하는 DTO.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "regulation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/models/tournament.dart:UserSport",
+      "type": "class",
+      "name": "UserSport",
+      "filePath": "app/lib/models/tournament.dart",
+      "lineRange": [
+        366,
+        385
+      ],
+      "summary": "사용자의 종목 선택(테니스·풋살 등)을 표현하는 DTO.",
+      "tags": [
+        "data-model",
+        "serialization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/models/tournament.dart:ChatMessage",
+      "type": "class",
+      "name": "ChatMessage",
+      "filePath": "app/lib/models/tournament.dart",
+      "lineRange": [
+        387,
+        409
+      ],
+      "summary": "채팅 메시지(역할·내용·시각)를 표현하는 DTO.",
+      "tags": [
+        "data-model",
+        "serialization",
+        "chat"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/router.dart",
+      "type": "file",
+      "name": "router.dart",
+      "filePath": "app/lib/router.dart",
+      "summary": "go_router 기반 라우팅 설정으로 인증·관리자 가드, 메인 셸(_MainShell) 탭 네비게이션, 대회·클럽·관리자 화면 경로를 정의한다.",
+      "tags": [
+        "router",
+        "navigation",
+        "entry-point",
+        "go-router"
+      ],
+      "complexity": "complex",
+      "languageNotes": "GoRouterRefreshStream 으로 인증 상태 변경을 라우터 redirect 에 연결. config 프리뷰 플래그로 라우트 가드 우회."
+    },
+    {
+      "id": "class:app/lib/router.dart:GoRouterRefreshStream",
+      "type": "class",
+      "name": "GoRouterRefreshStream",
+      "filePath": "app/lib/router.dart",
+      "lineRange": [
+        169,
+        175
+      ],
+      "summary": "인증 스트림 변화를 go_router refreshListenable 로 전달하는 어댑터.",
+      "tags": [
+        "router",
+        "go-router",
+        "event-handler"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/router.dart:_MainShell",
+      "type": "class",
+      "name": "_MainShell",
+      "filePath": "app/lib/router.dart",
+      "lineRange": [
+        177,
+        264
+      ],
+      "summary": "하단 탭 네비게이션을 가진 메인 화면 셸 위젯.",
+      "tags": [
+        "component",
+        "navigation",
+        "shell"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/router.dart:_AdminTournamentListScreen",
+      "type": "class",
+      "name": "_AdminTournamentListScreen",
+      "filePath": "app/lib/router.dart",
+      "lineRange": [
+        266,
+        322
+      ],
+      "summary": "관리자용 대회 목록 라우트를 래핑하는 화면 위젯.",
+      "tags": [
+        "component",
+        "admin",
+        "navigation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/lib/screens/admin/admin_screen.dart",
+      "type": "file",
+      "name": "admin_screen.dart",
+      "filePath": "app/lib/screens/admin/admin_screen.dart",
+      "summary": "크롤 소스 관리·대회 검수·감사 로그 등을 탭으로 제공하는 대형 관리자 화면으로, 소스 카드/편집 다이얼로그 등 다수의 내부 위젯을 포함한다.",
+      "tags": [
+        "api-handler",
+        "admin",
+        "component",
+        "crawl"
+      ],
+      "complexity": "complex",
+      "languageNotes": "1489줄 단일 화면 파일. _AdminScreenState(25개 메서드)에 탭별 로직과 _SourceCard/_SourceFormDialog 등 비공개 위젯이 집중."
+    },
+    {
+      "id": "class:app/lib/screens/admin/admin_screen.dart:AdminScreen",
+      "type": "class",
+      "name": "AdminScreen",
+      "filePath": "app/lib/screens/admin/admin_screen.dart",
+      "lineRange": [
+        11,
+        17
+      ],
+      "summary": "관리자 화면 진입 ConsumerStatefulWidget(초기 탭 지정).",
+      "tags": [
+        "component",
+        "admin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/screens/admin/admin_screen.dart:_AdminScreenState",
+      "type": "class",
+      "name": "_AdminScreenState",
+      "filePath": "app/lib/screens/admin/admin_screen.dart",
+      "lineRange": [
+        19,
+        999
+      ],
+      "summary": "크롤 소스 CRUD·대회 검수·로그 조회 등 관리자 화면 전반의 상태와 로직을 담는 State.",
+      "tags": [
+        "component",
+        "admin",
+        "state"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/lib/screens/admin/admin_screen.dart:_SourceCard",
+      "type": "class",
+      "name": "_SourceCard",
+      "filePath": "app/lib/screens/admin/admin_screen.dart",
+      "lineRange": [
+        1003,
+        1157
+      ],
+      "summary": "개별 크롤 소스를 표시·조작하는 카드 위젯.",
+      "tags": [
+        "component",
+        "admin"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/screens/admin/admin_screen.dart:_SourceFormDialogState",
+      "type": "class",
+      "name": "_SourceFormDialogState",
+      "filePath": "app/lib/screens/admin/admin_screen.dart",
+      "lineRange": [
+        1240,
+        1415
+      ],
+      "summary": "크롤 소스 추가/편집 폼 다이얼로그의 입력 상태와 검증을 담는 State.",
+      "tags": [
+        "component",
+        "admin",
+        "form"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/screens/admin/admin_screen.dart:_LogCard",
+      "type": "class",
+      "name": "_LogCard",
+      "filePath": "app/lib/screens/admin/admin_screen.dart",
+      "lineRange": [
+        1419,
+        1489
+      ],
+      "summary": "크롤 감사 로그 항목을 표시하는 카드 위젯.",
+      "tags": [
+        "component",
+        "admin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/screens/admin/admin_shell.dart",
+      "type": "file",
+      "name": "admin_shell.dart",
+      "filePath": "app/lib/screens/admin/admin_shell.dart",
+      "summary": "웹 관리자 콘솔의 사이드바 내비게이션과 본문 레이아웃을 구성하는 셸 위젯(AdminShell, _AdminSidebar).",
+      "tags": [
+        "component",
+        "admin",
+        "navigation",
+        "shell"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/screens/admin/admin_shell.dart:AdminShell",
+      "type": "class",
+      "name": "AdminShell",
+      "filePath": "app/lib/screens/admin/admin_shell.dart",
+      "lineRange": [
+        8,
+        48
+      ],
+      "summary": "사이드바와 선택된 탭 본문을 배치하는 관리자 셸 위젯.",
+      "tags": [
+        "component",
+        "admin",
+        "shell"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/screens/admin/admin_shell.dart:_AdminSidebar",
+      "type": "class",
+      "name": "_AdminSidebar",
+      "filePath": "app/lib/screens/admin/admin_shell.dart",
+      "lineRange": [
+        50,
+        162
+      ],
+      "summary": "관리자 메뉴 항목과 선택 상태를 표시하는 사이드바 위젯.",
+      "tags": [
+        "component",
+        "admin",
+        "navigation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/lib/screens/admin/knowledge_base_tab.dart",
+      "type": "file",
+      "name": "knowledge_base_tab.dart",
+      "filePath": "app/lib/screens/admin/knowledge_base_tab.dart",
+      "summary": "관리자 콘솔의 지식베이스(요강·규칙) 관리 탭으로, RAG embedding 상태를 표시하고 규칙 편집 화면으로 연결한다.",
+      "tags": [
+        "component",
+        "admin",
+        "rag",
+        "knowledge-base"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/screens/admin/knowledge_base_tab.dart:KnowledgeBaseTab",
+      "type": "class",
+      "name": "KnowledgeBaseTab",
+      "filePath": "app/lib/screens/admin/knowledge_base_tab.dart",
+      "lineRange": [
+        10,
+        15
+      ],
+      "summary": "지식베이스 탭 진입 위젯.",
+      "tags": [
+        "component",
+        "admin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/screens/admin/knowledge_base_tab.dart:_KnowledgeBaseTabState",
+      "type": "class",
+      "name": "_KnowledgeBaseTabState",
+      "filePath": "app/lib/screens/admin/knowledge_base_tab.dart",
+      "lineRange": [
+        17,
+        100
+      ],
+      "summary": "요강/규칙 목록 로드와 embedding 상태 표시를 담당하는 탭 State.",
+      "tags": [
+        "component",
+        "admin",
+        "rag",
+        "state"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/lib/screens/admin/knowledge_base_tab.dart:_EmbeddingBadge",
+      "type": "class",
+      "name": "_EmbeddingBadge",
+      "filePath": "app/lib/screens/admin/knowledge_base_tab.dart",
+      "lineRange": [
+        102,
+        119
+      ],
+      "summary": "embedding 처리 여부를 색상 배지로 표시하는 위젯.",
+      "tags": [
+        "component",
+        "rag"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/screens/admin/no_access_screen.dart",
+      "type": "file",
+      "name": "no_access_screen.dart",
+      "filePath": "app/lib/screens/admin/no_access_screen.dart",
+      "summary": "관리자 권한이 없는 사용자에게 접근 거부 안내를 표시하는 단순 화면 위젯.",
+      "tags": [
+        "component",
+        "admin",
+        "guard"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/screens/admin/no_access_screen.dart:NoAccessScreen",
+      "type": "class",
+      "name": "NoAccessScreen",
+      "filePath": "app/lib/screens/admin/no_access_screen.dart",
+      "lineRange": [
+        4,
+        41
+      ],
+      "summary": "권한 없음 메시지를 보여주는 화면 위젯.",
+      "tags": [
+        "component",
+        "admin",
+        "guard"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/lib/screens/admin/rule_edit_screen.dart",
+      "type": "file",
+      "name": "rule_edit_screen.dart",
+      "filePath": "app/lib/screens/admin/rule_edit_screen.dart",
+      "summary": "규칙/요강 조항을 추가·편집하는 관리자 화면으로, 저장 시 RAG embedding 재생성 대상이 되는 RuleArticle 을 다룬다.",
+      "tags": [
+        "component",
+        "admin",
+        "form",
+        "regulation"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/lib/screens/admin/rule_edit_screen.dart:RuleEditScreen",
+      "type": "class",
+      "name": "RuleEditScreen",
+      "filePath": "app/lib/screens/admin/rule_edit_screen.dart",
+      "lineRange": [
+        10,
+        17
+      ],
+      "summary": "규칙 편집 화면 진입 위젯.",
+      "tags": [
+        "component",
+        "admin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/screens/admin/rule_edit_screen.dart:_RuleEditScreenState",
+      "type": "class",
+      "name": "_RuleEditScreenState",
+      "filePath": "app/lib/screens/admin/rule_edit_screen.dart",
+      "lineRange": [
+        19,
+        238
+      ],
+      "summary": "규칙 조항 입력·검증·저장 로직을 담는 화면 State.",
+      "tags": [
+        "component",
+        "admin",
+        "form",
+        "state"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/lib/screens/admin/tournament_edit_screen.dart",
+      "type": "file",
+      "name": "tournament_edit_screen.dart",
+      "filePath": "app/lib/screens/admin/tournament_edit_screen.dart",
+      "summary": "대회 정보를 추가·수정하는 관리자 화면으로, 검수 워크플로우에서 크롤된 대회를 편집·승인하는 데 사용된다.",
+      "tags": [
+        "component",
+        "admin",
+        "form",
+        "tournament"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/lib/screens/admin/tournament_edit_screen.dart:TournamentEditScreen",
+      "type": "class",
+      "name": "TournamentEditScreen",
+      "filePath": "app/lib/screens/admin/tournament_edit_screen.dart",
+      "lineRange": [
+        8,
+        15
+      ],
+      "summary": "대회 편집 화면 진입 위젯.",
+      "tags": [
+        "component",
+        "admin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/lib/screens/admin/tournament_edit_screen.dart:_TournamentEditScreenState",
+      "type": "class",
+      "name": "_TournamentEditScreenState",
+      "filePath": "app/lib/screens/admin/tournament_edit_screen.dart",
+      "lineRange": [
+        17,
+        233
+      ],
+      "summary": "대회 필드 입력·검증·저장 로직을 담는 화면 State.",
+      "tags": [
+        "component",
+        "admin",
+        "form",
+        "state"
+      ],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:app/lib/models/regulation_body_lines.dart",
+      "target": "class:app/lib/models/regulation_body_lines.dart:RegulationLineKind",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/regulation_body_lines.dart",
+      "target": "class:app/lib/models/regulation_body_lines.dart:RegulationLineKind",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/regulation_body_lines.dart",
+      "target": "class:app/lib/models/regulation_body_lines.dart:RegulationLine",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/regulation_body_lines.dart",
+      "target": "class:app/lib/models/regulation_body_lines.dart:RegulationLine",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/schedule_share.dart",
+      "target": "class:app/lib/models/schedule_share.dart:ScheduleShare",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/schedule_share.dart",
+      "target": "class:app/lib/models/schedule_share.dart:ScheduleShare",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/speed_measurement.dart",
+      "target": "class:app/lib/models/speed_measurement.dart:BallPosition",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/speed_measurement.dart",
+      "target": "class:app/lib/models/speed_measurement.dart:BallPosition",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/speed_measurement.dart",
+      "target": "class:app/lib/models/speed_measurement.dart:CourtCalibration",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/speed_measurement.dart",
+      "target": "class:app/lib/models/speed_measurement.dart:CourtCalibration",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/speed_measurement.dart",
+      "target": "class:app/lib/models/speed_measurement.dart:TrajectoryPoint",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/speed_measurement.dart",
+      "target": "class:app/lib/models/speed_measurement.dart:TrajectoryPoint",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/speed_measurement.dart",
+      "target": "class:app/lib/models/speed_measurement.dart:SpeedResult",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/speed_measurement.dart",
+      "target": "class:app/lib/models/speed_measurement.dart:SpeedResult",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/tournament_card_info.dart",
+      "target": "class:app/lib/models/tournament_card_info.dart:DeadlineStatus",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/tournament_card_info.dart",
+      "target": "class:app/lib/models/tournament_card_info.dart:DeadlineStatus",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/tournament_card_info.dart",
+      "target": "class:app/lib/models/tournament_card_info.dart:DeadlineInfo",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/tournament_card_info.dart",
+      "target": "class:app/lib/models/tournament_card_info.dart:DeadlineInfo",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/tournament.dart",
+      "target": "class:app/lib/models/tournament.dart:RegulationField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/tournament.dart",
+      "target": "class:app/lib/models/tournament.dart:RegulationField",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/tournament.dart",
+      "target": "class:app/lib/models/tournament.dart:Tournament",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/tournament.dart",
+      "target": "class:app/lib/models/tournament.dart:Tournament",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/tournament.dart",
+      "target": "class:app/lib/models/tournament.dart:Region",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/tournament.dart",
+      "target": "class:app/lib/models/tournament.dart:Region",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/tournament.dart",
+      "target": "class:app/lib/models/tournament.dart:UserTennisOrg",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/tournament.dart",
+      "target": "class:app/lib/models/tournament.dart:UserTennisOrg",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/tournament.dart",
+      "target": "class:app/lib/models/tournament.dart:Club",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/tournament.dart",
+      "target": "class:app/lib/models/tournament.dart:Club",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/tournament.dart",
+      "target": "class:app/lib/models/tournament.dart:RuleArticle",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/tournament.dart",
+      "target": "class:app/lib/models/tournament.dart:RuleArticle",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/tournament.dart",
+      "target": "class:app/lib/models/tournament.dart:UserSport",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/tournament.dart",
+      "target": "class:app/lib/models/tournament.dart:UserSport",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/models/tournament.dart",
+      "target": "class:app/lib/models/tournament.dart:ChatMessage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/models/tournament.dart",
+      "target": "class:app/lib/models/tournament.dart:ChatMessage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/router.dart",
+      "target": "class:app/lib/router.dart:GoRouterRefreshStream",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/router.dart",
+      "target": "class:app/lib/router.dart:_MainShell",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/router.dart",
+      "target": "class:app/lib/router.dart:_AdminTournamentListScreen",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/router.dart",
+      "target": "file:app/lib/config.dart",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/lib/router.dart",
+      "target": "file:app/lib/screens/admin/admin_screen.dart",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/lib/router.dart",
+      "target": "file:app/lib/screens/admin/admin_shell.dart",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/lib/router.dart",
+      "target": "file:app/lib/screens/admin/no_access_screen.dart",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/lib/router.dart",
+      "target": "file:app/lib/screens/admin/tournament_edit_screen.dart",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/lib/router.dart",
+      "target": "file:app/lib/models/tournament.dart",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/lib/screens/admin/admin_screen.dart",
+      "target": "class:app/lib/screens/admin/admin_screen.dart:AdminScreen",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/screens/admin/admin_screen.dart",
+      "target": "class:app/lib/screens/admin/admin_screen.dart:_AdminScreenState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/screens/admin/admin_screen.dart",
+      "target": "class:app/lib/screens/admin/admin_screen.dart:_SourceCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/screens/admin/admin_screen.dart",
+      "target": "class:app/lib/screens/admin/admin_screen.dart:_SourceFormDialogState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/screens/admin/admin_screen.dart",
+      "target": "class:app/lib/screens/admin/admin_screen.dart:_LogCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/screens/admin/admin_screen.dart",
+      "target": "class:app/lib/screens/admin/admin_screen.dart:AdminScreen",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/screens/admin/admin_screen.dart",
+      "target": "file:app/lib/config.dart",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/lib/screens/admin/admin_screen.dart",
+      "target": "file:app/lib/models/admin.dart",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/lib/screens/admin/admin_screen.dart",
+      "target": "file:app/lib/models/crawl_source.dart",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/lib/screens/admin/admin_screen.dart",
+      "target": "file:app/lib/models/tournament.dart",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/lib/screens/admin/admin_screen.dart",
+      "target": "file:app/lib/screens/admin/knowledge_base_tab.dart",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/lib/screens/admin/admin_shell.dart",
+      "target": "class:app/lib/screens/admin/admin_shell.dart:AdminShell",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/screens/admin/admin_shell.dart",
+      "target": "class:app/lib/screens/admin/admin_shell.dart:_AdminSidebar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/screens/admin/admin_shell.dart",
+      "target": "class:app/lib/screens/admin/admin_shell.dart:AdminShell",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/screens/admin/admin_shell.dart",
+      "target": "file:app/lib/config.dart",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/lib/screens/admin/knowledge_base_tab.dart",
+      "target": "class:app/lib/screens/admin/knowledge_base_tab.dart:KnowledgeBaseTab",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/screens/admin/knowledge_base_tab.dart",
+      "target": "class:app/lib/screens/admin/knowledge_base_tab.dart:_KnowledgeBaseTabState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/screens/admin/knowledge_base_tab.dart",
+      "target": "class:app/lib/screens/admin/knowledge_base_tab.dart:_EmbeddingBadge",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/screens/admin/knowledge_base_tab.dart",
+      "target": "class:app/lib/screens/admin/knowledge_base_tab.dart:KnowledgeBaseTab",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/screens/admin/knowledge_base_tab.dart",
+      "target": "file:app/lib/models/tournament.dart",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/lib/screens/admin/knowledge_base_tab.dart",
+      "target": "file:app/lib/screens/admin/rule_edit_screen.dart",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/lib/screens/admin/no_access_screen.dart",
+      "target": "class:app/lib/screens/admin/no_access_screen.dart:NoAccessScreen",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/screens/admin/no_access_screen.dart",
+      "target": "class:app/lib/screens/admin/no_access_screen.dart:NoAccessScreen",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/screens/admin/rule_edit_screen.dart",
+      "target": "class:app/lib/screens/admin/rule_edit_screen.dart:RuleEditScreen",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/screens/admin/rule_edit_screen.dart",
+      "target": "class:app/lib/screens/admin/rule_edit_screen.dart:_RuleEditScreenState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/screens/admin/rule_edit_screen.dart",
+      "target": "class:app/lib/screens/admin/rule_edit_screen.dart:RuleEditScreen",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/lib/screens/admin/rule_edit_screen.dart",
+      "target": "file:app/lib/models/tournament.dart",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/lib/screens/admin/tournament_edit_screen.dart",
+      "target": "class:app/lib/screens/admin/tournament_edit_screen.dart:TournamentEditScreen",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/screens/admin/tournament_edit_screen.dart",
+      "target": "class:app/lib/screens/admin/tournament_edit_screen.dart:_TournamentEditScreenState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/lib/screens/admin/tournament_edit_screen.dart",
+      "target": "class:app/lib/screens/admin/tournament_edit_screen.dart:TournamentEditScreen",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

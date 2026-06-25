@@ -1,0 +1,114 @@
+{
+  "nodes": [
+    {
+      "id": "document:docs/design/2026-redesign-spec.md",
+      "type": "document",
+      "name": "2026-redesign-spec.md",
+      "filePath": "docs/design/2026-redesign-spec.md",
+      "summary": "2026 디자인 리뉴얼 통합 Spec. 현재 UI 진단, 글로벌·한국 트렌드 분석, Flutter 디자인 시스템 결정(컬러·타이포·모션 토큰, 10개 컴포넌트 라이브러리), 단계별 작업 청크(Phase 0~4)를 정의한다.",
+      "tags": ["documentation", "design-system", "redesign-spec", "flutter", "roadmap"],
+      "complexity": "moderate",
+      "languageNotes": "Flutter 디자인 토큰(Light/Dark 컬러, Pretendard 타이포, 모션)과 마이그레이션 Phase를 묶은 설계 문서."
+    },
+    {
+      "id": "document:docs/design/app-map.html",
+      "type": "document",
+      "name": "app-map.html",
+      "filePath": "docs/design/app-map.html",
+      "summary": "사용자 모바일 앱과 어드민 웹의 화면 구조(App Map)를 시각화한 정적 HTML 뷰. app-map.md 내용을 브라우저에서 보기 위한 렌더링본이다.",
+      "tags": ["documentation", "app-map", "navigation", "html-view"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/design/app-map.md",
+      "type": "document",
+      "name": "app-map.md",
+      "filePath": "docs/design/app-map.md",
+      "summary": "Match-up 앱의 화면 구조를 정리한 App Map. 사용자 모바일 앱 화면 계층과 어드민 웹 화면을 범례와 함께 트리 형태로 기술한다.",
+      "tags": ["documentation", "app-map", "navigation", "screen-structure"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/design/db-redesign-progress.md",
+      "type": "document",
+      "name": "db-redesign-progress.md",
+      "filePath": "docs/design/db-redesign-progress.md",
+      "summary": "DB 재설계 진행 현황 문서. users·user_sports·user_tennis_orgs 등 레이어별 확정 스키마와 PK 변경 사유, 클럽·친구 일정·경기 이력 3개 도메인의 설계 범위를 추적한다.",
+      "tags": ["documentation", "database", "schema-design", "progress-tracking"],
+      "complexity": "moderate",
+      "languageNotes": "user_tennis_orgs PK를 (user_id, org) → (user_id, org, division)으로 변경하는 등 스키마 진화 결정을 기록."
+    },
+    {
+      "id": "document:docs/design/erd.html",
+      "type": "document",
+      "name": "erd.html",
+      "filePath": "docs/design/erd.html",
+      "summary": "Match-up DB 스키마의 ERD를 시각화한 정적 HTML 뷰. erd.md의 엔티티 관계 다이어그램을 브라우저에서 렌더링한다.",
+      "tags": ["documentation", "database", "erd", "html-view"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/design/erd.md",
+      "type": "document",
+      "name": "erd.md",
+      "filePath": "docs/design/erd.md",
+      "summary": "Match-up 전체 DB 스키마의 Entity Relationship Diagram. 모든 테이블과 관계를 Mermaid ERD로 기술하고 테이블 수 요약을 제공한다.",
+      "tags": ["documentation", "database", "erd", "schema-definition"],
+      "complexity": "complex",
+      "languageNotes": "Mermaid 기반 ERD로 도메인 전반의 테이블·외래키 관계를 단일 다이어그램으로 표현."
+    },
+    {
+      "id": "document:docs/design/figma-make-ui-handoff.md",
+      "type": "document",
+      "name": "figma-make-ui-handoff.md",
+      "filePath": "docs/design/figma-make-ui-handoff.md",
+      "summary": "Figma Make로 생성한 UI를 앱에 반영하기 위한 인수인계 문서. 로그인·첫 설정·룰북 퀴즈·MY 화면별 동작, 추가된 프론트엔드 데이터 호출, 리뷰 순서와 후속 작업을 정리한다.",
+      "tags": ["documentation", "ui-handoff", "figma", "frontend"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:docs/design/app-map.html",
+      "target": "document:docs/design/app-map.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/design/erd.html",
+      "target": "document:docs/design/erd.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/design/erd.md",
+      "target": "document:docs/design/db-redesign-progress.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/design/db-redesign-progress.md",
+      "target": "document:docs/design/erd.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/design/2026-redesign-spec.md",
+      "target": "document:docs/design/figma-make-ui-handoff.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/design/figma-make-ui-handoff.md",
+      "target": "document:docs/design/app-map.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

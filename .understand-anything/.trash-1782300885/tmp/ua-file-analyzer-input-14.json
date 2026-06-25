@@ -1,0 +1,15 @@
+{
+  "projectRoot": "/Users/ssfak/Documents/01-github/ar",
+  "batchFiles": [
+    {"path": "docs/research/ball-speed-measurement-feasibility.md", "language": "markdown", "sizeLines": 471, "fileCategory": "docs"},
+    {"path": "docs/research/llm-cost-optimization-2026.md", "language": "markdown", "sizeLines": 260, "fileCategory": "docs"},
+    {"path": "docs/research/tennis-ecosystem.md", "language": "markdown", "sizeLines": 563, "fileCategory": "docs"},
+    {"path": "docs/research/tennis-grade-systems.md", "language": "markdown", "sizeLines": 478, "fileCategory": "docs"}
+  ],
+  "batchImportData": {
+    "docs/research/ball-speed-measurement-feasibility.md": [],
+    "docs/research/llm-cost-optimization-2026.md": [],
+    "docs/research/tennis-ecosystem.md": [],
+    "docs/research/tennis-grade-systems.md": []
+  }
+}

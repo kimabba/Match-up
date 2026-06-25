@@ -1,0 +1,155 @@
+{
+  "nodes": [
+    {
+      "id": "document:AGENTS.md",
+      "type": "document",
+      "name": "AGENTS.md",
+      "filePath": "AGENTS.md",
+      "summary": "AI 코딩 에이전트용 라우터 문서로, 항상 적용되는 핵심 규칙(타입 안전성, 서버/DB 권위, 작은 커밋)과 작업 영역별 load-on-demand 규칙 맵(docs/rules/, docs/kb/)을 정의한다.",
+      "tags": ["documentation", "agent-router", "entry-point", "rules", "guidelines"],
+      "complexity": "simple",
+      "languageNotes": "load-on-demand 규칙 인덱스 패턴으로, 작업 영역에 따라 docs/rules 와 docs/kb 문서를 선택적으로 로드하도록 안내한다."
+    },
+    {
+      "id": "document:CLAUDE.md",
+      "type": "document",
+      "name": "CLAUDE.md",
+      "filePath": "CLAUDE.md",
+      "summary": "AGENTS.md 라우터를 가리키는 경량 진입 문서로, 최소 필수 규칙(사용자 변경 보존, 서버/DB 권위, 타입 안전성, 검증 실행)과 Git/PR 워크플로우(admin 강제 머지 금지, main 보호)를 명시한다.",
+      "tags": ["documentation", "entry-point", "rules", "git-workflow", "guidelines"],
+      "complexity": "simple"
+    },
+    {
+      "id": "pipeline:Makefile",
+      "type": "pipeline",
+      "name": "Makefile",
+      "filePath": "Makefile",
+      "summary": "로컬 개발 워크플로우를 자동화하는 Makefile로, macOS 의존성 설치(deps), Supabase 로컬 스택/마이그레이션 초기화(setup·reset), Edge Functions 백엔드(backend), Flutter 앱·웹 어드민 실행(app·admin), 정적 검증(check) 명령을 제공한다.",
+      "tags": ["build-system", "infrastructure", "development", "automation", "tooling"],
+      "complexity": "moderate",
+      "languageNotes": "DEVICE_ID·PROJECT_REF 변수와 .env 파일 존재 가드(test -f)로 누락 시 친절한 에러를 출력하며, supabase functions serve 와 flutter run --dart-define-from-file 을 조합한다."
+    },
+    {
+      "id": "step:Makefile:deps",
+      "type": "step",
+      "name": "deps",
+      "filePath": "Makefile",
+      "summary": "ffmpeg_kit_flutter_new 가 요구하는 macOS 시스템 라이브러리(fontconfig, harfbuzz, glib 등)를 brew 로 설치하는 타깃이다.",
+      "tags": ["build-system", "dependencies", "macos", "setup"],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:Makefile:setup",
+      "type": "step",
+      "name": "setup",
+      "filePath": "Makefile",
+      "summary": "Supabase 로컬 스택을 기동하고 마이그레이션·시드를 적용한 뒤 앱 .env.local 에 붙여넣을 anon key 를 출력하는 최초 1회 환경 구성 타깃이다.",
+      "tags": ["build-system", "setup", "supabase", "database"],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:Makefile:backend",
+      "type": "step",
+      "name": "backend",
+      "filePath": "Makefile",
+      "summary": "supabase/functions/.env 존재를 확인한 뒤 Edge Functions 를 로컬 핫리로드로 serve 하면서 원격 DB(PROJECT_REF)에 연결하는 백엔드 개발 타깃이다.",
+      "tags": ["build-system", "backend", "edge-functions", "development"],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:Makefile:app",
+      "type": "step",
+      "name": "app",
+      "filePath": "Makefile",
+      "summary": "app/.env.local 존재를 확인한 뒤 Flutter 앱을 지정 디바이스에서 실행하는 일반 사용자 모드 개발 타깃이다.",
+      "tags": ["build-system", "frontend", "flutter", "development"],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:Makefile:admin",
+      "type": "step",
+      "name": "admin",
+      "filePath": "Makefile",
+      "summary": "ADMIN_MODE=true dart-define 으로 Flutter 앱을 Chrome 에서 실행하는 웹 어드민 대시보드 개발 타깃이다.",
+      "tags": ["build-system", "frontend", "admin", "development"],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:Makefile:check",
+      "type": "step",
+      "name": "check",
+      "filePath": "Makefile",
+      "summary": "Flutter 앱은 flutter analyze 로, Edge Functions 는 deno lint 로 정적 검증을 수행하는 품질 게이트 타깃이다.",
+      "tags": ["build-system", "validation", "lint", "quality"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "올라운드(AllRound) 프로젝트 개요 문서로, 핵심 가치·종목/등급 모델·기술 스택(Flutter+Supabase+pgvector+Gemini)·로컬 개발 빠른 시작·API 엔드포인트·디렉토리 구조·운영 워크플로우를 16개 섹션으로 정리한다.",
+      "tags": ["documentation", "entry-point", "overview", "architecture", "getting-started"],
+      "complexity": "moderate",
+      "languageNotes": "등급 enum 매핑 표(tennis rookie~div1, futsal beginner~advanced)와 API 엔드포인트 표, ASCII 아키텍처 다이어그램으로 시스템 구성을 압축 표현한다."
+    }
+  ],
+  "edges": [
+    {
+      "source": "pipeline:Makefile",
+      "target": "step:Makefile:deps",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "pipeline:Makefile",
+      "target": "step:Makefile:setup",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "pipeline:Makefile",
+      "target": "step:Makefile:backend",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "pipeline:Makefile",
+      "target": "step:Makefile:app",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "pipeline:Makefile",
+      "target": "step:Makefile:admin",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "pipeline:Makefile",
+      "target": "step:Makefile:check",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "document:CLAUDE.md",
+      "target": "document:AGENTS.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "pipeline:Makefile",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

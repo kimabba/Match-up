@@ -1,0 +1,951 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "docs/research/ball-speed-measurement-feasibility.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 471,
+      "nonEmptyLines": 358,
+      "sections": [
+        {
+          "heading": "Tennis Ball Speed Measurement Feature - Technical Feasibility Report",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Executive Summary",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "1. Computer Vision for Ball Tracking",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "1.1 Algorithms and Models",
+          "level": 3,
+          "line": 19
+        },
+        {
+          "heading": "1.2 Accuracy: Phone Camera vs. Professional Systems",
+          "level": 3,
+          "line": 45
+        },
+        {
+          "heading": "1.3 Frame Rate Impact on Accuracy",
+          "level": 3,
+          "line": 57
+        },
+        {
+          "heading": "2. Speed Calculation Methods",
+          "level": 2,
+          "line": 72
+        },
+        {
+          "heading": "2.1 Pixel Displacement to Real-World Speed",
+          "level": 3,
+          "line": 74
+        },
+        {
+          "heading": "2.2 Calibration Requirements",
+          "level": 3,
+          "line": 85
+        },
+        {
+          "heading": "2.3 Major Error Sources",
+          "level": 3,
+          "line": 115
+        },
+        {
+          "heading": "2.4 Research Papers",
+          "level": 3,
+          "line": 122
+        },
+        {
+          "heading": "3. Mobile Implementation",
+          "level": 2,
+          "line": 130
+        },
+        {
+          "heading": "3.1 ML/CV Frameworks for Flutter",
+          "level": 3,
+          "line": 132
+        },
+        {
+          "heading": "3.2 Real-Time Performance on Modern Phones",
+          "level": 3,
+          "line": 144
+        },
+        {
+          "heading": "3.3 Processing Architecture for Video Analysis Mode",
+          "level": 3,
+          "line": 166
+        },
+        {
+          "heading": "4. Existing Solutions and Prior Art",
+          "level": 2,
+          "line": 204
+        },
+        {
+          "heading": "4.1 Commercial Apps",
+          "level": 3,
+          "line": 206
+        },
+        {
+          "heading": "4.2 Open Source Projects",
+          "level": 3,
+          "line": 232
+        },
+        {
+          "heading": "5. Realistic Assessment",
+          "level": 2,
+          "line": 248
+        },
+        {
+          "heading": "5.1 Feasibility Matrix",
+          "level": 3,
+          "line": 250
+        },
+        {
+          "heading": "5.2 Minimum Viable Approach",
+          "level": 3,
+          "line": 261
+        },
+        {
+          "heading": "5.3 Development Effort Estimate",
+          "level": 3,
+          "line": 285
+        },
+        {
+          "heading": "5.4 Major Limitations and Gotchas",
+          "level": 3,
+          "line": 300
+        },
+        {
+          "heading": "6. Flutter-Specific Technical Details",
+          "level": 2,
+          "line": 323
+        },
+        {
+          "heading": "6.1 Camera Plugins",
+          "level": 3,
+          "line": 325
+        },
+        {
+          "heading": "6.2 Video Processing in Flutter",
+          "level": 3,
+          "line": 338
+        },
+        {
+          "heading": "6.3 Native Code Integration",
+          "level": 3,
+          "line": 353
+        },
+        {
+          "heading": "7. Recommended Technology Stack for MVP",
+          "level": 2,
+          "line": 376
+        },
+        {
+          "heading": "Phase 1: Video Analysis Mode (MVP)",
+          "level": 3,
+          "line": 378
+        },
+        {
+          "heading": "Phase 2: Real-Time Mode (Future)",
+          "level": 3,
+          "line": 392
+        },
+        {
+          "heading": "8. Conclusions",
+          "level": 2,
+          "line": 403
+        },
+        {
+          "heading": "What is feasible:",
+          "level": 3,
+          "line": 405
+        },
+        {
+          "heading": "What is challenging but possible:",
+          "level": 3,
+          "line": 411
+        },
+        {
+          "heading": "What is not feasible for an indie MVP:",
+          "level": 3,
+          "line": 416
+        },
+        {
+          "heading": "Recommended path forward:",
+          "level": 3,
+          "line": 422
+        },
+        {
+          "heading": "Sources",
+          "level": 2,
+          "line": 431
+        },
+        {
+          "heading": "Research Papers",
+          "level": 3,
+          "line": 433
+        },
+        {
+          "heading": "Commercial Products",
+          "level": 3,
+          "line": 444
+        },
+        {
+          "heading": "Flutter/Mobile Development",
+          "level": 3,
+          "line": 451
+        },
+        {
+          "heading": "Open Source Projects",
+          "level": 3,
+          "line": 461
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 40
+      }
+    },
+    {
+      "path": "docs/research/llm-cost-optimization-2026.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 260,
+      "nonEmptyLines": 185,
+      "sections": [
+        {
+          "heading": "LLM 챗봇 비용 최적화 — 2026년 업계 트렌드 조사",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "목차",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "Executive Summary",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "1. 가장 큰 문제 — 모든 채팅이 Flagship + Grounding",
+          "level": 3,
+          "line": 21
+        },
+        {
+          "heading": "2. 사용자 질문 분포 (추정)",
+          "level": 3,
+          "line": 27
+        },
+        {
+          "heading": "3. 핵심 결론",
+          "level": 3,
+          "line": 34
+        },
+        {
+          "heading": "4. 피해야 할 선택지",
+          "level": 3,
+          "line": 41
+        },
+        {
+          "heading": "Part A. 배경 — 현재 비용 구조",
+          "level": 1,
+          "line": 54
+        },
+        {
+          "heading": "A.1 현재 호출 경로",
+          "level": 2,
+          "line": 56
+        },
+        {
+          "heading": "A.2 데이터 소스 실제 위치",
+          "level": 2,
+          "line": 66
+        },
+        {
+          "heading": "A.3 사용자 질문 유형 (추정)",
+          "level": 2,
+          "line": 70
+        },
+        {
+          "heading": "Part B. 가격 분석 (Gemini 2026-05 기준)",
+          "level": 1,
+          "line": 79
+        },
+        {
+          "heading": "B.1 토큰 단가",
+          "level": 2,
+          "line": 83
+        },
+        {
+          "heading": "B.2 Google Search Grounding 추가 비용",
+          "level": 2,
+          "line": 93
+        },
+        {
+          "heading": "Part C. 2026 업계 패턴 6종",
+          "level": 1,
+          "line": 107
+        },
+        {
+          "heading": "C.1 Cascading / Routing",
+          "level": 2,
+          "line": 109
+        },
+        {
+          "heading": "C.2 Semantic Cache",
+          "level": 2,
+          "line": 117
+        },
+        {
+          "heading": "C.3 Intent Classification 우선 라우팅",
+          "level": 2,
+          "line": 126
+        },
+        {
+          "heading": "C.4 Small LM for routing (Edge runtime)",
+          "level": 2,
+          "line": 134
+        },
+        {
+          "heading": "C.5 Embedding-based FAQ matching vs ColBERT",
+          "level": 2,
+          "line": 142
+        },
+        {
+          "heading": "C.6 Hybrid RAG + Text-to-SQL",
+          "level": 2,
+          "line": 150
+        },
+        {
+          "heading": "Part D. 한국어 모델 비교",
+          "level": 1,
+          "line": 168
+        },
+        {
+          "heading": "Part E. 권장 아키텍처 (4단 라우팅)",
+          "level": 1,
+          "line": 189
+        },
+        {
+          "heading": "E.1 흐름도",
+          "level": 2,
+          "line": 191
+        },
+        {
+          "heading": "E.2 각 단계 LLM 호출 수",
+          "level": 2,
+          "line": 217
+        },
+        {
+          "heading": "E.3 예상 비용 절감",
+          "level": 2,
+          "line": 226
+        },
+        {
+          "heading": "출처",
+          "level": 2,
+          "line": 237
+        },
+        {
+          "heading": "Routing / Cascading",
+          "level": 3,
+          "line": 239
+        },
+        {
+          "heading": "Semantic Cache",
+          "level": 3,
+          "line": 244
+        },
+        {
+          "heading": "가격 / 모델",
+          "level": 3,
+          "line": 249
+        },
+        {
+          "heading": "Supabase / Deno Edge",
+          "level": 3,
+          "line": 254
+        },
+        {
+          "heading": "Text-to-SQL",
+          "level": 3,
+          "line": 258
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 32
+      }
+    },
+    {
+      "path": "docs/research/tennis-ecosystem.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 563,
+      "nonEmptyLines": 438,
+      "sections": [
+        {
+          "heading": "한국 동호인 테니스 대회 운영 생태계 — 종합 리서치 보고서",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "목차",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "Executive Summary",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "1. 가장 중요한 변화 — 2025-12-12 KTA·KATO 랭킹 통합 협약",
+          "level": 3,
+          "line": 19
+        },
+        {
+          "heading": "2. 단체별 위상 (동호인 체감)",
+          "level": 3,
+          "line": 25
+        },
+        {
+          "heading": "3. 광주·전남 권역 핵심 사실",
+          "level": 3,
+          "line": 34
+        },
+        {
+          "heading": "4. 가장 큰 페인 포인트 (신규 동호인 입장)",
+          "level": 3,
+          "line": 42
+        },
+        {
+          "heading": "5. Match-up 우선 노출 단체 권고",
+          "level": 3,
+          "line": 51
+        },
+        {
+          "heading": "6. 데이터 모델 인사이트 (1차 권고 보강)",
+          "level": 3,
+          "line": 58
+        },
+        {
+          "heading": "Part A. 단체별 대회 위상·규모·문화 비교",
+          "level": 1,
+          "line": 69
+        },
+        {
+          "heading": "A.1 KTA 생활체육 부문 (대한테니스협회)",
+          "level": 2,
+          "line": 71
+        },
+        {
+          "heading": "A.2 KATO (사단법인 한국테니스발전협의회)",
+          "level": 2,
+          "line": 84
+        },
+        {
+          "heading": "A.3 KATA (한국동호인테니스협회 / Korea Amateur Tennis Association)",
+          "level": 2,
+          "line": 98
+        },
+        {
+          "heading": "A.4 KTFS (국민생활체육 전국테니스연합회)",
+          "level": 2,
+          "line": 111
+        },
+        {
+          "heading": "A.5 시니어·사설 투어 (참고)",
+          "level": 2,
+          "line": 125
+        },
+        {
+          "heading": "KSTF (한국시니어테니스연맹)",
+          "level": 3,
+          "line": 127
+        },
+        {
+          "heading": "KSSTA (한국슈퍼시니어테니스협회)",
+          "level": 3,
+          "line": 131
+        },
+        {
+          "heading": "KASTA / 단테매 (단식 테니스 매니아)",
+          "level": 3,
+          "line": 135
+        },
+        {
+          "heading": "A.6 단체간 비교 표",
+          "level": 2,
+          "line": 139
+        },
+        {
+          "heading": "A.7 단체별 문화 차이 (카페·후기 인용)",
+          "level": 2,
+          "line": 150
+        },
+        {
+          "heading": "Part B. 광주·전남 깊이 + 6개 권역 비교",
+          "level": 1,
+          "line": 159
+        },
+        {
+          "heading": "B.1 광주·전남 권역 (★ 시드 지역)",
+          "level": 2,
+          "line": 161
+        },
+        {
+          "heading": "B.1.1 운영 주체 계층",
+          "level": 3,
+          "line": 163
+        },
+        {
+          "heading": "B.1.2 광주·전남 공통 자체 규정 — 핵심",
+          "level": 3,
+          "line": 182
+        },
+        {
+          "heading": "B.1.3 광주·전남 합동 운영 근거",
+          "level": 3,
+          "line": 200
+        },
+        {
+          "heading": "B.1.4 광주 부서 vs KTA 표준 매핑",
+          "level": 3,
+          "line": 212
+        },
+        {
+          "heading": "B.1.5 동호인 가입 흐름 (실제)",
+          "level": 3,
+          "line": 229
+        },
+        {
+          "heading": "B.1.6 광주·전남 연간 대회 캘린더",
+          "level": 3,
+          "line": 250
+        },
+        {
+          "heading": "B.1.7 동호인 페인 포인트",
+          "level": 3,
+          "line": 266
+        },
+        {
+          "heading": "B.2 다른 6개 권역 비교",
+          "level": 2,
+          "line": 272
+        },
+        {
+          "heading": "B.2.1 영남 동남권 (부산·울산·경남)",
+          "level": 3,
+          "line": 274
+        },
+        {
+          "heading": "B.2.2 영남 북부권 (대구·경북)",
+          "level": 3,
+          "line": 279
+        },
+        {
+          "heading": "B.2.3 수도권 (서울·경기·인천)",
+          "level": 3,
+          "line": 284
+        },
+        {
+          "heading": "B.2.4 충청권 (대전·충남·세종·충북)",
+          "level": 3,
+          "line": 289
+        },
+        {
+          "heading": "B.2.5 강원",
+          "level": 3,
+          "line": 294
+        },
+        {
+          "heading": "B.2.6 제주",
+          "level": 3,
+          "line": 299
+        },
+        {
+          "heading": "B.3 권역별 운영 차이 정리표",
+          "level": 2,
+          "line": 310
+        },
+        {
+          "heading": "Part C. 참가 사이클·비용·매너",
+          "level": 1,
+          "line": 324
+        },
+        {
+          "heading": "C.1 참가 사이클",
+          "level": 2,
+          "line": 326
+        },
+        {
+          "heading": "발견 (정보 채널)",
+          "level": 3,
+          "line": 328
+        },
+        {
+          "heading": "검토 → 신청",
+          "level": 3,
+          "line": 337
+        },
+        {
+          "heading": "추첨·대진",
+          "level": 3,
+          "line": 343
+        },
+        {
+          "heading": "당일 → 사후",
+          "level": 3,
+          "line": 349
+        },
+        {
+          "heading": "C.2 비용 구조",
+          "level": 2,
+          "line": 357
+        },
+        {
+          "heading": "C.3 시상·상금 패턴",
+          "level": 2,
+          "line": 378
+        },
+        {
+          "heading": "C.4 코트 인프라 (광주·전남)",
+          "level": 2,
+          "line": 389
+        },
+        {
+          "heading": "광주 주요 코트",
+          "level": 3,
+          "line": 391
+        },
+        {
+          "heading": "전남 주요 코트",
+          "level": 3,
+          "line": 397
+        },
+        {
+          "heading": "사용료 패턴",
+          "level": 3,
+          "line": 403
+        },
+        {
+          "heading": "C.5 매너·분쟁 트렌드",
+          "level": 2,
+          "line": 409
+        },
+        {
+          "heading": "셀프콜 시스템",
+          "level": 3,
+          "line": 411
+        },
+        {
+          "heading": "자주 발생하는 분쟁",
+          "level": 3,
+          "line": 415
+        },
+        {
+          "heading": "분쟁 해결",
+          "level": 3,
+          "line": 423
+        },
+        {
+          "heading": "관행 매너",
+          "level": 3,
+          "line": 428
+        },
+        {
+          "heading": "C.6 동호인 문화 트렌드",
+          "level": 2,
+          "line": 437
+        },
+        {
+          "heading": "C.7 디지털 격차",
+          "level": 2,
+          "line": 453
+        },
+        {
+          "heading": "신규 동호인 정보 접근 장벽",
+          "level": 3,
+          "line": 459
+        },
+        {
+          "heading": "Match-up 데이터 모델 권고 (수정판)",
+          "level": 1,
+          "line": 469
+        },
+        {
+          "heading": "핵심 추가 컬럼",
+          "level": 2,
+          "line": 473
+        },
+        {
+          "heading": "시드 데이터 (예시)",
+          "level": 2,
+          "line": 513
+        },
+        {
+          "heading": "추정 작업량",
+          "level": 2,
+          "line": 533
+        },
+        {
+          "heading": "콘텐츠 작성 우선순위 (rule_articles)",
+          "level": 2,
+          "line": 542
+        },
+        {
+          "heading": "참고 자료",
+          "level": 2,
+          "line": 555
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 63
+      }
+    },
+    {
+      "path": "docs/research/tennis-grade-systems.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 478,
+      "nonEmptyLines": 378,
+      "sections": [
+        {
+          "heading": "한국 동호인 테니스 등급 체계 리서치 보고서",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "0. 핵심 결론 (Executive Summary)",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "가장 중요한 발견 5가지",
+          "level": 3,
+          "line": 11
+        },
+        {
+          "heading": "데이터 모델 권고 (예비)",
+          "level": 3,
+          "line": 34
+        },
+        {
+          "heading": "1. 전국 협회",
+          "level": 2,
+          "line": 57
+        },
+        {
+          "heading": "1.1 대한테니스협회 (KTA, Korea Tennis Association)",
+          "level": 3,
+          "line": 59
+        },
+        {
+          "heading": "1.2 (사)한국테니스발전협의회 (KATO, Korea Amateur Tennis Organization)",
+          "level": 3,
+          "line": 80
+        },
+        {
+          "heading": "1.3 (사)한국테니스진흥협회 (KATA, 구 한국동호인테니스협회)",
+          "level": 3,
+          "line": 101
+        },
+        {
+          "heading": "1.4 국민생활체육전국테니스연합회 (KTFS, \"생체\")",
+          "level": 3,
+          "line": 118
+        },
+        {
+          "heading": "1.5 한국시니어테니스연맹 (KSTF) — 참고용",
+          "level": 3,
+          "line": 126
+        },
+        {
+          "heading": "2. 수도권",
+          "level": 2,
+          "line": 134
+        },
+        {
+          "heading": "2.1 서울 — 서울특별시테니스협회",
+          "level": 3,
+          "line": 136
+        },
+        {
+          "heading": "2.2 경기 — 경기도테니스협회 / 경기도 테니스 연합회",
+          "level": 3,
+          "line": 145
+        },
+        {
+          "heading": "2.3 인천 — 인천광역시테니스협회",
+          "level": 3,
+          "line": 156
+        },
+        {
+          "heading": "3. 광역시 (5개)",
+          "level": 2,
+          "line": 166
+        },
+        {
+          "heading": "3.1 부산 — 부산광역시테니스협회 (BSTA)",
+          "level": 3,
+          "line": 168
+        },
+        {
+          "heading": "3.2 대구 — 대구광역시테니스협회 (DTA)",
+          "level": 3,
+          "line": 178
+        },
+        {
+          "heading": "3.3 광주 — 광주광역시테니스협회 (GJTA) ★ Match-up 시드 지역",
+          "level": 3,
+          "line": 190
+        },
+        {
+          "heading": "3.4 대전 — 대전광역시테니스협회 (DJTA)",
+          "level": 3,
+          "line": 231
+        },
+        {
+          "heading": "3.5 울산 / 세종",
+          "level": 3,
+          "line": 245
+        },
+        {
+          "heading": "울산 — 울산광역시 테니스연합회",
+          "level": 4,
+          "line": 247
+        },
+        {
+          "heading": "세종 — 세종특별자치시 테니스협회",
+          "level": 4,
+          "line": 257
+        },
+        {
+          "heading": "4. 도 (9개)",
+          "level": 2,
+          "line": 265
+        },
+        {
+          "heading": "4.1 강원특별자치도",
+          "level": 3,
+          "line": 267
+        },
+        {
+          "heading": "4.2 충청북도",
+          "level": 3,
+          "line": 275
+        },
+        {
+          "heading": "4.3 충청남도",
+          "level": 3,
+          "line": 283
+        },
+        {
+          "heading": "4.4 전북특별자치도 (구 전라북도)",
+          "level": 3,
+          "line": 291
+        },
+        {
+          "heading": "4.5 전라남도 ★ Match-up 시드 지역",
+          "level": 3,
+          "line": 304
+        },
+        {
+          "heading": "4.6 경상북도",
+          "level": 3,
+          "line": 327
+        },
+        {
+          "heading": "4.7 경상남도",
+          "level": 3,
+          "line": 336
+        },
+        {
+          "heading": "4.8 제주특별자치도",
+          "level": 3,
+          "line": 345
+        },
+        {
+          "heading": "5. 종합 분석",
+          "level": 2,
+          "line": 358
+        },
+        {
+          "heading": "5.1 등급 체계의 다층성",
+          "level": 3,
+          "line": 360
+        },
+        {
+          "heading": "5.2 통합 권역 매핑 (대회 자동 매칭에 활용 가능)",
+          "level": 3,
+          "line": 371
+        },
+        {
+          "heading": "5.3 데이터 모델 권고 (3가지 옵션)",
+          "level": 3,
+          "line": 383
+        },
+        {
+          "heading": "옵션 A. 현재 enum 유지 + rule_articles 텍스트 보강 (가장 빠름)",
+          "level": 4,
+          "line": 385
+        },
+        {
+          "heading": "옵션 B. tennis_division enum + 점수 컬럼 (정형 모델)",
+          "level": 4,
+          "line": 393
+        },
+        {
+          "heading": "옵션 C. 자기신고 자유 텍스트 + 점수 (실용적 절충)",
+          "level": 4,
+          "line": 418
+        },
+        {
+          "heading": "6. 정보 부족·추후 수기 보완 필요 항목",
+          "level": 2,
+          "line": 433
+        },
+        {
+          "heading": "7. 운영적 시사점",
+          "level": 2,
+          "line": 450
+        },
+        {
+          "heading": "8. 다음 단계 (Phase 2 — 모델 결정)",
+          "level": 2,
+          "line": 469
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 41
+      }
+    }
+  ]
+}

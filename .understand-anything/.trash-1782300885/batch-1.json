@@ -1,0 +1,257 @@
+{
+  "nodes": [
+    {
+      "id": "file:supabase/functions/_shared/auth.ts",
+      "type": "file",
+      "name": "auth.ts",
+      "filePath": "supabase/functions/_shared/auth.ts",
+      "summary": "Edge Function 공용 인증 모듈로, 사용자/관리자/service-role/cron-secret 권한을 검증하는 가드 함수들을 제공한다.",
+      "tags": ["middleware", "security", "auth", "utility", "edge-function"],
+      "complexity": "moderate",
+      "languageNotes": "각 가드는 성공 시 supabase 클라이언트를, 실패 시 { error: Response } 를 반환하는 판별 유니온 패턴을 사용한다."
+    },
+    {
+      "id": "function:supabase/functions/_shared/auth.ts:requireUser",
+      "type": "function",
+      "name": "requireUser",
+      "filePath": "supabase/functions/_shared/auth.ts",
+      "lineRange": [15, 43],
+      "summary": "Authorization 헤더의 JWT 로 로그인 사용자를 확인하고 users 테이블에서 role 을 조회해 인증 컨텍스트를 반환한다.",
+      "tags": ["auth", "validation", "jwt", "security"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:supabase/functions/_shared/auth.ts:requireAdmin",
+      "type": "function",
+      "name": "requireAdmin",
+      "filePath": "supabase/functions/_shared/auth.ts",
+      "lineRange": [45, 52],
+      "summary": "requireUser 결과에서 role==='admin' 인지 확인해 관리자 전용 엔드포인트 접근을 통제한다.",
+      "tags": ["auth", "authorization", "admin", "security"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:supabase/functions/_shared/auth.ts:requireServiceRole",
+      "type": "function",
+      "name": "requireServiceRole",
+      "filePath": "supabase/functions/_shared/auth.ts",
+      "lineRange": [54, 68],
+      "summary": "Bearer 토큰이 SERVICE_ROLE_KEY 와 일치하는지 검사해 서버 간 호출 권한을 검증한다.",
+      "tags": ["auth", "service-role", "security", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:supabase/functions/_shared/auth.ts:requireServiceRoleOrAdmin",
+      "type": "function",
+      "name": "requireServiceRoleOrAdmin",
+      "filePath": "supabase/functions/_shared/auth.ts",
+      "lineRange": [83, 94],
+      "summary": "cron-secret·service-role·admin 중 하나라도 충족하면 통과시키는 cron/관리 작업용 복합 인증 가드.",
+      "tags": ["auth", "authorization", "cron", "security"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:supabase/functions/_shared/cors.ts",
+      "type": "file",
+      "name": "cors.ts",
+      "filePath": "supabase/functions/_shared/cors.ts",
+      "summary": "Edge Function 공통 CORS 헤더와 preflight·JSON 응답·에러 응답 헬퍼를 제공하는 응답 유틸리티.",
+      "tags": ["utility", "cors", "http", "serialization", "edge-function"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:supabase/functions/_shared/rate_limit.ts",
+      "type": "file",
+      "name": "rate_limit.ts",
+      "filePath": "supabase/functions/_shared/rate_limit.ts",
+      "summary": "사용자별 요청 횟수를 RPC 로 검사해 한도 초과 시 429 응답과 Retry-After 헤더를 반환하는 rate limit 유틸리티.",
+      "tags": ["utility", "rate-limiting", "security", "middleware"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:supabase/functions/_shared/rate_limit.ts:checkRateLimit",
+      "type": "function",
+      "name": "checkRateLimit",
+      "filePath": "supabase/functions/_shared/rate_limit.ts",
+      "lineRange": [28, 62],
+      "summary": "supabase RPC 로 사용자 요청 카운트를 증가·조회하고 한도 초과 시 Retry-After 가 담긴 429 errorResponse 를 반환한다.",
+      "tags": ["rate-limiting", "rpc", "validation", "security"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:supabase/functions/_shared/supabase.ts",
+      "type": "file",
+      "name": "supabase.ts",
+      "filePath": "supabase/functions/_shared/supabase.ts",
+      "summary": "환경변수를 검증해 사용자 토큰 기반 클라이언트(userClient)와 service-role 클라이언트(serviceClient)를 생성하는 Supabase 클라이언트 팩토리.",
+      "tags": ["utility", "factory", "supabase", "configuration", "edge-function"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:supabase/functions/_shared/supabase.ts:userClient",
+      "type": "function",
+      "name": "userClient",
+      "filePath": "supabase/functions/_shared/supabase.ts",
+      "lineRange": [13, 20],
+      "summary": "전달받은 Authorization 헤더로 RLS 가 적용되는 사용자 컨텍스트 Supabase 클라이언트를 생성한다.",
+      "tags": ["factory", "supabase", "rls", "auth"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:supabase/functions/chat-history/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "supabase/functions/chat-history/index.ts",
+      "summary": "로그인 사용자의 대화 목록·메시지를 조회(GET)하고 본인 대화를 삭제(DELETE)하는 chat-history Edge Function 핸들러.",
+      "tags": ["api-handler", "entry-point", "edge-function", "chat"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:supabase/functions/clubs-approve/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "supabase/functions/clubs-approve/index.ts",
+      "summary": "관리자가 클럽 생성 요청을 승인·거절하는 clubs-approve Edge Function 핸들러(POST).",
+      "tags": ["api-handler", "entry-point", "edge-function", "admin", "clubs"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:supabase/functions/clubs-create/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "supabase/functions/clubs-create/index.ts",
+      "summary": "사용자가 status='pending' 상태로 클럽 생성을 요청하는 clubs-create Edge Function 핸들러(POST).",
+      "tags": ["api-handler", "entry-point", "edge-function", "clubs"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:supabase/functions/clubs-join/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "supabase/functions/clubs-join/index.ts",
+      "summary": "클럽 가입 신청·취소·탈퇴·강퇴 액션을 처리하는 clubs-join Edge Function 핸들러(POST).",
+      "tags": ["api-handler", "entry-point", "edge-function", "clubs"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:supabase/functions/clubs-review-join/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "supabase/functions/clubs-review-join/index.ts",
+      "summary": "클럽장·운영진이 가입 신청을 승인·거절하는 clubs-review-join Edge Function 핸들러(POST).",
+      "tags": ["api-handler", "entry-point", "edge-function", "clubs"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:supabase/functions/clubs-search/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "supabase/functions/clubs-search/index.ts",
+      "summary": "스포츠·지역·키워드로 클럽을 검색하는 clubs-search Edge Function 핸들러(GET). PostgREST .or() 메타문자를 제거해 주입을 방어한다.",
+      "tags": ["api-handler", "entry-point", "edge-function", "search", "security"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:supabase/functions/health/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "supabase/functions/health/index.ts",
+      "summary": "헬스 체크용 최소 Edge Function 핸들러로 상태 확인 응답을 반환한다.",
+      "tags": ["api-handler", "entry-point", "edge-function", "monitoring"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:supabase/functions/notify-cron/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "supabase/functions/notify-cron/index.ts",
+      "summary": "pg_cron 이 매시간 호출해 즐겨찾기 대회의 D-3·신청 마감 알림을 생성하고 FCM 으로 푸시 발송하는 notify-cron Edge Function.",
+      "tags": ["api-handler", "entry-point", "edge-function", "cron", "notification"],
+      "complexity": "moderate",
+      "languageNotes": "notifications 의 unique idx(user, reference, type) 로 중복 발송을 방지하고, FCM_SERVER_KEY 미설정 시에도 로직 검증이 가능하도록 설계됨."
+    },
+    {
+      "id": "function:supabase/functions/notify-cron/index.ts:sendFcm",
+      "type": "function",
+      "name": "sendFcm",
+      "filePath": "supabase/functions/notify-cron/index.ts",
+      "lineRange": [31, 50],
+      "summary": "FCM_SERVER_KEY 가 설정된 경우 다중 토큰에 대해 FCM HTTP API 로 푸시 알림을 발송한다.",
+      "tags": ["notification", "fcm", "http", "integration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:supabase/functions/tournaments-approve/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "supabase/functions/tournaments-approve/index.ts",
+      "summary": "관리자가 대회를 published 로 승인하거나 사유와 함께 rejected 로 거절하는 tournaments-approve Edge Function 핸들러(POST).",
+      "tags": ["api-handler", "entry-point", "edge-function", "admin", "tournaments"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {"source": "file:supabase/functions/_shared/auth.ts", "target": "file:supabase/functions/_shared/cors.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/_shared/auth.ts", "target": "file:supabase/functions/_shared/supabase.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/_shared/auth.ts", "target": "function:supabase/functions/_shared/auth.ts:requireUser", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/auth.ts", "target": "function:supabase/functions/_shared/auth.ts:requireAdmin", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/auth.ts", "target": "function:supabase/functions/_shared/auth.ts:requireServiceRole", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/auth.ts", "target": "function:supabase/functions/_shared/auth.ts:requireServiceRoleOrAdmin", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/auth.ts", "target": "function:supabase/functions/_shared/auth.ts:requireUser", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/_shared/auth.ts", "target": "function:supabase/functions/_shared/auth.ts:requireAdmin", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/_shared/auth.ts", "target": "function:supabase/functions/_shared/auth.ts:requireServiceRole", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/_shared/auth.ts", "target": "function:supabase/functions/_shared/auth.ts:requireServiceRoleOrAdmin", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/auth.ts:requireUser", "target": "function:supabase/functions/_shared/supabase.ts:userClient", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/auth.ts:requireAdmin", "target": "function:supabase/functions/_shared/auth.ts:requireUser", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/auth.ts:requireServiceRoleOrAdmin", "target": "function:supabase/functions/_shared/auth.ts:requireServiceRole", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/auth.ts:requireServiceRoleOrAdmin", "target": "function:supabase/functions/_shared/auth.ts:requireAdmin", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:supabase/functions/_shared/rate_limit.ts", "target": "file:supabase/functions/_shared/cors.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/_shared/rate_limit.ts", "target": "function:supabase/functions/_shared/rate_limit.ts:checkRateLimit", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/rate_limit.ts", "target": "function:supabase/functions/_shared/rate_limit.ts:checkRateLimit", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:supabase/functions/_shared/supabase.ts", "target": "function:supabase/functions/_shared/supabase.ts:userClient", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/supabase.ts", "target": "function:supabase/functions/_shared/supabase.ts:userClient", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:supabase/functions/chat-history/index.ts", "target": "file:supabase/functions/_shared/auth.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/chat-history/index.ts", "target": "file:supabase/functions/_shared/cors.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/chat-history/index.ts", "target": "function:supabase/functions/_shared/auth.ts:requireUser", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:supabase/functions/clubs-approve/index.ts", "target": "file:supabase/functions/_shared/auth.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/clubs-approve/index.ts", "target": "file:supabase/functions/_shared/cors.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/clubs-approve/index.ts", "target": "file:supabase/functions/_shared/supabase.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/clubs-approve/index.ts", "target": "function:supabase/functions/_shared/auth.ts:requireAdmin", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:supabase/functions/clubs-create/index.ts", "target": "file:supabase/functions/_shared/auth.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/clubs-create/index.ts", "target": "file:supabase/functions/_shared/cors.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/clubs-create/index.ts", "target": "file:supabase/functions/_shared/supabase.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/clubs-create/index.ts", "target": "function:supabase/functions/_shared/auth.ts:requireUser", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:supabase/functions/clubs-join/index.ts", "target": "file:supabase/functions/_shared/auth.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/clubs-join/index.ts", "target": "file:supabase/functions/_shared/cors.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/clubs-join/index.ts", "target": "file:supabase/functions/_shared/supabase.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/clubs-join/index.ts", "target": "function:supabase/functions/_shared/auth.ts:requireUser", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:supabase/functions/clubs-review-join/index.ts", "target": "file:supabase/functions/_shared/auth.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/clubs-review-join/index.ts", "target": "file:supabase/functions/_shared/cors.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/clubs-review-join/index.ts", "target": "file:supabase/functions/_shared/supabase.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/clubs-review-join/index.ts", "target": "function:supabase/functions/_shared/auth.ts:requireUser", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:supabase/functions/clubs-search/index.ts", "target": "file:supabase/functions/_shared/auth.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/clubs-search/index.ts", "target": "file:supabase/functions/_shared/cors.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/clubs-search/index.ts", "target": "file:supabase/functions/_shared/supabase.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/clubs-search/index.ts", "target": "function:supabase/functions/_shared/auth.ts:requireUser", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:supabase/functions/health/index.ts", "target": "file:supabase/functions/_shared/cors.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:supabase/functions/notify-cron/index.ts", "target": "file:supabase/functions/_shared/auth.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/notify-cron/index.ts", "target": "file:supabase/functions/_shared/cors.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/notify-cron/index.ts", "target": "file:supabase/functions/_shared/supabase.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/notify-cron/index.ts", "target": "function:supabase/functions/notify-cron/index.ts:sendFcm", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/notify-cron/index.ts", "target": "function:supabase/functions/_shared/auth.ts:requireServiceRoleOrAdmin", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:supabase/functions/tournaments-approve/index.ts", "target": "file:supabase/functions/_shared/auth.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/tournaments-approve/index.ts", "target": "file:supabase/functions/_shared/cors.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/tournaments-approve/index.ts", "target": "function:supabase/functions/_shared/auth.ts:requireAdmin", "type": "calls", "direction": "forward", "weight": 0.8}
+  ]
+}

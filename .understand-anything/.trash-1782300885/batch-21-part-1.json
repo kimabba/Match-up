@@ -1,0 +1,156 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/lib/screens/auth/login_screen.dart",
+      "type": "file",
+      "name": "login_screen.dart",
+      "filePath": "app/lib/screens/auth/login_screen.dart",
+      "summary": "카카오·구글·이메일 소셜 로그인과 회원가입을 처리하는 인증 화면. 인트로 애니메이션(테니스볼 painter)과 이메일 인증 bottom sheet, 마케팅 동의 UI를 포함한다.",
+      "tags": ["api-handler", "component", "validation", "event-handler"],
+      "complexity": "complex",
+      "languageNotes": "다수의 private StatelessWidget과 CustomPainter(_TennisBallPainter)로 인트로 비주얼을 구성하는 Flutter 위젯 패턴."
+    },
+    {
+      "id": "class:app/lib/screens/auth/login_screen.dart:_LoginScreenState",
+      "type": "class",
+      "name": "_LoginScreenState",
+      "filePath": "app/lib/screens/auth/login_screen.dart",
+      "lineRange": [21, 380],
+      "summary": "로그인 화면의 상태를 관리하며 이메일 인증·구글 로그인·모드 전환·인증 sheet 표시 로직을 담은 State 클래스.",
+      "tags": ["state-management", "event-handler", "validation"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/lib/screens/auth/login_screen.dart:_TennisBallPainter",
+      "type": "class",
+      "name": "_TennisBallPainter",
+      "filePath": "app/lib/screens/auth/login_screen.dart",
+      "lineRange": [402, 459],
+      "summary": "인트로 화면의 테니스공을 그리는 CustomPainter.",
+      "tags": ["component", "rendering"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/lib/screens/auth/onboarding_screen.dart",
+      "type": "file",
+      "name": "onboarding_screen.dart",
+      "filePath": "app/lib/screens/auth/onboarding_screen.dart",
+      "summary": "신규 사용자 온보딩 다단계 플로우(닉네임·지역·종목·테니스 협회 등록)를 단계별 진행 상태와 함께 처리하는 화면.",
+      "tags": ["component", "validation", "state-management", "event-handler"],
+      "complexity": "complex",
+      "languageNotes": "step progress UI와 단계 검증(_canAdvance/_canSubmit) 로직을 갖춘 멀티스텝 폼."
+    },
+    {
+      "id": "class:app/lib/screens/auth/onboarding_screen.dart:_OnboardingScreenState",
+      "type": "class",
+      "name": "_OnboardingScreenState",
+      "filePath": "app/lib/screens/auth/onboarding_screen.dart",
+      "lineRange": [23, 684],
+      "summary": "온보딩 단계 전환·검증·협회 추가/삭제·최종 제출(_submit)을 관리하며 각 단계 UI를 빌드하는 State 클래스.",
+      "tags": ["state-management", "validation", "event-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/lib/screens/chat_screen.dart",
+      "type": "file",
+      "name": "chat_screen.dart",
+      "filePath": "app/lib/screens/chat_screen.dart",
+      "summary": "규정·대회 정보 RAG 챗봇 화면. SSE 스트림으로 응답을 소비하고 대회 카드 엔티티를 함께 표시한다.",
+      "tags": ["component", "api-handler", "event-handler", "service"],
+      "complexity": "moderate",
+      "languageNotes": "_consumeChatStream으로 SSE 기반 챗 스트림을 처리하는 RAG 클라이언트."
+    },
+    {
+      "id": "class:app/lib/screens/chat_screen.dart:_ChatScreenState",
+      "type": "class",
+      "name": "_ChatScreenState",
+      "filePath": "app/lib/screens/chat_screen.dart",
+      "lineRange": [31, 209],
+      "summary": "메시지 전송·SSE 스트림 소비·에러 포맷·스크롤 제어를 담당하는 챗 화면 State 클래스.",
+      "tags": ["state-management", "api-handler", "event-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/lib/screens/clubs_screen.dart",
+      "type": "file",
+      "name": "clubs_screen.dart",
+      "filePath": "app/lib/screens/clubs_screen.dart",
+      "summary": "동호회(클럽) 탐색·추천·필터링·팀원 모집 게시판을 통합한 대형 화면. 내 클럽 로드, 근처 신규 클럽 sheet, 검색 필터를 포함한다.",
+      "tags": ["component", "api-handler", "state-management", "service"],
+      "complexity": "complex",
+      "languageNotes": "34개 위젯/State 클래스를 한 파일에 모은 거대 화면으로 클럽 필터·모집글·로고 아바타 등 다수의 sub-widget 포함."
+    },
+    {
+      "id": "class:app/lib/screens/clubs_screen.dart:_ClubsScreenState",
+      "type": "class",
+      "name": "_ClubsScreenState",
+      "filePath": "app/lib/screens/clubs_screen.dart",
+      "lineRange": [21, 384],
+      "summary": "내 클럽·추천 클럽 로드, 생성/필터/모집 sheet 오픈, 클럽 필터 매칭 등 클럽 화면 핵심 상태를 관리하는 State 클래스.",
+      "tags": ["state-management", "api-handler", "validation"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/lib/screens/clubs_screen.dart:_TeamRecruitingDraftSheetState",
+      "type": "class",
+      "name": "_TeamRecruitingDraftSheetState",
+      "filePath": "app/lib/screens/clubs_screen.dart",
+      "lineRange": [1322, 1655],
+      "summary": "팀원 모집글 작성 draft sheet의 상태를 관리하며 종목·급수·인원수·사진 입력을 처리한다.",
+      "tags": ["state-management", "validation", "event-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app/lib/screens/clubs_screen.dart:_ClubSearchFilters",
+      "type": "class",
+      "name": "_ClubSearchFilters",
+      "filePath": "app/lib/screens/clubs_screen.dart",
+      "lineRange": [2140, 2185],
+      "summary": "클럽 검색 필터 값을 담는 불변 모델로 copyWith·labels·cleared 헬퍼를 제공한다.",
+      "tags": ["data-model", "validation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/lib/screens/clubs/club_create_screen.dart",
+      "type": "file",
+      "name": "club_create_screen.dart",
+      "filePath": "app/lib/screens/clubs/club_create_screen.dart",
+      "summary": "신규 클럽 생성 화면. 클럽 정보 입력, 로고 이미지 선택·업로드, 주소 선택 sheet를 통해 클럽을 등록한다.",
+      "tags": ["component", "api-handler", "validation", "event-handler"],
+      "complexity": "complex",
+      "languageNotes": "로고 picker·주소 picker sheet와 파일 확장자/콘텐츠 타입 추론 헬퍼를 포함."
+    },
+    {
+      "id": "class:app/lib/screens/clubs/club_create_screen.dart:_ClubCreateScreenState",
+      "type": "class",
+      "name": "_ClubCreateScreenState",
+      "filePath": "app/lib/screens/clubs/club_create_screen.dart",
+      "lineRange": [18, 470],
+      "summary": "클럽 생성 폼 제출·로고 선택/업로드·주소 picker·커스텀 주소 입력 다이얼로그를 관리하는 State 클래스.",
+      "tags": ["state-management", "api-handler", "validation"],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {"source": "file:app/lib/screens/auth/login_screen.dart", "target": "class:app/lib/screens/auth/login_screen.dart:_LoginScreenState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/auth/login_screen.dart", "target": "class:app/lib/screens/auth/login_screen.dart:_TennisBallPainter", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/auth/login_screen.dart", "target": "file:app/lib/state/providers.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:app/lib/screens/auth/onboarding_screen.dart", "target": "class:app/lib/screens/auth/onboarding_screen.dart:_OnboardingScreenState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/auth/onboarding_screen.dart", "target": "file:app/lib/state/providers.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:app/lib/screens/chat_screen.dart", "target": "class:app/lib/screens/chat_screen.dart:_ChatScreenState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/chat_screen.dart", "target": "file:app/lib/services/api.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:app/lib/screens/chat_screen.dart", "target": "file:app/lib/state/providers.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:app/lib/screens/chat_screen.dart", "target": "file:app/lib/services/api.dart", "type": "depends_on", "direction": "forward", "weight": 0.6},
+
+    {"source": "file:app/lib/screens/clubs_screen.dart", "target": "class:app/lib/screens/clubs_screen.dart:_ClubsScreenState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/clubs_screen.dart", "target": "class:app/lib/screens/clubs_screen.dart:_TeamRecruitingDraftSheetState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/clubs_screen.dart", "target": "class:app/lib/screens/clubs_screen.dart:_ClubSearchFilters", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/clubs_screen.dart", "target": "file:app/lib/state/providers.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:app/lib/screens/clubs_screen.dart", "target": "file:app/lib/screens/clubs/club_create_screen.dart", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:app/lib/screens/clubs/club_create_screen.dart", "target": "class:app/lib/screens/clubs/club_create_screen.dart:_ClubCreateScreenState", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:app/lib/screens/clubs/club_create_screen.dart", "target": "file:app/lib/state/providers.dart", "type": "imports", "direction": "forward", "weight": 0.7}
+  ]
+}

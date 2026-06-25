@@ -1,0 +1,5347 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "app/test/grade_labels_test.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 142,
+      "nonEmptyLines": 122,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 4,
+          "endLine": 4,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 5
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 6
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 7
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 11
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 21
+        },
+        {
+          "caller": "main",
+          "callee": "gradeLabel",
+          "lineNumber": 21
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 22
+        },
+        {
+          "caller": "main",
+          "callee": "gradeLabel",
+          "lineNumber": 22
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 23
+        },
+        {
+          "caller": "main",
+          "callee": "gradeLabel",
+          "lineNumber": 23
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 24
+        },
+        {
+          "caller": "main",
+          "callee": "gradeLabel",
+          "lineNumber": 24
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "gradeLabel",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "sportLabel",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "sportLabel",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 30
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 31
+        },
+        {
+          "caller": "main",
+          "callee": "sportFromString",
+          "lineNumber": 31
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "sportFromString",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "sportToString",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "sportToString",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "gradesFor",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "gradesFor",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "tennisDivisionLabels",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "toSet",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 51
+        },
+        {
+          "caller": "main",
+          "callee": "contains",
+          "lineNumber": 51
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "contains",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "contains",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "contains",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 57
+        },
+        {
+          "caller": "main",
+          "callee": "tennisCodesForLabel",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "containsAll",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "every",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "endsWith",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "tennisCodesForLabel",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "containsAll",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 69
+        },
+        {
+          "caller": "main",
+          "callee": "tennisCodesForLabel",
+          "lineNumber": 69
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "tennisCodesForLabels",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 74
+        },
+        {
+          "caller": "main",
+          "callee": "containsAll",
+          "lineNumber": 74
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 75
+        },
+        {
+          "caller": "main",
+          "callee": "containsAll",
+          "lineNumber": 75
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "toSet",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 81
+        },
+        {
+          "caller": "main",
+          "callee": "tennisCodesForLabels",
+          "lineNumber": 81
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 84
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 87
+        },
+        {
+          "caller": "main",
+          "callee": "tennisCodesForLabel",
+          "lineNumber": 87
+        },
+        {
+          "caller": "main",
+          "callee": "contains",
+          "lineNumber": 87
+        },
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 92
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 93
+        },
+        {
+          "caller": "main",
+          "callee": "tennisDivisionLabelsForOrg",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 95
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "contains",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "contains",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 99
+        },
+        {
+          "caller": "main",
+          "callee": "toSet",
+          "lineNumber": 99
+        },
+        {
+          "caller": "main",
+          "callee": "divisionsForOrg",
+          "lineNumber": 101
+        },
+        {
+          "caller": "main",
+          "callee": "map",
+          "lineNumber": 101
+        },
+        {
+          "caller": "main",
+          "callee": "toSet",
+          "lineNumber": 101
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 102
+        },
+        {
+          "caller": "main",
+          "callee": "toSet",
+          "lineNumber": 102
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 105
+        },
+        {
+          "caller": "main",
+          "callee": "tennisDivisionLabelsForOrg",
+          "lineNumber": 106
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 107
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 110
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "tennisDivisionLabelsForOrg",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "tennisCodesForLabelInOrg",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 116
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "isNot",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "contains",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 120
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 121
+        },
+        {
+          "caller": "main",
+          "callee": "tennisCodesForLabelInOrg",
+          "lineNumber": 121
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 124
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 126
+        },
+        {
+          "caller": "main",
+          "callee": "tennisCodesForLabelInOrg",
+          "lineNumber": 126
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 129
+        },
+        {
+          "caller": "main",
+          "callee": "tennisCodesForLabelsInOrg",
+          "lineNumber": 130
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 131
+        },
+        {
+          "caller": "main",
+          "callee": "containsAll",
+          "lineNumber": 131
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 132
+        },
+        {
+          "caller": "main",
+          "callee": "isNot",
+          "lineNumber": 132
+        },
+        {
+          "caller": "main",
+          "callee": "contains",
+          "lineNumber": 132
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 135
+        },
+        {
+          "caller": "main",
+          "callee": "tennisCodesForLabelInOrg",
+          "lineNumber": 136
+        },
+        {
+          "caller": "main",
+          "callee": "toSet",
+          "lineNumber": 136
+        },
+        {
+          "caller": "main",
+          "callee": "tennisCodesForLabel",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "toSet",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "containsAll",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 139
+        },
+        {
+          "caller": "main",
+          "callee": "lessThan",
+          "lineNumber": 139
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/test/regulation_body_lines_test.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 149,
+      "nonEmptyLines": 130,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 4,
+          "endLine": 4,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 5
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 6
+        },
+        {
+          "caller": "main",
+          "callee": "parseRegulationBody",
+          "lineNumber": 7
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 8
+        },
+        {
+          "caller": "main",
+          "callee": "map",
+          "lineNumber": 8
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 11
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "parseRegulationBody",
+          "lineNumber": 15
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 16
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "parseRegulationBody",
+          "lineNumber": 21
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 22
+        },
+        {
+          "caller": "main",
+          "callee": "map",
+          "lineNumber": 22
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 24
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "parseRegulationBody",
+          "lineNumber": 30
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 31
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "parseRegulationBody",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "parseRegulationBody",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "parseRegulationBody",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "parseRegulationBody",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 62
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "parseRegulationBody",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 70
+        },
+        {
+          "caller": "main",
+          "callee": "parseRegulationBody",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "map",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 74
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 75
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 76
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "parseRegulationBody",
+          "lineNumber": 82
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 83
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 86
+        },
+        {
+          "caller": "main",
+          "callee": "parseRegulationBody",
+          "lineNumber": 87
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 88
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 93
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "parseRegulationBody",
+          "lineNumber": 95
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 98
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 99
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 100
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 101
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 102
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 103
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 106
+        },
+        {
+          "caller": "main",
+          "callee": "parseRegulationBody",
+          "lineNumber": 107
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 109
+        },
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 113
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "parseRegulationBody",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 116
+        },
+        {
+          "caller": "main",
+          "callee": "map",
+          "lineNumber": 116
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 118
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 121
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "parseRegulationBody",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 126
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 127
+        },
+        {
+          "caller": "main",
+          "callee": "cleanPlainRegulationLines",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 134
+        },
+        {
+          "caller": "main",
+          "callee": "any",
+          "lineNumber": 134
+        },
+        {
+          "caller": "main",
+          "callee": "startsWith",
+          "lineNumber": 134
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 135
+        },
+        {
+          "caller": "main",
+          "callee": "where",
+          "lineNumber": 135
+        },
+        {
+          "caller": "main",
+          "callee": "startsWith",
+          "lineNumber": 135
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 136
+        },
+        {
+          "caller": "main",
+          "callee": "where",
+          "lineNumber": 136
+        },
+        {
+          "caller": "main",
+          "callee": "startsWith",
+          "lineNumber": 136
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "contains",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "every",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "contains",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 141
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 142
+        },
+        {
+          "caller": "main",
+          "callee": "cleanPlainRegulationLines",
+          "lineNumber": 142
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 145
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 146
+        },
+        {
+          "caller": "main",
+          "callee": "cleanPlainRegulationLines",
+          "lineNumber": 146
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/test/rule_article_test.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 29,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 4,
+          "endLine": 4,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 5
+        },
+        {
+          "caller": "main",
+          "callee": "fromJson",
+          "lineNumber": 6
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 18
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 22
+        },
+        {
+          "caller": "main",
+          "callee": "fromJson",
+          "lineNumber": 23
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/test/speed_calculator_test.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 67,
+      "nonEmptyLines": 60,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 5,
+          "endLine": 5,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 6
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 7
+        },
+        {
+          "caller": "main",
+          "callee": "pixelToReal",
+          "lineNumber": 8
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 18
+        },
+        {
+          "caller": "main",
+          "callee": "closeTo",
+          "lineNumber": 18
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "closeTo",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 22
+        },
+        {
+          "caller": "main",
+          "callee": "calculate",
+          "lineNumber": 23
+        },
+        {
+          "caller": "main",
+          "callee": "BallPosition",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "CourtCalibration",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 46
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "BallPosition",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "BallPosition",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "BallPosition",
+          "lineNumber": 57
+        },
+        {
+          "caller": "main",
+          "callee": "kalmanSmooth",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 62
+        },
+        {
+          "caller": "main",
+          "callee": "hasLength",
+          "lineNumber": 62
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "map",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "map",
+          "lineNumber": 64
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/test/tournament_card_info_test.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 98,
+      "nonEmptyLines": 81,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 4,
+          "endLine": 4,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 8
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 9
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 11
+        },
+        {
+          "caller": "main",
+          "callee": "compute",
+          "lineNumber": 12
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 13
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 15
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 18
+        },
+        {
+          "caller": "main",
+          "callee": "compute",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 21
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 22
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "compute",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "compute",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "compute",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 41
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 42
+        },
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 46
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "tournamentDateText",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 51
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "tournamentDateText",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "tournamentDateText",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "applicationDeadlineText",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "applicationDeadlineText",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 76
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 78
+        },
+        {
+          "caller": "main",
+          "callee": "locationText",
+          "lineNumber": 78
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 81
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 82
+        },
+        {
+          "caller": "main",
+          "callee": "locationText",
+          "lineNumber": 82
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 86
+        },
+        {
+          "caller": "main",
+          "callee": "locationText",
+          "lineNumber": 86
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 90
+        },
+        {
+          "caller": "main",
+          "callee": "locationText",
+          "lineNumber": 90
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 93
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "locationText",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 95
+        },
+        {
+          "caller": "main",
+          "callee": "locationText",
+          "lineNumber": 95
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/test/tournament_card_test.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 74,
+      "nonEmptyLines": 66,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 7,
+          "endLine": 7,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "setUpAll",
+          "lineNumber": 9
+        },
+        {
+          "caller": "main",
+          "callee": "initializeDateFormatting",
+          "lineNumber": 10
+        },
+        {
+          "caller": "makeTournament",
+          "callee": "Tournament",
+          "lineNumber": 19
+        },
+        {
+          "caller": "makeTournament",
+          "callee": "DateTime",
+          "lineNumber": 24
+        },
+        {
+          "caller": "wrap",
+          "callee": "MaterialApp",
+          "lineNumber": 34
+        },
+        {
+          "caller": "wrap",
+          "callee": "Scaffold",
+          "lineNumber": 35
+        },
+        {
+          "caller": "wrap",
+          "callee": "TournamentCard",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "testWidgets",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "pumpWidget",
+          "lineNumber": 41
+        },
+        {
+          "caller": "main",
+          "callee": "wrap",
+          "lineNumber": 41
+        },
+        {
+          "caller": "main",
+          "callee": "makeTournament",
+          "lineNumber": 41
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 42
+        },
+        {
+          "caller": "main",
+          "callee": "text",
+          "lineNumber": 42
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "textContaining",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "testWidgets",
+          "lineNumber": 46
+        },
+        {
+          "caller": "main",
+          "callee": "pumpWidget",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "wrap",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "makeTournament",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "text",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "textContaining",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "textContaining",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "testWidgets",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "pumpWidget",
+          "lineNumber": 57
+        },
+        {
+          "caller": "main",
+          "callee": "wrap",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "makeTournament",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "text",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "testWidgets",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "pumpWidget",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "wrap",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "makeTournament",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "text",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "testWidgets",
+          "lineNumber": 70
+        },
+        {
+          "caller": "main",
+          "callee": "pumpWidget",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "wrap",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "makeTournament",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "text",
+          "lineNumber": 72
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/test/tournament_filters_test.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 124,
+      "nonEmptyLines": 105,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 4,
+          "endLine": 4,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 5
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 6
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 7
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 8
+        },
+        {
+          "caller": "main",
+          "callee": "dateRangeForPreset",
+          "lineNumber": 8
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 9
+        },
+        {
+          "caller": "main",
+          "callee": "dateRangeForPreset",
+          "lineNumber": 9
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 12
+        },
+        {
+          "caller": "main",
+          "callee": "dateRangeForPreset",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 15
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 15
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 16
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 16
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "dateRangeForPreset",
+          "lineNumber": 21
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 21
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 22
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 22
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 23
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 23
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "dateRangeForPreset",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 30
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 30
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "dateRangeForPreset",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "dateRangeForPreset",
+          "lineNumber": 42
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 42
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "dateRangeForPreset",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 51
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 51
+        },
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "presetForRange",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 62
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "presetForRange",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 69
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 70
+        },
+        {
+          "caller": "main",
+          "callee": "presetForRange",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 76
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "presetForRange",
+          "lineNumber": 78
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 78
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 78
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 83
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 84
+        },
+        {
+          "caller": "main",
+          "callee": "presetForRange",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 90
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 91
+        },
+        {
+          "caller": "main",
+          "callee": "presetForRange",
+          "lineNumber": 91
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 91
+        },
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 95
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "recruitingStatusToParam",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 100
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 101
+        },
+        {
+          "caller": "main",
+          "callee": "recruitingStatusToParam",
+          "lineNumber": 101
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 104
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 105
+        },
+        {
+          "caller": "main",
+          "callee": "recruitingStatusToParam",
+          "lineNumber": 105
+        },
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 109
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 110
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "datePresetLabel",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 112
+        },
+        {
+          "caller": "main",
+          "callee": "datePresetLabel",
+          "lineNumber": 112
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 113
+        },
+        {
+          "caller": "main",
+          "callee": "datePresetLabel",
+          "lineNumber": 113
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "datePresetLabel",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "datePresetLabel",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 118
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 119
+        },
+        {
+          "caller": "main",
+          "callee": "recruitingStatusLabel",
+          "lineNumber": 119
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 120
+        },
+        {
+          "caller": "main",
+          "callee": "recruitingStatusLabel",
+          "lineNumber": 120
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 121
+        },
+        {
+          "caller": "main",
+          "callee": "recruitingStatusLabel",
+          "lineNumber": 121
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/test/tournament_regulation_test.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 151,
+      "nonEmptyLines": 134,
+      "functions": [
+        {
+          "name": "_baseJson",
+          "startLine": 4,
+          "endLine": 4,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 12,
+          "endLine": 12,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 13
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "_baseJson",
+          "lineNumber": 15
+        },
+        {
+          "caller": "main",
+          "callee": "fromJson",
+          "lineNumber": 21
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 22
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 23
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 24
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "fromJson",
+          "lineNumber": 30
+        },
+        {
+          "caller": "main",
+          "callee": "_baseJson",
+          "lineNumber": 30
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 31
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "_baseJson",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "fromJson",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 46
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "_baseJson",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "fromJson",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "_baseJson",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "fromJson",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 69
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 70
+        },
+        {
+          "caller": "main",
+          "callee": "_baseJson",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "fromJson",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 74
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "fromJson",
+          "lineNumber": 78
+        },
+        {
+          "caller": "main",
+          "callee": "_baseJson",
+          "lineNumber": 78
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 79
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 82
+        },
+        {
+          "caller": "main",
+          "callee": "_baseJson",
+          "lineNumber": 83
+        },
+        {
+          "caller": "main",
+          "callee": "fromJson",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 86
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "_baseJson",
+          "lineNumber": 90
+        },
+        {
+          "caller": "main",
+          "callee": "fromJson",
+          "lineNumber": 91
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 92
+        },
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "_baseJson",
+          "lineNumber": 99
+        },
+        {
+          "caller": "main",
+          "callee": "fromJson",
+          "lineNumber": 100
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 101
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 102
+        },
+        {
+          "caller": "main",
+          "callee": "split",
+          "lineNumber": 102
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 103
+        },
+        {
+          "caller": "main",
+          "callee": "contains",
+          "lineNumber": 103
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 106
+        },
+        {
+          "caller": "main",
+          "callee": "fromJson",
+          "lineNumber": 107
+        },
+        {
+          "caller": "main",
+          "callee": "_baseJson",
+          "lineNumber": 107
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "_baseJson",
+          "lineNumber": 112
+        },
+        {
+          "caller": "main",
+          "callee": "fromJson",
+          "lineNumber": 113
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 118
+        },
+        {
+          "caller": "main",
+          "callee": "fromJson",
+          "lineNumber": 119
+        },
+        {
+          "caller": "main",
+          "callee": "_baseJson",
+          "lineNumber": 119
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 123
+        },
+        {
+          "caller": "main",
+          "callee": "fromJson",
+          "lineNumber": 124
+        },
+        {
+          "caller": "main",
+          "callee": "_baseJson",
+          "lineNumber": 124
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 130
+        },
+        {
+          "caller": "main",
+          "callee": "_baseJson",
+          "lineNumber": 131
+        },
+        {
+          "caller": "main",
+          "callee": "fromJson",
+          "lineNumber": 132
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 139
+        },
+        {
+          "caller": "main",
+          "callee": "tryFromJson",
+          "lineNumber": 139
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 140
+        },
+        {
+          "caller": "main",
+          "callee": "tryFromJson",
+          "lineNumber": 140
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 141
+        },
+        {
+          "caller": "main",
+          "callee": "tryFromJson",
+          "lineNumber": 141
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 144
+        },
+        {
+          "caller": "main",
+          "callee": "tryFromJson",
+          "lineNumber": 145
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 146
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 147
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 148
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/test/tournament_search_query_test.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 79,
+      "nonEmptyLines": 72,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 4,
+          "endLine": 4,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 5
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 6
+        },
+        {
+          "caller": "main",
+          "callee": "buildTournamentSearchQuery",
+          "lineNumber": 7
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 8
+        },
+        {
+          "caller": "main",
+          "callee": "toSet",
+          "lineNumber": 8
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 9
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 11
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "buildTournamentSearchQuery",
+          "lineNumber": 15
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 24
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 30
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 31
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "buildTournamentSearchQuery",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "buildTournamentSearchQuery",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 51
+        },
+        {
+          "caller": "main",
+          "callee": "containsKey",
+          "lineNumber": 51
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "containsKey",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "containsKey",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "containsKey",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "containsKey",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "containsKey",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 57
+        },
+        {
+          "caller": "main",
+          "callee": "containsKey",
+          "lineNumber": 57
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "buildTournamentSearchQuery",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 62
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "buildTournamentSearchQuery",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "buildTournamentSearchQuery",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "buildTournamentSearchQuery",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "containsKey",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 74
+        },
+        {
+          "caller": "main",
+          "callee": "buildTournamentSearchQuery",
+          "lineNumber": 75
+        },
+        {
+          "caller": "main",
+          "callee": "containsKey",
+          "lineNumber": 75
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "claudedocs/db-schema.html",
+      "language": "html",
+      "fileCategory": "markup",
+      "totalLines": 208,
+      "nonEmptyLines": 198,
+      "metrics": {}
+    },
+    {
+      "path": "claudedocs/schema-audit-remaining.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 42,
+      "nonEmptyLines": 28,
+      "sections": [
+        {
+          "heading": "스키마 감사 — 남은 결정 사항 (2026-06-17)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. futsal 메타 완전성 (P2, 059 배치 잔재)",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "2. auth.users vs public.users FK target 통일 (P1 보류분)",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "3. region 비정규화 캐시 (P3, 트레이드오프)",
+          "level": 2,
+          "line": 26
+        },
+        {
+          "heading": "4. venues 미연결 (P3, 트레이드오프)",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "5. 폴리모픽 FK (P3, 트레이드오프)",
+          "level": 2,
+          "line": 38
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "docs/changelog/2026-W23.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 68,
+      "nonEmptyLines": 51,
+      "sections": [
+        {
+          "heading": "Week 23 (6/1 ~ 6/7) 변경 로그",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Breaking Changes",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "New Features",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "Bug Fixes",
+          "level": 2,
+          "line": 28
+        },
+        {
+          "heading": "UI Changes",
+          "level": 2,
+          "line": 40
+        },
+        {
+          "heading": "Infrastructure",
+          "level": 2,
+          "line": 47
+        },
+        {
+          "heading": "AI 챗봇 비용·품질 (JY-10, 비용절감 Day 7)",
+          "level": 2,
+          "line": 54
+        },
+        {
+          "heading": "Closed Issues (12건)",
+          "level": 2,
+          "line": 60
+        },
+        {
+          "heading": "Pull 후 확인사항",
+          "level": 2,
+          "line": 64
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "docs/data/futsal/전국_풋살구장_현황.xlsx",
+      "language": "xlsx",
+      "fileCategory": "code",
+      "totalLines": 189,
+      "nonEmptyLines": 188,
+      "metrics": {}
+    },
+    {
+      "path": "docs/data/futsal/풋살 정보 정리.docx",
+      "language": "docx",
+      "fileCategory": "code",
+      "totalLines": 109,
+      "nonEmptyLines": 109,
+      "metrics": {}
+    },
+    {
+      "path": "docs/data/futsal/풋살_2024-25_경기규칙서_및_협회안내.docx",
+      "language": "docx",
+      "fileCategory": "code",
+      "totalLines": 106,
+      "nonEmptyLines": 106,
+      "metrics": {}
+    },
+    {
+      "path": "docs/legal/privacy-policy.html",
+      "language": "html",
+      "fileCategory": "markup",
+      "totalLines": 79,
+      "nonEmptyLines": 68,
+      "metrics": {}
+    },
+    {
+      "path": "docs/legal/terms-of-service.html",
+      "language": "html",
+      "fileCategory": "markup",
+      "totalLines": 91,
+      "nonEmptyLines": 79,
+      "metrics": {}
+    },
+    {
+      "path": "docs/qa/mvp-qa-checklist.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 80,
+      "nonEmptyLines": 62,
+      "sections": [
+        {
+          "heading": "Match-up MVP QA 체크리스트",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "범례",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "A. 데이터 품질 (🤖 Supabase 직접 쿼리)",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "B. 코드레벨 — 에러/빈/로딩 상태 (🤖 소스 점검)",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "C. 어드민 웹 (🤖 `make admin` = flutter run -d chrome)",
+          "level": 2,
+          "line": 38
+        },
+        {
+          "heading": "D. 앱 사용자 동선 E2E (🧑 실기기 iOS/Android)",
+          "level": 2,
+          "line": 49
+        },
+        {
+          "heading": "E. 푸시 알림 (🧑 실기기) — 🚧 차단",
+          "level": 2,
+          "line": 61
+        },
+        {
+          "heading": "발견 버그 로그",
+          "level": 2,
+          "line": 71
+        },
+        {
+          "heading": "다음 수행 시",
+          "level": 2,
+          "line": 77
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "docs/security/cron-jwt-rotation.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 132,
+      "nonEmptyLines": 97,
+      "sections": [
+        {
+          "heading": "INTERNAL_CRON_JWT 로테이션 런북",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "배경",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "코드 변경 (이 PR 에서 완료)",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "운영 절차 (대시보드 + SQL)",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "1. 키 로테이션 — 노출된 JWT 무효화",
+          "level": 3,
+          "line": 23
+        },
+        {
+          "heading": "2. 새 INTERNAL_CRON_JWT 발급",
+          "level": 3,
+          "line": 39
+        },
+        {
+          "heading": "3. Vault 에 저장",
+          "level": 3,
+          "line": 44
+        },
+        {
+          "heading": "4. 034 마이그레이션 적용",
+          "level": 3,
+          "line": 55
+        },
+        {
+          "heading": "5. 환경변수 교체",
+          "level": 3,
+          "line": 63
+        },
+        {
+          "heading": "6. 검증",
+          "level": 3,
+          "line": 68
+        },
+        {
+          "heading": "진행 상태 (2026-05-29 업데이트)",
+          "level": 2,
+          "line": 81
+        },
+        {
+          "heading": "노출 키 완전 차단 — legacy → 새 API 키 마이그레이션 (별도 세션)",
+          "level": 2,
+          "line": 98
+        },
+        {
+          "heading": "재발 방지",
+          "level": 2,
+          "line": 129
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 13
+      }
+    },
+    {
+      "path": "scripts/analyze_chat_cost.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 325,
+      "nonEmptyLines": 281,
+      "functions": [
+        {
+          "name": "extract_event",
+          "startLine": 77,
+          "endLine": 129,
+          "params": [
+            "line"
+          ]
+        },
+        {
+          "name": "consume",
+          "startLine": 132,
+          "endLine": 178,
+          "params": [
+            "stats",
+            "marker",
+            "payload"
+          ]
+        },
+        {
+          "name": "analyze",
+          "startLine": 181,
+          "endLine": 190,
+          "params": [
+            "lines"
+          ]
+        },
+        {
+          "name": "_pct",
+          "startLine": 193,
+          "endLine": 196,
+          "params": [
+            "part",
+            "whole"
+          ]
+        },
+        {
+          "name": "to_report",
+          "startLine": 199,
+          "endLine": 240,
+          "params": [
+            "stats"
+          ]
+        },
+        {
+          "name": "_fmt_pct",
+          "startLine": 243,
+          "endLine": 244,
+          "params": [
+            "v"
+          ]
+        },
+        {
+          "name": "render_text",
+          "startLine": 247,
+          "endLine": 295,
+          "params": [
+            "report"
+          ]
+        },
+        {
+          "name": "read_inputs",
+          "startLine": 298,
+          "endLine": 304,
+          "params": [
+            "paths"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 307,
+          "endLine": 321,
+          "params": [
+            "argv"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "Stats",
+          "startLine": 45,
+          "endLine": 74,
+          "methods": [],
+          "properties": [
+            "classify_total",
+            "intent_counts",
+            "method_counts",
+            "routable",
+            "has_embedding",
+            "refuse_unregistered_sport",
+            "knn_errors",
+            "cache_hit",
+            "cache_miss",
+            "cache_skip",
+            "cache_insert",
+            "cache_insert_dupe",
+            "cache_insert_failed",
+            "routed",
+            "routed_result_total",
+            "routed_empty",
+            "route_rpc_error",
+            "events_parsed",
+            "lines_seen",
+            "parse_errors"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Stats",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "extract_event",
+          "line": 77,
+          "isDefault": false
+        },
+        {
+          "name": "consume",
+          "line": 132,
+          "isDefault": false
+        },
+        {
+          "name": "analyze",
+          "line": 181,
+          "isDefault": false
+        },
+        {
+          "name": "_pct",
+          "line": 193,
+          "isDefault": false
+        },
+        {
+          "name": "to_report",
+          "line": 199,
+          "isDefault": false
+        },
+        {
+          "name": "_fmt_pct",
+          "line": 243,
+          "isDefault": false
+        },
+        {
+          "name": "render_text",
+          "line": 247,
+          "isDefault": false
+        },
+        {
+          "name": "read_inputs",
+          "line": 298,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 307,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "extract_event",
+          "callee": "line.find",
+          "lineNumber": 86
+        },
+        {
+          "caller": "extract_event",
+          "callee": "line.find",
+          "lineNumber": 93
+        },
+        {
+          "caller": "extract_event",
+          "callee": "range",
+          "lineNumber": 101
+        },
+        {
+          "caller": "extract_event",
+          "callee": "len",
+          "lineNumber": 101
+        },
+        {
+          "caller": "extract_event",
+          "callee": "json.loads",
+          "lineNumber": 124
+        },
+        {
+          "caller": "extract_event",
+          "callee": "isinstance",
+          "lineNumber": 127
+        },
+        {
+          "caller": "consume",
+          "callee": "payload.get",
+          "lineNumber": 134
+        },
+        {
+          "caller": "consume",
+          "callee": "payload.get",
+          "lineNumber": 140
+        },
+        {
+          "caller": "consume",
+          "callee": "isinstance",
+          "lineNumber": 141
+        },
+        {
+          "caller": "consume",
+          "callee": "payload.get",
+          "lineNumber": 143
+        },
+        {
+          "caller": "consume",
+          "callee": "isinstance",
+          "lineNumber": 144
+        },
+        {
+          "caller": "consume",
+          "callee": "payload.get",
+          "lineNumber": 146
+        },
+        {
+          "caller": "consume",
+          "callee": "payload.get",
+          "lineNumber": 148
+        },
+        {
+          "caller": "consume",
+          "callee": "payload.get",
+          "lineNumber": 172
+        },
+        {
+          "caller": "consume",
+          "callee": "isinstance",
+          "lineNumber": 173
+        },
+        {
+          "caller": "analyze",
+          "callee": "Stats",
+          "lineNumber": 182
+        },
+        {
+          "caller": "analyze",
+          "callee": "extract_event",
+          "lineNumber": 185
+        },
+        {
+          "caller": "analyze",
+          "callee": "consume",
+          "lineNumber": 189
+        },
+        {
+          "caller": "_pct",
+          "callee": "round",
+          "lineNumber": 196
+        },
+        {
+          "caller": "to_report",
+          "callee": "_pct",
+          "lineNumber": 215
+        },
+        {
+          "caller": "to_report",
+          "callee": "dict",
+          "lineNumber": 216
+        },
+        {
+          "caller": "to_report",
+          "callee": "dict",
+          "lineNumber": 222
+        },
+        {
+          "caller": "to_report",
+          "callee": "stats.intent_counts.most_common",
+          "lineNumber": 222
+        },
+        {
+          "caller": "to_report",
+          "callee": "dict",
+          "lineNumber": 223
+        },
+        {
+          "caller": "to_report",
+          "callee": "stats.method_counts.most_common",
+          "lineNumber": 223
+        },
+        {
+          "caller": "to_report",
+          "callee": "_pct",
+          "lineNumber": 225
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 254
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 255
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 259
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 260
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 261
+        },
+        {
+          "caller": "render_text",
+          "callee": "_fmt_pct",
+          "lineNumber": 263
+        },
+        {
+          "caller": "render_text",
+          "callee": "\", \".join",
+          "lineNumber": 266
+        },
+        {
+          "caller": "render_text",
+          "callee": "sorted",
+          "lineNumber": 266
+        },
+        {
+          "caller": "render_text",
+          "callee": "c[\"skip\"].items",
+          "lineNumber": 266
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 267
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 268
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 272
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 273
+        },
+        {
+          "caller": "render_text",
+          "callee": "i[\"distribution\"].items",
+          "lineNumber": 275
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 276
+        },
+        {
+          "caller": "render_text",
+          "callee": "\", \".join",
+          "lineNumber": 278
+        },
+        {
+          "caller": "render_text",
+          "callee": "i[\"method\"].items",
+          "lineNumber": 278
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 279
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 280
+        },
+        {
+          "caller": "render_text",
+          "callee": "_fmt_pct",
+          "lineNumber": 281
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 284
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 285
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 286
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 290
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 291
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 292
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 293
+        },
+        {
+          "caller": "render_text",
+          "callee": "out.append",
+          "lineNumber": 294
+        },
+        {
+          "caller": "render_text",
+          "callee": "\"\\n\".join",
+          "lineNumber": 295
+        },
+        {
+          "caller": "read_inputs",
+          "callee": "open",
+          "lineNumber": 303
+        },
+        {
+          "caller": "main",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 308
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 309
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 310
+        },
+        {
+          "caller": "main",
+          "callee": "parser.parse_args",
+          "lineNumber": 311
+        },
+        {
+          "caller": "main",
+          "callee": "analyze",
+          "lineNumber": 313
+        },
+        {
+          "caller": "main",
+          "callee": "read_inputs",
+          "lineNumber": 313
+        },
+        {
+          "caller": "main",
+          "callee": "to_report",
+          "lineNumber": 314
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 317
+        },
+        {
+          "caller": "main",
+          "callee": "json.dumps",
+          "lineNumber": 317
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 319
+        },
+        {
+          "caller": "main",
+          "callee": "render_text",
+          "lineNumber": 319
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 9,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "scripts/harness/check_enums.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 176,
+      "nonEmptyLines": 143,
+      "functions": [
+        {
+          "name": "read",
+          "startLine": 23,
+          "endLine": 26,
+          "params": [
+            "path"
+          ]
+        },
+        {
+          "name": "quoted_values",
+          "startLine": 29,
+          "endLine": 30,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "dart_const_list",
+          "startLine": 33,
+          "endLine": 38,
+          "params": [
+            "text",
+            "name"
+          ]
+        },
+        {
+          "name": "dart_enum",
+          "startLine": 41,
+          "endLine": 45,
+          "params": [
+            "text",
+            "name"
+          ]
+        },
+        {
+          "name": "ts_const_array",
+          "startLine": 48,
+          "endLine": 53,
+          "params": [
+            "text",
+            "name"
+          ]
+        },
+        {
+          "name": "ts_union",
+          "startLine": 56,
+          "endLine": 60,
+          "params": [
+            "text",
+            "name"
+          ]
+        },
+        {
+          "name": "sql_enum",
+          "startLine": 63,
+          "endLine": 67,
+          "params": [
+            "text",
+            "name"
+          ]
+        },
+        {
+          "name": "sql_grade_check",
+          "startLine": 70,
+          "endLine": 77,
+          "params": [
+            "text",
+            "sport"
+          ]
+        },
+        {
+          "name": "sql_entry_fee_units",
+          "startLine": 80,
+          "endLine": 84,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "user_sports_grade_constraint_history",
+          "startLine": 87,
+          "endLine": 99,
+          "params": []
+        },
+        {
+          "name": "seed_region_codes",
+          "startLine": 102,
+          "endLine": 106,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "assert_same",
+          "startLine": 109,
+          "endLine": 121,
+          "params": [
+            "name"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 124,
+          "endLine": 168,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "read",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "quoted_values",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "dart_const_list",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "dart_enum",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "ts_const_array",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "ts_union",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "sql_enum",
+          "line": 63,
+          "isDefault": false
+        },
+        {
+          "name": "sql_grade_check",
+          "line": 70,
+          "isDefault": false
+        },
+        {
+          "name": "sql_entry_fee_units",
+          "line": 80,
+          "isDefault": false
+        },
+        {
+          "name": "user_sports_grade_constraint_history",
+          "line": 87,
+          "isDefault": false
+        },
+        {
+          "name": "seed_region_codes",
+          "line": 102,
+          "isDefault": false
+        },
+        {
+          "name": "assert_same",
+          "line": 109,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 124,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "read",
+          "callee": "path.exists",
+          "lineNumber": 24
+        },
+        {
+          "caller": "read",
+          "callee": "AssertionError",
+          "lineNumber": 25
+        },
+        {
+          "caller": "read",
+          "callee": "path.relative_to",
+          "lineNumber": 25
+        },
+        {
+          "caller": "read",
+          "callee": "path.read_text",
+          "lineNumber": 26
+        },
+        {
+          "caller": "quoted_values",
+          "callee": "re.findall",
+          "lineNumber": 30
+        },
+        {
+          "caller": "dart_const_list",
+          "callee": "re.escape",
+          "lineNumber": 34
+        },
+        {
+          "caller": "dart_const_list",
+          "callee": "re.search",
+          "lineNumber": 35
+        },
+        {
+          "caller": "dart_const_list",
+          "callee": "AssertionError",
+          "lineNumber": 37
+        },
+        {
+          "caller": "dart_const_list",
+          "callee": "quoted_values",
+          "lineNumber": 38
+        },
+        {
+          "caller": "dart_const_list",
+          "callee": "match.group",
+          "lineNumber": 38
+        },
+        {
+          "caller": "dart_enum",
+          "callee": "re.search",
+          "lineNumber": 42
+        },
+        {
+          "caller": "dart_enum",
+          "callee": "re.escape",
+          "lineNumber": 42
+        },
+        {
+          "caller": "dart_enum",
+          "callee": "AssertionError",
+          "lineNumber": 44
+        },
+        {
+          "caller": "dart_enum",
+          "callee": "part.strip",
+          "lineNumber": 45
+        },
+        {
+          "caller": "dart_enum",
+          "callee": "match.group(1).split",
+          "lineNumber": 45
+        },
+        {
+          "caller": "dart_enum",
+          "callee": "match.group",
+          "lineNumber": 45
+        },
+        {
+          "caller": "dart_enum",
+          "callee": "part.strip",
+          "lineNumber": 45
+        },
+        {
+          "caller": "ts_const_array",
+          "callee": "re.escape",
+          "lineNumber": 49
+        },
+        {
+          "caller": "ts_const_array",
+          "callee": "re.search",
+          "lineNumber": 50
+        },
+        {
+          "caller": "ts_const_array",
+          "callee": "AssertionError",
+          "lineNumber": 52
+        },
+        {
+          "caller": "ts_const_array",
+          "callee": "quoted_values",
+          "lineNumber": 53
+        },
+        {
+          "caller": "ts_const_array",
+          "callee": "match.group",
+          "lineNumber": 53
+        },
+        {
+          "caller": "ts_union",
+          "callee": "re.search",
+          "lineNumber": 57
+        },
+        {
+          "caller": "ts_union",
+          "callee": "re.escape",
+          "lineNumber": 57
+        },
+        {
+          "caller": "ts_union",
+          "callee": "AssertionError",
+          "lineNumber": 59
+        },
+        {
+          "caller": "ts_union",
+          "callee": "quoted_values",
+          "lineNumber": 60
+        },
+        {
+          "caller": "ts_union",
+          "callee": "match.group",
+          "lineNumber": 60
+        },
+        {
+          "caller": "sql_enum",
+          "callee": "re.search",
+          "lineNumber": 64
+        },
+        {
+          "caller": "sql_enum",
+          "callee": "re.escape",
+          "lineNumber": 64
+        },
+        {
+          "caller": "sql_enum",
+          "callee": "AssertionError",
+          "lineNumber": 66
+        },
+        {
+          "caller": "sql_enum",
+          "callee": "quoted_values",
+          "lineNumber": 67
+        },
+        {
+          "caller": "sql_enum",
+          "callee": "match.group",
+          "lineNumber": 67
+        },
+        {
+          "caller": "sql_grade_check",
+          "callee": "re.escape",
+          "lineNumber": 73
+        },
+        {
+          "caller": "sql_grade_check",
+          "callee": "re.findall",
+          "lineNumber": 74
+        },
+        {
+          "caller": "sql_grade_check",
+          "callee": "AssertionError",
+          "lineNumber": 76
+        },
+        {
+          "caller": "sql_grade_check",
+          "callee": "quoted_values",
+          "lineNumber": 77
+        },
+        {
+          "caller": "sql_entry_fee_units",
+          "callee": "re.search",
+          "lineNumber": 81
+        },
+        {
+          "caller": "sql_entry_fee_units",
+          "callee": "AssertionError",
+          "lineNumber": 83
+        },
+        {
+          "caller": "sql_entry_fee_units",
+          "callee": "quoted_values",
+          "lineNumber": 84
+        },
+        {
+          "caller": "sql_entry_fee_units",
+          "callee": "match.group",
+          "lineNumber": 84
+        },
+        {
+          "caller": "user_sports_grade_constraint_history",
+          "callee": "read",
+          "lineNumber": 88
+        },
+        {
+          "caller": "user_sports_grade_constraint_history",
+          "callee": "sorted",
+          "lineNumber": 89
+        },
+        {
+          "caller": "user_sports_grade_constraint_history",
+          "callee": "SQL_MIGRATIONS.glob",
+          "lineNumber": 89
+        },
+        {
+          "caller": "user_sports_grade_constraint_history",
+          "callee": "read",
+          "lineNumber": 92
+        },
+        {
+          "caller": "user_sports_grade_constraint_history",
+          "callee": "re.finditer",
+          "lineNumber": 93
+        },
+        {
+          "caller": "user_sports_grade_constraint_history",
+          "callee": "sql_parts.extend",
+          "lineNumber": 98
+        },
+        {
+          "caller": "user_sports_grade_constraint_history",
+          "callee": "match.group",
+          "lineNumber": 98
+        },
+        {
+          "caller": "user_sports_grade_constraint_history",
+          "callee": "\"\\n\".join",
+          "lineNumber": 99
+        },
+        {
+          "caller": "seed_region_codes",
+          "callee": "re.search",
+          "lineNumber": 103
+        },
+        {
+          "caller": "seed_region_codes",
+          "callee": "AssertionError",
+          "lineNumber": 105
+        },
+        {
+          "caller": "seed_region_codes",
+          "callee": "re.findall",
+          "lineNumber": 106
+        },
+        {
+          "caller": "seed_region_codes",
+          "callee": "match.group",
+          "lineNumber": 106
+        },
+        {
+          "caller": "assert_same",
+          "callee": "failures.append",
+          "lineNumber": 114
+        },
+        {
+          "caller": "assert_same",
+          "callee": "AssertionError",
+          "lineNumber": 120
+        },
+        {
+          "caller": "assert_same",
+          "callee": "\"\\n\".join",
+          "lineNumber": 120
+        },
+        {
+          "caller": "assert_same",
+          "callee": "print",
+          "lineNumber": 121
+        },
+        {
+          "caller": "main",
+          "callee": "read",
+          "lineNumber": 125
+        },
+        {
+          "caller": "main",
+          "callee": "read",
+          "lineNumber": 126
+        },
+        {
+          "caller": "main",
+          "callee": "user_sports_grade_constraint_history",
+          "lineNumber": 129
+        },
+        {
+          "caller": "main",
+          "callee": "read",
+          "lineNumber": 130
+        },
+        {
+          "caller": "main",
+          "callee": "read",
+          "lineNumber": 131
+        },
+        {
+          "caller": "main",
+          "callee": "assert_same",
+          "lineNumber": 133
+        },
+        {
+          "caller": "main",
+          "callee": "dart_enum",
+          "lineNumber": 135
+        },
+        {
+          "caller": "main",
+          "callee": "ts_union",
+          "lineNumber": 136
+        },
+        {
+          "caller": "main",
+          "callee": "sql_enum",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "assert_same",
+          "lineNumber": 139
+        },
+        {
+          "caller": "main",
+          "callee": "dart_const_list",
+          "lineNumber": 141
+        },
+        {
+          "caller": "main",
+          "callee": "ts_const_array",
+          "lineNumber": 142
+        },
+        {
+          "caller": "main",
+          "callee": "sql_grade_check",
+          "lineNumber": 143
+        },
+        {
+          "caller": "main",
+          "callee": "assert_same",
+          "lineNumber": 145
+        },
+        {
+          "caller": "main",
+          "callee": "dart_const_list",
+          "lineNumber": 147
+        },
+        {
+          "caller": "main",
+          "callee": "ts_const_array",
+          "lineNumber": 148
+        },
+        {
+          "caller": "main",
+          "callee": "sql_grade_check",
+          "lineNumber": 149
+        },
+        {
+          "caller": "main",
+          "callee": "assert_same",
+          "lineNumber": 151
+        },
+        {
+          "caller": "main",
+          "callee": "dart_const_list",
+          "lineNumber": 153
+        },
+        {
+          "caller": "main",
+          "callee": "ts_const_array",
+          "lineNumber": 154
+        },
+        {
+          "caller": "main",
+          "callee": "sql_enum",
+          "lineNumber": 155
+        },
+        {
+          "caller": "main",
+          "callee": "assert_same",
+          "lineNumber": 157
+        },
+        {
+          "caller": "main",
+          "callee": "dart_const_list",
+          "lineNumber": 159
+        },
+        {
+          "caller": "main",
+          "callee": "ts_const_array",
+          "lineNumber": 160
+        },
+        {
+          "caller": "main",
+          "callee": "seed_region_codes",
+          "lineNumber": 161
+        },
+        {
+          "caller": "main",
+          "callee": "assert_same",
+          "lineNumber": 163
+        },
+        {
+          "caller": "main",
+          "callee": "ts_const_array",
+          "lineNumber": 165
+        },
+        {
+          "caller": "main",
+          "callee": "sql_entry_fee_units",
+          "lineNumber": 166
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 13,
+        "functionCount": 13,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/harness/check_secrets.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 61,
+      "nonEmptyLines": 54,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/harness/check_static_rules.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 107,
+      "nonEmptyLines": 84,
+      "functions": [
+        {
+          "name": "fail",
+          "startLine": 38,
+          "endLine": 40,
+          "params": [
+            "message"
+          ]
+        },
+        {
+          "name": "read",
+          "startLine": 43,
+          "endLine": 47,
+          "params": [
+            "relative"
+          ]
+        },
+        {
+          "name": "check_root_file_lengths",
+          "startLine": 50,
+          "endLine": 59,
+          "params": []
+        },
+        {
+          "name": "check_required_rule_docs",
+          "startLine": 62,
+          "endLine": 65,
+          "params": []
+        },
+        {
+          "name": "check_agents_rule_links",
+          "startLine": 68,
+          "endLine": 73,
+          "params": []
+        },
+        {
+          "name": "check_github_templates",
+          "startLine": 76,
+          "endLine": 86,
+          "params": []
+        },
+        {
+          "name": "check_no_shell_background_wrappers_in_harness",
+          "startLine": 89,
+          "endLine": 93,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 96,
+          "endLine": 103,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "fail",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "read",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "check_root_file_lengths",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "check_required_rule_docs",
+          "line": 62,
+          "isDefault": false
+        },
+        {
+          "name": "check_agents_rule_links",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "check_github_templates",
+          "line": 76,
+          "isDefault": false
+        },
+        {
+          "name": "check_no_shell_background_wrappers_in_harness",
+          "line": 89,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 96,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fail",
+          "callee": "print",
+          "lineNumber": 39
+        },
+        {
+          "caller": "fail",
+          "callee": "SystemExit",
+          "lineNumber": 40
+        },
+        {
+          "caller": "read",
+          "callee": "path.exists",
+          "lineNumber": 45
+        },
+        {
+          "caller": "read",
+          "callee": "fail",
+          "lineNumber": 46
+        },
+        {
+          "caller": "read",
+          "callee": "path.read_text",
+          "lineNumber": 47
+        },
+        {
+          "caller": "check_root_file_lengths",
+          "callee": "ROOT_RULE_LIMITS.items",
+          "lineNumber": 51
+        },
+        {
+          "caller": "check_root_file_lengths",
+          "callee": "read",
+          "lineNumber": 52
+        },
+        {
+          "caller": "check_root_file_lengths",
+          "callee": "text.splitlines",
+          "lineNumber": 53
+        },
+        {
+          "caller": "check_root_file_lengths",
+          "callee": "len",
+          "lineNumber": 54
+        },
+        {
+          "caller": "check_root_file_lengths",
+          "callee": "fail",
+          "lineNumber": 55
+        },
+        {
+          "caller": "check_root_file_lengths",
+          "callee": "len",
+          "lineNumber": 55
+        },
+        {
+          "caller": "check_root_file_lengths",
+          "callee": "fail",
+          "lineNumber": 58
+        },
+        {
+          "caller": "check_root_file_lengths",
+          "callee": "print",
+          "lineNumber": 59
+        },
+        {
+          "caller": "check_root_file_lengths",
+          "callee": "len",
+          "lineNumber": 59
+        },
+        {
+          "caller": "check_required_rule_docs",
+          "callee": "read",
+          "lineNumber": 64
+        },
+        {
+          "caller": "check_required_rule_docs",
+          "callee": "print",
+          "lineNumber": 65
+        },
+        {
+          "caller": "check_required_rule_docs",
+          "callee": "len",
+          "lineNumber": 65
+        },
+        {
+          "caller": "check_agents_rule_links",
+          "callee": "read",
+          "lineNumber": 69
+        },
+        {
+          "caller": "check_agents_rule_links",
+          "callee": "fail",
+          "lineNumber": 72
+        },
+        {
+          "caller": "check_agents_rule_links",
+          "callee": "\", \".join",
+          "lineNumber": 72
+        },
+        {
+          "caller": "check_agents_rule_links",
+          "callee": "print",
+          "lineNumber": 73
+        },
+        {
+          "caller": "check_github_templates",
+          "callee": "read",
+          "lineNumber": 85
+        },
+        {
+          "caller": "check_github_templates",
+          "callee": "print",
+          "lineNumber": 86
+        },
+        {
+          "caller": "check_github_templates",
+          "callee": "len",
+          "lineNumber": 86
+        },
+        {
+          "caller": "check_no_shell_background_wrappers_in_harness",
+          "callee": "read",
+          "lineNumber": 90
+        },
+        {
+          "caller": "check_no_shell_background_wrappers_in_harness",
+          "callee": "re.search",
+          "lineNumber": 91
+        },
+        {
+          "caller": "check_no_shell_background_wrappers_in_harness",
+          "callee": "fail",
+          "lineNumber": 92
+        },
+        {
+          "caller": "check_no_shell_background_wrappers_in_harness",
+          "callee": "print",
+          "lineNumber": 93
+        },
+        {
+          "caller": "main",
+          "callee": "check_root_file_lengths",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "check_required_rule_docs",
+          "lineNumber": 98
+        },
+        {
+          "caller": "main",
+          "callee": "check_agents_rule_links",
+          "lineNumber": 99
+        },
+        {
+          "caller": "main",
+          "callee": "check_github_templates",
+          "lineNumber": 100
+        },
+        {
+          "caller": "main",
+          "callee": "check_no_shell_background_wrappers_in_harness",
+          "lineNumber": 101
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 102
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 8,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/harness/run_all.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 43,
+      "nonEmptyLines": 35,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/config.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 407,
+      "nonEmptyLines": 355,
+      "sections": [
+        {
+          "heading": "api",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "api.tls",
+          "level": 2,
+          "line": 20
+        },
+        {
+          "heading": "db",
+          "level": 1,
+          "line": 27
+        },
+        {
+          "heading": "db.pooler",
+          "level": 2,
+          "line": 36
+        },
+        {
+          "heading": "db.migrations",
+          "level": 2,
+          "line": 51
+        },
+        {
+          "heading": "db.seed",
+          "level": 2,
+          "line": 58
+        },
+        {
+          "heading": "db.network_restrictions",
+          "level": 2,
+          "line": 65
+        },
+        {
+          "heading": "realtime",
+          "level": 1,
+          "line": 75
+        },
+        {
+          "heading": "studio",
+          "level": 1,
+          "line": 82
+        },
+        {
+          "heading": "inbucket",
+          "level": 1,
+          "line": 93
+        },
+        {
+          "heading": "storage",
+          "level": 1,
+          "line": 103
+        },
+        {
+          "heading": "storage.s3_protocol",
+          "level": 2,
+          "line": 116
+        },
+        {
+          "heading": "storage.analytics",
+          "level": 2,
+          "line": 125
+        },
+        {
+          "heading": "storage.vector",
+          "level": 2,
+          "line": 136
+        },
+        {
+          "heading": "auth",
+          "level": 1,
+          "line": 144
+        },
+        {
+          "heading": "auth.rate_limit",
+          "level": 2,
+          "line": 174
+        },
+        {
+          "heading": "auth.email",
+          "level": 2,
+          "line": 196
+        },
+        {
+          "heading": "auth.sms",
+          "level": 2,
+          "line": 234
+        },
+        {
+          "heading": "auth.sms.twilio",
+          "level": 3,
+          "line": 266
+        },
+        {
+          "heading": "auth.mfa",
+          "level": 2,
+          "line": 274
+        },
+        {
+          "heading": "auth.mfa.totp",
+          "level": 3,
+          "line": 279
+        },
+        {
+          "heading": "auth.mfa.phone",
+          "level": 3,
+          "line": 284
+        },
+        {
+          "heading": "auth.external.apple",
+          "level": 3,
+          "line": 299
+        },
+        {
+          "heading": "auth.web3.solana",
+          "level": 3,
+          "line": 316
+        },
+        {
+          "heading": "auth.third_party.firebase",
+          "level": 3,
+          "line": 320
+        },
+        {
+          "heading": "auth.third_party.auth0",
+          "level": 3,
+          "line": 325
+        },
+        {
+          "heading": "auth.third_party.aws_cognito",
+          "level": 3,
+          "line": 331
+        },
+        {
+          "heading": "auth.third_party.clerk",
+          "level": 3,
+          "line": 337
+        },
+        {
+          "heading": "auth.oauth_server",
+          "level": 2,
+          "line": 343
+        },
+        {
+          "heading": "edge_runtime",
+          "level": 1,
+          "line": 351
+        },
+        {
+          "heading": "functions.embed-pending",
+          "level": 2,
+          "line": 372
+        },
+        {
+          "heading": "functions.notify-cron",
+          "level": 2,
+          "line": 375
+        },
+        {
+          "heading": "functions.crawl-dispatch",
+          "level": 2,
+          "line": 381
+        },
+        {
+          "heading": "functions.health",
+          "level": 2,
+          "line": 385
+        },
+        {
+          "heading": "analytics",
+          "level": 1,
+          "line": 388
+        },
+        {
+          "heading": "experimental",
+          "level": 1,
+          "line": 397
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 36
+      }
+    }
+  ]
+}

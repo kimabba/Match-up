@@ -1,0 +1,407 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 5,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "docs/superpowers/plans/2026-05-19-active-sport-filter.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 555,
+      "nonEmptyLines": 440,
+      "sections": [
+        {
+          "heading": "전역 활성 종목 필터 Implementation Plan",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "파일 구조",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Task 1: `activeSportProvider` 추가 + `selectedSportProvider` 제거",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "현재 코드 (참고)",
+          "level": 3,
+          "line": 32
+        },
+        {
+          "heading": "Task 2: 대회 탭 — 종목 칩 제거 + `activeSportProvider` 사용",
+          "level": 2,
+          "line": 87
+        },
+        {
+          "heading": "현재 코드 (참고)",
+          "level": 3,
+          "line": 92
+        },
+        {
+          "heading": "Task 3: 클럽 탭 — 종목 칩 제거 + reactive 필터",
+          "level": 2,
+          "line": 221
+        },
+        {
+          "heading": "변경 전략",
+          "level": 3,
+          "line": 226
+        },
+        {
+          "heading": "Task 4: 룰북 탭 — 단일 종목 뷰 + 조건부 TabBar",
+          "level": 2,
+          "line": 288
+        },
+        {
+          "heading": "변경 전략",
+          "level": 3,
+          "line": 293
+        },
+        {
+          "heading": "Task 5: 프로필 + 온보딩 — 레이블 수정",
+          "level": 2,
+          "line": 420
+        },
+        {
+          "heading": "Task 6: chat Edge Function — primary 종목 강조",
+          "level": 2,
+          "line": 476
+        },
+        {
+          "heading": "현재 코드 (참고)",
+          "level": 3,
+          "line": 481
+        },
+        {
+          "heading": "최종 검증",
+          "level": 2,
+          "line": 547
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 14
+      }
+    },
+    {
+      "path": "docs/superpowers/plans/2026-05-19-chat-main-admin-panel.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 1073,
+      "nonEmptyLines": 891,
+      "sections": [
+        {
+          "heading": "채팅 메인화 + 어드민 패널 Implementation Plan",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "파일 맵",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Task 1: 크롤러 Edge Function requireAdmin 가드 (SSF-301)",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "Task 2: isAdminProvider 추가 (SSF-302)",
+          "level": 2,
+          "line": 91
+        },
+        {
+          "heading": "Task 3: 내비게이션 개편 (SSF-303)",
+          "level": 2,
+          "line": 136
+        },
+        {
+          "heading": "Task 4: 채팅 빠른 명령어 (SSF-304)",
+          "level": 2,
+          "line": 264
+        },
+        {
+          "heading": "Task 5: 대회 탭 홈 피드 흡수 + HomeScreen 삭제 (SSF-305)",
+          "level": 2,
+          "line": 368
+        },
+        {
+          "heading": "Task 6: 어드민 패널 (SSF-306)",
+          "level": 2,
+          "line": 538
+        },
+        {
+          "heading": "Task 6-A: CrawlAuditLog 모델 + API",
+          "level": 3,
+          "line": 545
+        },
+        {
+          "heading": "Task 6-B: AdminScreen 구현",
+          "level": 3,
+          "line": 636
+        },
+        {
+          "heading": "Task 7: router에 AdminScreen 연결 + 최종 검증",
+          "level": 2,
+          "line": 1021
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    },
+    {
+      "path": "docs/superpowers/plans/2026-05-27-knowledge-base-rules.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 801,
+      "nonEmptyLines": 672,
+      "sections": [
+        {
+          "heading": "지식베이스 1단계 (룰북·지식 문서 관리) Implementation Plan",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "File Structure",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "Task 1: embed-pending에 admin 호출 허용",
+          "level": 2,
+          "line": 28
+        },
+        {
+          "heading": "Task 2: RuleArticle 모델 확장 (TDD)",
+          "level": 2,
+          "line": 74
+        },
+        {
+          "heading": "Task 3: API — 룰 admin CRUD + 재계산",
+          "level": 2,
+          "line": 186
+        },
+        {
+          "heading": "Task 4: Provider",
+          "level": 2,
+          "line": 267
+        },
+        {
+          "heading": "Task 5: 룰 편집 전체화면",
+          "level": 2,
+          "line": 299
+        },
+        {
+          "heading": "Task 6: 지식베이스 목록 탭",
+          "level": 2,
+          "line": 567
+        },
+        {
+          "heading": "Task 7: admin_screen에 탭 추가 (최소 침습)",
+          "level": 2,
+          "line": 714
+        },
+        {
+          "heading": "Task 8: 전체 검증",
+          "level": 2,
+          "line": 761
+        },
+        {
+          "heading": "Self-Review 결과",
+          "level": 2,
+          "line": 796
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    },
+    {
+      "path": "docs/superpowers/plans/2026-05-30-web-admin-separation.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 976,
+      "nonEmptyLines": 806,
+      "sections": [
+        {
+          "heading": "Web Admin / App User Separation Implementation Plan",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "File Structure",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "New Files",
+          "level": 3,
+          "line": 17
+        },
+        {
+          "heading": "Modified Files",
+          "level": 3,
+          "line": 27
+        },
+        {
+          "heading": "Task 1: Web Build Unblock — notifications stub",
+          "level": 3,
+          "line": 38
+        },
+        {
+          "heading": "Task 2: NoAccessScreen — 비어드민 웹 접속 화면",
+          "level": 3,
+          "line": 88
+        },
+        {
+          "heading": "Task 3: AdminShell — 사이드바 + 탑바 레이아웃",
+          "level": 3,
+          "line": 148
+        },
+        {
+          "heading": "Task 4: Router Branching — 웹/앱 라우트 분기",
+          "level": 3,
+          "line": 349
+        },
+        {
+          "heading": "Task 5: AdminScreen — initialTab 파라미터 추가",
+          "level": 3,
+          "line": 473
+        },
+        {
+          "heading": "Task 6: DB Migration — manual_description 컬럼",
+          "level": 3,
+          "line": 515
+        },
+        {
+          "heading": "Task 7: Backend — upsertTournament manual_description 체크",
+          "level": 3,
+          "line": 545
+        },
+        {
+          "heading": "Task 8: TournamentEditScreen — 대회 수기 편집 화면",
+          "level": 3,
+          "line": 592
+        },
+        {
+          "heading": "Task 9: Final Wiring — router에 TournamentEditScreen import 연결",
+          "level": 3,
+          "line": 851
+        },
+        {
+          "heading": "Task 10: Verification",
+          "level": 3,
+          "line": 952
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 14
+      }
+    },
+    {
+      "path": "docs/superpowers/plans/2026-06-11-chat-a2ui-tournament-cards.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 997,
+      "nonEmptyLines": 798,
+      "sections": [
+        {
+          "heading": "Chat A2UI Tournament Cards Implementation Plan",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "File Structure",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "Phase 1 — Backend",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "Task 1: 카드 아이템 빌더 + selected_entity 검증 (순수 함수)",
+          "level": 3,
+          "line": 33
+        },
+        {
+          "heading": "Task 2: tournament 라우팅에서 `ui` 이벤트 발송",
+          "level": 3,
+          "line": 215
+        },
+        {
+          "heading": "Task 3: `selected_entity` 파싱·검증 + tournament 컨텍스트 주입",
+          "level": 3,
+          "line": 264
+        },
+        {
+          "heading": "Phase 2 — Flutter",
+          "level": 2,
+          "line": 349
+        },
+        {
+          "heading": "Task 4: Chat UI 모델 (`ChatUiBlock`, `TournamentChatCardItem`)",
+          "level": 3,
+          "line": 351
+        },
+        {
+          "heading": "Task 5: `ApiService.chat()` 에 `selectedEntity` 추가",
+          "level": 3,
+          "line": 549
+        },
+        {
+          "heading": "Task 6: `_Msg.uiBlocks` + `ui` 이벤트 처리",
+          "level": 3,
+          "line": 594
+        },
+        {
+          "heading": "Task 7: `ChatTournamentCard` 위젯 + 렌더링",
+          "level": 3,
+          "line": 656
+        },
+        {
+          "heading": "Task 8: 카드 액션 → `selected_entity` 후속 전송",
+          "level": 3,
+          "line": 869
+        },
+        {
+          "heading": "Final Verification",
+          "level": 2,
+          "line": 966
+        },
+        {
+          "heading": "Out Of Scope (후속)",
+          "level": 2,
+          "line": 992
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 14
+      }
+    }
+  ]
+}

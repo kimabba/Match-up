@@ -1,0 +1,258 @@
+{
+  "nodes": [
+    {
+      "id": "file:supabase/functions/_shared/chat_cards.ts",
+      "type": "file",
+      "name": "chat_cards.ts",
+      "filePath": "supabase/functions/_shared/chat_cards.ts",
+      "summary": "채팅 응답용 대회 카드와 검색 결과 텍스트를 생성하는 공유 헬퍼 모듈. 대회 행(row)을 카드 형태로 변환하고 종목 라벨·필터 문구·선택 엔티티 파싱을 담당한다.",
+      "tags": ["utility", "serialization", "chat", "edge-function", "shared"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:supabase/functions/_shared/chat_cards.ts:buildTournamentCards",
+      "type": "function",
+      "name": "buildTournamentCards",
+      "filePath": "supabase/functions/_shared/chat_cards.ts",
+      "lineRange": [57, 77],
+      "summary": "대회 행 배열을 최대 MAX_CARDS개의 채팅 카드 객체로 변환한다. regulation_fields를 정규화해 카드에 요약 항목으로 포함한다.",
+      "tags": ["serialization", "factory", "chat", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:supabase/functions/_shared/chat_cards.ts:renderTournamentSearchText",
+      "type": "function",
+      "name": "renderTournamentSearchText",
+      "filePath": "supabase/functions/_shared/chat_cards.ts",
+      "lineRange": [98, 108],
+      "summary": "대회 검색 결과 건수와 필터 조건을 마크다운 헤딩 텍스트로 렌더링한다.",
+      "tags": ["utility", "serialization", "chat"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:supabase/functions/_shared/chat_cards.ts:parseSelectedEntity",
+      "type": "function",
+      "name": "parseSelectedEntity",
+      "filePath": "supabase/functions/_shared/chat_cards.ts",
+      "lineRange": [132, 141],
+      "summary": "입력값에서 선택된 엔티티 타입과 UUID를 검증·파싱한다. 허용 타입과 UUID 정규식으로 유효성을 확인한다.",
+      "tags": ["validation", "utility", "chat"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:supabase/functions/_shared/gemini.ts",
+      "type": "file",
+      "name": "gemini.ts",
+      "filePath": "supabase/functions/_shared/gemini.ts",
+      "summary": "Gemini 생성 API를 SSE 스트리밍으로 호출하는 공유 클라이언트. streamChat 비동기 제너레이터로 채팅 응답 토큰을 순차 yield 한다.",
+      "tags": ["service", "llm", "streaming", "edge-function", "shared"],
+      "complexity": "moderate",
+      "languageNotes": "async generator(async function*)로 SSE 청크를 점진적으로 yield 하는 스트리밍 패턴."
+    },
+    {
+      "id": "function:supabase/functions/_shared/gemini.ts:streamChat",
+      "type": "function",
+      "name": "streamChat",
+      "filePath": "supabase/functions/_shared/gemini.ts",
+      "lineRange": [46, 122],
+      "summary": "Gemini API에 대화 이력과 옵션을 전달하고 SSE 응답을 파싱해 StreamEvent를 비동기로 yield 하는 제너레이터. 채팅 Edge Function의 LLM 응답 스트리밍 핵심 함수.",
+      "tags": ["service", "llm", "streaming", "event-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:supabase/functions/_shared/regulation.ts",
+      "type": "file",
+      "name": "regulation.ts",
+      "filePath": "supabase/functions/_shared/regulation.ts",
+      "summary": "대회 요강(regulation) 필드 정규화·포맷·임베딩 텍스트·RAG 컨텍스트 라인 생성을 담당하는 공유 모듈. 채팅과 임베딩 양쪽에서 요강 데이터를 일관되게 가공한다.",
+      "tags": ["utility", "serialization", "rag", "edge-function", "shared"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:supabase/functions/_shared/regulation.ts:normalizeRegulationFields",
+      "type": "function",
+      "name": "normalizeRegulationFields",
+      "filePath": "supabase/functions/_shared/regulation.ts",
+      "lineRange": [25, 40],
+      "summary": "원시 요강 필드 데이터를 label/value 쌍 배열로 정규화한다. 배열 여부와 공백을 검증해 유효 항목만 추출한다.",
+      "tags": ["validation", "serialization", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:supabase/functions/_shared/regulation.ts:regulationEmbeddingText",
+      "type": "function",
+      "name": "regulationEmbeddingText",
+      "filePath": "supabase/functions/_shared/regulation.ts",
+      "lineRange": [68, 79],
+      "summary": "요강 필드와 본문을 결합해 임베딩 생성용 텍스트를 만든다. 본문 길이를 capRegulationBody로 제한한다.",
+      "tags": ["serialization", "rag", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:supabase/functions/_shared/regulation.ts:buildRegulationContextLines",
+      "type": "function",
+      "name": "buildRegulationContextLines",
+      "filePath": "supabase/functions/_shared/regulation.ts",
+      "lineRange": [89, 109],
+      "summary": "요강 필드와 본문을 RAG 프롬프트용 컨텍스트 라인 배열로 구성한다. 본문은 옵션에 따라 길이 제한과 줄바꿈 정리를 적용한다.",
+      "tags": ["serialization", "rag", "utility"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:supabase/functions/_shared/regulation.ts:capRegulationBody",
+      "type": "function",
+      "name": "capRegulationBody",
+      "filePath": "supabase/functions/_shared/regulation.ts",
+      "lineRange": [54, 60],
+      "summary": "요강 본문을 trim 후 최대 길이로 잘라 반환하는 유틸 함수.",
+      "tags": ["utility", "serialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:supabase/functions/chat/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "supabase/functions/chat/index.ts",
+      "summary": "채팅 Edge Function의 진입점. 사용자 메시지를 의도 분류·임베딩·시맨틱 검색하고 요강 RAG 컨텍스트를 구성해 Gemini로 SSE 스트리밍 응답과 대회 카드를 반환한다. QA 캐시와 대화 이력 저장도 처리한다.",
+      "tags": ["entry-point", "api-handler", "rag", "streaming", "edge-function"],
+      "complexity": "complex",
+      "languageNotes": "Deno.serve + ReadableStream으로 SSE를 직접 구성하며, 의도 분류→시맨틱 검색→RAG 프롬프트→LLM 스트리밍의 다단계 파이프라인."
+    },
+    {
+      "id": "function:supabase/functions/chat/index.ts:buildContextPrompt",
+      "type": "function",
+      "name": "buildContextPrompt",
+      "filePath": "supabase/functions/chat/index.ts",
+      "lineRange": [314, 422],
+      "summary": "대회·룰·경기장 데이터를 종목별로 그룹화하고 요강 컨텍스트 라인을 포함해 LLM에 주입할 RAG 컨텍스트 프롬프트를 구성한다.",
+      "tags": ["rag", "serialization", "factory", "chat"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:supabase/functions/chat/index.ts:buildSystemPrompt",
+      "type": "function",
+      "name": "buildSystemPrompt",
+      "filePath": "supabase/functions/chat/index.ts",
+      "lineRange": [246, 307],
+      "summary": "사용자의 종목·협회 등급 정보를 반영한 시스템 프롬프트를 생성한다. 종목 라벨과 등급 라벨을 매핑해 개인화 컨텍스트를 만든다.",
+      "tags": ["rag", "serialization", "chat", "factory"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:supabase/functions/chat/index.ts:computeUserContextHash",
+      "type": "function",
+      "name": "computeUserContextHash",
+      "filePath": "supabase/functions/chat/index.ts",
+      "lineRange": [222, 244],
+      "summary": "사용자 종목·협회 정보를 정렬·직렬화한 뒤 SHA 해시를 계산해 QA 캐시 키의 컨텍스트 식별자로 사용한다.",
+      "tags": ["utility", "validation", "cache"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:supabase/functions/chat/index.ts:normalizeSemanticTournaments",
+      "type": "function",
+      "name": "normalizeSemanticTournaments",
+      "filePath": "supabase/functions/chat/index.ts",
+      "lineRange": [115, 128],
+      "summary": "시맨틱 검색 RPC가 반환한 원시 대회 행을 정규화하고 regulation_fields를 표준 형태로 변환한다.",
+      "tags": ["serialization", "utility", "rag"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:supabase/functions/embed-pending/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "supabase/functions/embed-pending/index.ts",
+      "summary": "임베딩 대기열 처리 Edge Function. 미임베딩 대회·룰 데이터를 조회해 텍스트를 구성하고 embedding을 생성·저장하는 배치 작업 진입점.",
+      "tags": ["entry-point", "api-handler", "data-pipeline", "edge-function", "embedding"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:supabase/functions/embed-pending/index.ts:tournamentText",
+      "type": "function",
+      "name": "tournamentText",
+      "filePath": "supabase/functions/embed-pending/index.ts",
+      "lineRange": [35, 46],
+      "summary": "대회 레코드의 제목·주최·지역·요강 등을 결합해 임베딩 생성용 텍스트를 만든다. regulationEmbeddingText로 요강을 통합한다.",
+      "tags": ["serialization", "embedding", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:supabase/functions/tests/chat_cards_test.ts",
+      "type": "file",
+      "name": "chat_cards_test.ts",
+      "filePath": "supabase/functions/tests/chat_cards_test.ts",
+      "summary": "chat_cards 모듈의 대회 카드 생성·검색 텍스트 렌더링·엔티티 파싱 동작을 검증하는 Deno 테스트.",
+      "tags": ["test", "chat", "edge-function"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:supabase/functions/tests/regulation_test.ts",
+      "type": "file",
+      "name": "regulation_test.ts",
+      "filePath": "supabase/functions/tests/regulation_test.ts",
+      "summary": "regulation 모듈의 필드 정규화·포맷·임베딩 텍스트·컨텍스트 라인 생성 로직을 검증하는 Deno 테스트.",
+      "tags": ["test", "rag", "edge-function"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {"source": "file:supabase/functions/_shared/chat_cards.ts", "target": "file:supabase/functions/_shared/regulation.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/_shared/chat_cards.ts", "target": "function:supabase/functions/_shared/chat_cards.ts:buildTournamentCards", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/chat_cards.ts", "target": "function:supabase/functions/_shared/chat_cards.ts:renderTournamentSearchText", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/chat_cards.ts", "target": "function:supabase/functions/_shared/chat_cards.ts:parseSelectedEntity", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/chat_cards.ts", "target": "function:supabase/functions/_shared/chat_cards.ts:buildTournamentCards", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/_shared/chat_cards.ts", "target": "function:supabase/functions/_shared/chat_cards.ts:renderTournamentSearchText", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/_shared/chat_cards.ts", "target": "function:supabase/functions/_shared/chat_cards.ts:parseSelectedEntity", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/chat_cards.ts:buildTournamentCards", "target": "function:supabase/functions/_shared/regulation.ts:normalizeRegulationFields", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:supabase/functions/_shared/gemini.ts", "target": "function:supabase/functions/_shared/gemini.ts:streamChat", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/gemini.ts", "target": "function:supabase/functions/_shared/gemini.ts:streamChat", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:supabase/functions/_shared/regulation.ts", "target": "function:supabase/functions/_shared/regulation.ts:normalizeRegulationFields", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/regulation.ts", "target": "function:supabase/functions/_shared/regulation.ts:regulationEmbeddingText", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/regulation.ts", "target": "function:supabase/functions/_shared/regulation.ts:buildRegulationContextLines", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/regulation.ts", "target": "function:supabase/functions/_shared/regulation.ts:capRegulationBody", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/_shared/regulation.ts", "target": "function:supabase/functions/_shared/regulation.ts:normalizeRegulationFields", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/_shared/regulation.ts", "target": "function:supabase/functions/_shared/regulation.ts:regulationEmbeddingText", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/_shared/regulation.ts", "target": "function:supabase/functions/_shared/regulation.ts:buildRegulationContextLines", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/_shared/regulation.ts", "target": "function:supabase/functions/_shared/regulation.ts:capRegulationBody", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/regulation.ts:regulationEmbeddingText", "target": "function:supabase/functions/_shared/regulation.ts:capRegulationBody", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/_shared/regulation.ts:buildRegulationContextLines", "target": "function:supabase/functions/_shared/regulation.ts:capRegulationBody", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:supabase/functions/chat/index.ts", "target": "file:supabase/functions/_shared/auth.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/chat/index.ts", "target": "file:supabase/functions/_shared/chat_cards.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/chat/index.ts", "target": "file:supabase/functions/_shared/cors.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/chat/index.ts", "target": "file:supabase/functions/_shared/embedding.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/chat/index.ts", "target": "file:supabase/functions/_shared/enums.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/chat/index.ts", "target": "file:supabase/functions/_shared/gemini.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/chat/index.ts", "target": "file:supabase/functions/_shared/intent.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/chat/index.ts", "target": "file:supabase/functions/_shared/regulation.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/chat/index.ts", "target": "file:supabase/functions/_shared/supabase.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/chat/index.ts", "target": "function:supabase/functions/chat/index.ts:buildContextPrompt", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/chat/index.ts", "target": "function:supabase/functions/chat/index.ts:buildSystemPrompt", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/chat/index.ts", "target": "function:supabase/functions/chat/index.ts:computeUserContextHash", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/chat/index.ts", "target": "function:supabase/functions/chat/index.ts:normalizeSemanticTournaments", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:supabase/functions/chat/index.ts", "target": "function:supabase/functions/_shared/gemini.ts:streamChat", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/chat/index.ts", "target": "function:supabase/functions/_shared/chat_cards.ts:buildTournamentCards", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/chat/index.ts", "target": "function:supabase/functions/_shared/chat_cards.ts:renderTournamentSearchText", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "file:supabase/functions/chat/index.ts", "target": "function:supabase/functions/_shared/regulation.ts:normalizeRegulationFields", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/chat/index.ts:buildContextPrompt", "target": "function:supabase/functions/_shared/regulation.ts:buildRegulationContextLines", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/chat/index.ts:normalizeSemanticTournaments", "target": "function:supabase/functions/_shared/regulation.ts:normalizeRegulationFields", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:supabase/functions/embed-pending/index.ts", "target": "file:supabase/functions/_shared/auth.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/embed-pending/index.ts", "target": "file:supabase/functions/_shared/cors.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/embed-pending/index.ts", "target": "file:supabase/functions/_shared/embedding.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/embed-pending/index.ts", "target": "file:supabase/functions/_shared/regulation.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/embed-pending/index.ts", "target": "file:supabase/functions/_shared/supabase.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/embed-pending/index.ts", "target": "function:supabase/functions/embed-pending/index.ts:tournamentText", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "function:supabase/functions/embed-pending/index.ts:tournamentText", "target": "function:supabase/functions/_shared/regulation.ts:regulationEmbeddingText", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:supabase/functions/embed-pending/index.ts:tournamentText", "target": "function:supabase/functions/_shared/regulation.ts:normalizeRegulationFields", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:supabase/functions/tests/chat_cards_test.ts", "target": "file:supabase/functions/_shared/chat_cards.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/_shared/chat_cards.ts", "target": "file:supabase/functions/tests/chat_cards_test.ts", "type": "tested_by", "direction": "forward", "weight": 0.5},
+
+    {"source": "file:supabase/functions/tests/regulation_test.ts", "target": "file:supabase/functions/_shared/regulation.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:supabase/functions/_shared/regulation.ts", "target": "file:supabase/functions/tests/regulation_test.ts", "type": "tested_by", "direction": "forward", "weight": 0.5}
+  ]
+}

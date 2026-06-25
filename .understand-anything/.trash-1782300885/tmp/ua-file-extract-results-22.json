@@ -1,0 +1,5228 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "app/lib/state/theme_provider.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 29,
+      "functions": [
+        {
+          "name": "_load",
+          "startLine": 18,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "set",
+          "startLine": 29,
+          "endLine": 29,
+          "params": [
+            "mode"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ThemeModeController",
+          "startLine": 9,
+          "endLine": 34,
+          "methods": [
+            "_load",
+            "set"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "set",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "ThemeModeController",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ThemeModeController",
+          "callee": "_load",
+          "lineNumber": 13
+        },
+        {
+          "caller": "_load",
+          "callee": "getInstance",
+          "lineNumber": 19
+        },
+        {
+          "caller": "_load",
+          "callee": "getString",
+          "lineNumber": 20
+        },
+        {
+          "caller": "_load",
+          "callee": "switch",
+          "lineNumber": 21
+        },
+        {
+          "caller": "set",
+          "callee": "getInstance",
+          "lineNumber": 31
+        },
+        {
+          "caller": "set",
+          "callee": "setString",
+          "lineNumber": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "app/lib/theme/app_theme.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 144,
+      "nonEmptyLines": 132,
+      "functions": [
+        {
+          "name": "AppTheme._",
+          "startLine": 7,
+          "endLine": 7,
+          "params": []
+        },
+        {
+          "name": "light",
+          "startLine": 9,
+          "endLine": 9,
+          "params": []
+        },
+        {
+          "name": "dark",
+          "startLine": 10,
+          "endLine": 10,
+          "params": []
+        },
+        {
+          "name": "_build",
+          "startLine": 12,
+          "endLine": 12,
+          "params": [
+            "cs"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppTheme",
+          "startLine": 6,
+          "endLine": 144,
+          "methods": [
+            "AppTheme._",
+            "light",
+            "dark",
+            "_build"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AppTheme._",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "light",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "dark",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "AppTheme",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "light",
+          "callee": "_build",
+          "lineNumber": 9
+        },
+        {
+          "caller": "dark",
+          "callee": "_build",
+          "lineNumber": 10
+        },
+        {
+          "caller": "_build",
+          "callee": "apply",
+          "lineNumber": 13
+        },
+        {
+          "caller": "_build",
+          "callee": "ThemeData",
+          "lineNumber": 18
+        },
+        {
+          "caller": "_build",
+          "callee": "CardThemeData",
+          "lineNumber": 27
+        },
+        {
+          "caller": "_build",
+          "callee": "RoundedRectangleBorder",
+          "lineNumber": 31
+        },
+        {
+          "caller": "_build",
+          "callee": "FilledButtonThemeData",
+          "lineNumber": 36
+        },
+        {
+          "caller": "_build",
+          "callee": "styleFrom",
+          "lineNumber": 37
+        },
+        {
+          "caller": "_build",
+          "callee": "Size",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_build",
+          "callee": "RoundedRectangleBorder",
+          "lineNumber": 39
+        },
+        {
+          "caller": "_build",
+          "callee": "circular",
+          "lineNumber": 40
+        },
+        {
+          "caller": "_build",
+          "callee": "OutlinedButtonThemeData",
+          "lineNumber": 45
+        },
+        {
+          "caller": "_build",
+          "callee": "styleFrom",
+          "lineNumber": 46
+        },
+        {
+          "caller": "_build",
+          "callee": "Size",
+          "lineNumber": 47
+        },
+        {
+          "caller": "_build",
+          "callee": "RoundedRectangleBorder",
+          "lineNumber": 48
+        },
+        {
+          "caller": "_build",
+          "callee": "circular",
+          "lineNumber": 49
+        },
+        {
+          "caller": "_build",
+          "callee": "BorderSide",
+          "lineNumber": 52
+        },
+        {
+          "caller": "_build",
+          "callee": "TextButtonThemeData",
+          "lineNumber": 55
+        },
+        {
+          "caller": "_build",
+          "callee": "styleFrom",
+          "lineNumber": 56
+        },
+        {
+          "caller": "_build",
+          "callee": "ChipThemeData",
+          "lineNumber": 60
+        },
+        {
+          "caller": "_build",
+          "callee": "StadiumBorder",
+          "lineNumber": 65
+        },
+        {
+          "caller": "_build",
+          "callee": "EdgeInsets",
+          "lineNumber": 66
+        },
+        {
+          "caller": "_build",
+          "callee": "InputDecorationTheme",
+          "lineNumber": 73
+        },
+        {
+          "caller": "_build",
+          "callee": "EdgeInsets",
+          "lineNumber": 76
+        },
+        {
+          "caller": "_build",
+          "callee": "OutlineInputBorder",
+          "lineNumber": 80
+        },
+        {
+          "caller": "_build",
+          "callee": "circular",
+          "lineNumber": 81
+        },
+        {
+          "caller": "_build",
+          "callee": "OutlineInputBorder",
+          "lineNumber": 84
+        },
+        {
+          "caller": "_build",
+          "callee": "circular",
+          "lineNumber": 85
+        },
+        {
+          "caller": "_build",
+          "callee": "OutlineInputBorder",
+          "lineNumber": 88
+        },
+        {
+          "caller": "_build",
+          "callee": "circular",
+          "lineNumber": 89
+        },
+        {
+          "caller": "_build",
+          "callee": "BorderSide",
+          "lineNumber": 90
+        },
+        {
+          "caller": "_build",
+          "callee": "AppBarTheme",
+          "lineNumber": 95
+        },
+        {
+          "caller": "_build",
+          "callee": "NavigationBarThemeData",
+          "lineNumber": 109
+        },
+        {
+          "caller": "_build",
+          "callee": "resolveWith",
+          "lineNumber": 113
+        },
+        {
+          "caller": "_build",
+          "callee": "contains",
+          "lineNumber": 114
+        },
+        {
+          "caller": "_build",
+          "callee": "resolveWith",
+          "lineNumber": 120
+        },
+        {
+          "caller": "_build",
+          "callee": "contains",
+          "lineNumber": 121
+        },
+        {
+          "caller": "_build",
+          "callee": "IconThemeData",
+          "lineNumber": 122
+        },
+        {
+          "caller": "_build",
+          "callee": "SnackBarThemeData",
+          "lineNumber": 132
+        },
+        {
+          "caller": "_build",
+          "callee": "RoundedRectangleBorder",
+          "lineNumber": 134
+        },
+        {
+          "caller": "_build",
+          "callee": "circular",
+          "lineNumber": 135
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "app/lib/theme/color_schemes.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 91,
+      "nonEmptyLines": 88,
+      "functions": [
+        {
+          "name": "AppPalette._",
+          "startLine": 5,
+          "endLine": 5,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppPalette",
+          "startLine": 4,
+          "endLine": 19,
+          "methods": [
+            "AppPalette._"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AppPalette._",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "AppPalette",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "app/lib/theme/motion.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 37,
+      "nonEmptyLines": 30,
+      "functions": [
+        {
+          "name": "AppDuration._",
+          "startLine": 5,
+          "endLine": 5,
+          "params": []
+        },
+        {
+          "name": "AppCurves._",
+          "startLine": 28,
+          "endLine": 28,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppDuration",
+          "startLine": 4,
+          "endLine": 24,
+          "methods": [
+            "AppDuration._"
+          ],
+          "properties": []
+        },
+        {
+          "name": "AppCurves",
+          "startLine": 27,
+          "endLine": 37,
+          "methods": [
+            "AppCurves._"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AppDuration._",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "AppDuration",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "AppCurves._",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "AppCurves",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 2,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "app/lib/theme/tokens.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 76,
+      "nonEmptyLines": 64,
+      "functions": [
+        {
+          "name": "AppRadius._",
+          "startLine": 5,
+          "endLine": 5,
+          "params": []
+        },
+        {
+          "name": "AppSpacing._",
+          "startLine": 24,
+          "endLine": 24,
+          "params": []
+        },
+        {
+          "name": "AppShadows._",
+          "startLine": 45,
+          "endLine": 45,
+          "params": []
+        },
+        {
+          "name": "cardFor",
+          "startLine": 62,
+          "endLine": 62,
+          "params": [
+            "b"
+          ]
+        },
+        {
+          "name": "elevatedFor",
+          "startLine": 65,
+          "endLine": 65,
+          "params": [
+            "b"
+          ]
+        },
+        {
+          "name": "AppSportColors._",
+          "startLine": 71,
+          "endLine": 71,
+          "params": []
+        },
+        {
+          "name": "forSport",
+          "startLine": 75,
+          "endLine": 75,
+          "params": [
+            "sport"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppRadius",
+          "startLine": 4,
+          "endLine": 20,
+          "methods": [
+            "AppRadius._"
+          ],
+          "properties": []
+        },
+        {
+          "name": "AppSpacing",
+          "startLine": 23,
+          "endLine": 40,
+          "methods": [
+            "AppSpacing._"
+          ],
+          "properties": []
+        },
+        {
+          "name": "AppShadows",
+          "startLine": 44,
+          "endLine": 67,
+          "methods": [
+            "AppShadows._",
+            "cardFor",
+            "elevatedFor"
+          ],
+          "properties": []
+        },
+        {
+          "name": "AppSportColors",
+          "startLine": 70,
+          "endLine": 76,
+          "methods": [
+            "AppSportColors._",
+            "forSport"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AppRadius._",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "AppRadius",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "AppSpacing._",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "AppSpacing",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "AppShadows._",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "cardFor",
+          "line": 62,
+          "isDefault": false
+        },
+        {
+          "name": "elevatedFor",
+          "line": 65,
+          "isDefault": false
+        },
+        {
+          "name": "AppShadows",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "AppSportColors._",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "forSport",
+          "line": 75,
+          "isDefault": false
+        },
+        {
+          "name": "AppSportColors",
+          "line": 70,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 11,
+        "functionCount": 7,
+        "classCount": 4
+      }
+    },
+    {
+      "path": "app/lib/theme/typography.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 121,
+      "nonEmptyLines": 114,
+      "functions": [
+        {
+          "name": "AppTypography._",
+          "startLine": 6,
+          "endLine": 6,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppTypography",
+          "startLine": 5,
+          "endLine": 121,
+          "methods": [
+            "AppTypography._"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AppTypography._",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "AppTypography",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "app/lib/utils/active_filters.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 141,
+      "nonEmptyLines": 121,
+      "functions": [
+        {
+          "name": "hashCode",
+          "startLine": 46,
+          "endLine": 46,
+          "params": []
+        },
+        {
+          "name": "toString",
+          "startLine": 49,
+          "endLine": 49,
+          "params": []
+        },
+        {
+          "name": "_formatYmd",
+          "startLine": 52,
+          "endLine": 52,
+          "params": [
+            "d"
+          ]
+        },
+        {
+          "name": "dateRangeChipLabel",
+          "startLine": 56,
+          "endLine": 56,
+          "params": [
+            "from",
+            "to",
+            "now"
+          ]
+        },
+        {
+          "name": "activeFilterChips",
+          "startLine": 72,
+          "endLine": 83,
+          "params": [
+            "sport",
+            "query",
+            "regionCode",
+            "dateFrom",
+            "dateTo",
+            "hostOrg",
+            "divisionLabels",
+            "recruiting",
+            "onlyMyGrade",
+            "now"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ActiveFilterKind",
+          "startLine": 12,
+          "endLine": 20,
+          "methods": [],
+          "properties": [
+            "query",
+            "region",
+            "dateRange",
+            "hostOrg",
+            "division",
+            "recruiting",
+            "onlyMyGrade"
+          ]
+        },
+        {
+          "name": "ActiveFilterChipData",
+          "startLine": 23,
+          "endLine": 50,
+          "methods": [
+            "hashCode",
+            "toString"
+          ],
+          "properties": [
+            "kind",
+            "value",
+            "label"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ActiveFilterKind",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "hashCode",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "toString",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "ActiveFilterChipData",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "dateRangeChipLabel",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "activeFilterChips",
+          "line": 72,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "hashCode",
+          "callee": "hash",
+          "lineNumber": 46
+        },
+        {
+          "caller": "_formatYmd",
+          "callee": "toString",
+          "lineNumber": 53
+        },
+        {
+          "caller": "_formatYmd",
+          "callee": "padLeft",
+          "lineNumber": 53
+        },
+        {
+          "caller": "_formatYmd",
+          "callee": "toString",
+          "lineNumber": 53
+        },
+        {
+          "caller": "_formatYmd",
+          "callee": "padLeft",
+          "lineNumber": 53
+        },
+        {
+          "caller": "dateRangeChipLabel",
+          "callee": "presetForRange",
+          "lineNumber": 57
+        },
+        {
+          "caller": "dateRangeChipLabel",
+          "callee": "datePresetLabel",
+          "lineNumber": 59
+        },
+        {
+          "caller": "dateRangeChipLabel",
+          "callee": "_formatYmd",
+          "lineNumber": 62
+        },
+        {
+          "caller": "dateRangeChipLabel",
+          "callee": "_formatYmd",
+          "lineNumber": 62
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "trim",
+          "lineNumber": 87
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "add",
+          "lineNumber": 89
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "ActiveFilterChipData",
+          "lineNumber": 89
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "add",
+          "lineNumber": 96
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "ActiveFilterChipData",
+          "lineNumber": 96
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "regionLabel",
+          "lineNumber": 98
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "add",
+          "lineNumber": 103
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "ActiveFilterChipData",
+          "lineNumber": 103
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "dateRangeChipLabel",
+          "lineNumber": 105
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "add",
+          "lineNumber": 110
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "ActiveFilterChipData",
+          "lineNumber": 110
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "tennisOrgShortLabel",
+          "lineNumber": 112
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "add",
+          "lineNumber": 119
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "ActiveFilterChipData",
+          "lineNumber": 119
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "gradeLabel",
+          "lineNumber": 122
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "add",
+          "lineNumber": 127
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "ActiveFilterChipData",
+          "lineNumber": 127
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "recruitingStatusLabel",
+          "lineNumber": 129
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "add",
+          "lineNumber": 134
+        },
+        {
+          "caller": "activeFilterChips",
+          "callee": "ActiveFilterChipData",
+          "lineNumber": 134
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 6,
+        "functionCount": 5,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "app/lib/utils/grade_labels.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 345,
+      "nonEmptyLines": 311,
+      "functions": [
+        {
+          "name": "divisionLabel",
+          "startLine": 186,
+          "endLine": 186,
+          "params": [
+            "code"
+          ]
+        },
+        {
+          "name": "divisionsForOrg",
+          "startLine": 190,
+          "endLine": 190,
+          "params": [
+            "org"
+          ]
+        },
+        {
+          "name": "tennisDivisionLabels",
+          "startLine": 197,
+          "endLine": 197,
+          "params": []
+        },
+        {
+          "name": "tennisCodesForLabel",
+          "startLine": 208,
+          "endLine": 208,
+          "params": [
+            "label"
+          ]
+        },
+        {
+          "name": "tennisCodesForLabels",
+          "startLine": 213,
+          "endLine": 213,
+          "params": [
+            "labels"
+          ]
+        },
+        {
+          "name": "tennisDivisionLabelsForOrg",
+          "startLine": 223,
+          "endLine": 223,
+          "params": [
+            "org"
+          ]
+        },
+        {
+          "name": "tennisCodesForLabelInOrg",
+          "startLine": 234,
+          "endLine": 234,
+          "params": [
+            "org",
+            "label"
+          ]
+        },
+        {
+          "name": "tennisCodesForLabelsInOrg",
+          "startLine": 241,
+          "endLine": 241,
+          "params": [
+            "org",
+            "labels"
+          ]
+        },
+        {
+          "name": "formatEligibleGrades",
+          "startLine": 250,
+          "endLine": 250,
+          "params": [
+            "codes"
+          ]
+        },
+        {
+          "name": "sportFromString",
+          "startLine": 260,
+          "endLine": 260,
+          "params": [
+            "s"
+          ]
+        },
+        {
+          "name": "sportToString",
+          "startLine": 262,
+          "endLine": 262,
+          "params": [
+            "s"
+          ]
+        },
+        {
+          "name": "gradesFor",
+          "startLine": 264,
+          "endLine": 264,
+          "params": [
+            "sport"
+          ]
+        },
+        {
+          "name": "gradeLabel",
+          "startLine": 267,
+          "endLine": 267,
+          "params": [
+            "grade"
+          ]
+        },
+        {
+          "name": "sportLabel",
+          "startLine": 268,
+          "endLine": 268,
+          "params": [
+            "sport"
+          ]
+        },
+        {
+          "name": "sportLabelFromString",
+          "startLine": 269,
+          "endLine": 269,
+          "params": [
+            "s"
+          ]
+        },
+        {
+          "name": "futsalEventCategoryLabel",
+          "startLine": 270,
+          "endLine": 270,
+          "params": [
+            "category"
+          ]
+        },
+        {
+          "name": "isValidTennisOrg",
+          "startLine": 315,
+          "endLine": 315,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "tennisOrgLabel",
+          "startLine": 316,
+          "endLine": 316,
+          "params": [
+            "org"
+          ]
+        },
+        {
+          "name": "tennisOrgShortLabel",
+          "startLine": 317,
+          "endLine": 317,
+          "params": [
+            "org"
+          ]
+        },
+        {
+          "name": "isValidRegionCode",
+          "startLine": 344,
+          "endLine": 344,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "regionLabel",
+          "startLine": 345,
+          "endLine": 345,
+          "params": [
+            "code"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "Sport",
+          "startLine": 1,
+          "endLine": 1,
+          "methods": [],
+          "properties": [
+            "tennis",
+            "futsal"
+          ]
+        },
+        {
+          "name": "TennisDivision",
+          "startLine": 29,
+          "endLine": 42,
+          "methods": [],
+          "properties": [
+            "code",
+            "org",
+            "label",
+            "hasRanking",
+            "gender"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Sport",
+          "line": 1,
+          "isDefault": false
+        },
+        {
+          "name": "TennisDivision",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "divisionLabel",
+          "line": 186,
+          "isDefault": false
+        },
+        {
+          "name": "divisionsForOrg",
+          "line": 190,
+          "isDefault": false
+        },
+        {
+          "name": "tennisDivisionLabels",
+          "line": 197,
+          "isDefault": false
+        },
+        {
+          "name": "tennisCodesForLabel",
+          "line": 208,
+          "isDefault": false
+        },
+        {
+          "name": "tennisCodesForLabels",
+          "line": 213,
+          "isDefault": false
+        },
+        {
+          "name": "tennisDivisionLabelsForOrg",
+          "line": 223,
+          "isDefault": false
+        },
+        {
+          "name": "tennisCodesForLabelInOrg",
+          "line": 234,
+          "isDefault": false
+        },
+        {
+          "name": "tennisCodesForLabelsInOrg",
+          "line": 241,
+          "isDefault": false
+        },
+        {
+          "name": "formatEligibleGrades",
+          "line": 250,
+          "isDefault": false
+        },
+        {
+          "name": "sportFromString",
+          "line": 260,
+          "isDefault": false
+        },
+        {
+          "name": "sportToString",
+          "line": 262,
+          "isDefault": false
+        },
+        {
+          "name": "gradesFor",
+          "line": 264,
+          "isDefault": false
+        },
+        {
+          "name": "gradeLabel",
+          "line": 267,
+          "isDefault": false
+        },
+        {
+          "name": "sportLabel",
+          "line": 268,
+          "isDefault": false
+        },
+        {
+          "name": "sportLabelFromString",
+          "line": 269,
+          "isDefault": false
+        },
+        {
+          "name": "futsalEventCategoryLabel",
+          "line": 270,
+          "isDefault": false
+        },
+        {
+          "name": "isValidTennisOrg",
+          "line": 315,
+          "isDefault": false
+        },
+        {
+          "name": "tennisOrgLabel",
+          "line": 316,
+          "isDefault": false
+        },
+        {
+          "name": "tennisOrgShortLabel",
+          "line": 317,
+          "isDefault": false
+        },
+        {
+          "name": "isValidRegionCode",
+          "line": 344,
+          "isDefault": false
+        },
+        {
+          "name": "regionLabel",
+          "line": 345,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "divisionsForOrg",
+          "callee": "where",
+          "lineNumber": 191
+        },
+        {
+          "caller": "divisionsForOrg",
+          "callee": "toList",
+          "lineNumber": 191
+        },
+        {
+          "caller": "tennisDivisionLabels",
+          "callee": "add",
+          "lineNumber": 201
+        },
+        {
+          "caller": "tennisDivisionLabels",
+          "callee": "add",
+          "lineNumber": 201
+        },
+        {
+          "caller": "tennisCodesForLabel",
+          "callee": "where",
+          "lineNumber": 209
+        },
+        {
+          "caller": "tennisCodesForLabel",
+          "callee": "map",
+          "lineNumber": 209
+        },
+        {
+          "caller": "tennisCodesForLabel",
+          "callee": "toList",
+          "lineNumber": 209
+        },
+        {
+          "caller": "tennisCodesForLabels",
+          "callee": "addAll",
+          "lineNumber": 216
+        },
+        {
+          "caller": "tennisCodesForLabels",
+          "callee": "tennisCodesForLabel",
+          "lineNumber": 216
+        },
+        {
+          "caller": "tennisDivisionLabelsForOrg",
+          "callee": "divisionsForOrg",
+          "lineNumber": 226
+        },
+        {
+          "caller": "tennisDivisionLabelsForOrg",
+          "callee": "add",
+          "lineNumber": 227
+        },
+        {
+          "caller": "tennisDivisionLabelsForOrg",
+          "callee": "add",
+          "lineNumber": 227
+        },
+        {
+          "caller": "tennisCodesForLabelInOrg",
+          "callee": "divisionsForOrg",
+          "lineNumber": 235
+        },
+        {
+          "caller": "tennisCodesForLabelInOrg",
+          "callee": "where",
+          "lineNumber": 236
+        },
+        {
+          "caller": "tennisCodesForLabelInOrg",
+          "callee": "map",
+          "lineNumber": 237
+        },
+        {
+          "caller": "tennisCodesForLabelInOrg",
+          "callee": "toList",
+          "lineNumber": 238
+        },
+        {
+          "caller": "tennisCodesForLabelsInOrg",
+          "callee": "addAll",
+          "lineNumber": 244
+        },
+        {
+          "caller": "tennisCodesForLabelsInOrg",
+          "callee": "tennisCodesForLabelInOrg",
+          "lineNumber": 244
+        },
+        {
+          "caller": "formatEligibleGrades",
+          "callee": "map",
+          "lineNumber": 252
+        },
+        {
+          "caller": "formatEligibleGrades",
+          "callee": "join",
+          "lineNumber": 252
+        },
+        {
+          "caller": "sportLabelFromString",
+          "callee": "sportLabel",
+          "lineNumber": 269
+        },
+        {
+          "caller": "sportLabelFromString",
+          "callee": "sportFromString",
+          "lineNumber": 269
+        },
+        {
+          "caller": "isValidTennisOrg",
+          "callee": "contains",
+          "lineNumber": 315
+        },
+        {
+          "caller": "isValidRegionCode",
+          "callee": "contains",
+          "lineNumber": 344
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 23,
+        "functionCount": 21,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "app/lib/utils/tournament_filters.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 111,
+      "nonEmptyLines": 103,
+      "classes": [
+        {
+          "name": "DatePreset",
+          "startLine": 9,
+          "endLine": 9,
+          "methods": [],
+          "properties": [
+            "all",
+            "thisMonth",
+            "nextMonth",
+            "thisYear",
+            "custom"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "DatePreset",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "dateOnly",
+          "callee": "DateTime",
+          "lineNumber": 28
+        },
+        {
+          "caller": "presetForRange",
+          "callee": "dateRangeForPreset",
+          "lineNumber": 67
+        },
+        {
+          "caller": "presetForRange",
+          "callee": "dateOnly",
+          "lineNumber": 72
+        },
+        {
+          "caller": "presetForRange",
+          "callee": "dateOnly",
+          "lineNumber": 72
+        },
+        {
+          "caller": "presetForRange",
+          "callee": "dateOnly",
+          "lineNumber": 73
+        },
+        {
+          "caller": "presetForRange",
+          "callee": "dateOnly",
+          "lineNumber": 73
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "app/lib/widgets/allround_logo.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 209,
+      "nonEmptyLines": 182,
+      "functions": [
+        {
+          "name": "build",
+          "startLine": 22,
+          "endLine": 22,
+          "params": [
+            "context"
+          ]
+        },
+        {
+          "name": "build",
+          "startLine": 81,
+          "endLine": 81,
+          "params": [
+            "context"
+          ]
+        },
+        {
+          "name": "build",
+          "startLine": 114,
+          "endLine": 114,
+          "params": [
+            "context"
+          ]
+        },
+        {
+          "name": "paint",
+          "startLine": 143,
+          "endLine": 143,
+          "params": [
+            "canvas",
+            "size"
+          ]
+        },
+        {
+          "name": "shouldRepaint",
+          "startLine": 204,
+          "endLine": 204,
+          "params": [
+            "oldDelegate"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AllRoundLogo",
+          "startLine": 5,
+          "endLine": 66,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "fontSize",
+            "textColor",
+            "dotColor",
+            "showMark",
+            "markSize"
+          ]
+        },
+        {
+          "name": "BrandedAppBarTitle",
+          "startLine": 68,
+          "endLine": 106,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "title",
+            "textColor",
+            "dotColor"
+          ]
+        },
+        {
+          "name": "_AllroundMark",
+          "startLine": 108,
+          "endLine": 129,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "size"
+          ]
+        },
+        {
+          "name": "_AllroundMarkPainter",
+          "startLine": 131,
+          "endLine": 209,
+          "methods": [
+            "paint",
+            "shouldRepaint"
+          ],
+          "properties": [
+            "background",
+            "orbit",
+            "accent"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "build",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "AllRoundLogo",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "build",
+          "line": 81,
+          "isDefault": false
+        },
+        {
+          "name": "BrandedAppBarTitle",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "build",
+          "line": 114,
+          "isDefault": false
+        },
+        {
+          "name": "paint",
+          "line": 143,
+          "isDefault": false
+        },
+        {
+          "name": "shouldRepaint",
+          "line": 204,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 23
+        },
+        {
+          "caller": "build",
+          "callee": "RichText",
+          "lineNumber": 26
+        },
+        {
+          "caller": "build",
+          "callee": "TextSpan",
+          "lineNumber": 27
+        },
+        {
+          "caller": "build",
+          "callee": "TextStyle",
+          "lineNumber": 28
+        },
+        {
+          "caller": "build",
+          "callee": "TextSpan",
+          "lineNumber": 37
+        },
+        {
+          "caller": "build",
+          "callee": "TextSpan",
+          "lineNumber": 38
+        },
+        {
+          "caller": "build",
+          "callee": "TextStyle",
+          "lineNumber": 40
+        },
+        {
+          "caller": "build",
+          "callee": "Row",
+          "lineNumber": 46
+        },
+        {
+          "caller": "build",
+          "callee": "_AllroundMark",
+          "lineNumber": 49
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 50
+        },
+        {
+          "caller": "build",
+          "callee": "Row",
+          "lineNumber": 57
+        },
+        {
+          "caller": "build",
+          "callee": "_AllroundMark",
+          "lineNumber": 60
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 61
+        },
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 82
+        },
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 83
+        },
+        {
+          "caller": "build",
+          "callee": "Row",
+          "lineNumber": 85
+        },
+        {
+          "caller": "build",
+          "callee": "AllRoundLogo",
+          "lineNumber": 88
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 89
+        },
+        {
+          "caller": "build",
+          "callee": "Container",
+          "lineNumber": 90
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 91
+        },
+        {
+          "caller": "build",
+          "callee": "Flexible",
+          "lineNumber": 92
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 93
+        },
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 115
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 117
+        },
+        {
+          "caller": "build",
+          "callee": "CustomPaint",
+          "lineNumber": 120
+        },
+        {
+          "caller": "build",
+          "callee": "_AllroundMarkPainter",
+          "lineNumber": 121
+        },
+        {
+          "caller": "paint",
+          "callee": "min",
+          "lineNumber": 144
+        },
+        {
+          "caller": "paint",
+          "callee": "Size",
+          "lineNumber": 145
+        },
+        {
+          "caller": "paint",
+          "callee": "Paint",
+          "lineNumber": 148
+        },
+        {
+          "caller": "paint",
+          "callee": "drawRRect",
+          "lineNumber": 149
+        },
+        {
+          "caller": "paint",
+          "callee": "fromRectAndRadius",
+          "lineNumber": 150
+        },
+        {
+          "caller": "paint",
+          "callee": "circular",
+          "lineNumber": 150
+        },
+        {
+          "caller": "paint",
+          "callee": "Offset",
+          "lineNumber": 154
+        },
+        {
+          "caller": "paint",
+          "callee": "fromCircle",
+          "lineNumber": 156
+        },
+        {
+          "caller": "paint",
+          "callee": "Paint",
+          "lineNumber": 157
+        },
+        {
+          "caller": "paint",
+          "callee": "drawArc",
+          "lineNumber": 163
+        },
+        {
+          "caller": "paint",
+          "callee": "Paint",
+          "lineNumber": 166
+        },
+        {
+          "caller": "paint",
+          "callee": "drawArc",
+          "lineNumber": 171
+        },
+        {
+          "caller": "paint",
+          "callee": "fromCircle",
+          "lineNumber": 172
+        },
+        {
+          "caller": "paint",
+          "callee": "Paint",
+          "lineNumber": 179
+        },
+        {
+          "caller": "paint",
+          "callee": "drawLine",
+          "lineNumber": 184
+        },
+        {
+          "caller": "paint",
+          "callee": "Offset",
+          "lineNumber": 185
+        },
+        {
+          "caller": "paint",
+          "callee": "Offset",
+          "lineNumber": 186
+        },
+        {
+          "caller": "paint",
+          "callee": "Paint",
+          "lineNumber": 190
+        },
+        {
+          "caller": "paint",
+          "callee": "drawCircle",
+          "lineNumber": 191
+        },
+        {
+          "caller": "paint",
+          "callee": "Offset",
+          "lineNumber": 192
+        },
+        {
+          "caller": "paint",
+          "callee": "Paint",
+          "lineNumber": 194
+        },
+        {
+          "caller": "paint",
+          "callee": "withValues",
+          "lineNumber": 195
+        },
+        {
+          "caller": "paint",
+          "callee": "drawCircle",
+          "lineNumber": 196
+        },
+        {
+          "caller": "paint",
+          "callee": "Offset",
+          "lineNumber": 197
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 7,
+        "functionCount": 5,
+        "classCount": 4
+      }
+    },
+    {
+      "path": "app/lib/widgets/app_bottom_nav.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 53,
+      "nonEmptyLines": 50,
+      "functions": [
+        {
+          "name": "build",
+          "startLine": 14,
+          "endLine": 14,
+          "params": [
+            "context"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppBottomNav",
+          "startLine": 3,
+          "endLine": 53,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "currentIndex",
+            "onChanged"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "build",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "AppBottomNav",
+          "line": 3,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "build",
+          "callee": "NavigationBar",
+          "lineNumber": 15
+        },
+        {
+          "caller": "build",
+          "callee": "NavigationDestination",
+          "lineNumber": 20
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 21
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 22
+        },
+        {
+          "caller": "build",
+          "callee": "NavigationDestination",
+          "lineNumber": 25
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 26
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 27
+        },
+        {
+          "caller": "build",
+          "callee": "NavigationDestination",
+          "lineNumber": 30
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 31
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 32
+        },
+        {
+          "caller": "build",
+          "callee": "NavigationDestination",
+          "lineNumber": 35
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 36
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 37
+        },
+        {
+          "caller": "build",
+          "callee": "NavigationDestination",
+          "lineNumber": 40
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 41
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 42
+        },
+        {
+          "caller": "build",
+          "callee": "NavigationDestination",
+          "lineNumber": 45
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 46
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "app/lib/widgets/app_buttons.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 109,
+      "nonEmptyLines": 100,
+      "functions": [
+        {
+          "name": "build",
+          "startLine": 21,
+          "endLine": 21,
+          "params": [
+            "context"
+          ]
+        },
+        {
+          "name": "build",
+          "startLine": 63,
+          "endLine": 63,
+          "params": [
+            "context"
+          ]
+        },
+        {
+          "name": "build",
+          "startLine": 94,
+          "endLine": 94,
+          "params": [
+            "context"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppPrimaryButton",
+          "startLine": 4,
+          "endLine": 46,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "label",
+            "onPressed",
+            "icon",
+            "loading",
+            "fullWidth"
+          ]
+        },
+        {
+          "name": "AppSecondaryButton",
+          "startLine": 48,
+          "endLine": 79,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "label",
+            "onPressed",
+            "icon",
+            "fullWidth"
+          ]
+        },
+        {
+          "name": "AppGhostButton",
+          "startLine": 81,
+          "endLine": 109,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "label",
+            "onPressed",
+            "icon"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "build",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "AppPrimaryButton",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "build",
+          "line": 63,
+          "isDefault": false
+        },
+        {
+          "name": "AppSecondaryButton",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "build",
+          "line": 94,
+          "isDefault": false
+        },
+        {
+          "name": "AppGhostButton",
+          "line": 81,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "build",
+          "callee": "FilledButton",
+          "lineNumber": 22
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 25
+        },
+        {
+          "caller": "build",
+          "callee": "CircularProgressIndicator",
+          "lineNumber": 28
+        },
+        {
+          "caller": "build",
+          "callee": "Row",
+          "lineNumber": 33
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 37
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 38
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 40
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 44
+        },
+        {
+          "caller": "build",
+          "callee": "OutlinedButton",
+          "lineNumber": 64
+        },
+        {
+          "caller": "build",
+          "callee": "Row",
+          "lineNumber": 66
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 70
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 71
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 73
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 77
+        },
+        {
+          "caller": "build",
+          "callee": "TextButton",
+          "lineNumber": 95
+        },
+        {
+          "caller": "build",
+          "callee": "Row",
+          "lineNumber": 97
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 101
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 102
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 104
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 6,
+        "functionCount": 3,
+        "classCount": 3
+      }
+    },
+    {
+      "path": "app/lib/widgets/app_card.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 62,
+      "nonEmptyLines": 55,
+      "functions": [
+        {
+          "name": "build",
+          "startLine": 23,
+          "endLine": 23,
+          "params": [
+            "context"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppCardVariant",
+          "startLine": 4,
+          "endLine": 4,
+          "methods": [],
+          "properties": [
+            "filled",
+            "outlined",
+            "elevated"
+          ]
+        },
+        {
+          "name": "AppCard",
+          "startLine": 6,
+          "endLine": 62,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "child",
+            "onTap",
+            "variant",
+            "padding",
+            "borderRadius"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "AppCardVariant",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "build",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "AppCard",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 24
+        },
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 25
+        },
+        {
+          "caller": "build",
+          "callee": "BoxDecoration",
+          "lineNumber": 28
+        },
+        {
+          "caller": "build",
+          "callee": "switch",
+          "lineNumber": 29
+        },
+        {
+          "caller": "build",
+          "callee": "all",
+          "lineNumber": 36
+        },
+        {
+          "caller": "build",
+          "callee": "switch",
+          "lineNumber": 38
+        },
+        {
+          "caller": "build",
+          "callee": "Padding",
+          "lineNumber": 45
+        },
+        {
+          "caller": "build",
+          "callee": "Material",
+          "lineNumber": 47
+        },
+        {
+          "caller": "build",
+          "callee": "Ink",
+          "lineNumber": 50
+        },
+        {
+          "caller": "build",
+          "callee": "InkWell",
+          "lineNumber": 54
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 1,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "app/lib/widgets/app_chip.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 63,
+      "nonEmptyLines": 59,
+      "functions": [
+        {
+          "name": "build",
+          "startLine": 22,
+          "endLine": 22,
+          "params": [
+            "context"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppChip",
+          "startLine": 5,
+          "endLine": 63,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "label",
+            "selected",
+            "onTap",
+            "leadingIcon",
+            "selectedColor"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "build",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "AppChip",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 23
+        },
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 24
+        },
+        {
+          "caller": "build",
+          "callee": "AnimatedContainer",
+          "lineNumber": 34
+        },
+        {
+          "caller": "build",
+          "callee": "Material",
+          "lineNumber": 37
+        },
+        {
+          "caller": "build",
+          "callee": "StadiumBorder",
+          "lineNumber": 39
+        },
+        {
+          "caller": "build",
+          "callee": "InkWell",
+          "lineNumber": 40
+        },
+        {
+          "caller": "build",
+          "callee": "StadiumBorder",
+          "lineNumber": 42
+        },
+        {
+          "caller": "build",
+          "callee": "Padding",
+          "lineNumber": 43
+        },
+        {
+          "caller": "build",
+          "callee": "EdgeInsets",
+          "lineNumber": 44
+        },
+        {
+          "caller": "build",
+          "callee": "Row",
+          "lineNumber": 48
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 52
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 53
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 55
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "app/lib/widgets/app_empty_state.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 63,
+      "nonEmptyLines": 60,
+      "functions": [
+        {
+          "name": "build",
+          "startLine": 22,
+          "endLine": 22,
+          "params": [
+            "context"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppEmptyState",
+          "startLine": 5,
+          "endLine": 63,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "icon",
+            "title",
+            "description",
+            "actionLabel",
+            "onAction"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "build",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "AppEmptyState",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 23
+        },
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 24
+        },
+        {
+          "caller": "build",
+          "callee": "Center",
+          "lineNumber": 25
+        },
+        {
+          "caller": "build",
+          "callee": "Padding",
+          "lineNumber": 26
+        },
+        {
+          "caller": "build",
+          "callee": "EdgeInsets",
+          "lineNumber": 27
+        },
+        {
+          "caller": "build",
+          "callee": "Column",
+          "lineNumber": 28
+        },
+        {
+          "caller": "build",
+          "callee": "Container",
+          "lineNumber": 31
+        },
+        {
+          "caller": "build",
+          "callee": "BoxDecoration",
+          "lineNumber": 34
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 38
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 40
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 41
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 43
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 44
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 51
+        },
+        {
+          "caller": "build",
+          "callee": "AppPrimaryButton",
+          "lineNumber": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "app/lib/widgets/app_hero_section.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 80,
+      "nonEmptyLines": 77,
+      "functions": [
+        {
+          "name": "build",
+          "startLine": 23,
+          "endLine": 23,
+          "params": [
+            "context"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppHeroSection",
+          "startLine": 4,
+          "endLine": 80,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "eyebrow",
+            "title",
+            "subtitle",
+            "ctaLabel",
+            "onCta",
+            "icon"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "build",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "AppHeroSection",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 24
+        },
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 25
+        },
+        {
+          "caller": "build",
+          "callee": "Container",
+          "lineNumber": 26
+        },
+        {
+          "caller": "build",
+          "callee": "EdgeInsets",
+          "lineNumber": 27
+        },
+        {
+          "caller": "build",
+          "callee": "BoxDecoration",
+          "lineNumber": 28
+        },
+        {
+          "caller": "build",
+          "callee": "LinearGradient",
+          "lineNumber": 29
+        },
+        {
+          "caller": "build",
+          "callee": "Column",
+          "lineNumber": 36
+        },
+        {
+          "caller": "build",
+          "callee": "Row",
+          "lineNumber": 39
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 41
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 42
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 43
+        },
+        {
+          "caller": "build",
+          "callee": "withValues",
+          "lineNumber": 46
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 51
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 52
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 58
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 59
+        },
+        {
+          "caller": "build",
+          "callee": "withValues",
+          "lineNumber": 62
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 66
+        },
+        {
+          "caller": "build",
+          "callee": "FilledButton",
+          "lineNumber": 67
+        },
+        {
+          "caller": "build",
+          "callee": "styleFrom",
+          "lineNumber": 69
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 73
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "app/lib/widgets/app_info_tile.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 80,
+      "nonEmptyLines": 76,
+      "functions": [
+        {
+          "name": "build",
+          "startLine": 21,
+          "endLine": 21,
+          "params": [
+            "context"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppInfoTile",
+          "startLine": 4,
+          "endLine": 80,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "icon",
+            "label",
+            "value",
+            "onTap",
+            "accent"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "build",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "AppInfoTile",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 22
+        },
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 23
+        },
+        {
+          "caller": "build",
+          "callee": "Material",
+          "lineNumber": 26
+        },
+        {
+          "caller": "build",
+          "callee": "circular",
+          "lineNumber": 28
+        },
+        {
+          "caller": "build",
+          "callee": "InkWell",
+          "lineNumber": 29
+        },
+        {
+          "caller": "build",
+          "callee": "circular",
+          "lineNumber": 31
+        },
+        {
+          "caller": "build",
+          "callee": "Padding",
+          "lineNumber": 32
+        },
+        {
+          "caller": "build",
+          "callee": "EdgeInsets",
+          "lineNumber": 33
+        },
+        {
+          "caller": "build",
+          "callee": "Row",
+          "lineNumber": 37
+        },
+        {
+          "caller": "build",
+          "callee": "Container",
+          "lineNumber": 39
+        },
+        {
+          "caller": "build",
+          "callee": "BoxDecoration",
+          "lineNumber": 42
+        },
+        {
+          "caller": "build",
+          "callee": "withValues",
+          "lineNumber": 43
+        },
+        {
+          "caller": "build",
+          "callee": "circular",
+          "lineNumber": 44
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 46
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 48
+        },
+        {
+          "caller": "build",
+          "callee": "Expanded",
+          "lineNumber": 49
+        },
+        {
+          "caller": "build",
+          "callee": "Column",
+          "lineNumber": 50
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 53
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 59
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 60
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 70
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "app/lib/widgets/app_list_section.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 51,
+      "nonEmptyLines": 48,
+      "functions": [
+        {
+          "name": "build",
+          "startLine": 21,
+          "endLine": 21,
+          "params": [
+            "context"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppListSection",
+          "startLine": 4,
+          "endLine": 51,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "title",
+            "actionLabel",
+            "onAction",
+            "children",
+            "itemGap"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "build",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "AppListSection",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 22
+        },
+        {
+          "caller": "build",
+          "callee": "Column",
+          "lineNumber": 23
+        },
+        {
+          "caller": "build",
+          "callee": "Padding",
+          "lineNumber": 26
+        },
+        {
+          "caller": "build",
+          "callee": "EdgeInsets",
+          "lineNumber": 27
+        },
+        {
+          "caller": "build",
+          "callee": "Row",
+          "lineNumber": 33
+        },
+        {
+          "caller": "build",
+          "callee": "Expanded",
+          "lineNumber": 35
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 35
+        },
+        {
+          "caller": "build",
+          "callee": "TextButton",
+          "lineNumber": 37
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 37
+        },
+        {
+          "caller": "build",
+          "callee": "Padding",
+          "lineNumber": 42
+        },
+        {
+          "caller": "build",
+          "callee": "EdgeInsets",
+          "lineNumber": 43
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 46
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "app/lib/widgets/app_skeleton_card.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 25,
+      "functions": [
+        {
+          "name": "build",
+          "startLine": 17,
+          "endLine": 17,
+          "params": [
+            "context"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppSkeletonCard",
+          "startLine": 6,
+          "endLine": 28,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "loading",
+            "child"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "build",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "AppSkeletonCard",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 18
+        },
+        {
+          "caller": "build",
+          "callee": "Skeletonizer",
+          "lineNumber": 19
+        },
+        {
+          "caller": "build",
+          "callee": "ShimmerEffect",
+          "lineNumber": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "app/lib/widgets/app_toast.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 59,
+      "nonEmptyLines": 55,
+      "functions": [
+        {
+          "name": "AppToast._",
+          "startLine": 7,
+          "endLine": 7,
+          "params": []
+        },
+        {
+          "name": "show",
+          "startLine": 9,
+          "endLine": 13,
+          "params": [
+            "context",
+            "message",
+            "kind"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppToastKind",
+          "startLine": 4,
+          "endLine": 4,
+          "methods": [],
+          "properties": [
+            "info",
+            "success",
+            "warning",
+            "error"
+          ]
+        },
+        {
+          "name": "AppToast",
+          "startLine": 6,
+          "endLine": 59,
+          "methods": [
+            "AppToast._",
+            "show"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AppToastKind",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "AppToast._",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "show",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "AppToast",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "show",
+          "callee": "of",
+          "lineNumber": 14
+        },
+        {
+          "caller": "show",
+          "callee": "switch",
+          "lineNumber": 15
+        },
+        {
+          "caller": "show",
+          "callee": "of",
+          "lineNumber": 38
+        },
+        {
+          "caller": "show",
+          "callee": "SnackBar",
+          "lineNumber": 41
+        },
+        {
+          "caller": "show",
+          "callee": "EdgeInsets",
+          "lineNumber": 44
+        },
+        {
+          "caller": "show",
+          "callee": "Duration",
+          "lineNumber": 45
+        },
+        {
+          "caller": "show",
+          "callee": "RoundedRectangleBorder",
+          "lineNumber": 46
+        },
+        {
+          "caller": "show",
+          "callee": "circular",
+          "lineNumber": 47
+        },
+        {
+          "caller": "show",
+          "callee": "Row",
+          "lineNumber": 49
+        },
+        {
+          "caller": "show",
+          "callee": "Icon",
+          "lineNumber": 51
+        },
+        {
+          "caller": "show",
+          "callee": "SizedBox",
+          "lineNumber": 52
+        },
+        {
+          "caller": "show",
+          "callee": "Expanded",
+          "lineNumber": 53
+        },
+        {
+          "caller": "show",
+          "callee": "Text",
+          "lineNumber": 53
+        },
+        {
+          "caller": "show",
+          "callee": "TextStyle",
+          "lineNumber": 53
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 4,
+        "functionCount": 2,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "app/lib/widgets/chat_tournament_card.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 199,
+      "nonEmptyLines": 187,
+      "functions": [
+        {
+          "name": "build",
+          "startLine": 20,
+          "endLine": 20,
+          "params": [
+            "context"
+          ]
+        },
+        {
+          "name": "build",
+          "startLine": 128,
+          "endLine": 128,
+          "params": [
+            "context"
+          ]
+        },
+        {
+          "name": "build",
+          "startLine": 180,
+          "endLine": 180,
+          "params": [
+            "context"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ChatTournamentCard",
+          "startLine": 9,
+          "endLine": 113,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "item",
+            "onAction"
+          ]
+        },
+        {
+          "name": "_RegulationSummary",
+          "startLine": 116,
+          "endLine": 162,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "fields",
+            "cs",
+            "tt"
+          ]
+        },
+        {
+          "name": "_InfoRow",
+          "startLine": 164,
+          "endLine": 199,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "icon",
+            "label",
+            "value",
+            "cs",
+            "tt"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "build",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "ChatTournamentCard",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "build",
+          "line": 128,
+          "isDefault": false
+        },
+        {
+          "name": "build",
+          "line": 180,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 21
+        },
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 22
+        },
+        {
+          "caller": "build",
+          "callee": "AppCard",
+          "lineNumber": 30
+        },
+        {
+          "caller": "build",
+          "callee": "Column",
+          "lineNumber": 32
+        },
+        {
+          "caller": "build",
+          "callee": "Row",
+          "lineNumber": 35
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 37
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 44
+        },
+        {
+          "caller": "build",
+          "callee": "Expanded",
+          "lineNumber": 45
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 46
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 55
+        },
+        {
+          "caller": "build",
+          "callee": "_InfoRow",
+          "lineNumber": 56
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 64
+        },
+        {
+          "caller": "build",
+          "callee": "_InfoRow",
+          "lineNumber": 65
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 74
+        },
+        {
+          "caller": "build",
+          "callee": "_InfoRow",
+          "lineNumber": 75
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 84
+        },
+        {
+          "caller": "build",
+          "callee": "_InfoRow",
+          "lineNumber": 85
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 94
+        },
+        {
+          "caller": "build",
+          "callee": "_RegulationSummary",
+          "lineNumber": 95
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 101
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 102
+        },
+        {
+          "caller": "build",
+          "callee": "OutlinedButton",
+          "lineNumber": 104
+        },
+        {
+          "caller": "build",
+          "callee": "onAction",
+          "lineNumber": 105
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 106
+        },
+        {
+          "caller": "build",
+          "callee": "Wrap",
+          "lineNumber": 129
+        },
+        {
+          "caller": "build",
+          "callee": "Container",
+          "lineNumber": 134
+        },
+        {
+          "caller": "build",
+          "callee": "EdgeInsets",
+          "lineNumber": 135
+        },
+        {
+          "caller": "build",
+          "callee": "BoxDecoration",
+          "lineNumber": 139
+        },
+        {
+          "caller": "build",
+          "callee": "RichText",
+          "lineNumber": 143
+        },
+        {
+          "caller": "build",
+          "callee": "TextSpan",
+          "lineNumber": 144
+        },
+        {
+          "caller": "build",
+          "callee": "TextSpan",
+          "lineNumber": 147
+        },
+        {
+          "caller": "build",
+          "callee": "TextSpan",
+          "lineNumber": 148
+        },
+        {
+          "caller": "build",
+          "callee": "Row",
+          "lineNumber": 181
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 183
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 184
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 185
+        },
+        {
+          "caller": "build",
+          "callee": "Expanded",
+          "lineNumber": 189
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 190
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 4,
+        "functionCount": 3,
+        "classCount": 3
+      }
+    },
+    {
+      "path": "app/lib/widgets/tournament_card.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 400,
+      "nonEmptyLines": 370,
+      "functions": [
+        {
+          "name": "build",
+          "startLine": 32,
+          "endLine": 32,
+          "params": [
+            "context"
+          ]
+        },
+        {
+          "name": "_deadlineInfo",
+          "startLine": 198,
+          "endLine": 198,
+          "params": []
+        },
+        {
+          "name": "_dday",
+          "startLine": 202,
+          "endLine": 202,
+          "params": []
+        },
+        {
+          "name": "_deadlineSoon",
+          "startLine": 205,
+          "endLine": 205,
+          "params": []
+        },
+        {
+          "name": "_dateText",
+          "startLine": 209,
+          "endLine": 209,
+          "params": []
+        },
+        {
+          "name": "_deadlineText",
+          "startLine": 212,
+          "endLine": 212,
+          "params": []
+        },
+        {
+          "name": "_locationText",
+          "startLine": 215,
+          "endLine": 215,
+          "params": []
+        },
+        {
+          "name": "_status",
+          "startLine": 218,
+          "endLine": 218,
+          "params": [
+            "context"
+          ]
+        },
+        {
+          "name": "_statusLabel",
+          "startLine": 263,
+          "endLine": 263,
+          "params": [
+            "status"
+          ]
+        },
+        {
+          "name": "build",
+          "startLine": 295,
+          "endLine": 295,
+          "params": [
+            "context"
+          ]
+        },
+        {
+          "name": "build",
+          "startLine": 342,
+          "endLine": 342,
+          "params": [
+            "context"
+          ]
+        },
+        {
+          "name": "build",
+          "startLine": 372,
+          "endLine": 372,
+          "params": [
+            "context"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "TournamentCard",
+          "startLine": 11,
+          "endLine": 273,
+          "methods": [
+            "build",
+            "_deadlineInfo",
+            "_dday",
+            "_deadlineSoon",
+            "_dateText",
+            "_deadlineText",
+            "_locationText",
+            "_status",
+            "_statusLabel"
+          ],
+          "properties": [
+            "tournament",
+            "isFavorite",
+            "isMyGrade",
+            "onTap",
+            "onFavoriteToggle",
+            "compact"
+          ]
+        },
+        {
+          "name": "_InfoLine",
+          "startLine": 277,
+          "endLine": 334,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "icon",
+            "label",
+            "value",
+            "emphasize",
+            "emphasizeColor"
+          ]
+        },
+        {
+          "name": "_CategoryChip",
+          "startLine": 336,
+          "endLine": 359,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "label"
+          ]
+        },
+        {
+          "name": "_StatusChip",
+          "startLine": 361,
+          "endLine": 388,
+          "methods": [
+            "build"
+          ],
+          "properties": [
+            "label",
+            "foreground",
+            "background"
+          ]
+        },
+        {
+          "name": "_StatusBadgeData",
+          "startLine": 390,
+          "endLine": 400,
+          "methods": [],
+          "properties": [
+            "label",
+            "foreground",
+            "background"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "build",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "TournamentCard",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "build",
+          "line": 295,
+          "isDefault": false
+        },
+        {
+          "name": "build",
+          "line": 342,
+          "isDefault": false
+        },
+        {
+          "name": "build",
+          "line": 372,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 33
+        },
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 34
+        },
+        {
+          "caller": "build",
+          "callee": "_status",
+          "lineNumber": 35
+        },
+        {
+          "caller": "build",
+          "callee": "map",
+          "lineNumber": 39
+        },
+        {
+          "caller": "build",
+          "callee": "divisionLabel",
+          "lineNumber": 39
+        },
+        {
+          "caller": "build",
+          "callee": "divisionLabel",
+          "lineNumber": 39
+        },
+        {
+          "caller": "build",
+          "callee": "gradeLabel",
+          "lineNumber": 39
+        },
+        {
+          "caller": "build",
+          "callee": "toSet",
+          "lineNumber": 40
+        },
+        {
+          "caller": "build",
+          "callee": "toList",
+          "lineNumber": 41
+        },
+        {
+          "caller": "build",
+          "callee": "take",
+          "lineNumber": 44
+        },
+        {
+          "caller": "build",
+          "callee": "join",
+          "lineNumber": 44
+        },
+        {
+          "caller": "build",
+          "callee": "join",
+          "lineNumber": 45
+        },
+        {
+          "caller": "build",
+          "callee": "futsalEventCategoryLabel",
+          "lineNumber": 47
+        },
+        {
+          "caller": "build",
+          "callee": "Padding",
+          "lineNumber": 50
+        },
+        {
+          "caller": "build",
+          "callee": "EdgeInsets",
+          "lineNumber": 51
+        },
+        {
+          "caller": "build",
+          "callee": "AppCard",
+          "lineNumber": 52
+        },
+        {
+          "caller": "build",
+          "callee": "circular",
+          "lineNumber": 55
+        },
+        {
+          "caller": "build",
+          "callee": "EdgeInsets",
+          "lineNumber": 56
+        },
+        {
+          "caller": "build",
+          "callee": "Column",
+          "lineNumber": 57
+        },
+        {
+          "caller": "build",
+          "callee": "Row",
+          "lineNumber": 63
+        },
+        {
+          "caller": "build",
+          "callee": "_StatusChip",
+          "lineNumber": 65
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 71
+        },
+        {
+          "caller": "build",
+          "callee": "_StatusChip",
+          "lineNumber": 72
+        },
+        {
+          "caller": "build",
+          "callee": "Spacer",
+          "lineNumber": 78
+        },
+        {
+          "caller": "build",
+          "callee": "_StatusChip",
+          "lineNumber": 80
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 87
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 90
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 102
+        },
+        {
+          "caller": "build",
+          "callee": "Row",
+          "lineNumber": 103
+        },
+        {
+          "caller": "build",
+          "callee": "Expanded",
+          "lineNumber": 105
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 106
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 114
+        },
+        {
+          "caller": "build",
+          "callee": "_CategoryChip",
+          "lineNumber": 115
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 120
+        },
+        {
+          "caller": "build",
+          "callee": "_InfoLine",
+          "lineNumber": 124
+        },
+        {
+          "caller": "build",
+          "callee": "_dateText",
+          "lineNumber": 127
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 129
+        },
+        {
+          "caller": "build",
+          "callee": "_deadlineText",
+          "lineNumber": 130
+        },
+        {
+          "caller": "build",
+          "callee": "_InfoLine",
+          "lineNumber": 131
+        },
+        {
+          "caller": "build",
+          "callee": "_deadlineText",
+          "lineNumber": 134
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 139
+        },
+        {
+          "caller": "build",
+          "callee": "_locationText",
+          "lineNumber": 141
+        },
+        {
+          "caller": "build",
+          "callee": "Row",
+          "lineNumber": 143
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 145
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 146
+        },
+        {
+          "caller": "build",
+          "callee": "Expanded",
+          "lineNumber": 147
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 148
+        },
+        {
+          "caller": "build",
+          "callee": "_locationText",
+          "lineNumber": 149
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 160
+        },
+        {
+          "caller": "build",
+          "callee": "Row",
+          "lineNumber": 163
+        },
+        {
+          "caller": "build",
+          "callee": "Expanded",
+          "lineNumber": 165
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 166
+        },
+        {
+          "caller": "build",
+          "callee": "GestureDetector",
+          "lineNumber": 177
+        },
+        {
+          "caller": "build",
+          "callee": "lightImpact",
+          "lineNumber": 179
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 182
+        },
+        {
+          "caller": "_deadlineInfo",
+          "callee": "compute",
+          "lineNumber": 199
+        },
+        {
+          "caller": "_deadlineInfo",
+          "callee": "now",
+          "lineNumber": 199
+        },
+        {
+          "caller": "_dateText",
+          "callee": "tournamentDateText",
+          "lineNumber": 210
+        },
+        {
+          "caller": "_deadlineText",
+          "callee": "applicationDeadlineText",
+          "lineNumber": 213
+        },
+        {
+          "caller": "_locationText",
+          "callee": "locationText",
+          "lineNumber": 216
+        },
+        {
+          "caller": "_status",
+          "callee": "of",
+          "lineNumber": 219
+        },
+        {
+          "caller": "_status",
+          "callee": "now",
+          "lineNumber": 222
+        },
+        {
+          "caller": "_status",
+          "callee": "difference",
+          "lineNumber": 224
+        },
+        {
+          "caller": "_status",
+          "callee": "DateTime",
+          "lineNumber": 224
+        },
+        {
+          "caller": "_status",
+          "callee": "_StatusBadgeData",
+          "lineNumber": 227
+        },
+        {
+          "caller": "_status",
+          "callee": "_StatusBadgeData",
+          "lineNumber": 234
+        },
+        {
+          "caller": "_status",
+          "callee": "Color",
+          "lineNumber": 236
+        },
+        {
+          "caller": "_status",
+          "callee": "Color",
+          "lineNumber": 237
+        },
+        {
+          "caller": "_status",
+          "callee": "now",
+          "lineNumber": 242
+        },
+        {
+          "caller": "_status",
+          "callee": "isBefore",
+          "lineNumber": 244
+        },
+        {
+          "caller": "_status",
+          "callee": "DateTime",
+          "lineNumber": 244
+        },
+        {
+          "caller": "_status",
+          "callee": "_StatusBadgeData",
+          "lineNumber": 246
+        },
+        {
+          "caller": "_status",
+          "callee": "_StatusBadgeData",
+          "lineNumber": 252
+        },
+        {
+          "caller": "_status",
+          "callee": "_statusLabel",
+          "lineNumber": 253
+        },
+        {
+          "caller": "_statusLabel",
+          "callee": "switch",
+          "lineNumber": 264
+        },
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 296
+        },
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 297
+        },
+        {
+          "caller": "build",
+          "callee": "Row",
+          "lineNumber": 300
+        },
+        {
+          "caller": "build",
+          "callee": "Icon",
+          "lineNumber": 302
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 303
+        },
+        {
+          "caller": "build",
+          "callee": "Container",
+          "lineNumber": 305
+        },
+        {
+          "caller": "build",
+          "callee": "EdgeInsets",
+          "lineNumber": 306
+        },
+        {
+          "caller": "build",
+          "callee": "BoxDecoration",
+          "lineNumber": 307
+        },
+        {
+          "caller": "build",
+          "callee": "circular",
+          "lineNumber": 309
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 311
+        },
+        {
+          "caller": "build",
+          "callee": "SizedBox",
+          "lineNumber": 319
+        },
+        {
+          "caller": "build",
+          "callee": "Expanded",
+          "lineNumber": 320
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 321
+        },
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 343
+        },
+        {
+          "caller": "build",
+          "callee": "Container",
+          "lineNumber": 344
+        },
+        {
+          "caller": "build",
+          "callee": "EdgeInsets",
+          "lineNumber": 345
+        },
+        {
+          "caller": "build",
+          "callee": "BoxDecoration",
+          "lineNumber": 346
+        },
+        {
+          "caller": "build",
+          "callee": "withValues",
+          "lineNumber": 347
+        },
+        {
+          "caller": "build",
+          "callee": "circular",
+          "lineNumber": 348
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 350
+        },
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 352
+        },
+        {
+          "caller": "build",
+          "callee": "Container",
+          "lineNumber": 373
+        },
+        {
+          "caller": "build",
+          "callee": "EdgeInsets",
+          "lineNumber": 374
+        },
+        {
+          "caller": "build",
+          "callee": "BoxDecoration",
+          "lineNumber": 375
+        },
+        {
+          "caller": "build",
+          "callee": "circular",
+          "lineNumber": 377
+        },
+        {
+          "caller": "build",
+          "callee": "Text",
+          "lineNumber": 379
+        },
+        {
+          "caller": "build",
+          "callee": "of",
+          "lineNumber": 381
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 5,
+        "functionCount": 12,
+        "classCount": 5
+      }
+    },
+    {
+      "path": "app/test/active_filters_test.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 154,
+      "nonEmptyLines": 138,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 5,
+          "endLine": 5,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 6
+        },
+        {
+          "caller": "chipsFor",
+          "callee": "activeFilterChips",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "chipsFor",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "chipsFor",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "chipsFor",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "chipsFor",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "chipsFor",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "chipsFor",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "map",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "containsAll",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "chipsFor",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 78
+        },
+        {
+          "caller": "main",
+          "callee": "map",
+          "lineNumber": 79
+        },
+        {
+          "caller": "main",
+          "callee": "toList",
+          "lineNumber": 79
+        },
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 93
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 95
+        },
+        {
+          "caller": "main",
+          "callee": "dateRangeChipLabel",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 101
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 102
+        },
+        {
+          "caller": "main",
+          "callee": "dateRangeChipLabel",
+          "lineNumber": 103
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 103
+        },
+        {
+          "caller": "main",
+          "callee": "DateTime",
+          "lineNumber": 103
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 109
+        },
+        {
+          "caller": "main",
+          "callee": "dateRangeChipLabel",
+          "lineNumber": 109
+        },
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 113
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "chipsFor",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "where",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "toList",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 118
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 119
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 120
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 123
+        },
+        {
+          "caller": "main",
+          "callee": "chipsFor",
+          "lineNumber": 124
+        },
+        {
+          "caller": "main",
+          "callee": "where",
+          "lineNumber": 126
+        },
+        {
+          "caller": "main",
+          "callee": "map",
+          "lineNumber": 127
+        },
+        {
+          "caller": "main",
+          "callee": "toSet",
+          "lineNumber": 128
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 129
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 132
+        },
+        {
+          "caller": "main",
+          "callee": "chipsFor",
+          "lineNumber": 134
+        },
+        {
+          "caller": "main",
+          "callee": "firstWhere",
+          "lineNumber": 136
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 137
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "isNot",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "contains",
+          "lineNumber": 138
+        },
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 142
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 143
+        },
+        {
+          "caller": "main",
+          "callee": "chipsFor",
+          "lineNumber": 144
+        },
+        {
+          "caller": "main",
+          "callee": "where",
+          "lineNumber": 149
+        },
+        {
+          "caller": "main",
+          "callee": "toList",
+          "lineNumber": 149
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 150
+        },
+        {
+          "caller": "main",
+          "callee": "map",
+          "lineNumber": 150
+        },
+        {
+          "caller": "main",
+          "callee": "toSet",
+          "lineNumber": 150
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 151
+        },
+        {
+          "caller": "main",
+          "callee": "map",
+          "lineNumber": 151
+        },
+        {
+          "caller": "main",
+          "callee": "toSet",
+          "lineNumber": 151
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/test/active_sport_provider_test.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 20,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 5,
+          "endLine": 5,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 6
+        },
+        {
+          "caller": "main",
+          "callee": "UserSport",
+          "lineNumber": 8
+        },
+        {
+          "caller": "main",
+          "callee": "UserSport",
+          "lineNumber": 9
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 12
+        },
+        {
+          "caller": "main",
+          "callee": "primarySportFrom",
+          "lineNumber": 12
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 15
+        },
+        {
+          "caller": "main",
+          "callee": "UserSport",
+          "lineNumber": 18
+        },
+        {
+          "caller": "main",
+          "callee": "UserSport",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 22
+        },
+        {
+          "caller": "main",
+          "callee": "primarySportFrom",
+          "lineNumber": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/test/chat_ui_test.dart",
+      "language": "dart",
+      "fileCategory": "code",
+      "totalLines": 297,
+      "nonEmptyLines": 281,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 6,
+          "endLine": 6,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 7
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 8
+        },
+        {
+          "caller": "main",
+          "callee": "listFromEvent",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "listFromEvent",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "listFromEvent",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 46
+        },
+        {
+          "caller": "main",
+          "callee": "listFromEvent",
+          "lineNumber": 46
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "listFromEvent",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 62
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "listFromEvent",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 74
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "listFromEvent",
+          "lineNumber": 98
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 99
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 100
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 101
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 102
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 103
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 106
+        },
+        {
+          "caller": "main",
+          "callee": "listFromEvent",
+          "lineNumber": 123
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 124
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 127
+        },
+        {
+          "caller": "main",
+          "callee": "listFromEvent",
+          "lineNumber": 154
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 155
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 156
+        },
+        {
+          "caller": "main",
+          "callee": "map",
+          "lineNumber": 157
+        },
+        {
+          "caller": "main",
+          "callee": "toList",
+          "lineNumber": 157
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 162
+        },
+        {
+          "caller": "main",
+          "callee": "listFromEvent",
+          "lineNumber": 180
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 181
+        },
+        {
+          "caller": "main",
+          "callee": "test",
+          "lineNumber": 184
+        },
+        {
+          "caller": "main",
+          "callee": "listFromEvent",
+          "lineNumber": 202
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 203
+        },
+        {
+          "caller": "main",
+          "callee": "group",
+          "lineNumber": 207
+        },
+        {
+          "caller": "main",
+          "callee": "testWidgets",
+          "lineNumber": 208
+        },
+        {
+          "caller": "main",
+          "callee": "TournamentChatCardItem",
+          "lineNumber": 209
+        },
+        {
+          "caller": "main",
+          "callee": "pumpWidget",
+          "lineNumber": 223
+        },
+        {
+          "caller": "main",
+          "callee": "MaterialApp",
+          "lineNumber": 223
+        },
+        {
+          "caller": "main",
+          "callee": "Scaffold",
+          "lineNumber": 224
+        },
+        {
+          "caller": "main",
+          "callee": "ChatTournamentCard",
+          "lineNumber": 225
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 232
+        },
+        {
+          "caller": "main",
+          "callee": "text",
+          "lineNumber": 232
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 233
+        },
+        {
+          "caller": "main",
+          "callee": "textContaining",
+          "lineNumber": 233
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 234
+        },
+        {
+          "caller": "main",
+          "callee": "textContaining",
+          "lineNumber": 234
+        },
+        {
+          "caller": "main",
+          "callee": "tap",
+          "lineNumber": 236
+        },
+        {
+          "caller": "main",
+          "callee": "text",
+          "lineNumber": 236
+        },
+        {
+          "caller": "main",
+          "callee": "pump",
+          "lineNumber": 237
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 238
+        },
+        {
+          "caller": "main",
+          "callee": "testWidgets",
+          "lineNumber": 241
+        },
+        {
+          "caller": "main",
+          "callee": "TournamentChatCardItem",
+          "lineNumber": 243
+        },
+        {
+          "caller": "main",
+          "callee": "RegulationField",
+          "lineNumber": 251
+        },
+        {
+          "caller": "main",
+          "callee": "RegulationField",
+          "lineNumber": 252
+        },
+        {
+          "caller": "main",
+          "callee": "pumpWidget",
+          "lineNumber": 255
+        },
+        {
+          "caller": "main",
+          "callee": "MaterialApp",
+          "lineNumber": 255
+        },
+        {
+          "caller": "main",
+          "callee": "Scaffold",
+          "lineNumber": 256
+        },
+        {
+          "caller": "main",
+          "callee": "ChatTournamentCard",
+          "lineNumber": 257
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 264
+        },
+        {
+          "caller": "main",
+          "callee": "textContaining",
+          "lineNumber": 265
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 268
+        },
+        {
+          "caller": "main",
+          "callee": "textContaining",
+          "lineNumber": 269
+        },
+        {
+          "caller": "main",
+          "callee": "testWidgets",
+          "lineNumber": 274
+        },
+        {
+          "caller": "main",
+          "callee": "TournamentChatCardItem",
+          "lineNumber": 276
+        },
+        {
+          "caller": "main",
+          "callee": "pumpWidget",
+          "lineNumber": 284
+        },
+        {
+          "caller": "main",
+          "callee": "MaterialApp",
+          "lineNumber": 284
+        },
+        {
+          "caller": "main",
+          "callee": "Scaffold",
+          "lineNumber": 285
+        },
+        {
+          "caller": "main",
+          "callee": "ChatTournamentCard",
+          "lineNumber": 286
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 293
+        },
+        {
+          "caller": "main",
+          "callee": "text",
+          "lineNumber": 293
+        },
+        {
+          "caller": "main",
+          "callee": "expect",
+          "lineNumber": 294
+        },
+        {
+          "caller": "main",
+          "callee": "text",
+          "lineNumber": 294
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

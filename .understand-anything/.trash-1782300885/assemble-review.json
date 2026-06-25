@@ -1,0 +1,17 @@
+{
+  "fixedSectionOk": true,
+  "nodesRecovered": 4,
+  "edgesRestored": 6,
+  "crossBatchEdgesAdded": 127,
+  "typesRemapped": 0,
+  "complexityRemapped": 0,
+  "notes": [
+    "Fixed section sane: 20 tested_by edges dropped (orphan/test-test/prod-prod pairs) is a reasonable, non-systemic count; no ID-correction or complexity skew reported. No unknown node types or unrecoverable no-id nodes in the report.",
+    "Recovered 4 function nodes that genuinely exist in source but were never emitted by batch-4: enums.ts:regionCodeFromLabel (L84-89), crawler.ts:sha256Hex (private async, L68-74), registry.ts:getParser (L25-27), registry.ts:listParserKeys (L29-31). Restored the 6 corresponding dropped edges (2 calls, 2 contains, 1 depends_on, 1 related).",
+    "registry.ts getParser/listParserKeys: file node existed and batch-4 emitted contains/depends_on/related edges, but the function nodes were missing -> created them so the edges resolve.",
+    "importMap had 0 missing non-Dart imports edges (script already restored all resolvable ones). All 80 Dart entries in importMap were empty because the scanner does not resolve Dart relative/package imports.",
+    "Added 127 Dart cross-batch imports edges by resolving actual import statements from source (relative '../' and 'package:<app>/' forms) and keeping only edges where both file nodes already exist. All source-backed, no speculative edges. Dominant direction is screens -> services/state/models/theme/widgets/config, plus services/api.dart -> 8 models and router.dart -> 14 screens.",
+    "Post-fix validation: 523 nodes, 757 edges, 0 dangling edges, 0 duplicate (source,target,type) edges.",
+    "Korean summaries/tags used for all new nodes per language directive; technical identifiers kept in English."
+  ]
+}

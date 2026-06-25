@@ -1,0 +1,1735 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 7,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "supabase/functions/_shared/chat_cards.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 141,
+      "nonEmptyLines": 123,
+      "functions": [
+        {
+          "name": "buildTournamentCards",
+          "startLine": 57,
+          "endLine": 77,
+          "params": [
+            "rows"
+          ]
+        },
+        {
+          "name": "tournamentSportLabel",
+          "startLine": 79,
+          "endLine": 83,
+          "params": [
+            "sport"
+          ]
+        },
+        {
+          "name": "tournamentSportHeading",
+          "startLine": 85,
+          "endLine": 89,
+          "params": [
+            "sport"
+          ]
+        },
+        {
+          "name": "filterText",
+          "startLine": 91,
+          "endLine": 96,
+          "params": [
+            "ctx"
+          ]
+        },
+        {
+          "name": "renderTournamentSearchText",
+          "startLine": 98,
+          "endLine": 108,
+          "params": [
+            "rows",
+            "ctx"
+          ]
+        },
+        {
+          "name": "renderTournamentSearchEmptyText",
+          "startLine": 110,
+          "endLine": 116,
+          "params": [
+            "ctx"
+          ]
+        },
+        {
+          "name": "parseSelectedEntity",
+          "startLine": 132,
+          "endLine": 141,
+          "params": [
+            "input"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "buildTournamentCards",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "renderTournamentSearchText",
+          "line": 98,
+          "isDefault": false
+        },
+        {
+          "name": "renderTournamentSearchEmptyText",
+          "line": 110,
+          "isDefault": false
+        },
+        {
+          "name": "parseSelectedEntity",
+          "line": 132,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "buildTournamentCards",
+          "callee": "rows.slice(0, MAX_CARDS).map",
+          "lineNumber": 58
+        },
+        {
+          "caller": "buildTournamentCards",
+          "callee": "rows.slice",
+          "lineNumber": 58
+        },
+        {
+          "caller": "buildTournamentCards",
+          "callee": "normalizeRegulationFields(r.regulation_fields).slice",
+          "lineNumber": 72
+        },
+        {
+          "caller": "buildTournamentCards",
+          "callee": "normalizeRegulationFields",
+          "lineNumber": 72
+        },
+        {
+          "caller": "filterText",
+          "callee": "filters.push",
+          "lineNumber": 93
+        },
+        {
+          "caller": "filterText",
+          "callee": "filters.push",
+          "lineNumber": 94
+        },
+        {
+          "caller": "filterText",
+          "callee": "filters.join",
+          "lineNumber": 95
+        },
+        {
+          "caller": "renderTournamentSearchText",
+          "callee": "tournamentSportHeading",
+          "lineNumber": 102
+        },
+        {
+          "caller": "renderTournamentSearchText",
+          "callee": "[\n    `## ${heading} ${rows.length}건${filterText(ctx)}`,\n    '',\n    '조건에 맞는 대회를 찾았습니다. 아래 카드에서 일정을 확인하고 필요한 항목을 선택해 주세요.',\n  ].join",
+          "lineNumber": 103
+        },
+        {
+          "caller": "renderTournamentSearchText",
+          "callee": "filterText",
+          "lineNumber": 104
+        },
+        {
+          "caller": "renderTournamentSearchEmptyText",
+          "callee": "tournamentSportLabel",
+          "lineNumber": 111
+        },
+        {
+          "caller": "renderTournamentSearchEmptyText",
+          "callee": "[\n    `조건에 맞는 ${label}가 없습니다${filterText(ctx)}.`,\n    '기간, 종목, 등급 조건을 바꾸거나 협회 공식 홈페이지를 확인해 주세요.',\n  ].join",
+          "lineNumber": 112
+        },
+        {
+          "caller": "renderTournamentSearchEmptyText",
+          "callee": "filterText",
+          "lineNumber": 113
+        },
+        {
+          "caller": "parseSelectedEntity",
+          "callee": "VALID_ENTITY_TYPES.includes",
+          "lineNumber": 138
+        },
+        {
+          "caller": "parseSelectedEntity",
+          "callee": "UUID_RE.test",
+          "lineNumber": 139
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 4,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/_shared/gemini.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 122,
+      "nonEmptyLines": 107,
+      "functions": [
+        {
+          "name": "apiKey",
+          "startLine": 15,
+          "endLine": 19,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "apiKey",
+          "callee": "Deno.env.get",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/_shared/regulation.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 109,
+      "nonEmptyLines": 100,
+      "functions": [
+        {
+          "name": "normalizeRegulationFields",
+          "startLine": 25,
+          "endLine": 40,
+          "params": [
+            "raw"
+          ]
+        },
+        {
+          "name": "formatRegulationFields",
+          "startLine": 46,
+          "endLine": 48,
+          "params": [
+            "fields"
+          ]
+        },
+        {
+          "name": "capRegulationBody",
+          "startLine": 54,
+          "endLine": 60,
+          "params": [
+            "body",
+            "maxLen"
+          ]
+        },
+        {
+          "name": "regulationEmbeddingText",
+          "startLine": 68,
+          "endLine": 79,
+          "params": [
+            "fields",
+            "body",
+            "bodyCap"
+          ]
+        },
+        {
+          "name": "buildRegulationContextLines",
+          "startLine": 89,
+          "endLine": 109,
+          "params": [
+            "fields",
+            "body",
+            "opts"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "normalizeRegulationFields",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "formatRegulationFields",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "capRegulationBody",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "regulationEmbeddingText",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "buildRegulationContextLines",
+          "line": 89,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "normalizeRegulationFields",
+          "callee": "Array.isArray",
+          "lineNumber": 26
+        },
+        {
+          "caller": "normalizeRegulationFields",
+          "callee": "label.trim",
+          "lineNumber": 34
+        },
+        {
+          "caller": "normalizeRegulationFields",
+          "callee": "value.trim",
+          "lineNumber": 35
+        },
+        {
+          "caller": "normalizeRegulationFields",
+          "callee": "out.push",
+          "lineNumber": 37
+        },
+        {
+          "caller": "formatRegulationFields",
+          "callee": "fields.map((f) => `${f.label}: ${f.value}`).join",
+          "lineNumber": 47
+        },
+        {
+          "caller": "formatRegulationFields",
+          "callee": "fields.map",
+          "lineNumber": 47
+        },
+        {
+          "caller": "capRegulationBody",
+          "callee": "body.trim",
+          "lineNumber": 56
+        },
+        {
+          "caller": "capRegulationBody",
+          "callee": "trimmed.slice",
+          "lineNumber": 59
+        },
+        {
+          "caller": "regulationEmbeddingText",
+          "callee": "formatRegulationFields",
+          "lineNumber": 74
+        },
+        {
+          "caller": "regulationEmbeddingText",
+          "callee": "parts.push",
+          "lineNumber": 75
+        },
+        {
+          "caller": "regulationEmbeddingText",
+          "callee": "capRegulationBody",
+          "lineNumber": 76
+        },
+        {
+          "caller": "regulationEmbeddingText",
+          "callee": "parts.push",
+          "lineNumber": 77
+        },
+        {
+          "caller": "regulationEmbeddingText",
+          "callee": "parts.join",
+          "lineNumber": 78
+        },
+        {
+          "caller": "buildRegulationContextLines",
+          "callee": "formatRegulationFields",
+          "lineNumber": 98
+        },
+        {
+          "caller": "buildRegulationContextLines",
+          "callee": "lines.push",
+          "lineNumber": 99
+        },
+        {
+          "caller": "buildRegulationContextLines",
+          "callee": "capRegulationBody",
+          "lineNumber": 101
+        },
+        {
+          "caller": "buildRegulationContextLines",
+          "callee": "bodyText.replace",
+          "lineNumber": 104
+        },
+        {
+          "caller": "buildRegulationContextLines",
+          "callee": "lines.push",
+          "lineNumber": 105
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/chat/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 1232,
+      "nonEmptyLines": 1138,
+      "functions": [
+        {
+          "name": "normalizeSemanticTournaments",
+          "startLine": 115,
+          "endLine": 128,
+          "params": [
+            "rows"
+          ]
+        },
+        {
+          "name": "isIntentValue",
+          "startLine": 194,
+          "endLine": 196,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "sseEvent",
+          "startLine": 198,
+          "endLine": 200,
+          "params": [
+            "event",
+            "data"
+          ]
+        },
+        {
+          "name": "hashUserId",
+          "startLine": 209,
+          "endLine": 215,
+          "params": [
+            "userId"
+          ]
+        },
+        {
+          "name": "computeUserContextHash",
+          "startLine": 222,
+          "endLine": 244,
+          "params": [
+            "sports",
+            "orgs"
+          ]
+        },
+        {
+          "name": "buildSystemPrompt",
+          "startLine": 246,
+          "endLine": 307,
+          "params": [
+            "sports",
+            "orgs"
+          ]
+        },
+        {
+          "name": "escapeForData",
+          "startLine": 310,
+          "endLine": 312,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "buildContextPrompt",
+          "startLine": 314,
+          "endLine": 422,
+          "params": [
+            "tournaments",
+            "rules",
+            "venues"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "normalizeSemanticTournaments",
+          "callee": "Array.isArray",
+          "lineNumber": 116
+        },
+        {
+          "caller": "normalizeSemanticTournaments",
+          "callee": "(rows as RawSemanticTournament[]).map",
+          "lineNumber": 117
+        },
+        {
+          "caller": "normalizeSemanticTournaments",
+          "callee": "Array.isArray",
+          "lineNumber": 123
+        },
+        {
+          "caller": "normalizeSemanticTournaments",
+          "callee": "normalizeRegulationFields",
+          "lineNumber": 124
+        },
+        {
+          "caller": "isIntentValue",
+          "callee": "(INTENT_VALUES as readonly string[]).includes",
+          "lineNumber": 195
+        },
+        {
+          "caller": "sseEvent",
+          "callee": "JSON.stringify",
+          "lineNumber": 199
+        },
+        {
+          "caller": "hashUserId",
+          "callee": "crypto.subtle.digest",
+          "lineNumber": 210
+        },
+        {
+          "caller": "hashUserId",
+          "callee": "new TextEncoder().encode",
+          "lineNumber": 210
+        },
+        {
+          "caller": "hashUserId",
+          "callee": "Array.from(new Uint8Array(buf))\n    .slice(0, 4) // 8 hex chars\n    .map((b) => b.toString(16).padStart(2, '0'))\n    .join",
+          "lineNumber": 211
+        },
+        {
+          "caller": "hashUserId",
+          "callee": "Array.from(new Uint8Array(buf))\n    .slice(0, 4) // 8 hex chars\n    .map",
+          "lineNumber": 211
+        },
+        {
+          "caller": "hashUserId",
+          "callee": "Array.from(new Uint8Array(buf))\n    .slice",
+          "lineNumber": 211
+        },
+        {
+          "caller": "hashUserId",
+          "callee": "Array.from",
+          "lineNumber": 211
+        },
+        {
+          "caller": "hashUserId",
+          "callee": "b.toString(16).padStart",
+          "lineNumber": 213
+        },
+        {
+          "caller": "hashUserId",
+          "callee": "b.toString",
+          "lineNumber": 213
+        },
+        {
+          "caller": "computeUserContextHash",
+          "callee": "[...sports]\n    .map((s) => ({ sport: s.sport, grade: s.grade, is_primary: s.is_primary }))\n    .sort",
+          "lineNumber": 226
+        },
+        {
+          "caller": "computeUserContextHash",
+          "callee": "[...sports]\n    .map",
+          "lineNumber": 226
+        },
+        {
+          "caller": "computeUserContextHash",
+          "callee": "a.sport.localeCompare",
+          "lineNumber": 228
+        },
+        {
+          "caller": "computeUserContextHash",
+          "callee": "[...orgs]\n    .map((o) => ({\n      org: o.org,\n      division_local: o.division_local,\n      score: o.score,\n      region_code: o.region_code,\n    }))\n    .sort",
+          "lineNumber": 230
+        },
+        {
+          "caller": "computeUserContextHash",
+          "callee": "[...orgs]\n    .map",
+          "lineNumber": 230
+        },
+        {
+          "caller": "computeUserContextHash",
+          "callee": "a.org.localeCompare",
+          "lineNumber": 237
+        },
+        {
+          "caller": "computeUserContextHash",
+          "callee": "JSON.stringify",
+          "lineNumber": 239
+        },
+        {
+          "caller": "computeUserContextHash",
+          "callee": "crypto.subtle.digest",
+          "lineNumber": 240
+        },
+        {
+          "caller": "computeUserContextHash",
+          "callee": "new TextEncoder().encode",
+          "lineNumber": 240
+        },
+        {
+          "caller": "computeUserContextHash",
+          "callee": "Array.from(new Uint8Array(buf))\n    .map((b) => b.toString(16).padStart(2, '0'))\n    .join",
+          "lineNumber": 241
+        },
+        {
+          "caller": "computeUserContextHash",
+          "callee": "Array.from(new Uint8Array(buf))\n    .map",
+          "lineNumber": 241
+        },
+        {
+          "caller": "computeUserContextHash",
+          "callee": "Array.from",
+          "lineNumber": 241
+        },
+        {
+          "caller": "computeUserContextHash",
+          "callee": "b.toString(16).padStart",
+          "lineNumber": 242
+        },
+        {
+          "caller": "computeUserContextHash",
+          "callee": "b.toString",
+          "lineNumber": 242
+        },
+        {
+          "caller": "buildSystemPrompt",
+          "callee": "sports\n    .map((s) =>\n      `- ${SPORT_LABELS[s.sport as 'tennis' | 'futsal'] ?? s.sport}: ${\n        GRADE_LABELS[s.grade] ?? s.grade\n      }${s.is_primary ? ' (주요 관심 종목)' : ''}`\n    )\n    .join",
+          "lineNumber": 247
+        },
+        {
+          "caller": "buildSystemPrompt",
+          "callee": "sports\n    .map",
+          "lineNumber": 247
+        },
+        {
+          "caller": "buildSystemPrompt",
+          "callee": "orgs.map((o) => {\n      const orgName = TENNIS_ORG_LABELS[o.org as keyof typeof TENNIS_ORG_LABELS] ?? o.org;\n      const division = o.division_local ?? '미입력';\n      const score = o.score !== null ? ` (점수 ${o.score})` : '';\n      const primary = o.is_primary ? ' ★주' : '';\n      const region = o.region_code\n        ? ` [${REGION_LABELS[o.region_code as keyof typeof REGION_LABELS] ?? o.region_code}]`\n        : '';\n      return `- ${orgName}: ${division}${score}${primary}${region}`;\n    }).join",
+          "lineNumber": 257
+        },
+        {
+          "caller": "buildSystemPrompt",
+          "callee": "orgs.map",
+          "lineNumber": 257
+        },
+        {
+          "caller": "escapeForData",
+          "callee": "text.replace",
+          "lineNumber": 311
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "tournaments.slice",
+          "lineNumber": 323
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "bySport.get",
+          "lineNumber": 327
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "arr.push",
+          "lineNumber": 328
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "bySport.set",
+          "lineNumber": 329
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "Array.from(bySport.keys()).sort",
+          "lineNumber": 337
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "Array.from",
+          "lineNumber": 337
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "bySport.keys",
+          "lineNumber": 337
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "sportOrder",
+          "lineNumber": 338
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "sportOrder",
+          "lineNumber": 339
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "a.localeCompare",
+          "lineNumber": 340
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "top.slice(0, REGULATION_BODY_TOP_N).map",
+          "lineNumber": 344
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "top.slice",
+          "lineNumber": 344
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "parts.push",
+          "lineNumber": 347
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "bySport.get",
+          "lineNumber": 348
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "parts.push",
+          "lineNumber": 349
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "escapeForData",
+          "lineNumber": 350
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "escapeForData",
+          "lineNumber": 351
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "t.eligible_grades.join",
+          "lineNumber": 352
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "buildRegulationContextLines",
+          "lineNumber": 356
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "bodyTopIds.has",
+          "lineNumber": 358
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "parts.push",
+          "lineNumber": 362
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "escapeForData",
+          "lineNumber": 362
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "parts.push",
+          "lineNumber": 365
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "rules.slice",
+          "lineNumber": 371
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "rulesBySport.get",
+          "lineNumber": 375
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "arr.push",
+          "lineNumber": 376
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "rulesBySport.set",
+          "lineNumber": 377
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "Array.from(rulesBySport.keys()).sort",
+          "lineNumber": 384
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "Array.from",
+          "lineNumber": 384
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "rulesBySport.keys",
+          "lineNumber": 384
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "sportOrderRules",
+          "lineNumber": 385
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "sportOrderRules",
+          "lineNumber": 386
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "a.localeCompare",
+          "lineNumber": 387
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "parts.push",
+          "lineNumber": 391
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "rulesBySport.get",
+          "lineNumber": 392
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "r.body.slice",
+          "lineNumber": 393
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "parts.push",
+          "lineNumber": 394
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "parts.push",
+          "lineNumber": 396
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "parts.push",
+          "lineNumber": 401
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "parts.push",
+          "lineNumber": 412
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "escapeForData",
+          "lineNumber": 413
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "escapeForData",
+          "lineNumber": 414
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "parts.push",
+          "lineNumber": 418
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "parts.join('\\n').trimEnd",
+          "lineNumber": 421
+        },
+        {
+          "caller": "buildContextPrompt",
+          "callee": "parts.join",
+          "lineNumber": 421
+        },
+        {
+          "caller": "send",
+          "callee": "controller.enqueue",
+          "lineNumber": 506
+        },
+        {
+          "caller": "send",
+          "callee": "encoder.encode",
+          "lineNumber": 506
+        },
+        {
+          "caller": "send",
+          "callee": "sseEvent",
+          "lineNumber": 506
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 510
+        },
+        {
+          "caller": "start",
+          "callee": "supabase\n            .from('tournaments')\n            .select(\n              'id, sport, title, region, location, start_date, end_date, ' +\n                'application_deadline, entry_fee, format, eligible_grades',\n            )\n            .eq('id', selectedEntity.id)\n            .maybeSingle",
+          "lineNumber": 516
+        },
+        {
+          "caller": "start",
+          "callee": "supabase\n            .from('tournaments')\n            .select(\n              'id, sport, title, region, location, start_date, end_date, ' +\n                'application_deadline, entry_fee, format, eligible_grades',\n            )\n            .eq",
+          "lineNumber": 516
+        },
+        {
+          "caller": "start",
+          "callee": "supabase\n            .from('tournaments')\n            .select",
+          "lineNumber": 516
+        },
+        {
+          "caller": "start",
+          "callee": "supabase\n            .from",
+          "lineNumber": 516
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 529
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 530
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 534
+        },
+        {
+          "caller": "start",
+          "callee": "controller.close",
+          "lineNumber": 535
+        },
+        {
+          "caller": "start",
+          "callee": "embedText",
+          "lineNumber": 544
+        },
+        {
+          "caller": "start",
+          "callee": "toVectorLiteral",
+          "lineNumber": 545
+        },
+        {
+          "caller": "start",
+          "callee": "computeUserContextHash",
+          "lineNumber": 546
+        },
+        {
+          "caller": "start",
+          "callee": "console.error",
+          "lineNumber": 552
+        },
+        {
+          "caller": "start",
+          "callee": "serviceClient",
+          "lineNumber": 556
+        },
+        {
+          "caller": "start",
+          "callee": "extractSlots",
+          "lineNumber": 566
+        },
+        {
+          "caller": "start",
+          "callee": "classifyByRule",
+          "lineNumber": 567
+        },
+        {
+          "caller": "start",
+          "callee": "buildRuleResult",
+          "lineNumber": 570
+        },
+        {
+          "caller": "start",
+          "callee": "adminSupabase.rpc",
+          "lineNumber": 574
+        },
+        {
+          "caller": "start",
+          "callee": "console.warn",
+          "lineNumber": 583
+        },
+        {
+          "caller": "start",
+          "callee": "JSON.stringify",
+          "lineNumber": 585
+        },
+        {
+          "caller": "start",
+          "callee": "Array.isArray",
+          "lineNumber": 592
+        },
+        {
+          "caller": "start",
+          "callee": "isIntentValue",
+          "lineNumber": 594
+        },
+        {
+          "caller": "start",
+          "callee": "console.warn",
+          "lineNumber": 599
+        },
+        {
+          "caller": "start",
+          "callee": "JSON.stringify",
+          "lineNumber": 601
+        },
+        {
+          "caller": "start",
+          "callee": "isIntentValue",
+          "lineNumber": 610
+        },
+        {
+          "caller": "start",
+          "callee": "buildEmbeddingResult",
+          "lineNumber": 611
+        },
+        {
+          "caller": "start",
+          "callee": "buildFallbackResult",
+          "lineNumber": 617
+        },
+        {
+          "caller": "start",
+          "callee": "buildFallbackResult",
+          "lineNumber": 621
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 625
+        },
+        {
+          "caller": "start",
+          "callee": "resolveRequestedSport",
+          "lineNumber": 642
+        },
+        {
+          "caller": "start",
+          "callee": "((userSports ?? []) as UserSport[]).map",
+          "lineNumber": 647
+        },
+        {
+          "caller": "start",
+          "callee": "ROUTABLE_INTENTS.has",
+          "lineNumber": 651
+        },
+        {
+          "caller": "start",
+          "callee": "console.log",
+          "lineNumber": 655
+        },
+        {
+          "caller": "start",
+          "callee": "JSON.stringify",
+          "lineNumber": 657
+        },
+        {
+          "caller": "start",
+          "callee": "Array.from",
+          "lineNumber": 666
+        },
+        {
+          "caller": "start",
+          "callee": "registeredSports.has",
+          "lineNumber": 676
+        },
+        {
+          "caller": "start",
+          "callee": "console.log",
+          "lineNumber": 680
+        },
+        {
+          "caller": "start",
+          "callee": "JSON.stringify",
+          "lineNumber": 682
+        },
+        {
+          "caller": "start",
+          "callee": "Array.from",
+          "lineNumber": 685
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 691
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 692
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 693
+        },
+        {
+          "caller": "start",
+          "callee": "supabase.from('chat_messages').insert",
+          "lineNumber": 695
+        },
+        {
+          "caller": "start",
+          "callee": "supabase.from",
+          "lineNumber": 695
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 703
+        },
+        {
+          "caller": "start",
+          "callee": "controller.close",
+          "lineNumber": 704
+        },
+        {
+          "caller": "start",
+          "callee": "supabase.rpc",
+          "lineNumber": 724
+        },
+        {
+          "caller": "start",
+          "callee": "console.error",
+          "lineNumber": 741
+        },
+        {
+          "caller": "start",
+          "callee": "JSON.stringify",
+          "lineNumber": 743
+        },
+        {
+          "caller": "start",
+          "callee": "Array.isArray",
+          "lineNumber": 750
+        },
+        {
+          "caller": "start",
+          "callee": "renderTournamentSearchText",
+          "lineNumber": 752
+        },
+        {
+          "caller": "start",
+          "callee": "typedRows.slice(0, 5).map",
+          "lineNumber": 757
+        },
+        {
+          "caller": "start",
+          "callee": "typedRows.slice",
+          "lineNumber": 757
+        },
+        {
+          "caller": "start",
+          "callee": "console.log",
+          "lineNumber": 764
+        },
+        {
+          "caller": "start",
+          "callee": "JSON.stringify",
+          "lineNumber": 766
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 775
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 776
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 777
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 778
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 780
+        },
+        {
+          "caller": "start",
+          "callee": "buildTournamentCards",
+          "lineNumber": 785
+        },
+        {
+          "caller": "start",
+          "callee": "supabase.from('chat_messages').insert",
+          "lineNumber": 791
+        },
+        {
+          "caller": "start",
+          "callee": "supabase.from",
+          "lineNumber": 791
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 799
+        },
+        {
+          "caller": "start",
+          "callee": "controller.close",
+          "lineNumber": 800
+        },
+        {
+          "caller": "start",
+          "callee": "renderTournamentSearchEmptyText",
+          "lineNumber": 806
+        },
+        {
+          "caller": "start",
+          "callee": "console.log",
+          "lineNumber": 811
+        },
+        {
+          "caller": "start",
+          "callee": "JSON.stringify",
+          "lineNumber": 813
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 821
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 822
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 823
+        },
+        {
+          "caller": "start",
+          "callee": "supabase.from('chat_messages').insert",
+          "lineNumber": 825
+        },
+        {
+          "caller": "start",
+          "callee": "supabase.from",
+          "lineNumber": 825
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 833
+        },
+        {
+          "caller": "start",
+          "callee": "controller.close",
+          "lineNumber": 834
+        },
+        {
+          "caller": "start",
+          "callee": "console.log",
+          "lineNumber": 855
+        },
+        {
+          "caller": "start",
+          "callee": "JSON.stringify",
+          "lineNumber": 857
+        },
+        {
+          "caller": "start",
+          "callee": "adminSupabase.rpc",
+          "lineNumber": 866
+        },
+        {
+          "caller": "start",
+          "callee": "console.error",
+          "lineNumber": 872
+        },
+        {
+          "caller": "start",
+          "callee": "Array.isArray",
+          "lineNumber": 873
+        },
+        {
+          "caller": "start",
+          "callee": "console.log",
+          "lineNumber": 878
+        },
+        {
+          "caller": "start",
+          "callee": "JSON.stringify",
+          "lineNumber": 880
+        },
+        {
+          "caller": "start",
+          "callee": "console.log",
+          "lineNumber": 891
+        },
+        {
+          "caller": "start",
+          "callee": "JSON.stringify",
+          "lineNumber": 893
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 901
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 903
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 904
+        },
+        {
+          "caller": "start",
+          "callee": "Array.isArray",
+          "lineNumber": 906
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 908
+        },
+        {
+          "caller": "start",
+          "callee": "adminSupabase\n            .from('qa_cache')\n            .select('hit_count')\n            .eq('id', cacheHit.id)\n            .maybeSingle",
+          "lineNumber": 913
+        },
+        {
+          "caller": "start",
+          "callee": "adminSupabase\n            .from('qa_cache')\n            .select('hit_count')\n            .eq",
+          "lineNumber": 913
+        },
+        {
+          "caller": "start",
+          "callee": "adminSupabase\n            .from('qa_cache')\n            .select",
+          "lineNumber": 913
+        },
+        {
+          "caller": "start",
+          "callee": "adminSupabase\n            .from",
+          "lineNumber": 913
+        },
+        {
+          "caller": "start",
+          "callee": "adminSupabase\n            .from('qa_cache')\n            .update({ hit_count: nextHit })\n            .eq",
+          "lineNumber": 919
+        },
+        {
+          "caller": "start",
+          "callee": "adminSupabase\n            .from('qa_cache')\n            .update",
+          "lineNumber": 919
+        },
+        {
+          "caller": "start",
+          "callee": "adminSupabase\n            .from",
+          "lineNumber": 919
+        },
+        {
+          "caller": "start",
+          "callee": "console.error",
+          "lineNumber": 923
+        },
+        {
+          "caller": "start",
+          "callee": "supabase.from('chat_messages').insert",
+          "lineNumber": 926
+        },
+        {
+          "caller": "start",
+          "callee": "supabase.from",
+          "lineNumber": 926
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 934
+        },
+        {
+          "caller": "start",
+          "callee": "controller.close",
+          "lineNumber": 935
+        },
+        {
+          "caller": "start",
+          "callee": "console.log",
+          "lineNumber": 943
+        },
+        {
+          "caller": "start",
+          "callee": "JSON.stringify",
+          "lineNumber": 945
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 951
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 953
+        },
+        {
+          "caller": "start",
+          "callee": "supabase.rpc",
+          "lineNumber": 972
+        },
+        {
+          "caller": "start",
+          "callee": "console.error",
+          "lineNumber": 979
+        },
+        {
+          "caller": "start",
+          "callee": "console.error",
+          "lineNumber": 985
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 987
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 989
+        },
+        {
+          "caller": "start",
+          "callee": "Promise.all",
+          "lineNumber": 997
+        },
+        {
+          "caller": "start",
+          "callee": "supabase.rpc",
+          "lineNumber": 998
+        },
+        {
+          "caller": "start",
+          "callee": "supabase.rpc",
+          "lineNumber": 1005
+        },
+        {
+          "caller": "start",
+          "callee": "console.error",
+          "lineNumber": 1014
+        },
+        {
+          "caller": "start",
+          "callee": "normalizeSemanticTournaments",
+          "lineNumber": 1016
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 1019
+        },
+        {
+          "caller": "start",
+          "callee": "console.error",
+          "lineNumber": 1022
+        },
+        {
+          "caller": "start",
+          "callee": "buildSystemPrompt",
+          "lineNumber": 1027
+        },
+        {
+          "caller": "start",
+          "callee": "buildContextPrompt",
+          "lineNumber": 1031
+        },
+        {
+          "caller": "start",
+          "callee": "history.push",
+          "lineNumber": 1035
+        },
+        {
+          "caller": "start",
+          "callee": "history.push",
+          "lineNumber": 1042
+        },
+        {
+          "caller": "start",
+          "callee": "history.push",
+          "lineNumber": 1050
+        },
+        {
+          "caller": "start",
+          "callee": "history.push",
+          "lineNumber": 1055
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 1066
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 1071
+        },
+        {
+          "caller": "start",
+          "callee": "streamChat",
+          "lineNumber": 1076
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 1082
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 1085
+        },
+        {
+          "caller": "start",
+          "callee": "assistantText.trim",
+          "lineNumber": 1089
+        },
+        {
+          "caller": "start",
+          "callee": "tournaments.slice(0, 5).map",
+          "lineNumber": 1096
+        },
+        {
+          "caller": "start",
+          "callee": "tournaments.slice",
+          "lineNumber": 1096
+        },
+        {
+          "caller": "start",
+          "callee": "rules.slice(0, 3).map",
+          "lineNumber": 1102
+        },
+        {
+          "caller": "start",
+          "callee": "rules.slice",
+          "lineNumber": 1102
+        },
+        {
+          "caller": "start",
+          "callee": "venues.slice(0, 15).map",
+          "lineNumber": 1109
+        },
+        {
+          "caller": "start",
+          "callee": "venues.slice",
+          "lineNumber": 1109
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 1119
+        },
+        {
+          "caller": "start",
+          "callee": "tournaments.slice(0, 10).map",
+          "lineNumber": 1124
+        },
+        {
+          "caller": "start",
+          "callee": "tournaments.slice",
+          "lineNumber": 1124
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 1139
+        },
+        {
+          "caller": "start",
+          "callee": "buildTournamentCards",
+          "lineNumber": 1144
+        },
+        {
+          "caller": "start",
+          "callee": "assistantText.trim",
+          "lineNumber": 1150
+        },
+        {
+          "caller": "start",
+          "callee": "supabase.from('chat_messages').insert",
+          "lineNumber": 1151
+        },
+        {
+          "caller": "start",
+          "callee": "supabase.from",
+          "lineNumber": 1151
+        },
+        {
+          "caller": "start",
+          "callee": "new Date(\n            Date.now() + QA_CACHE_TTL_HOURS * 60 * 60 * 1000,\n          ).toISOString",
+          "lineNumber": 1168
+        },
+        {
+          "caller": "start",
+          "callee": "Date.now",
+          "lineNumber": 1169
+        },
+        {
+          "caller": "start",
+          "callee": "adminSupabase.rpc",
+          "lineNumber": 1171
+        },
+        {
+          "caller": "start",
+          "callee": "console.warn",
+          "lineNumber": 1183
+        },
+        {
+          "caller": "start",
+          "callee": "JSON.stringify",
+          "lineNumber": 1185
+        },
+        {
+          "caller": "start",
+          "callee": "console.log",
+          "lineNumber": 1194
+        },
+        {
+          "caller": "start",
+          "callee": "JSON.stringify",
+          "lineNumber": 1196
+        },
+        {
+          "caller": "start",
+          "callee": "console.log",
+          "lineNumber": 1203
+        },
+        {
+          "caller": "start",
+          "callee": "JSON.stringify",
+          "lineNumber": 1205
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 1215
+        },
+        {
+          "caller": "start",
+          "callee": "send",
+          "lineNumber": 1217
+        },
+        {
+          "caller": "start",
+          "callee": "controller.close",
+          "lineNumber": 1219
+        }
+      ],
+      "metrics": {
+        "importCount": 9,
+        "exportCount": 0,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/embed-pending/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 131,
+      "nonEmptyLines": 117,
+      "functions": [
+        {
+          "name": "tournamentText",
+          "startLine": 35,
+          "endLine": 46,
+          "params": [
+            "t"
+          ]
+        },
+        {
+          "name": "ruleText",
+          "startLine": 48,
+          "endLine": 50,
+          "params": [
+            "r"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "tournamentText",
+          "callee": "[t.title, t.organizer, t.region, t.format, t.description]\n    .filter(Boolean)\n    .join",
+          "lineNumber": 36
+        },
+        {
+          "caller": "tournamentText",
+          "callee": "[t.title, t.organizer, t.region, t.format, t.description]\n    .filter",
+          "lineNumber": 36
+        },
+        {
+          "caller": "tournamentText",
+          "callee": "regulationEmbeddingText",
+          "lineNumber": 41
+        },
+        {
+          "caller": "tournamentText",
+          "callee": "normalizeRegulationFields",
+          "lineNumber": 42
+        },
+        {
+          "caller": "ruleText",
+          "callee": "`${r.title}\\n${r.body}`.slice",
+          "lineNumber": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/tests/chat_cards_test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 162,
+      "nonEmptyLines": 144,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "supabase/functions/tests/regulation_test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 103,
+      "nonEmptyLines": 91,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

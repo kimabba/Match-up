@@ -1,0 +1,1110 @@
+{
+ "nodes": [
+  {
+   "id": "schema:supabase/migrations/001_extensions.sql",
+   "type": "schema",
+   "name": "001_extensions.sql",
+   "filePath": "supabase/migrations/001_extensions.sql",
+   "summary": "001_extensions.sql migration: pg_cron 스케줄 등록.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "pg_cron"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/002_init_users_sports.sql",
+   "type": "table",
+   "name": "002_init_users_sports.sql",
+   "filePath": "supabase/migrations/002_init_users_sports.sql",
+   "summary": "002_init_users_sports.sql migration: 테이블 users, user_sports 정의; RPC/함수 handle_new_user, touch_updated_at, is_admin, prevent_role_self_update; RLS 정책 설정; trigger on_auth_user_created, users_touch_updated_at, users_prevent_role_self_update.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "table:supabase/migrations/002_init_users_sports.sql:users",
+   "type": "table",
+   "name": "users",
+   "filePath": "supabase/migrations/002_init_users_sports.sql",
+   "summary": "users 테이블 — 002_init_users_sports.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/002_init_users_sports.sql:user_sports",
+   "type": "table",
+   "name": "user_sports",
+   "filePath": "supabase/migrations/002_init_users_sports.sql",
+   "summary": "user_sports 테이블 — 002_init_users_sports.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/003_tournaments.sql",
+   "type": "table",
+   "name": "003_tournaments.sql",
+   "filePath": "supabase/migrations/003_tournaments.sql",
+   "summary": "003_tournaments.sql migration: 테이블 tournaments, tournament_favorites 정의; RPC/함수 invalidate_tournament_embedding, tournaments_for_user, tournaments_semantic_search; RLS 정책 설정; trigger tournaments_touch_updated_at, tournaments_invalidate_embedding.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "rpc"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "table:supabase/migrations/003_tournaments.sql:tournaments",
+   "type": "table",
+   "name": "tournaments",
+   "filePath": "supabase/migrations/003_tournaments.sql",
+   "summary": "tournaments 테이블 — 003_tournaments.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/003_tournaments.sql:tournament_favorites",
+   "type": "table",
+   "name": "tournament_favorites",
+   "filePath": "supabase/migrations/003_tournaments.sql",
+   "summary": "tournament_favorites 테이블 — 003_tournaments.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/004_clubs.sql",
+   "type": "table",
+   "name": "004_clubs.sql",
+   "filePath": "supabase/migrations/004_clubs.sql",
+   "summary": "004_clubs.sql migration: 테이블 clubs 정의; RLS 정책 설정; trigger clubs_touch_updated_at.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "schema-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/004_clubs.sql:clubs",
+   "type": "table",
+   "name": "clubs",
+   "filePath": "supabase/migrations/004_clubs.sql",
+   "summary": "clubs 테이블 — 004_clubs.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/005_chat_rules.sql",
+   "type": "table",
+   "name": "005_chat_rules.sql",
+   "filePath": "supabase/migrations/005_chat_rules.sql",
+   "summary": "005_chat_rules.sql migration: 테이블 chat_messages, rule_articles 정의; RPC/함수 invalidate_rule_embedding, rules_semantic_search; RLS 정책 설정; trigger rule_articles_touch_updated_at, rule_articles_invalidate_embedding.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "table:supabase/migrations/005_chat_rules.sql:chat_messages",
+   "type": "table",
+   "name": "chat_messages",
+   "filePath": "supabase/migrations/005_chat_rules.sql",
+   "summary": "chat_messages 테이블 — 005_chat_rules.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/005_chat_rules.sql:rule_articles",
+   "type": "table",
+   "name": "rule_articles",
+   "filePath": "supabase/migrations/005_chat_rules.sql",
+   "summary": "rule_articles 테이블 — 005_chat_rules.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/006_notifications.sql",
+   "type": "table",
+   "name": "006_notifications.sql",
+   "filePath": "supabase/migrations/006_notifications.sql",
+   "summary": "006_notifications.sql migration: 테이블 device_tokens, notifications_log 정의; RLS 정책 설정; trigger device_tokens_touch_updated_at.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "schema-definition"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "table:supabase/migrations/006_notifications.sql:device_tokens",
+   "type": "table",
+   "name": "device_tokens",
+   "filePath": "supabase/migrations/006_notifications.sql",
+   "summary": "device_tokens 테이블 — 006_notifications.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/006_notifications.sql:notifications_log",
+   "type": "table",
+   "name": "notifications_log",
+   "filePath": "supabase/migrations/006_notifications.sql",
+   "summary": "notifications_log 테이블 — 006_notifications.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/007_crawl_audit.sql",
+   "type": "table",
+   "name": "007_crawl_audit.sql",
+   "filePath": "supabase/migrations/007_crawl_audit.sql",
+   "summary": "007_crawl_audit.sql migration: 테이블 crawl_audit 정의; RLS 정책 설정.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "schema-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/007_crawl_audit.sql:crawl_audit",
+   "type": "table",
+   "name": "crawl_audit",
+   "filePath": "supabase/migrations/007_crawl_audit.sql",
+   "summary": "crawl_audit 테이블 — 007_crawl_audit.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/008_cron.sql",
+   "type": "schema",
+   "name": "008_cron.sql",
+   "filePath": "supabase/migrations/008_cron.sql",
+   "summary": "008_cron.sql migration: RPC/함수 invoke_edge_function; pg_cron 스케줄 등록.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "pg_cron",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "table:supabase/migrations/009_regions_and_multi_org.sql",
+   "type": "table",
+   "name": "009_regions_and_multi_org.sql",
+   "filePath": "supabase/migrations/009_regions_and_multi_org.sql",
+   "summary": "009_regions_and_multi_org.sql migration: 테이블 regions, user_tennis_orgs 정의; RLS 정책 설정; trigger user_tennis_orgs_touch_updated_at.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "schema-definition"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "table:supabase/migrations/009_regions_and_multi_org.sql:regions",
+   "type": "table",
+   "name": "regions",
+   "filePath": "supabase/migrations/009_regions_and_multi_org.sql",
+   "summary": "regions 테이블 — 009_regions_and_multi_org.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/009_regions_and_multi_org.sql:user_tennis_orgs",
+   "type": "table",
+   "name": "user_tennis_orgs",
+   "filePath": "supabase/migrations/009_regions_and_multi_org.sql",
+   "summary": "user_tennis_orgs 테이블 — 009_regions_and_multi_org.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/010_tennis_grade_revamp.sql",
+   "type": "schema",
+   "name": "010_tennis_grade_revamp.sql",
+   "filePath": "supabase/migrations/010_tennis_grade_revamp.sql",
+   "summary": "010_tennis_grade_revamp.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/011_ensure_profile_rpc.sql",
+   "type": "schema",
+   "name": "011_ensure_profile_rpc.sql",
+   "filePath": "supabase/migrations/011_ensure_profile_rpc.sql",
+   "summary": "011_ensure_profile_rpc.sql migration: RPC/함수 ensure_profile.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/012_rate_limit.sql",
+   "type": "table",
+   "name": "012_rate_limit.sql",
+   "filePath": "supabase/migrations/012_rate_limit.sql",
+   "summary": "012_rate_limit.sql migration: 테이블 chat_rate_limit 정의; RLS 정책 설정.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "schema-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/012_rate_limit.sql:chat_rate_limit",
+   "type": "table",
+   "name": "chat_rate_limit",
+   "filePath": "supabase/migrations/012_rate_limit.sql",
+   "summary": "chat_rate_limit 테이블 — 012_rate_limit.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/013_qa_cache.sql",
+   "type": "table",
+   "name": "013_qa_cache.sql",
+   "filePath": "supabase/migrations/013_qa_cache.sql",
+   "summary": "013_qa_cache.sql migration: 테이블 qa_cache 정의; RPC/함수 qa_cache_lookup, qa_cache_insert_if_absent; RLS 정책 설정.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "table:supabase/migrations/013_qa_cache.sql:qa_cache",
+   "type": "table",
+   "name": "qa_cache",
+   "filePath": "supabase/migrations/013_qa_cache.sql",
+   "summary": "qa_cache 테이블 — 013_qa_cache.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/014_intent_examples.sql",
+   "type": "table",
+   "name": "014_intent_examples.sql",
+   "filePath": "supabase/migrations/014_intent_examples.sql",
+   "summary": "014_intent_examples.sql migration: 테이블 intent_examples 정의; RPC/함수 intent_classify; RLS 정책 설정.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "table:supabase/migrations/014_intent_examples.sql:intent_examples",
+   "type": "table",
+   "name": "intent_examples",
+   "filePath": "supabase/migrations/014_intent_examples.sql",
+   "summary": "intent_examples 테이블 — 014_intent_examples.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/015_uuid_v7.sql",
+   "type": "schema",
+   "name": "015_uuid_v7.sql",
+   "filePath": "supabase/migrations/015_uuid_v7.sql",
+   "summary": "015_uuid_v7.sql migration: RPC/함수 uuid_generate_v7.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/016_tournaments_search_sport_filter.sql",
+   "type": "schema",
+   "name": "016_tournaments_search_sport_filter.sql",
+   "filePath": "supabase/migrations/016_tournaments_search_sport_filter.sql",
+   "summary": "016_tournaments_search_sport_filter.sql migration: RPC/함수 tournaments_semantic_search.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/017_uuid_v7_pgcrypto_schema_fix.sql",
+   "type": "schema",
+   "name": "017_uuid_v7_pgcrypto_schema_fix.sql",
+   "filePath": "supabase/migrations/017_uuid_v7_pgcrypto_schema_fix.sql",
+   "summary": "017_uuid_v7_pgcrypto_schema_fix.sql migration: RPC/함수 uuid_generate_v7.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/018_tournament_search_by_slots.sql",
+   "type": "schema",
+   "name": "018_tournament_search_by_slots.sql",
+   "filePath": "supabase/migrations/018_tournament_search_by_slots.sql",
+   "summary": "018_tournament_search_by_slots.sql migration: RPC/함수 tournament_search_by_slots.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "table:supabase/migrations/019_crawl_sources.sql",
+   "type": "table",
+   "name": "019_crawl_sources.sql",
+   "filePath": "supabase/migrations/019_crawl_sources.sql",
+   "summary": "019_crawl_sources.sql migration: 테이블 crawl_sources 정의; pg_cron 스케줄 등록; RLS 정책 설정; trigger crawl_sources_touch_updated_at.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "pg_cron"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "table:supabase/migrations/019_crawl_sources.sql:crawl_sources",
+   "type": "table",
+   "name": "crawl_sources",
+   "filePath": "supabase/migrations/019_crawl_sources.sql",
+   "summary": "crawl_sources 테이블 — 019_crawl_sources.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/020_dispatcher_cron_switch.sql",
+   "type": "schema",
+   "name": "020_dispatcher_cron_switch.sql",
+   "filePath": "supabase/migrations/020_dispatcher_cron_switch.sql",
+   "summary": "020_dispatcher_cron_switch.sql migration: pg_cron 스케줄 등록.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "pg_cron"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/021_crawl_sources_running_flag.sql",
+   "type": "schema",
+   "name": "021_crawl_sources_running_flag.sql",
+   "filePath": "supabase/migrations/021_crawl_sources_running_flag.sql",
+   "summary": "021_crawl_sources_running_flag.sql migration: RPC/함수 crawl_try_start, crawl_release.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/022_tournament_status_rejected.sql",
+   "type": "schema",
+   "name": "022_tournament_status_rejected.sql",
+   "filePath": "supabase/migrations/022_tournament_status_rejected.sql",
+   "summary": "022_tournament_status_rejected.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/023_review_helpers.sql",
+   "type": "schema",
+   "name": "023_review_helpers.sql",
+   "filePath": "supabase/migrations/023_review_helpers.sql",
+   "summary": "023_review_helpers.sql migration: RPC/함수 tournaments_bulk_approve, tournaments_bulk_reject; view tournament_review_queue.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/024_crawl_sources_url_refresh.sql",
+   "type": "schema",
+   "name": "024_crawl_sources_url_refresh.sql",
+   "filePath": "supabase/migrations/024_crawl_sources_url_refresh.sql",
+   "summary": "024_crawl_sources_url_refresh.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/025_futsal_tournament_fields.sql",
+   "type": "schema",
+   "name": "025_futsal_tournament_fields.sql",
+   "filePath": "supabase/migrations/025_futsal_tournament_fields.sql",
+   "summary": "025_futsal_tournament_fields.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/026_futsal_crawl_sources.sql",
+   "type": "schema",
+   "name": "026_futsal_crawl_sources.sql",
+   "filePath": "supabase/migrations/026_futsal_crawl_sources.sql",
+   "summary": "026_futsal_crawl_sources.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/027_db_crawler_review_fixes.sql",
+   "type": "schema",
+   "name": "027_db_crawler_review_fixes.sql",
+   "filePath": "supabase/migrations/027_db_crawler_review_fixes.sql",
+   "summary": "027_db_crawler_review_fixes.sql migration: RPC/함수 prevent_role_self_update, close_expired_tournaments; pg_cron 스케줄 등록.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "pg_cron",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/028_adjust_crawler_schedule.sql",
+   "type": "schema",
+   "name": "028_adjust_crawler_schedule.sql",
+   "filePath": "supabase/migrations/028_adjust_crawler_schedule.sql",
+   "summary": "028_adjust_crawler_schedule.sql migration: pg_cron 스케줄 등록.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "pg_cron"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/029_division_codes_reset_eligible_grades.sql",
+   "type": "schema",
+   "name": "029_division_codes_reset_eligible_grades.sql",
+   "filePath": "supabase/migrations/029_division_codes_reset_eligible_grades.sql",
+   "summary": "029_division_codes_reset_eligible_grades.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/030_invoke_edge_function_internal_cron_jwt.sql",
+   "type": "schema",
+   "name": "030_invoke_edge_function_internal_cron_jwt.sql",
+   "filePath": "supabase/migrations/030_invoke_edge_function_internal_cron_jwt.sql",
+   "summary": "030_invoke_edge_function_internal_cron_jwt.sql migration: RPC/함수 invoke_edge_function.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/031_club_management.sql",
+   "type": "table",
+   "name": "031_club_management.sql",
+   "filePath": "supabase/migrations/031_club_management.sql",
+   "summary": "031_club_management.sql migration: 테이블 club_members, club_join_requests 정의; RPC/함수 update_club_member_count; RLS 정책 설정; trigger club_members_count_trigger.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "table:supabase/migrations/031_club_management.sql:club_members",
+   "type": "table",
+   "name": "club_members",
+   "filePath": "supabase/migrations/031_club_management.sql",
+   "summary": "club_members 테이블 — 031_club_management.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/031_club_management.sql:club_join_requests",
+   "type": "table",
+   "name": "club_join_requests",
+   "filePath": "supabase/migrations/031_club_management.sql",
+   "summary": "club_join_requests 테이블 — 031_club_management.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/032_drop_legacy_clubs_active_policy.sql",
+   "type": "schema",
+   "name": "032_drop_legacy_clubs_active_policy.sql",
+   "filePath": "supabase/migrations/032_drop_legacy_clubs_active_policy.sql",
+   "summary": "032_drop_legacy_clubs_active_policy.sql migration: 스키마 보정/시드/백필 등 데이터 변경 작업.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "data-migration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/033_fix_club_members_rls_recursion.sql",
+   "type": "schema",
+   "name": "033_fix_club_members_rls_recursion.sql",
+   "filePath": "supabase/migrations/033_fix_club_members_rls_recursion.sql",
+   "summary": "033_fix_club_members_rls_recursion.sql migration: RPC/함수 is_active_club_member, is_club_manager; RLS 정책 설정.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/034_invoke_edge_function_use_vault.sql",
+   "type": "schema",
+   "name": "034_invoke_edge_function_use_vault.sql",
+   "filePath": "supabase/migrations/034_invoke_edge_function_use_vault.sql",
+   "summary": "034_invoke_edge_function_use_vault.sql migration: RPC/함수 invoke_edge_function.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/035_club_events.sql",
+   "type": "table",
+   "name": "035_club_events.sql",
+   "filePath": "supabase/migrations/035_club_events.sql",
+   "summary": "035_club_events.sql migration: 테이블 club_events, club_event_attendees 정의; RPC/함수 is_event_club_member, is_event_club_manager; RLS 정책 설정.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "table:supabase/migrations/035_club_events.sql:club_events",
+   "type": "table",
+   "name": "club_events",
+   "filePath": "supabase/migrations/035_club_events.sql",
+   "summary": "club_events 테이블 — 035_club_events.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/035_club_events.sql:club_event_attendees",
+   "type": "table",
+   "name": "club_event_attendees",
+   "filePath": "supabase/migrations/035_club_events.sql",
+   "summary": "club_event_attendees 테이블 — 035_club_events.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/036_club_logos.sql",
+   "type": "schema",
+   "name": "036_club_logos.sql",
+   "filePath": "supabase/migrations/036_club_logos.sql",
+   "summary": "036_club_logos.sql migration: RLS 정책 설정.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "data-migration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "table:supabase/migrations/037_rate_limits.sql",
+   "type": "table",
+   "name": "037_rate_limits.sql",
+   "filePath": "supabase/migrations/037_rate_limits.sql",
+   "summary": "037_rate_limits.sql migration: 테이블 rate_limits 정의; RPC/함수 consume_rate_limit; RLS 정책 설정.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "table:supabase/migrations/037_rate_limits.sql:rate_limits",
+   "type": "table",
+   "name": "rate_limits",
+   "filePath": "supabase/migrations/037_rate_limits.sql",
+   "summary": "rate_limits 테이블 — 037_rate_limits.sql 에서 생성. RLS 적용.",
+   "tags": [
+    "table",
+    "schema-definition",
+    "postgres",
+    "supabase"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/038_search_like_escape.sql",
+   "type": "schema",
+   "name": "038_search_like_escape.sql",
+   "filePath": "supabase/migrations/038_search_like_escape.sql",
+   "summary": "038_search_like_escape.sql migration: RPC/함수 tournaments_for_user.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "schema:supabase/migrations/039_rls_hardening.sql",
+   "type": "schema",
+   "name": "039_rls_hardening.sql",
+   "filePath": "supabase/migrations/039_rls_hardening.sql",
+   "summary": "039_rls_hardening.sql migration: RLS 정책 설정.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rls",
+    "data-migration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/040_device_token_cap.sql",
+   "type": "schema",
+   "name": "040_device_token_cap.sql",
+   "filePath": "supabase/migrations/040_device_token_cap.sql",
+   "summary": "040_device_token_cap.sql migration: RPC/함수 cap_device_tokens; trigger device_tokens_cap.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "schema:supabase/migrations/041_fix_grade_matching.sql",
+   "type": "schema",
+   "name": "041_fix_grade_matching.sql",
+   "filePath": "supabase/migrations/041_fix_grade_matching.sql",
+   "summary": "041_fix_grade_matching.sql migration: RPC/함수 tournaments_for_user.",
+   "tags": [
+    "migration",
+    "sql",
+    "supabase",
+    "rpc"
+   ],
+   "complexity": "moderate"
+  }
+ ],
+ "edges": [
+  {
+   "source": "table:supabase/migrations/002_init_users_sports.sql",
+   "target": "table:supabase/migrations/002_init_users_sports.sql:users",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/002_init_users_sports.sql",
+   "target": "table:supabase/migrations/002_init_users_sports.sql:user_sports",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/003_tournaments.sql",
+   "target": "table:supabase/migrations/003_tournaments.sql:tournaments",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/003_tournaments.sql",
+   "target": "table:supabase/migrations/003_tournaments.sql:tournament_favorites",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/004_clubs.sql",
+   "target": "table:supabase/migrations/004_clubs.sql:clubs",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/005_chat_rules.sql",
+   "target": "table:supabase/migrations/005_chat_rules.sql:chat_messages",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/005_chat_rules.sql",
+   "target": "table:supabase/migrations/005_chat_rules.sql:rule_articles",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/006_notifications.sql",
+   "target": "table:supabase/migrations/006_notifications.sql:device_tokens",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/006_notifications.sql",
+   "target": "table:supabase/migrations/006_notifications.sql:notifications_log",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/007_crawl_audit.sql",
+   "target": "table:supabase/migrations/007_crawl_audit.sql:crawl_audit",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/009_regions_and_multi_org.sql",
+   "target": "table:supabase/migrations/009_regions_and_multi_org.sql:regions",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/009_regions_and_multi_org.sql",
+   "target": "table:supabase/migrations/009_regions_and_multi_org.sql:user_tennis_orgs",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/012_rate_limit.sql",
+   "target": "table:supabase/migrations/012_rate_limit.sql:chat_rate_limit",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/013_qa_cache.sql",
+   "target": "table:supabase/migrations/013_qa_cache.sql:qa_cache",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/014_intent_examples.sql",
+   "target": "table:supabase/migrations/014_intent_examples.sql:intent_examples",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/019_crawl_sources.sql",
+   "target": "table:supabase/migrations/019_crawl_sources.sql:crawl_sources",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/031_club_management.sql",
+   "target": "table:supabase/migrations/031_club_management.sql:club_members",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/031_club_management.sql",
+   "target": "table:supabase/migrations/031_club_management.sql:club_join_requests",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/035_club_events.sql",
+   "target": "table:supabase/migrations/035_club_events.sql:club_events",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/035_club_events.sql",
+   "target": "table:supabase/migrations/035_club_events.sql:club_event_attendees",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/037_rate_limits.sql",
+   "target": "table:supabase/migrations/037_rate_limits.sql:rate_limits",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/009_regions_and_multi_org.sql",
+   "target": "table:supabase/migrations/003_tournaments.sql:tournaments",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/010_tennis_grade_revamp.sql",
+   "target": "table:supabase/migrations/002_init_users_sports.sql:user_sports",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/015_uuid_v7.sql",
+   "target": "table:supabase/migrations/013_qa_cache.sql:qa_cache",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/015_uuid_v7.sql",
+   "target": "table:supabase/migrations/014_intent_examples.sql:intent_examples",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/021_crawl_sources_running_flag.sql",
+   "target": "table:supabase/migrations/019_crawl_sources.sql:crawl_sources",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/025_futsal_tournament_fields.sql",
+   "target": "table:supabase/migrations/003_tournaments.sql:tournaments",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/027_db_crawler_review_fixes.sql",
+   "target": "table:supabase/migrations/019_crawl_sources.sql:crawl_sources",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "table:supabase/migrations/031_club_management.sql",
+   "target": "table:supabase/migrations/004_clubs.sql:clubs",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/036_club_logos.sql",
+   "target": "table:supabase/migrations/004_clubs.sql:clubs",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "schema:supabase/migrations/041_fix_grade_matching.sql",
+   "target": "table:supabase/migrations/009_regions_and_multi_org.sql:user_tennis_orgs",
+   "type": "migrates",
+   "direction": "forward",
+   "weight": 0.7
+  }
+ ]
+}

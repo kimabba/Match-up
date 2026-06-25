@@ -1,0 +1,95 @@
+{
+  "projectRoot": "/Users/ssfak/Documents/01-github/ar",
+  "batchFiles": [
+    {
+      "path": "supabase/functions/_shared/embedding.ts",
+      "language": "typescript",
+      "sizeLines": 82,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/_shared/enums.ts",
+      "language": "typescript",
+      "sizeLines": 352,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/_shared/intent.ts",
+      "language": "typescript",
+      "sizeLines": 407,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/seed-intent-examples/index.ts",
+      "language": "typescript",
+      "sizeLines": 196,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/semantic-search/index.ts",
+      "language": "typescript",
+      "sizeLines": 111,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/tests/enums_test.ts",
+      "language": "typescript",
+      "sizeLines": 219,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/tests/intent_test.ts",
+      "language": "typescript",
+      "sizeLines": 212,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/tournaments-search/index.ts",
+      "language": "typescript",
+      "sizeLines": 82,
+      "fileCategory": "code"
+    },
+    {
+      "path": "supabase/functions/tournaments-submit/index.ts",
+      "language": "typescript",
+      "sizeLines": 169,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "supabase/functions/_shared/embedding.ts": [],
+    "supabase/functions/_shared/enums.ts": [],
+    "supabase/functions/_shared/intent.ts": [
+      "supabase/functions/_shared/enums.ts"
+    ],
+    "supabase/functions/seed-intent-examples/index.ts": [
+      "supabase/functions/_shared/auth.ts",
+      "supabase/functions/_shared/cors.ts",
+      "supabase/functions/_shared/embedding.ts",
+      "supabase/functions/_shared/intent.ts",
+      "supabase/functions/_shared/supabase.ts"
+    ],
+    "supabase/functions/semantic-search/index.ts": [
+      "supabase/functions/_shared/auth.ts",
+      "supabase/functions/_shared/cors.ts",
+      "supabase/functions/_shared/embedding.ts",
+      "supabase/functions/_shared/enums.ts"
+    ],
+    "supabase/functions/tests/enums_test.ts": [
+      "supabase/functions/_shared/enums.ts"
+    ],
+    "supabase/functions/tests/intent_test.ts": [
+      "supabase/functions/_shared/intent.ts"
+    ],
+    "supabase/functions/tournaments-search/index.ts": [
+      "supabase/functions/_shared/auth.ts",
+      "supabase/functions/_shared/cors.ts",
+      "supabase/functions/_shared/enums.ts"
+    ],
+    "supabase/functions/tournaments-submit/index.ts": [
+      "supabase/functions/_shared/auth.ts",
+      "supabase/functions/_shared/cors.ts",
+      "supabase/functions/_shared/enums.ts"
+    ]
+  }
+}

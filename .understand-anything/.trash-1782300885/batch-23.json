@@ -1,0 +1,996 @@
+{
+ "nodes": [
+  {
+   "id": "file:app/test/grade_labels_test.dart",
+   "type": "file",
+   "name": "grade_labels_test.dart",
+   "filePath": "app/test/grade_labels_test.dart",
+   "summary": "동호인 급수(grade) 라벨 변환 유틸을 검증하는 단위 테스트로, grade_labels 유틸의 출력 포맷을 케이스별로 확인한다.",
+   "tags": [
+    "test",
+    "unit-test",
+    "grade",
+    "utility"
+   ],
+   "complexity": "moderate",
+   "languageNotes": "Dart flutter_test 기반 테스트 진입점은 top-level main() 함수."
+  },
+  {
+   "id": "file:app/test/regulation_body_lines_test.dart",
+   "type": "file",
+   "name": "regulation_body_lines_test.dart",
+   "filePath": "app/test/regulation_body_lines_test.dart",
+   "summary": "대회 요강(regulation) 본문을 줄 단위로 분해·정규화하는 모델 로직을 검증하는 단위 테스트.",
+   "tags": [
+    "test",
+    "unit-test",
+    "regulation",
+    "parsing"
+   ],
+   "complexity": "moderate",
+   "languageNotes": "Dart flutter_test 기반 테스트 진입점은 top-level main() 함수."
+  },
+  {
+   "id": "file:app/test/rule_article_test.dart",
+   "type": "file",
+   "name": "rule_article_test.dart",
+   "filePath": "app/test/rule_article_test.dart",
+   "summary": "Tournament 모델의 규정 조항(rule article) 파싱 동작을 확인하는 소형 단위 테스트.",
+   "tags": [
+    "test",
+    "unit-test",
+    "data-model",
+    "regulation"
+   ],
+   "complexity": "simple",
+   "languageNotes": "Dart flutter_test 기반 테스트 진입점은 top-level main() 함수."
+  },
+  {
+   "id": "file:app/test/speed_calculator_test.dart",
+   "type": "file",
+   "name": "speed_calculator_test.dart",
+   "filePath": "app/test/speed_calculator_test.dart",
+   "summary": "스피드 측정값(speed_measurement)과 speed_calculator 서비스의 계산 로직을 검증하는 단위 테스트.",
+   "tags": [
+    "test",
+    "unit-test",
+    "service",
+    "calculation"
+   ],
+   "complexity": "moderate",
+   "languageNotes": "Dart flutter_test 기반 테스트 진입점은 top-level main() 함수."
+  },
+  {
+   "id": "file:app/test/tournament_card_info_test.dart",
+   "type": "file",
+   "name": "tournament_card_info_test.dart",
+   "filePath": "app/test/tournament_card_info_test.dart",
+   "summary": "대회 카드 요약 정보(tournament_card_info) 모델의 필드 구성과 요약 생성 로직을 검증하는 단위 테스트.",
+   "tags": [
+    "test",
+    "unit-test",
+    "data-model",
+    "tournament"
+   ],
+   "complexity": "moderate",
+   "languageNotes": "Dart flutter_test 기반 테스트 진입점은 top-level main() 함수."
+  },
+  {
+   "id": "file:app/test/tournament_card_test.dart",
+   "type": "file",
+   "name": "tournament_card_test.dart",
+   "filePath": "app/test/tournament_card_test.dart",
+   "summary": "TournamentCard 위젯의 렌더링과 날짜 로케일(intl) 표시를 검증하는 widget 테스트.",
+   "tags": [
+    "test",
+    "widget-test",
+    "component",
+    "tournament"
+   ],
+   "complexity": "moderate",
+   "languageNotes": "Dart flutter_test 기반 테스트 진입점은 top-level main() 함수."
+  },
+  {
+   "id": "file:app/test/tournament_filters_test.dart",
+   "type": "file",
+   "name": "tournament_filters_test.dart",
+   "filePath": "app/test/tournament_filters_test.dart",
+   "summary": "대회 목록 필터링 유틸(tournament_filters)의 날짜 오버랩·모집중 등 필터 조건을 검증하는 단위 테스트.",
+   "tags": [
+    "test",
+    "unit-test",
+    "filtering",
+    "tournament"
+   ],
+   "complexity": "moderate",
+   "languageNotes": "Dart flutter_test 기반 테스트 진입점은 top-level main() 함수."
+  },
+  {
+   "id": "file:app/test/tournament_regulation_test.dart",
+   "type": "file",
+   "name": "tournament_regulation_test.dart",
+   "filePath": "app/test/tournament_regulation_test.dart",
+   "summary": "Tournament 모델의 요강(regulation) 파싱을 baseJson 픽스처로 다양한 입력에 대해 검증하는 단위 테스트.",
+   "tags": [
+    "test",
+    "unit-test",
+    "regulation",
+    "data-model"
+   ],
+   "complexity": "moderate",
+   "languageNotes": "Dart flutter_test 기반 테스트 진입점은 top-level main() 함수."
+  },
+  {
+   "id": "file:app/test/tournament_search_query_test.dart",
+   "type": "file",
+   "name": "tournament_search_query_test.dart",
+   "filePath": "app/test/tournament_search_query_test.dart",
+   "summary": "api 서비스의 대회 검색 쿼리 빌더 동작(슬롯 검색 파라미터 구성)을 검증하는 단위 테스트.",
+   "tags": [
+    "test",
+    "unit-test",
+    "service",
+    "search"
+   ],
+   "complexity": "moderate",
+   "languageNotes": "Dart flutter_test 기반 테스트 진입점은 top-level main() 함수."
+  },
+  {
+   "id": "file:claudedocs/db-schema.html",
+   "type": "file",
+   "name": "db-schema.html",
+   "filePath": "claudedocs/db-schema.html",
+   "summary": "DB 스키마를 사람이 읽기 쉽게 시각화한 정적 HTML 문서로, 테이블·컬럼·관계를 표 형태로 정리한다.",
+   "tags": [
+    "markup",
+    "documentation",
+    "database",
+    "schema-definition"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:docs/legal/privacy-policy.html",
+   "type": "file",
+   "name": "privacy-policy.html",
+   "filePath": "docs/legal/privacy-policy.html",
+   "summary": "앱 개인정보 처리방침을 담은 정적 HTML 법무 문서.",
+   "tags": [
+    "markup",
+    "legal",
+    "documentation",
+    "privacy"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:docs/legal/terms-of-service.html",
+   "type": "file",
+   "name": "terms-of-service.html",
+   "filePath": "docs/legal/terms-of-service.html",
+   "summary": "앱 이용약관을 담은 정적 HTML 법무 문서.",
+   "tags": [
+    "markup",
+    "legal",
+    "documentation",
+    "terms"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "document:claudedocs/schema-audit-remaining.md",
+   "type": "document",
+   "name": "schema-audit-remaining.md",
+   "filePath": "claudedocs/schema-audit-remaining.md",
+   "summary": "DB 스키마 감사에서 남은 보안·정합성 항목을 6개 섹션으로 정리한 백로그 문서.",
+   "tags": [
+    "documentation",
+    "database",
+    "security",
+    "audit"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "document:docs/changelog/2026-W23.md",
+   "type": "document",
+   "name": "2026-W23.md",
+   "filePath": "docs/changelog/2026-W23.md",
+   "summary": "2026년 23주차 변경 이력을 9개 섹션으로 기록한 주간 changelog.",
+   "tags": [
+    "documentation",
+    "changelog",
+    "release-notes"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "document:docs/qa/mvp-qa-checklist.md",
+   "type": "document",
+   "name": "mvp-qa-checklist.md",
+   "filePath": "docs/qa/mvp-qa-checklist.md",
+   "summary": "MVP 출시 전 수동 QA 점검 항목을 9개 섹션으로 정리한 체크리스트.",
+   "tags": [
+    "documentation",
+    "qa",
+    "checklist",
+    "testing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "document:docs/security/cron-jwt-rotation.md",
+   "type": "document",
+   "name": "cron-jwt-rotation.md",
+   "filePath": "docs/security/cron-jwt-rotation.md",
+   "summary": "cron 호출용 JWT 시크릿 회전 절차와 운영 가이드를 13개 섹션으로 설명한 보안 문서.",
+   "tags": [
+    "documentation",
+    "security",
+    "cron",
+    "jwt"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:docs/data/futsal/전국_풋살구장_현황.xlsx",
+   "type": "file",
+   "name": "전국_풋살구장_현황.xlsx",
+   "filePath": "docs/data/futsal/전국_풋살구장_현황.xlsx",
+   "summary": "전국 풋살구장 현황을 정리한 엑셀 데이터 시트로, 풋살 관련 정보·RAG 데이터 소스로 활용된다.",
+   "tags": [
+    "data",
+    "futsal",
+    "spreadsheet",
+    "reference"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:docs/data/futsal/풋살 정보 정리.docx",
+   "type": "file",
+   "name": "풋살 정보 정리.docx",
+   "filePath": "docs/data/futsal/풋살 정보 정리.docx",
+   "summary": "풋살 관련 정보를 정리한 Word 문서 데이터 소스.",
+   "tags": [
+    "data",
+    "futsal",
+    "document",
+    "reference"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:docs/data/futsal/풋살_2024-25_경기규칙서_및_협회안내.docx",
+   "type": "file",
+   "name": "풋살_2024-25_경기규칙서_및_협회안내.docx",
+   "filePath": "docs/data/futsal/풋살_2024-25_경기규칙서_및_협회안내.docx",
+   "summary": "2024-25 풋살 경기규칙서와 협회 안내를 담은 Word 문서로, 규정 RAG 데이터의 원본.",
+   "tags": [
+    "data",
+    "futsal",
+    "regulation",
+    "reference"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:scripts/analyze_chat_cost.py",
+   "type": "file",
+   "name": "analyze_chat_cost.py",
+   "filePath": "scripts/analyze_chat_cost.py",
+   "summary": "채팅(RAG) 호출 로그를 파싱해 토큰·비용 통계와 분위수 리포트를 생성하는 분석 스크립트.",
+   "tags": [
+    "script",
+    "analytics",
+    "cost-analysis",
+    "data-pipeline"
+   ],
+   "complexity": "complex",
+   "languageNotes": "dataclass Stats + 단계별 함수형 집계(extract_event → consume → analyze → to_report → render_text) 구성."
+  },
+  {
+   "id": "class:scripts/analyze_chat_cost.py:Stats",
+   "type": "class",
+   "name": "Stats",
+   "filePath": "scripts/analyze_chat_cost.py",
+   "lineRange": [
+    1,
+    76
+   ],
+   "summary": "채팅 비용 분석에서 토큰·비용 누적값과 분포 데이터를 담는 dataclass 집계 컨테이너.",
+   "tags": [
+    "data-model",
+    "statistics",
+    "dataclass"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:scripts/analyze_chat_cost.py:extract_event",
+   "type": "function",
+   "name": "extract_event",
+   "filePath": "scripts/analyze_chat_cost.py",
+   "lineRange": [
+    77,
+    129
+   ],
+   "summary": "단일 로그 이벤트에서 토큰·비용 관련 필드를 추출해 정규화한다.",
+   "tags": [
+    "parsing",
+    "extraction"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:scripts/analyze_chat_cost.py:consume",
+   "type": "function",
+   "name": "consume",
+   "filePath": "scripts/analyze_chat_cost.py",
+   "lineRange": [
+    132,
+    178
+   ],
+   "summary": "추출된 이벤트들을 누적해 Stats 집계 객체를 갱신한다.",
+   "tags": [
+    "aggregation",
+    "accumulation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:scripts/analyze_chat_cost.py:to_report",
+   "type": "function",
+   "name": "to_report",
+   "filePath": "scripts/analyze_chat_cost.py",
+   "lineRange": [
+    199,
+    240
+   ],
+   "summary": "집계된 Stats를 분위수·합계가 포함된 리포트 구조로 변환한다.",
+   "tags": [
+    "reporting",
+    "statistics"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:scripts/analyze_chat_cost.py:render_text",
+   "type": "function",
+   "name": "render_text",
+   "filePath": "scripts/analyze_chat_cost.py",
+   "lineRange": [
+    247,
+    295
+   ],
+   "summary": "리포트 구조를 사람이 읽는 텍스트 표 형태로 렌더링한다.",
+   "tags": [
+    "rendering",
+    "formatting"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:scripts/analyze_chat_cost.py:main",
+   "type": "function",
+   "name": "main",
+   "filePath": "scripts/analyze_chat_cost.py",
+   "lineRange": [
+    307,
+    321
+   ],
+   "summary": "입력을 읽어 전체 분석 파이프라인을 실행하고 결과를 출력하는 진입점.",
+   "tags": [
+    "entry-point",
+    "cli"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:scripts/harness/check_enums.py",
+   "type": "file",
+   "name": "check_enums.py",
+   "filePath": "scripts/harness/check_enums.py",
+   "summary": "Dart·TypeScript·SQL·seed 간 enum/상수 정의(급수·지역코드·참가비 단위 등)가 일치하는지 교차 검증하는 harness 스크립트.",
+   "tags": [
+    "script",
+    "validation",
+    "ci-cd",
+    "consistency-check"
+   ],
+   "complexity": "complex",
+   "languageNotes": "각 소스 표면을 정규식으로 추출(dart_enum/ts_union/sql_enum 등) 후 assert_same으로 교차 비교."
+  },
+  {
+   "id": "function:scripts/harness/check_enums.py:sql_grade_check",
+   "type": "function",
+   "name": "sql_grade_check",
+   "filePath": "scripts/harness/check_enums.py",
+   "lineRange": [
+    70,
+    77
+   ],
+   "summary": "SQL의 급수(grade) CHECK 제약에서 허용 값 집합을 추출한다.",
+   "tags": [
+    "parsing",
+    "sql",
+    "validation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:scripts/harness/check_enums.py:user_sports_grade_constraint_history",
+   "type": "function",
+   "name": "user_sports_grade_constraint_history",
+   "filePath": "scripts/harness/check_enums.py",
+   "lineRange": [
+    87,
+    99
+   ],
+   "summary": "user_sports 급수 제약 변경 이력 마이그레이션에서 현재 허용 급수 값을 추출한다.",
+   "tags": [
+    "parsing",
+    "sql",
+    "migration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:scripts/harness/check_enums.py:assert_same",
+   "type": "function",
+   "name": "assert_same",
+   "filePath": "scripts/harness/check_enums.py",
+   "lineRange": [
+    109,
+    121
+   ],
+   "summary": "여러 소스에서 추출한 값 집합이 동일한지 단언하고 불일치 시 실패시킨다.",
+   "tags": [
+    "validation",
+    "assertion"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:scripts/harness/check_enums.py:main",
+   "type": "function",
+   "name": "main",
+   "filePath": "scripts/harness/check_enums.py",
+   "lineRange": [
+    124,
+    168
+   ],
+   "summary": "모든 enum/상수 소스를 읽어 교차 일치 검사를 순차 수행하는 진입점.",
+   "tags": [
+    "entry-point",
+    "orchestration"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:scripts/harness/check_static_rules.py",
+   "type": "file",
+   "name": "check_static_rules.py",
+   "filePath": "scripts/harness/check_static_rules.py",
+   "summary": "루트 파일 길이·필수 rule 문서·AGENTS 링크·GitHub 템플릿 등 프로젝트 정적 규칙 준수를 검사하는 harness 스크립트.",
+   "tags": [
+    "script",
+    "validation",
+    "ci-cd",
+    "linting"
+   ],
+   "complexity": "moderate",
+   "languageNotes": "각 check_* 함수가 개별 규칙을 검사하고 main에서 순차 실행 후 위반 시 fail."
+  },
+  {
+   "id": "function:scripts/harness/check_static_rules.py:check_root_file_lengths",
+   "type": "function",
+   "name": "check_root_file_lengths",
+   "filePath": "scripts/harness/check_static_rules.py",
+   "lineRange": [
+    50,
+    59
+   ],
+   "summary": "루트 문서 파일들이 정해진 최대 길이를 넘지 않는지 검사한다.",
+   "tags": [
+    "validation",
+    "linting"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:scripts/harness/check_static_rules.py:check_required_rule_docs",
+   "type": "function",
+   "name": "check_required_rule_docs",
+   "filePath": "scripts/harness/check_static_rules.py",
+   "lineRange": [
+    62,
+    65
+   ],
+   "summary": "필수 rule 문서(docs/rules)가 존재하는지 검사한다.",
+   "tags": [
+    "validation",
+    "docs"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:scripts/harness/check_static_rules.py:check_agents_rule_links",
+   "type": "function",
+   "name": "check_agents_rule_links",
+   "filePath": "scripts/harness/check_static_rules.py",
+   "lineRange": [
+    68,
+    73
+   ],
+   "summary": "AGENTS.md의 rule 링크가 실제 문서와 일치하는지 검사한다.",
+   "tags": [
+    "validation",
+    "docs"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:scripts/harness/check_static_rules.py:check_github_templates",
+   "type": "function",
+   "name": "check_github_templates",
+   "filePath": "scripts/harness/check_static_rules.py",
+   "lineRange": [
+    76,
+    86
+   ],
+   "summary": "필수 GitHub 이슈·PR 템플릿이 존재하는지 검사한다.",
+   "tags": [
+    "validation",
+    "github"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:scripts/harness/check_static_rules.py:main",
+   "type": "function",
+   "name": "main",
+   "filePath": "scripts/harness/check_static_rules.py",
+   "lineRange": [
+    96,
+    103
+   ],
+   "summary": "모든 정적 규칙 검사를 실행하고 위반을 집계하는 진입점.",
+   "tags": [
+    "entry-point",
+    "orchestration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:scripts/harness/check_secrets.sh",
+   "type": "file",
+   "name": "check_secrets.sh",
+   "filePath": "scripts/harness/check_secrets.sh",
+   "summary": "커밋된 시크릿(키·토큰)이 코드베이스에 노출됐는지 패턴 기반으로 점검하는 셸 harness 스크립트.",
+   "tags": [
+    "script",
+    "security",
+    "ci-cd",
+    "secret-scanning"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:scripts/harness/run_all.sh",
+   "type": "file",
+   "name": "run_all.sh",
+   "filePath": "scripts/harness/run_all.sh",
+   "summary": "check_enums·check_static_rules·check_secrets 등 모든 harness 검사를 순차 실행하는 통합 러너 셸 스크립트.",
+   "tags": [
+    "script",
+    "ci-cd",
+    "orchestration",
+    "entry-point"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:supabase/config.toml",
+   "type": "config",
+   "name": "config.toml",
+   "filePath": "supabase/config.toml",
+   "summary": "Supabase 로컬/프로젝트 설정으로 api·db·auth·storage·edge_runtime 및 Edge Function(embed-pending·notify-cron·crawl-dispatch·health) 등록을 정의한다.",
+   "tags": [
+    "configuration",
+    "supabase",
+    "edge-function",
+    "infrastructure"
+   ],
+   "complexity": "complex",
+   "languageNotes": "[functions.*] 섹션에서 각 Edge Function의 verify_jwt·엔트리포인트를 선언."
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:app/test/grade_labels_test.dart",
+   "target": "file:app/lib/utils/grade_labels.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/utils/grade_labels.dart",
+   "target": "file:app/test/grade_labels_test.dart",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:app/test/regulation_body_lines_test.dart",
+   "target": "file:app/lib/models/regulation_body_lines.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/models/regulation_body_lines.dart",
+   "target": "file:app/test/regulation_body_lines_test.dart",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:app/test/rule_article_test.dart",
+   "target": "file:app/lib/models/tournament.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/models/tournament.dart",
+   "target": "file:app/test/rule_article_test.dart",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:app/test/speed_calculator_test.dart",
+   "target": "file:app/lib/models/speed_measurement.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/models/speed_measurement.dart",
+   "target": "file:app/test/speed_calculator_test.dart",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:app/test/speed_calculator_test.dart",
+   "target": "file:app/lib/services/speed_calculator.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/services/speed_calculator.dart",
+   "target": "file:app/test/speed_calculator_test.dart",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:app/test/tournament_card_info_test.dart",
+   "target": "file:app/lib/models/tournament_card_info.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/models/tournament_card_info.dart",
+   "target": "file:app/test/tournament_card_info_test.dart",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:app/test/tournament_card_test.dart",
+   "target": "file:app/lib/models/tournament.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/models/tournament.dart",
+   "target": "file:app/test/tournament_card_test.dart",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:app/test/tournament_card_test.dart",
+   "target": "file:app/lib/widgets/tournament_card.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/widgets/tournament_card.dart",
+   "target": "file:app/test/tournament_card_test.dart",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:app/test/tournament_filters_test.dart",
+   "target": "file:app/lib/utils/tournament_filters.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/utils/tournament_filters.dart",
+   "target": "file:app/test/tournament_filters_test.dart",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:app/test/tournament_regulation_test.dart",
+   "target": "file:app/lib/models/tournament.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/models/tournament.dart",
+   "target": "file:app/test/tournament_regulation_test.dart",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:app/test/tournament_search_query_test.dart",
+   "target": "file:app/lib/services/api.dart",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:app/lib/services/api.dart",
+   "target": "file:app/test/tournament_search_query_test.dart",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:scripts/analyze_chat_cost.py",
+   "target": "class:scripts/analyze_chat_cost.py:Stats",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/analyze_chat_cost.py",
+   "target": "class:scripts/analyze_chat_cost.py:Stats",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:scripts/analyze_chat_cost.py",
+   "target": "function:scripts/analyze_chat_cost.py:extract_event",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/analyze_chat_cost.py",
+   "target": "function:scripts/analyze_chat_cost.py:extract_event",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:scripts/analyze_chat_cost.py",
+   "target": "function:scripts/analyze_chat_cost.py:consume",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/analyze_chat_cost.py",
+   "target": "function:scripts/analyze_chat_cost.py:consume",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:scripts/analyze_chat_cost.py",
+   "target": "function:scripts/analyze_chat_cost.py:to_report",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/analyze_chat_cost.py",
+   "target": "function:scripts/analyze_chat_cost.py:to_report",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:scripts/analyze_chat_cost.py",
+   "target": "function:scripts/analyze_chat_cost.py:render_text",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/analyze_chat_cost.py",
+   "target": "function:scripts/analyze_chat_cost.py:render_text",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:scripts/analyze_chat_cost.py",
+   "target": "function:scripts/analyze_chat_cost.py:main",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/analyze_chat_cost.py",
+   "target": "function:scripts/analyze_chat_cost.py:main",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:scripts/harness/check_enums.py",
+   "target": "function:scripts/harness/check_enums.py:sql_grade_check",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/harness/check_enums.py",
+   "target": "function:scripts/harness/check_enums.py:sql_grade_check",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:scripts/harness/check_enums.py",
+   "target": "function:scripts/harness/check_enums.py:user_sports_grade_constraint_history",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/harness/check_enums.py",
+   "target": "function:scripts/harness/check_enums.py:user_sports_grade_constraint_history",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:scripts/harness/check_enums.py",
+   "target": "function:scripts/harness/check_enums.py:assert_same",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/harness/check_enums.py",
+   "target": "function:scripts/harness/check_enums.py:assert_same",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:scripts/harness/check_enums.py",
+   "target": "function:scripts/harness/check_enums.py:main",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/harness/check_enums.py",
+   "target": "function:scripts/harness/check_enums.py:main",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:scripts/harness/check_static_rules.py",
+   "target": "function:scripts/harness/check_static_rules.py:check_root_file_lengths",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/harness/check_static_rules.py",
+   "target": "function:scripts/harness/check_static_rules.py:check_root_file_lengths",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:scripts/harness/check_static_rules.py",
+   "target": "function:scripts/harness/check_static_rules.py:check_required_rule_docs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/harness/check_static_rules.py",
+   "target": "function:scripts/harness/check_static_rules.py:check_required_rule_docs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:scripts/harness/check_static_rules.py",
+   "target": "function:scripts/harness/check_static_rules.py:check_agents_rule_links",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/harness/check_static_rules.py",
+   "target": "function:scripts/harness/check_static_rules.py:check_agents_rule_links",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:scripts/harness/check_static_rules.py",
+   "target": "function:scripts/harness/check_static_rules.py:check_github_templates",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/harness/check_static_rules.py",
+   "target": "function:scripts/harness/check_static_rules.py:check_github_templates",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:scripts/harness/check_static_rules.py",
+   "target": "function:scripts/harness/check_static_rules.py:main",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:scripts/harness/check_static_rules.py",
+   "target": "function:scripts/harness/check_static_rules.py:main",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:scripts/harness/run_all.sh",
+   "target": "file:scripts/harness/check_enums.py",
+   "type": "triggers",
+   "direction": "forward",
+   "weight": 0.6
+  },
+  {
+   "source": "file:scripts/harness/run_all.sh",
+   "target": "file:scripts/harness/check_static_rules.py",
+   "type": "triggers",
+   "direction": "forward",
+   "weight": 0.6
+  },
+  {
+   "source": "file:scripts/harness/run_all.sh",
+   "target": "file:scripts/harness/check_secrets.sh",
+   "type": "triggers",
+   "direction": "forward",
+   "weight": 0.6
+  }
+ ]
+}

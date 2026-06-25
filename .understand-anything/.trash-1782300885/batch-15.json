@@ -1,0 +1,57 @@
+{
+  "nodes": [
+    {
+      "id": "document:docs/reviews/code-review.md",
+      "type": "document",
+      "name": "code-review.md",
+      "filePath": "docs/reviews/code-review.md",
+      "summary": "종합 코드 리뷰 보고서로, plan 일치도 점검부터 Blocking/Should-fix/Nice-to-have 등급별 이슈(REV-B/S/N), 누락 케이스, 문서-코드 불일치, MVP 출시 가능 여부, Linear 이슈 매핑까지 정리한다.",
+      "tags": ["documentation", "code-review", "review-report", "quality"],
+      "complexity": "complex",
+      "languageNotes": "REV-B/S/N 접두사로 이슈를 등급화한 구조화 리뷰 보고서. Edge Function, RLS, RPC, SSE, go_router 등 코드 영역을 광범위하게 다룬다."
+    },
+    {
+      "id": "document:docs/reviews/security-review.md",
+      "type": "document",
+      "name": "security-review.md",
+      "filePath": "docs/reviews/security-review.md",
+      "summary": "보안 검토 보고서로 Critical/High/Medium/Low/Info 등급별 취약점(SEC-C/H/M/L)을 정리한다. API 키 평문 저장, cron 함수 인증 부재, RAG prompt injection, rate-limit 부재, CORS, SSRF 가드 등을 다룬다.",
+      "tags": ["documentation", "security", "review-report", "rls"],
+      "complexity": "complex",
+      "languageNotes": "SEC-C/H/M/L 심각도 등급 체계. Edge Function, RLS, RAG, prompt injection, SECURITY DEFINER 등 Supabase 보안 표면을 점검한다."
+    },
+    {
+      "id": "document:docs/reviews/simplify-review.md",
+      "type": "document",
+      "name": "simplify-review.md",
+      "filePath": "docs/reviews/simplify-review.md",
+      "summary": "단순화/코드 품질 검토 보고서로 SIMP-01~14 발견 사항(크롤러 중복, 미사용 helper, 보일러플레이트, 거대 함수, 데드 코드 등)을 정리하고 즉시/중기/무시 가능 우선순위로 분류한다.",
+      "tags": ["documentation", "refactoring", "review-report", "code-quality"],
+      "complexity": "complex",
+      "languageNotes": "SIMP-NN 식별자로 단순화 기회를 추적. Edge Function 보일러플레이트, Riverpod provider 패턴, migration GUC 등 중복·복잡도 핫스팟을 분석한다."
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:docs/reviews/code-review.md",
+      "target": "document:docs/reviews/security-review.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/reviews/code-review.md",
+      "target": "document:docs/reviews/simplify-review.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/reviews/security-review.md",
+      "target": "document:docs/reviews/simplify-review.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "projectRoot": "/Users/ssfak/Documents/01-github/ar",
+  "batchFiles": [
+    {"path": "supabase/functions/_shared/crawler.ts", "language": "typescript", "sizeLines": 760, "fileCategory": "code"},
+    {"path": "supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts", "language": "typescript", "sizeLines": 473, "fileCategory": "code"},
+    {"path": "supabase/functions/_shared/crawler/registry.ts", "language": "typescript", "sizeLines": 31, "fileCategory": "code"},
+    {"path": "supabase/functions/_shared/crawler/types.ts", "language": "typescript", "sizeLines": 53, "fileCategory": "code"},
+    {"path": "supabase/functions/crawl-dispatch/index.ts", "language": "typescript", "sizeLines": 294, "fileCategory": "code"},
+    {"path": "supabase/functions/tests/crawler_extract_test.ts", "language": "typescript", "sizeLines": 365, "fileCategory": "code"},
+    {"path": "supabase/functions/tests/crawler_upsert_preserve_test.ts", "language": "typescript", "sizeLines": 127, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    "supabase/functions/_shared/crawler.ts": ["supabase/functions/_shared/enums.ts", "supabase/functions/_shared/supabase.ts"],
+    "supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts": ["supabase/functions/_shared/crawler.ts", "supabase/functions/_shared/crawler/types.ts"],
+    "supabase/functions/_shared/crawler/registry.ts": ["supabase/functions/_shared/crawler/parsers/gnuboard_sub5_5_contest.ts", "supabase/functions/_shared/crawler/types.ts"],
+    "supabase/functions/_shared/crawler/types.ts": ["supabase/functions/_shared/crawler.ts"],
+    "supabase/functions/crawl-dispatch/index.ts": ["supabase/functions/_shared/auth.ts", "supabase/functions/_shared/cors.ts", "supabase/functions/_shared/crawler.ts", "supabase/functions/_shared/crawler/registry.ts", "supabase/functions/_shared/crawler/types.ts", "supabase/functions/_shared/supabase.ts"],
+    "supabase/functions/tests/crawler_extract_test.ts": ["supabase/functions/_shared/crawler.ts"],
+    "supabase/functions/tests/crawler_upsert_preserve_test.ts": ["supabase/functions/_shared/crawler.ts"]
+  }
+}

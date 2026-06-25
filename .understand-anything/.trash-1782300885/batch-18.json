@@ -1,0 +1,68 @@
+{
+  "nodes": [
+    {
+      "id": "document:docs/superpowers/specs/2026-05-19-active-sport-filter-design.md",
+      "type": "document",
+      "name": "2026-05-19-active-sport-filter-design.md",
+      "filePath": "docs/superpowers/specs/2026-05-19-active-sport-filter-design.md",
+      "summary": "전역 활성 종목(테니스/풋살) 필터 도입 설계 문서. 기존 selectedSportProvider를 activeSportProvider로 대체하고 대회·클럽·룰북·채팅·프로필·온보딩 등 각 화면의 종목 필터링 반영 방식과 엣지 케이스를 정의한다.",
+      "tags": ["documentation", "design-spec", "state-management", "provider", "flutter"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/superpowers/specs/2026-05-19-chat-main-admin-panel-design.md",
+      "type": "document",
+      "name": "2026-05-19-chat-main-admin-panel-design.md",
+      "filePath": "docs/superpowers/specs/2026-05-19-chat-main-admin-panel-design.md",
+      "summary": "채팅을 메인 화면으로 승격하고 관리자 패널을 신설하는 내비게이션 개편 설계 문서. isAdminProvider 기반 role 확인, 채팅 빠른 명령어, 대회 탭의 홈 피드 흡수, 크롤 현황·Draft 승인·수동 실행 어드민 탭 및 크롤러 Edge Function 인증 처리를 다룬다.",
+      "tags": ["documentation", "design-spec", "navigation", "admin", "provider"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/superpowers/specs/2026-05-27-knowledge-base-rules-design.md",
+      "type": "document",
+      "name": "2026-05-27-knowledge-base-rules-design.md",
+      "filePath": "docs/superpowers/specs/2026-05-27-knowledge-base-rules-design.md",
+      "summary": "지식베이스 1단계로 룰북·지식 문서 관리 체계를 설계한 문서. 데이터 모델과 임베딩(pgvector) 상태 판정, 백엔드 처리, Flutter의 api.dart·RuleArticle 모델·providers·화면 변경 범위와 검증 절차를 정의한다.",
+      "tags": ["documentation", "design-spec", "knowledge-base", "pgvector", "data-model"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/superpowers/specs/2026-05-28-club-activity-mvp-design.md",
+      "type": "document",
+      "name": "2026-05-28-club-activity-mvp-design.md",
+      "filePath": "docs/superpowers/specs/2026-05-28-club-activity-mvp-design.md",
+      "summary": "클럽 활동 MVP 설계 문서. 신규 2개 테이블 데이터 모델, RLS 권한 규칙, 데이터 접근 방식, ClubDetailScreen(/clubs/:id) 화면 구성과 검증·후속 과제를 정의한다.",
+      "tags": ["documentation", "design-spec", "club", "data-model", "rls"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/superpowers/specs/2026-05-29-strategy-and-roadmap-design.md",
+      "type": "document",
+      "name": "2026-05-29-strategy-and-roadmap-design.md",
+      "filePath": "docs/superpowers/specs/2026-05-29-strategy-and-roadmap-design.md",
+      "summary": "Match-up(올라운드) 제품 전략과 로드맵을 정의한 문서. 제품 정의·타겟 사용자·경쟁 분석, Phase 1~4 전략 로드맵, MVP 스코프, 4개 스프린트 계획, 리스크·성공 지표·사용자 획득 전략·운영 모니터링·Post-MVP 백로그를 포괄한다.",
+      "tags": ["documentation", "strategy", "roadmap", "product-planning", "mvp"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:docs/superpowers/specs/2026-05-30-web-admin-separation-design.md",
+      "type": "document",
+      "name": "2026-05-30-web-admin-separation-design.md",
+      "filePath": "docs/superpowers/specs/2026-05-30-web-admin-separation-design.md",
+      "summary": "웹 어드민과 앱 사용자 경험을 분리하는 설계 문서. 웹 빌드 unblock, go_router 분기와 /admin/* 경로 보호 리다이렉트 가드, AdminShell 레이아웃, 대회 편집 화면 및 크롤 덮어쓰기 방지, 변경 파일·DB 마이그레이션 목록을 정의한다.",
+      "tags": ["documentation", "design-spec", "admin", "go-router", "web"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:docs/superpowers/specs/2026-06-11-chat-a2ui-cards-design.md",
+      "type": "document",
+      "name": "2026-06-11-chat-a2ui-cards-design.md",
+      "filePath": "docs/superpowers/specs/2026-06-11-chat-a2ui-cards-design.md",
+      "summary": "채팅 응답을 A2UI 카드로 렌더링하는 설계 문서. SSE 컨트랙트, 후속 질문 컨텍스트, 신뢰 경계(security/trust boundaries), 백엔드·Flutter 변경, 에러 처리·테스트·범위 제외 사항을 정의한다.",
+      "tags": ["documentation", "design-spec", "chat", "sse", "a2ui"],
+      "complexity": "complex"
+    }
+  ],
+  "edges": []
+}

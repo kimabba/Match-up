@@ -1,0 +1,91 @@
+{
+  "nodes": [
+    {
+      "id": "document:docs/superpowers/plans/2026-05-19-active-sport-filter.md",
+      "type": "document",
+      "name": "2026-05-19-active-sport-filter.md",
+      "filePath": "docs/superpowers/plans/2026-05-19-active-sport-filter.md",
+      "summary": "전역 활성 종목 필터(activeSportProvider) 도입 구현 계획. 대회·클럽·룰북 탭에서 종목 칩을 제거하고 단일 활성 종목 기반 reactive 필터로 전환하며, chat Edge Function의 primary 종목 강조까지 다루는 6개 Task 문서.",
+      "tags": ["documentation", "implementation-plan", "riverpod", "active-sport-filter"],
+      "complexity": "complex",
+      "languageNotes": "Riverpod provider 리팩토링(selectedSportProvider→activeSportProvider) 중심의 Flutter 클라이언트 상태 계획."
+    },
+    {
+      "id": "document:docs/superpowers/plans/2026-05-19-chat-main-admin-panel.md",
+      "type": "document",
+      "name": "2026-05-19-chat-main-admin-panel.md",
+      "filePath": "docs/superpowers/plans/2026-05-19-chat-main-admin-panel.md",
+      "summary": "채팅 메인화 및 어드민 패널 구현 계획. 크롤러 Edge Function의 requireAdmin 가드, isAdminProvider, 내비게이션 개편, 채팅 빠른 명령어, HomeScreen 흡수, CrawlAuditLog 기반 AdminScreen까지 7개 Task(SSF-301~307)를 정의.",
+      "tags": ["documentation", "implementation-plan", "admin-panel", "navigation", "edge-function"],
+      "complexity": "complex",
+      "languageNotes": "go_router 내비게이션 개편과 requireAdmin Edge Function 가드를 묶은 대규모 계획."
+    },
+    {
+      "id": "document:docs/superpowers/plans/2026-05-27-knowledge-base-rules.md",
+      "type": "document",
+      "name": "2026-05-27-knowledge-base-rules.md",
+      "filePath": "docs/superpowers/plans/2026-05-27-knowledge-base-rules.md",
+      "summary": "지식베이스 1단계(룰북·지식 문서 관리) 구현 계획. embed-pending의 admin 호출 허용, RuleArticle 모델 확장(TDD), 룰 admin CRUD + 임베딩 재계산, Provider, 편집 전체화면, 지식베이스 목록 탭까지 8개 Task를 정의.",
+      "tags": ["documentation", "implementation-plan", "knowledge-base", "rag", "tdd"],
+      "complexity": "complex",
+      "languageNotes": "pgvector 임베딩 재계산(embed-pending Edge Function)과 RAG 룰북 관리 흐름을 다룸."
+    },
+    {
+      "id": "document:docs/superpowers/plans/2026-05-30-web-admin-separation.md",
+      "type": "document",
+      "name": "2026-05-30-web-admin-separation.md",
+      "filePath": "docs/superpowers/plans/2026-05-30-web-admin-separation.md",
+      "summary": "웹 어드민과 앱 사용자 분리 구현 계획. notifications stub로 웹 빌드 unblock, NoAccessScreen, AdminShell 레이아웃, go_router 웹/앱 라우트 분기, manual_description 컬럼 migration과 upsertTournament 체크, 대회 수기 편집 화면까지 10개 Task를 정의.",
+      "tags": ["documentation", "implementation-plan", "web-admin", "go-router", "migration"],
+      "complexity": "complex",
+      "languageNotes": "플랫폼별(웹/앱) go_router 라우트 분기와 manual_description 컬럼 migration을 포함."
+    },
+    {
+      "id": "document:docs/superpowers/plans/2026-06-11-chat-a2ui-tournament-cards.md",
+      "type": "document",
+      "name": "2026-06-11-chat-a2ui-tournament-cards.md",
+      "filePath": "docs/superpowers/plans/2026-06-11-chat-a2ui-tournament-cards.md",
+      "summary": "채팅 A2UI 대회 카드 구현 계획. Backend(카드 빌더·selected_entity 검증, tournament 라우팅의 ui 이벤트 SSE 발송, 컨텍스트 주입)와 Flutter(ChatUiBlock 모델, ApiService.chat selectedEntity, ui 이벤트 처리, ChatTournamentCard 위젯, 카드 액션 후속 전송)를 2 Phase 8 Task로 정의.",
+      "tags": ["documentation", "implementation-plan", "chat-ui", "sse", "a2ui"],
+      "complexity": "complex",
+      "languageNotes": "SSE의 ui 이벤트로 서버 주도 UI(A2UI) 카드를 렌더링하는 chat Edge Function ↔ Flutter 연동 계획."
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:docs/superpowers/plans/2026-05-30-web-admin-separation.md",
+      "target": "document:docs/superpowers/plans/2026-05-19-chat-main-admin-panel.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-27-knowledge-base-rules.md",
+      "target": "document:docs/superpowers/plans/2026-05-19-chat-main-admin-panel.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-27-knowledge-base-rules.md",
+      "target": "document:docs/superpowers/plans/2026-05-30-web-admin-separation.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-06-11-chat-a2ui-tournament-cards.md",
+      "target": "document:docs/superpowers/plans/2026-05-19-chat-main-admin-panel.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-19-active-sport-filter.md",
+      "target": "document:docs/superpowers/plans/2026-06-11-chat-a2ui-tournament-cards.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

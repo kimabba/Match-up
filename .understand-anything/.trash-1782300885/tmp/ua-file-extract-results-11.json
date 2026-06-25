@@ -1,0 +1,423 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 7,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "docs/design/2026-redesign-spec.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 219,
+      "nonEmptyLines": 179,
+      "sections": [
+        {
+          "heading": "Match-up 2026 디자인 리뉴얼 — 통합 Spec",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Part 1. 현재 진단 — ★ 2/5",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "종합",
+          "level": 3,
+          "line": 11
+        },
+        {
+          "heading": "가장 큰 문제 3가지",
+          "level": 3,
+          "line": 14
+        },
+        {
+          "heading": "가장 olds한 화면 Top 3",
+          "level": 3,
+          "line": 19
+        },
+        {
+          "heading": "Quick wins (1~2일 내 가능)",
+          "level": 3,
+          "line": 24
+        },
+        {
+          "heading": "Part 2. 2026 트렌드 핵심 7가지",
+          "level": 2,
+          "line": 37
+        },
+        {
+          "heading": "글로벌",
+          "level": 3,
+          "line": 39
+        },
+        {
+          "heading": "한국 특화",
+          "level": 3,
+          "line": 48
+        },
+        {
+          "heading": "직접 비교 — 동호인·스포츠 앱",
+          "level": 3,
+          "line": 56
+        },
+        {
+          "heading": "Part 3. 디자인 시스템 결정 (Flutter)",
+          "level": 2,
+          "line": 68
+        },
+        {
+          "heading": "핵심 결정 트리",
+          "level": 3,
+          "line": 70
+        },
+        {
+          "heading": "컬러 토큰 (Light)",
+          "level": 3,
+          "line": 84
+        },
+        {
+          "heading": "컬러 토큰 (Dark)",
+          "level": 3,
+          "line": 93
+        },
+        {
+          "heading": "타이포 (Pretendard, 한글 자간 -2%, 행간 1.5)",
+          "level": 3,
+          "line": 100
+        },
+        {
+          "heading": "컴포넌트 라이브러리 (10개)",
+          "level": 3,
+          "line": 107
+        },
+        {
+          "heading": "모션 토큰",
+          "level": 3,
+          "line": 122
+        },
+        {
+          "heading": "다크모드",
+          "level": 3,
+          "line": 140
+        },
+        {
+          "heading": "Part 4. 작업 청크 (옵션 B 선택)",
+          "level": 2,
+          "line": 147
+        },
+        {
+          "heading": "Phase 0 — 토큰 도입 (0.5일)",
+          "level": 3,
+          "line": 149
+        },
+        {
+          "heading": "Phase 1 — 컴포넌트 라이브러리 (1~1.5일)",
+          "level": 3,
+          "line": 156
+        },
+        {
+          "heading": "Phase 2 — 신규 화면을 새 디자인으로 (C5/C6 통합)",
+          "level": 3,
+          "line": 169
+        },
+        {
+          "heading": "Phase 3 — 기존 7 화면 점진 마이그레이션 (별도 청크)",
+          "level": 3,
+          "line": 173
+        },
+        {
+          "heading": "Phase 4 — 검증",
+          "level": 3,
+          "line": 178
+        },
+        {
+          "heading": "Part 5. 다음 단계",
+          "level": 2,
+          "line": 186
+        },
+        {
+          "heading": "참고 자료 (출처)",
+          "level": 2,
+          "line": 197
+        },
+        {
+          "heading": "트렌드",
+          "level": 3,
+          "line": 199
+        },
+        {
+          "heading": "폰트·기술",
+          "level": 3,
+          "line": 209
+        },
+        {
+          "heading": "직접 경쟁자",
+          "level": 3,
+          "line": 217
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 29
+      }
+    },
+    {
+      "path": "docs/design/app-map.html",
+      "language": "html",
+      "fileCategory": "markup",
+      "totalLines": 219,
+      "nonEmptyLines": 201,
+      "metrics": {}
+    },
+    {
+      "path": "docs/design/app-map.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 98,
+      "nonEmptyLines": 76,
+      "sections": [
+        {
+          "heading": "Match-up 앱 화면 구조 (App Map)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "사용자 앱 (모바일)",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "범례",
+          "level": 2,
+          "line": 81
+        },
+        {
+          "heading": "어드민 웹",
+          "level": 2,
+          "line": 87
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "docs/design/db-redesign-progress.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 120,
+      "nonEmptyLines": 101,
+      "sections": [
+        {
+          "heading": "DB 재설계 진행 현황",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "설계 순서",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "Layer 0: users — 확정",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "Layer 1: user_sports — 확정 (현행 유지)",
+          "level": 2,
+          "line": 46
+        },
+        {
+          "heading": "Layer 1: user_tennis_orgs — ✅ 확정",
+          "level": 2,
+          "line": 61
+        },
+        {
+          "heading": "핵심 변경: PK `(user_id, org)` → `(user_id, org, division)`",
+          "level": 3,
+          "line": 63
+        },
+        {
+          "heading": "변경 사유",
+          "level": 3,
+          "line": 82
+        },
+        {
+          "heading": "클럽 기능 — 이전 브레인스토밍 확정 사항",
+          "level": 2,
+          "line": 89
+        },
+        {
+          "heading": "전체 설계 범위 (3개 도메인)",
+          "level": 2,
+          "line": 104
+        },
+        {
+          "heading": "1. 클럽 (기존 확장)",
+          "level": 3,
+          "line": 106
+        },
+        {
+          "heading": "2. 친구 일정 (신규)",
+          "level": 3,
+          "line": 109
+        },
+        {
+          "heading": "3. 경기 이력 + 랭킹 (핵심 차별화)",
+          "level": 3,
+          "line": 115
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    },
+    {
+      "path": "docs/design/erd.html",
+      "language": "html",
+      "fileCategory": "markup",
+      "totalLines": 233,
+      "nonEmptyLines": 208,
+      "metrics": {}
+    },
+    {
+      "path": "docs/design/erd.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 296,
+      "nonEmptyLines": 261,
+      "sections": [
+        {
+          "heading": "Match-up ERD (Entity Relationship Diagram)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "전체 ERD",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "테이블 수 요약",
+          "level": 2,
+          "line": 289
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "docs/design/figma-make-ui-handoff.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 161,
+      "nonEmptyLines": 119,
+      "sections": [
+        {
+          "heading": "Figma Make UI 반영 인수인계",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "목적",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "반영 범위 요약",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "기존 데이터 표시 개선 추가 작업",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "화면별 동작",
+          "level": 2,
+          "line": 50
+        },
+        {
+          "heading": "1. 로그인",
+          "level": 3,
+          "line": 52
+        },
+        {
+          "heading": "2. 첫 설정 화면",
+          "level": 3,
+          "line": 58
+        },
+        {
+          "heading": "3. 룰북과 오늘의 룰 퀴즈",
+          "level": 3,
+          "line": 80
+        },
+        {
+          "heading": "4. MY 화면",
+          "level": 3,
+          "line": 92
+        },
+        {
+          "heading": "데이터 및 백엔드 영향",
+          "level": 2,
+          "line": 103
+        },
+        {
+          "heading": "추가된 프론트엔드 데이터 호출",
+          "level": 3,
+          "line": 105
+        },
+        {
+          "heading": "변경하지 않은 영역",
+          "level": 3,
+          "line": 112
+        },
+        {
+          "heading": "리뷰 권장 순서",
+          "level": 2,
+          "line": 123
+        },
+        {
+          "heading": "확인 완료 항목",
+          "level": 2,
+          "line": 133
+        },
+        {
+          "heading": "후속 작업 제안",
+          "level": 2,
+          "line": 147
+        },
+        {
+          "heading": "후속 이슈 연결",
+          "level": 3,
+          "line": 157
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 16
+      }
+    }
+  ]
+}
