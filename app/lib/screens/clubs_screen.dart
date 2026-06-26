@@ -57,7 +57,8 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
       }
       final list = await ref.read(apiProvider).myClubs();
       if (mounted) setState(() => _myClubs = list);
-    } catch (_) {
+    } catch (e) {
+      debugPrint('myClubs error: $e');
       if (mounted) setState(() => _myClubs = []);
     } finally {
       if (mounted) setState(() => _loadingMy = false);
@@ -351,7 +352,7 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
   }
 
   String _selectedSportLabel(Set<String> interests) {
-    if (interests.length == 1) {
+    if (interests.length == 1 && interests.isNotEmpty) {
       return sportLabelFromString(interests.first);
     }
     return '테니스 · 풋살';

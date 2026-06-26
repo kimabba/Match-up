@@ -50,7 +50,14 @@ class _TournamentDetailScreenState
           .select(
               '*, tennis_tournament_details(*), futsal_tournament_details(*)')
           .eq('id', widget.tournamentId)
-          .single();
+          .maybeSingle();
+      if (row == null) {
+        setState(() {
+          _error = '대회 정보를 찾을 수 없습니다.';
+          _loading = false;
+        });
+        return;
+      }
       setState(() {
         _t = Tournament.fromJson(row);
         _loading = false;
