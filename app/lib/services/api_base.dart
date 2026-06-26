@@ -15,8 +15,12 @@ class ApiBase {
     final session = supabase.auth.currentSession;
     String? token = session?.accessToken;
     if (session != null && session.isExpired) {
-      final refreshed = await supabase.auth.refreshSession();
-      token = refreshed.session?.accessToken;
+      try {
+        final refreshed = await supabase.auth.refreshSession();
+        token = refreshed.session?.accessToken;
+      } catch (_) {
+        // 리프레시 실패 시 기존 토큰 유지 (만료됐으면 서버가 401 반환)
+      }
     }
     return {
       'Content-Type': 'application/json',

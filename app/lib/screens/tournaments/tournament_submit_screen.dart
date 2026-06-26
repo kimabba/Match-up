@@ -156,11 +156,14 @@ class _TournamentSubmitScreenState
                 ),
               ],
               selected: {_sport},
-              onSelectionChanged: (v) => setState(() {
-                _sport = v.first;
-                _grades.clear();
-                _tennisOrg = 'gj';
-              }),
+              onSelectionChanged: (v) {
+                if (v.isEmpty) return;
+                setState(() {
+                  _sport = v.first;
+                  _grades.clear();
+                  _tennisOrg = 'gj';
+                });
+              },
             ),
             const SizedBox(height: AppSpacing.lg),
 
