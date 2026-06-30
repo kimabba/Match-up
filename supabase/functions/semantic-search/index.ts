@@ -1,5 +1,7 @@
 import { errorResponse, jsonResponse, preflight } from '../_shared/cors.ts';
 import { requireUser } from '../_shared/auth.ts';
+import { serviceClient } from '../_shared/supabase.ts';
+import { checkRateLimit } from '../_shared/rate_limit.ts';
 import { embedText, toVectorLiteral } from '../_shared/embedding.ts';
 import { Sport } from '../_shared/enums.ts';
 
@@ -33,24 +35,15 @@ Deno.serve(async (req) => {
   if ('error' in auth) return auth.error;
   const { supabase, user } = auth;
 
-  // Rate limit: 10 req/min per user
-  const windowMs = 60_000;
-  const rateLimit = 10;
-  const { data: rl } = await supabase
-    .from('chat_rate_limit')
-    .select('window_start, count')
-    .eq('user_id', user.id)
-    .maybeSingle();
-  const now = Date.now();
-  if (rl && now - new Date(rl.window_start).getTime() < windowMs && rl.count >= rateLimit) {
-    return errorResponse('요청이 너무 많습니다. 잠시 후 다시 시도하세요. (10회/분)', 429);
-  }
-  const isNewWindow = !rl || now - new Date(rl.window_start).getTime() >= windowMs;
-  await supabase.from('chat_rate_limit').upsert({
-    user_id: user.id,
-    window_start: isNewWindow ? new Date().toISOString() : rl!.window_start,
-    count: isNewWindow ? 1 : rl!.count + 1,
+  // Rate limit: 10 req/min per user.
+  // chat_rate_limit 은 service_role 전용 RLS(065) → user client 접근 시 fail-open.
+  // service_role RPC 로 통일.
+  const denied = await checkRateLimit(serviceClient(), user.id, {
+    bucket: 'semantic-search',
+    maxPerWindow: 10,
+    windowSeconds: 60,
   });
+  if (denied) return denied;
 
   let body: Body;
   try {

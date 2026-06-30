@@ -54,13 +54,18 @@ Deno.serve(async (req) => {
 
   if (clubErr) return errorResponse(clubErr.message, 500);
 
-  // 생성자를 owner로 자동 등록
-  await supa.from('club_members').insert({
+  // 생성자를 owner로 자동 등록.
+  // 실패 시 방금 만든 클럽을 보상 삭제 → owner 없는 고아 클럽(부분성공) 방지.
+  const { error: ownerErr } = await supa.from('club_members').insert({
     club_id: club!.id,
     user_id: auth.user.id,
     role: 'owner',
     status: 'active',
   });
+  if (ownerErr) {
+    await supa.from('clubs').delete().eq('id', club!.id);
+    return errorResponse('owner 등록 실패: ' + ownerErr.message, 500);
+  }
 
   return jsonResponse({ club }, { status: 201 });
 });

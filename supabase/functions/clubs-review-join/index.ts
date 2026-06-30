@@ -60,19 +60,10 @@ Deno.serve(async (req) => {
     return errorResponse('Forbidden: owner/manager or admin only', 403);
   }
 
-  // 신청 상태 업데이트
-  const { error: updateErr } = await supa
-    .from('club_join_requests')
-    .update({
-      status: action === 'approve' ? 'approved' : 'rejected',
-      reviewed_by: reviewerId,
-      reviewed_at: new Date().toISOString(),
-    })
-    .eq('id', requestId);
-
-  if (updateErr) return errorResponse(updateErr.message, 500);
-
-  // 승인이면 club_members에 추가
+  // 승인이면 멤버 추가를 먼저 수행한다.
+  // 멤버 upsert 가 실패하면 신청을 pending 으로 남겨 재시도 가능하게 한다.
+  // (상태를 먼저 approved 로 바꾸면, 멤버 추가 실패 시 'Already reviewed' 409 로
+  //  재시도가 막혀 멤버가 영영 추가되지 않는 교착이 발생한다.)
   if (action === 'approve') {
     const { error: memberErr } = await supa
       .from('club_members')
@@ -85,6 +76,18 @@ Deno.serve(async (req) => {
       }, { onConflict: 'club_id,user_id' });
     if (memberErr) return errorResponse(memberErr.message, 500);
   }
+
+  // 신청 상태 업데이트 (멤버 upsert 는 멱등이므로 이 단계 실패 후 재시도해도 안전)
+  const { error: updateErr } = await supa
+    .from('club_join_requests')
+    .update({
+      status: action === 'approve' ? 'approved' : 'rejected',
+      reviewed_by: reviewerId,
+      reviewed_at: new Date().toISOString(),
+    })
+    .eq('id', requestId);
+
+  if (updateErr) return errorResponse(updateErr.message, 500);
 
   return jsonResponse({ ok: true, action });
 });

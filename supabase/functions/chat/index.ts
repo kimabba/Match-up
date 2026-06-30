@@ -21,6 +21,7 @@ import type { ChatTurn } from '../_shared/gemini.ts';
 import { REGION_LABELS, type Sport, SPORT_LABELS } from '../_shared/enums.ts';
 import type { RegionCode } from '../_shared/enums.ts';
 import { serviceClient } from '../_shared/supabase.ts';
+import { checkRateLimit } from '../_shared/rate_limit.ts';
 import {
   buildEmbeddingResult,
   buildFallbackResult,
@@ -39,7 +40,6 @@ import {
   renderTournamentSearchText,
   type TournamentCardRow,
 } from '../_shared/chat_cards.ts';
-import { checkRateLimit } from '../_shared/rate_limit.ts';
 
 import type {
   ChatBody,
@@ -81,13 +81,15 @@ Deno.serve(async (req) => {
   if ('error' in auth) return auth.error;
   const { supabase, user } = auth;
 
-  // Rate limit: 10 req/min per user (shared utility with consume_rate_limit RPC)
-  const rateLimited = await checkRateLimit(serviceClient(), user.id, {
+  // Rate limit: 10 req/min per user (shared utility with consume_rate_limit RPC).
+  // chat_rate_limit 은 service_role 전용 RLS(065) 이므로 user client 로 접근하면
+  // 항상 0건 조회 + silent upsert 실패 → fail-open. service_role RPC 로 통일한다.
+  const denied = await checkRateLimit(serviceClient(), user.id, {
     bucket: 'chat',
     maxPerWindow: 10,
     windowSeconds: 60,
   });
-  if (rateLimited) return rateLimited;
+  if (denied) return denied;
 
   let body: ChatBody;
   try {
