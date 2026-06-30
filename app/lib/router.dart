@@ -51,21 +51,17 @@ final routerProvider = Provider<GoRouter>((ref) {
         return loc == '/login' ? null : '/login';
       }
 
-      // 웹: onboarding skip, 어드민 전용
+      // 웹: onboarding skip, admin 경로는 admin만 접근 가능
       if (kIsWeb) {
         final adminAsync = ref.read(isAdminProvider);
-        if (adminAsync.isLoading) return null; // 로딩 중 redirect 보류
+        if (adminAsync.isLoading) return null;
         final isAdmin = adminAsync.valueOrNull ?? false;
 
-        if (loc == '/login') return '/admin';
+        if (loc == '/login') return '/';
         if (loc.startsWith('/admin')) {
-          return isAdmin ? null : '/no-access';
+          return isAdmin ? null : '/';
         }
-        if (loc == '/no-access') {
-          return isAdmin ? '/admin' : null;
-        }
-        // 웹에서 앱 경로 접근 시
-        return isAdmin ? '/admin' : '/no-access';
+        return null;
       }
 
       // 앱: 기존 로직
