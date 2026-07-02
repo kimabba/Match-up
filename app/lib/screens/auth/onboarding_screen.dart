@@ -63,6 +63,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   bool _busy = false;
   String? _error;
   bool _existingSportsReady = false;
+  bool _existingRegionReady = false;
   bool _profilePhotoReady = false;
   bool _sportsTouched = false;
 
@@ -233,6 +234,43 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         _existingSportsReady = true;
       });
     });
+  }
+
+  void _prepareExistingRegion(List<UserTennisOrg>? tennisOrgs) {
+    // tennisOrgs == null 은 프로바이더가 아직 로딩 중이라는 뜻이므로 대기한다.
+    // 스포츠 복원과 별도 플래그로 분리해, tennisOrgs가 늦게 도착해도
+    // (또는 스포츠가 먼저 resolve돼도) 지역 복원이 유실되지 않도록 한다.
+    if (_existingRegionReady || tennisOrgs == null) return;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || _existingRegionReady) return;
+      // 사용자가 이미 지역을 직접 선택했다면 덮어쓰지 않는다.
+      final restoredRegionCode =
+          _regionCode ?? _restoreRegionCode(tennisOrgs);
+      final restoredRegionLabel =
+          _regionDisplayLabel ?? _restoreRegionDisplayLabel(restoredRegionCode);
+      setState(() {
+        _regionCode = restoredRegionCode;
+        _regionDisplayLabel = restoredRegionLabel;
+        _existingRegionReady = true;
+      });
+    });
+  }
+
+  String? _restoreRegionCode(List<UserTennisOrg> tennisOrgs) {
+    for (final org in tennisOrgs) {
+      final code = org.regionCode;
+      if (code != null && code.isNotEmpty) return code;
+    }
+    return null;
+  }
+
+  String? _restoreRegionDisplayLabel(String? code) {
+    if (code == null) return null;
+    return _onboardingRegionChoices
+        .where((choice) => choice.code == code)
+        .map((choice) => choice.label)
+        .firstOrNull;
   }
 
   void _selectGrade(Sport sport, String? grade) {
@@ -418,6 +456,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     _prepareNickname();
     _prepareProfilePhoto();
     _prepareExistingSports(ref.watch(userSportsProvider).valueOrNull);
+    _prepareExistingRegion(ref.watch(userTennisOrgsProvider).valueOrNull);
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
 
