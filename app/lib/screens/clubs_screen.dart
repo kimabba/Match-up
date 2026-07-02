@@ -402,6 +402,8 @@ class _ClubsScreenState extends ConsumerState<ClubsScreen> {
     ].where((post) {
       if (!interests.contains(post.sport)) return false;
       if (post.isClosed && post.closedAt != null) {
+        // Keep just-closed recruiting posts visible briefly so managers can
+        // confirm the state change, then remove them from the public list.
         return now.difference(post.closedAt!).inHours < 24;
       }
       return true;

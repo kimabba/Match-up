@@ -155,10 +155,6 @@ class TeamRecruitingBoard extends StatelessWidget {
                   onClose: () => onClosePost(post),
                 ),
               ),
-          Text(
-            '마감된 글은 일정 시간이 지나면 목록에서 내려가는 흐름으로 설계했습니다.',
-            style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
-          ),
         ],
       ),
     );
